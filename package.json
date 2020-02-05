@@ -1,0 +1,66 @@
+{
+  "name": "ui-toolkit",
+  "version": "0.1.0",
+  "description": "React based UI toolkit.",
+  "main": "dist/index.js",
+  "scripts": {
+    "dev": "rollup -c -w",
+    "build": "npm run prettier:fix && rollup -c",
+    "test": "jest",
+    "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}'",
+    "storybook": "start-storybook -p 6006",
+    "build-storybook": "build-storybook"
+  },
+  "jest": {
+    "preset": "ts-jest",
+    "testEnvironment": "node"
+  },
+  "keywords": [
+    "ui",
+    "react"
+  ],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "7.8.4",
+    "@babel/preset-typescript": "7.8.3",
+    "@hipo/eslint-config-base": "2.1.4",
+    "@hipo/eslint-config-react": "1.0.4",
+    "@storybook/addon-actions": "5.3.12",
+    "@storybook/addon-links": "5.3.12",
+    "@storybook/addons": "5.3.12",
+    "@storybook/react": "5.3.12",
+    "@types/classnames": "2.2.9",
+    "@types/jest": "24.0.18",
+    "@types/react": "16.9.2",
+    "@types/react-dom": "16.9.0",
+    "@types/react-test-renderer": "16.9.0",
+    "@types/styled-components": "4.4.2",
+    "@typescript-eslint/eslint-plugin": "2.6.0",
+    "@typescript-eslint/parser": "2.6.0",
+    "babel-loader": "8.0.6",
+    "eslint": "6.6.0",
+    "eslint-config-prettier": "6.5.0",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.16.0",
+    "eslint-plugin-react-hooks": "2.2.0",
+    "fork-ts-checker-webpack-plugin": "4.0.3",
+    "jest": "24.9.0",
+    "prettier": "1.18.2",
+    "react": "16.9.0",
+    "react-docgen-typescript-loader": "3.6.0",
+    "react-dom": "16.9.0",
+    "react-test-renderer": "16.9.0",
+    "rollup": "1.20.0",
+    "rollup-plugin-eslint": "7.0.0",
+    "rollup-plugin-terser": "5.2.0",
+    "rollup-plugin-typescript2": "0.22.1",
+    "styled-components": "5.0.0",
+    "ts-jest": "24.0.2",
+    "ts-loader": "6.2.1",
+    "typescript": "3.5.3"
+  },
+  "dependencies": {
+    "classnames": "2.2.6"
+  }
+}
