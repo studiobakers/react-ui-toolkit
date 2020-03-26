@@ -1,4 +1,4 @@
-import FormField from "./Form/Field/FormField";
-import Input from "./Input/Input";
+import FormField from "./form/field/FormField";
+import Input from "./form/input/Input";
 
 export {Input, FormField};

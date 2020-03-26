@@ -7,8 +7,8 @@ export default [
     external: ["react", "classnames", "styled-components"],
     input: {
       index: "src/index.ts",
-      FormField: "src/Form/Field/FormField.tsx",
-      Input: "src/Input/Input.tsx",
+      FormField: "src/form/field/FormField.tsx",
+      Input: "src/form/input/Input.tsx",
     },
     output: {
       dir: "dist",

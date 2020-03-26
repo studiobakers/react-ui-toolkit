@@ -2,25 +2,13 @@ import React from "react";
 import classNames from "classnames";
 import styled from "styled-components";
 
-const InputContainer = styled.div`
-  display: flex;
-`;
-const PrefixIcon = styled.span`
-  background: white;
-
-  border-right: 1px solid grey;
-`;
-const SuffixIcon = styled.span`
-  background: white;
-
-  border-left: 1px solid grey;
-`;
+type InputType = "text" | "email" | "password" | "number" | "hidden" | "url";
 
 interface InputProps {
   name: string;
-  type?: string;
-  value?: string;
   onChange: React.ReactEventHandler<HTMLInputElement>;
+  type?: InputType;
+  value?: string;
   onFocus?: React.ReactEventHandler<HTMLInputElement>;
   onBlur?: React.ReactEventHandler<HTMLInputElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
@@ -30,12 +18,26 @@ interface InputProps {
   max?: number;
   step?: number;
   role?: string;
-  prefixIcon?: React.ReactNode;
-  suffixIcon?: React.ReactNode;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
   isDisabled?: boolean;
   className?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
 }
+
+const InputContainer = styled.div`
+  display: flex;
+`;
+const LeftIcon = styled.span`
+  background: white;
+
+  border-right: 1px solid grey;
+`;
+const RightIcon = styled.span`
+  background: white;
+
+  border-left: 1px solid grey;
+`;
 
 function Input(props: InputProps) {
   const {
@@ -53,8 +55,8 @@ function Input(props: InputProps) {
     onBlur,
     onKeyUp,
     onKeyDown,
-    prefixIcon,
-    suffixIcon,
+    leftIcon,
+    rightIcon,
     role,
     inputContainerRef,
     ...rest
@@ -69,8 +71,8 @@ function Input(props: InputProps) {
       ref={inputContainerRef}
       role={role}
       className={inputContainerClassName}>
-      {prefixIcon && (
-        <PrefixIcon className={"input-container-prefix-icon"}>{prefixIcon}</PrefixIcon>
+      {leftIcon && (
+        <LeftIcon className={"input-container-left-icon"}>{leftIcon}</LeftIcon>
       )}
 
       <input
@@ -93,8 +95,8 @@ function Input(props: InputProps) {
         {...rest}
       />
 
-      {suffixIcon && (
-        <SuffixIcon className={"input-container-suffix-icon"}>{suffixIcon}</SuffixIcon>
+      {rightIcon && (
+        <RightIcon className={"input-container-right-icon"}>{rightIcon}</RightIcon>
       )}
     </InputContainer>
   );

@@ -1,8 +1,8 @@
 import React from "react";
 import {storiesOf} from "@storybook/react";
 
-import Input from "../src/Input/Input";
-import FormField from "../src/Form/Field/FormField";
+import Input from "../src/form/input/Input";
+import FormField from "../src/form/field/FormField";
 
 storiesOf("Form", module)
   .add("Input", () => (
