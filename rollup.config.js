@@ -6,7 +6,7 @@ import stylelint from "rollup-plugin-stylelint";
 
 export default [
   {
-    external: ["react", "classnames", "styled-components"],
+    external: ["react", "classnames"],
     input: {
       index: "src/index.ts",
       FormField: "src/form/field/FormField.tsx",

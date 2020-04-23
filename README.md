@@ -28,8 +28,7 @@ function LoginForm() {
 ```  
   
 ### Styling  
-Every component holds a minimum amount of CSS, to get more information you can search for `css-in-js`.    
-- styled-components   
+Every component holds a minimum amount of CSS.
   
 ### Storybook  
 - To run Storybook `npm run storybook`  
