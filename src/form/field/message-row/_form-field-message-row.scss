@@ -1,0 +1,13 @@
+@import "../../../ui/reference/_colors.scss";
+
+.form-field-message-row {
+  margin: 8px 0;
+
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+
+  &.error-message {
+    color: $red;
+  }
+}

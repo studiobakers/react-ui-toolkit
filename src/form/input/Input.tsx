@@ -22,6 +22,7 @@ interface InputProps {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
+  hasError?: boolean;
   className?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
 }
@@ -37,6 +38,7 @@ function Input(props: InputProps) {
     min,
     max,
     isDisabled,
+    hasError,
     onFocus,
     className,
     onBlur,
@@ -50,7 +52,8 @@ function Input(props: InputProps) {
   } = props;
   const inputContainerClassName = classNames("input-container", className);
   const inputClassName = classNames("input", {
-    disabled: isDisabled
+    disabled: isDisabled,
+    "has-error": hasError
   });
 
   return (

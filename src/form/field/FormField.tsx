@@ -1,20 +1,22 @@
+import "./_form-field.scss";
+
 import React from "react";
 import classNames from "classnames";
+import FormFieldMessageRow from "./message-row/FormFieldMessageRow";
 
 interface FormFieldProps {
   children: React.ReactNode;
   labelledBy?: string;
   label?: string;
   className?: string;
-  // TODO: helperMessage and errorMessage should be array of string
-  helperMessage?: string;
-  errorMessage?: string;
+  helperMessages?: Array<string>;
+  errorMessages?: Array<string>;
 }
 
 function FormField(props: FormFieldProps) {
-  const {labelledBy, label, className, children, errorMessage, helperMessage} = props;
-  const hasErrorMessage = Boolean(errorMessage);
-  const hasHelperMessage = Boolean(helperMessage);
+  const {labelledBy, label, className, children, errorMessages, helperMessages} = props;
+  const hasErrorMessage = Boolean(errorMessages?.length);
+  const hasHelperMessage = Boolean(helperMessages?.length);
   const formFieldClassName = classNames(
     "form-field",
     {
@@ -33,11 +35,16 @@ function FormField(props: FormFieldProps) {
 
       {children}
 
-      {hasErrorMessage && <p>{errorMessage}</p>}
+      {hasErrorMessage &&
+        errorMessages?.map((message) => (
+          <FormFieldMessageRow type={"error"} message={message} />
+        ))}
 
-      {!hasErrorMessage && hasHelperMessage && (
-        <p className={"form-field-helper-message"}>{helperMessage}</p>
-      )}
+      {!hasErrorMessage &&
+        hasHelperMessage &&
+        helperMessages?.map((message) => (
+          <FormFieldMessageRow type={"helper"} message={message} />
+        ))}
     </div>
   );
 }

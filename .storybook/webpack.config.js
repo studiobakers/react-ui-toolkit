@@ -11,6 +11,10 @@ module.exports = ({ config }) => {
           presets: [
             require("@babel/preset-typescript").default,
             require("@babel/preset-react").default
+          ],
+          plugins: [
+            "@babel/plugin-proposal-optional-chaining",
+            "@babel/plugin-proposal-nullish-coalescing-operator"
           ]
         }
       },

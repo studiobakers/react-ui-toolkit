@@ -12,13 +12,16 @@ storiesOf("Form", module)
   .add("FormFieldWithInput", () => (
     <FormField labelledBy={"Full Name"} label={"Full Name"}>
       <Input name="fullName"
+             placeholder="Write your name"
              onChange={(e) => console.log(e.currentTarget.value)}/>
     </FormField>
   ))
   .add("FormFieldWithInput.HasHelperMessage", () => (
     <FormField labelledBy={"Full Name"}
                label={"Full Name"}
-               helperMessage={"You can include your middle name"}>
+               helperMessages={[
+                 "You can include your middle name"
+               ]}>
       <Input name="fullName"
              onChange={(e) => console.log(e.currentTarget.value)}/>
     </FormField>
@@ -26,8 +29,11 @@ storiesOf("Form", module)
   .add("FormFieldWithInput.HasErrorMessage", () => (
     <FormField labelledBy={"Full Name"}
                label={"Full Name"}
-               errorMessage={"Please enter a full name"}>
+               errorMessages={[
+                 "Please enter a full name"
+               ]}>
       <Input name="fullName"
+             hasError={true}
              onChange={(e) => console.log(e.currentTarget.value)}/>
     </FormField>
   ));

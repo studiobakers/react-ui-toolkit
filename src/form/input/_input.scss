@@ -1,11 +1,39 @@
 @import "../../ui/reference/_colors.scss";
+@import "../../ui/reference/_measurement.scss";
 
 .input {
-  padding: 15px;
+  width: 300px;
+  height: 45px;
 
-  color: $grey;
+  padding: 0 14px;
+
+  color: $black;
 
   border: 1px solid $light-grey;
+  border-radius: $small-radius-size;
   
   font-size: 14px;
+
+  &::placeholder {
+    color: $grey;
+  }
+
+  &:focus {
+    outline: 1px solid $grey;
+  }
+
+  &:disabled {
+    color: $light-grey;
+    -webkit-text-fill-color: $light-grey;
+    
+    background-color: $light-grey;
+  }
+
+  &.has-error {
+    border: 1px solid $red;
+
+    &:focus {
+      outline: 1px solid $red;
+    }
+  }
 }
