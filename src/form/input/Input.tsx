@@ -1,6 +1,7 @@
+import "./_input.scss";
+
 import React from "react";
 import classNames from "classnames";
-import styled from "styled-components";
 
 type InputType = "text" | "email" | "password" | "number" | "hidden" | "url";
 
@@ -24,20 +25,6 @@ interface InputProps {
   className?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
 }
-
-const InputContainer = styled.div`
-  display: flex;
-`;
-const LeftIcon = styled.span`
-  background: white;
-
-  border-right: 1px solid grey;
-`;
-const RightIcon = styled.span`
-  background: white;
-
-  border-left: 1px solid grey;
-`;
 
 function Input(props: InputProps) {
   const {
@@ -67,13 +54,8 @@ function Input(props: InputProps) {
   });
 
   return (
-    <InputContainer
-      ref={inputContainerRef}
-      role={role}
-      className={inputContainerClassName}>
-      {leftIcon && (
-        <LeftIcon className={"input-container-left-icon"}>{leftIcon}</LeftIcon>
-      )}
+    <div ref={inputContainerRef} role={role} className={inputContainerClassName}>
+      {leftIcon && <span className={"input-container-left-icon"}>{leftIcon}</span>}
 
       <input
         className={inputClassName}
@@ -95,10 +77,8 @@ function Input(props: InputProps) {
         {...rest}
       />
 
-      {rightIcon && (
-        <RightIcon className={"input-container-right-icon"}>{rightIcon}</RightIcon>
-      )}
-    </InputContainer>
+      {rightIcon && <span className={"input-container-right-icon"}>{rightIcon}</span>}
+    </div>
   );
 }
 

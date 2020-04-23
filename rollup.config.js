@@ -1,6 +1,8 @@
 import typescript from "rollup-plugin-typescript2";
 import {terser} from "rollup-plugin-terser";
 import {eslint} from "rollup-plugin-eslint";
+import postcss from "rollup-plugin-postcss";
+import stylelint from "rollup-plugin-stylelint";
 
 export default [
   {
@@ -17,8 +19,13 @@ export default [
     plugins: [
       terser(),
       eslint({
-        fix: true
+        fix: true,
+        exclude: ["./src/**/**.scss"]
       }),
+      stylelint({
+        "ignoreFiles": ["**/*.ts", "**/*.js"]
+      }),
+      postcss(),
       typescript({
         rollupCommonJSResolveHack: true,
         exclude: "**/__tests__/**",

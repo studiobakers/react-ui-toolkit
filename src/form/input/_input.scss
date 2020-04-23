@@ -1,0 +1,11 @@
+@import "../../ui/reference/_colors.scss";
+
+.input {
+  padding: 15px;
+
+  color: $grey;
+
+  border: 1px solid $light-grey;
+  
+  font-size: 14px;
+}

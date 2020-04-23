@@ -1,6 +1,5 @@
 import React from "react";
 import classNames from "classnames";
-import styled from "styled-components";
 
 interface FormFieldProps {
   children: React.ReactNode;
@@ -11,17 +10,6 @@ interface FormFieldProps {
   helperMessage?: string;
   errorMessage?: string;
 }
-
-const HelperMessage = styled.p`
-  margin: 0;
-
-  color: gray;
-`;
-const ErrorMessage = styled.p`
-  margin: 0;
-
-  color: red;
-`;
 
 function FormField(props: FormFieldProps) {
   const {labelledBy, label, className, children, errorMessage, helperMessage} = props;
@@ -45,12 +33,10 @@ function FormField(props: FormFieldProps) {
 
       {children}
 
-      {hasErrorMessage && <ErrorMessage>{errorMessage}</ErrorMessage>}
+      {hasErrorMessage && <p>{errorMessage}</p>}
 
       {!hasErrorMessage && hasHelperMessage && (
-        <HelperMessage className={"form-field-helper-message"}>
-          {helperMessage}
-        </HelperMessage>
+        <p className={"form-field-helper-message"}>{helperMessage}</p>
       )}
     </div>
   );
