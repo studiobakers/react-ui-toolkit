@@ -48,9 +48,9 @@ function Button({
   onBlur,
   tabIndex
 }: ButtonProps) {
-  const shouldInactivate = Boolean(isDisabled || shouldDisplaySpinner);
+  const isButtonDisabled = Boolean(isDisabled || shouldDisplaySpinner);
   const containerClassName = classNames("button", customClassName, {
-    inactive: shouldInactivate,
+    inactive: isButtonDisabled,
     pending: shouldDisplaySpinner
   });
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -76,7 +76,7 @@ function Button({
       onMouseUp={onMouseUp}
       onFocus={handleFocus}
       onBlur={onBlur}
-      disabled={shouldInactivate}
+      disabled={isButtonDisabled}
       aria-label={ariaLabel}>
       {shouldDisplaySpinner ? (
         <Spinner
@@ -99,7 +99,7 @@ function Button({
         event.stopPropagation();
       }
 
-      if (!shouldInactivate) {
+      if (!isButtonDisabled) {
         onClick(event);
       }
     }
