@@ -7,7 +7,7 @@
     "dev": "rollup -c -w",
     "build": "npm run prettier:fix && rollup -c",
     "test": "jest",
-    "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}'",
+    "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}' 'stories/**/*.{ts,tsx}'",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
