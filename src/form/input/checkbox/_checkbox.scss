@@ -1,0 +1,114 @@
+@import "../../../ui/reference/_colors.scss";
+@import "../../../ui/reference/_measurement.scss";
+@import "../../../ui/reference/_animation.scss";
+
+.checkbox-input-label {
+  position: relative;
+
+  display: flex;
+  align-items: center;
+
+  margin-bottom: 10px;
+
+  color: $dark-grey;
+
+  cursor: pointer;
+  user-select: none;
+
+  font-size: 16px;
+
+  &:hover {
+    .checkbox-input-icon-wrapper {
+      border-color: $dark-grey;
+    }
+  }
+
+  &.selected {
+    color: $black;
+
+    .checkbox-input-icon-wrapper {
+      border-color: $black;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+  }
+}
+
+.checkbox-input {
+  position: absolute;
+
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+
+  &:focus {
+    & ~ .checkbox-input-icon-wrapper {
+      border-color: $black;
+    }
+  }
+
+  &:checked {
+    & ~ .checkbox-input-icon-wrapper {
+      background-color: $black;
+      border-color: $black;
+
+      .check-icon {
+        display: block;
+      }
+    }
+
+    &:focus {
+      & ~ .checkbox-input-wrapper {
+        box-shadow: 0 0 5px rgba($black, 0.3);
+      }
+    }
+  }
+
+  &:disabled {
+    & ~ .checkbox-input-icon-wrapper {
+      pointer-events: none;
+    }
+  }
+}
+
+.checkbox-input-icon-wrapper {
+  position: relative;
+
+  display: inline-block;
+
+  width: 20px;
+  height: 20px;
+
+  margin-right: 10px;
+
+  border: 1px solid $black;
+  border-radius: $small-radius-size;
+
+  transition: border-color $animation-duration $animation-function;
+}
+
+.checkbox-input-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  box-sizing: border-box;
+
+  .check-icon {
+    display: none;
+  }
+}

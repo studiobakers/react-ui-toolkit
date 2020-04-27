@@ -9,7 +9,7 @@
     "test": "jest",
     "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}' 'stories/**/*.{ts,tsx}'",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
+    "storybook:build": "build-storybook"
   },
   "jest": {
     "preset": "ts-jest",
@@ -54,10 +54,12 @@
     "react": "16.13.1",
     "react-docgen-typescript-loader": "3.7.2",
     "react-dom": "16.13.1",
+    "react-svg-loader": "3.0.3",
     "react-test-renderer": "16.13.1",
     "rollup": "2.7.2",
     "rollup-plugin-eslint": "7.0.0",
     "rollup-plugin-postcss": "3.1.0",
+    "rollup-plugin-react-svg": "3.0.3",
     "rollup-plugin-stylelint": "1.0.0",
     "rollup-plugin-terser": "5.3.0",
     "rollup-plugin-typescript2": "0.27.0",

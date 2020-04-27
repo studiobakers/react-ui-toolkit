@@ -3,6 +3,7 @@ import {terser} from "rollup-plugin-terser";
 import {eslint} from "rollup-plugin-eslint";
 import postcss from "rollup-plugin-postcss";
 import stylelint from "rollup-plugin-stylelint";
+import reactSvg from "rollup-plugin-react-svg";
 
 export default [
   {
@@ -11,16 +12,22 @@ export default [
       index: "src/index.ts",
       FormField: "src/form/field/FormField.tsx",
       Input: "src/form/input/Input.tsx",
+      Checkbox: "src/form/input/checkbox/Checkbox.tsx",
+      Radio: "src/form/input/radio/Radio.tsx",
+      RadioGroup: "src/form/input/radio/group/RadioGroup.tsx",
+      Button: "src/button/Button.tsx",
+      Spinner: "src/spinner/Spinner.tsx"
     },
     output: {
       dir: "dist",
       format: 'cjs',
     },
     plugins: [
+      reactSvg(),
       terser(),
       eslint({
         fix: true,
-        exclude: ["./src/**/**.scss"]
+        exclude: ["./src/**/**.scss", "./src/**/**.svg"],
       }),
       stylelint({
         "ignoreFiles": ["**/*.ts", "**/*.js"]
