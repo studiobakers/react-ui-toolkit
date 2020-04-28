@@ -1,15 +1,12 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment} from "react";
 import {storiesOf} from "@storybook/react";
+
+import StateProvider from "./utils/StateProvider";
 
 import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
 import CheckboxInput from "../src/form/input/checkbox/Checkbox";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
-
-function StateProvider({children, initialState, ...props}) {
-  const [state, setState] = useState(initialState);
-  return <Fragment>{children(state, setState)}</Fragment>;
-}
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -208,8 +205,6 @@ storiesOf("Form", module)
                 }
               />
             </FormField>
-
-            <br />
 
             <FormField label={"Fully Disabled"}>
               <RadioGroup

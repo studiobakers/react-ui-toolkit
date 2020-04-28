@@ -15,6 +15,7 @@ export default [
       Checkbox: "src/form/input/checkbox/Checkbox.tsx",
       Radio: "src/form/input/radio/Radio.tsx",
       RadioGroup: "src/form/input/radio/group/RadioGroup.tsx",
+      Dropdown: "src/dropdown/Dropdown.tsx",
       Button: "src/button/Button.tsx",
       Spinner: "src/spinner/Spinner.tsx"
     },

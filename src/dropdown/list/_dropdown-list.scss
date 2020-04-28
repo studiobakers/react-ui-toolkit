@@ -1,0 +1,18 @@
+@import "../../ui/reference/_colors.scss";
+@import "../../ui/reference/_measurement.scss";
+
+.dropdown-list {
+  width: 100%;
+
+  box-sizing: border;
+
+  padding: 0;
+
+  background-color: white;
+  border: 1px solid $light-grey;
+  border-radius: $small-radius-size;
+}
+
+.dropdown-empty-message {
+  padding: 20px;
+}

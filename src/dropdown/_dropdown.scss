@@ -1,0 +1,141 @@
+@import "../ui/reference/_colors.scss";
+@import "../ui/reference/_measurement.scss";
+@import "../ui/reference/util/_truncate.scss";
+
+$dropdown-header-horizontal-padding: 8px;
+
+.dropdown-container {
+  position: relative;
+
+  .dropdown-header-button {
+    width: 100%;
+    height: 40px;
+  
+    background-color: white;
+    border: 1px solid $light-grey;
+    border-radius: $small-radius-size;
+  
+    &:focus {
+      border: 1px solid $grey;
+      outline: none;
+    }
+  }
+
+  &.has-header-box-shadow {
+    .dropdown-header-button {
+      box-shadow: $default-box-shadow;
+    }
+  }
+
+  &.option-selected {
+    .dropdown-header-button-text {
+      color: $black;
+    }
+  }
+
+  &.has-error {
+    .dropdown-header-button {
+      border: 1px solid $red;
+    }
+  }
+
+  &.disabled {
+    pointer-events: none;
+
+    .dropdown-header-button {
+      background-color: $light-grey;
+      box-shadow: none;
+
+      cursor: not-allowed;
+    }
+
+    .dropdown-header-button-text {
+      color: silver;
+    }
+
+    svg {
+      path {
+        fill: silver;
+      }
+    }
+
+    &.option-selected {
+      svg {
+        display: none;
+      }
+    }
+  }
+
+  .dropdown-list {
+    position: absolute;
+    z-index: 1;
+
+    max-height: 320px;
+
+    overflow: auto;
+
+    &.top {
+      top: 0;
+
+      transform: translateY(-100%);
+    }
+
+    &.bottom {
+      bottom: -15px;
+
+      transform: translateY(100%);
+    }
+
+    &.left {
+      top: 0;
+      left: 0;
+
+      transform: translate(-100%, -50%);
+    }
+
+    &.right {
+      top: 0;
+      right: 0;
+
+      transform: translate(100%, -50%);
+    }
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.dropdown-header-button-text {
+  @include truncate-line(calc(100% - #{$dropdown-header-horizontal-padding}));
+
+  flex: 1;
+
+  color: $dark-grey;
+
+  text-align: left;
+}
+
+svg {
+  path {
+    fill: $grey;
+  }
+}
+
+.dropdown-header-button-default-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  flex: 1;
+
+  padding: 0 $dropdown-header-horizontal-padding;
+
+  svg {
+    margin-bottom: 1px;
+  }
+}
+
+.dropdown-label {
+  margin-bottom: 5px;
+}

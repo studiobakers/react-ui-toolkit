@@ -37,13 +37,21 @@ function FormField(props: FormFieldProps) {
 
       {hasErrorMessage &&
         errorMessages?.map((message) => (
-          <FormFieldMessageRow type={"error"} message={message} />
+          <FormFieldMessageRow
+            key={`error.${message}`}
+            type={"error"}
+            message={message}
+          />
         ))}
 
       {!hasErrorMessage &&
         hasHelperMessage &&
         helperMessages?.map((message) => (
-          <FormFieldMessageRow type={"helper"} message={message} />
+          <FormFieldMessageRow
+            key={`helper.${message}`}
+            type={"helper"}
+            message={message}
+          />
         ))}
     </div>
   );
