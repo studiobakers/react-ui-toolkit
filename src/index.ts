@@ -4,6 +4,7 @@ import CheckboxInput from "./form/input/checkbox/Checkbox";
 import RadioInput from "./form/input/radio/Radio";
 import RadioGroup from "./form/input/radio/group/RadioGroup";
 import Dropdown from "./dropdown/Dropdown";
+import List from "./list/List";
 import Button from "./button/Button";
 import Spinner from "./spinner/Spinner";
 
@@ -14,6 +15,7 @@ export {
   RadioInput,
   RadioGroup,
   Dropdown,
+  List,
   Button,
   Spinner
 };
