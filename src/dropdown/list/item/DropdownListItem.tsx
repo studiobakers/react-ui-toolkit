@@ -24,7 +24,7 @@ export type TDropdownSelectedOption<Id = string, Context = any> =
   | undefined;
 
 interface DropdownListItemProps<OptionIdShape = string> {
-  testid: string;
+  testid?: string;
   option: DropdownOption<OptionIdShape>;
   selectedOption: TDropdownSelectedOption<OptionIdShape>;
   focusedOption?: TDropdownSelectedOption<OptionIdShape>;

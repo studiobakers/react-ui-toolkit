@@ -6,7 +6,7 @@ import classNames from "classnames";
 import RadioInput, {RadioInputItem, RadioInputProps} from "../Radio";
 
 interface RadioGroupProps {
-  testid: string;
+  testid?: string;
   items: RadioInputItem[];
   selectedItem: null | RadioInputItem;
   onSelect: RadioInputProps["onSelect"];

@@ -6,7 +6,7 @@ import Button from "../src/button/Button";
 storiesOf("Button", module)
   .add("Button Sizes", () => (
     <Fragment>
-      <Button type={"button"} testid={"test-button"} onClick={(e) => alert("Thank You!")}>
+      <Button type={"button"} onClick={(e) => alert("Thank You!")}>
         {"Click Me"}
       </Button>
 
@@ -15,7 +15,6 @@ storiesOf("Button", module)
       <Button
         customClassName={"size-small"}
         type={"button"}
-        testid={"test-button"}
         onClick={(e) => alert("Thank You!")}>
         {"Click Me"}
       </Button>
@@ -23,7 +22,13 @@ storiesOf("Button", module)
   ))
   .add("Button States", () => (
     <Fragment>
-      <Button type={"button"} testid={"test-button"} onClick={(e) => alert("Thank You!")}>
+      <Button type={"button"} onClick={(e) => alert("Thank You!")}>
+        {"Click Me"}
+      </Button>
+
+      <br />
+
+      <Button type={"button"} onClick={(e) => alert("Thank You!")} isDisabled={true}>
         {"Click Me"}
       </Button>
 
@@ -31,17 +36,6 @@ storiesOf("Button", module)
 
       <Button
         type={"button"}
-        testid={"test-button"}
-        onClick={(e) => alert("Thank You!")}
-        isDisabled={true}>
-        {"Click Me"}
-      </Button>
-
-      <br />
-
-      <Button
-        type={"button"}
-        testid={"test-button"}
         onClick={(e) => alert("Thank You!")}
         shouldDisplaySpinner={true}>
         {"Click Me"}
@@ -52,7 +46,6 @@ storiesOf("Button", module)
       <Button
         customClassName={"size-small"}
         type={"button"}
-        testid={"test-button"}
         onClick={(e) => alert("Thank You!")}>
         {"Click Me"}
       </Button>
@@ -62,7 +55,6 @@ storiesOf("Button", module)
       <Button
         customClassName={"size-small"}
         type={"button"}
-        testid={"test-button"}
         isDisabled={true}
         onClick={(e) => alert("Thank You!")}>
         {"Click Me"}
@@ -73,7 +65,6 @@ storiesOf("Button", module)
       <Button
         customClassName={"size-small"}
         type={"button"}
-        testid={"test-button"}
         shouldDisplaySpinner={true}
         onClick={(e) => alert("Thank You!")}>
         {"Click Me"}

@@ -6,7 +6,7 @@ import React from "react";
 import classNames from "classnames";
 
 export interface CheckboxInputItem {
-  testid: string;
+  testid?: string;
   id: string;
   content: React.ReactNode;
   inputProps: {

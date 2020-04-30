@@ -6,7 +6,9 @@ import classNames from "classnames";
 type InputType = "text" | "email" | "password" | "number" | "hidden" | "url";
 
 interface InputProps {
+  testid?: string;
   name: string;
+  id?: string;
   onChange: React.ReactEventHandler<HTMLInputElement>;
   type?: InputType;
   value?: string;
@@ -23,12 +25,13 @@ interface InputProps {
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
   hasError?: boolean;
-  className?: string;
+  customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
 }
 
 function Input(props: InputProps) {
   const {
+    testid,
     name,
     type = "text",
     value,
@@ -40,7 +43,7 @@ function Input(props: InputProps) {
     isDisabled,
     hasError,
     onFocus,
-    className,
+    customClassName,
     onBlur,
     onKeyUp,
     onKeyDown,
@@ -50,14 +53,18 @@ function Input(props: InputProps) {
     inputContainerRef,
     ...rest
   } = props;
-  const inputContainerClassName = classNames("input-container", className);
+  const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     disabled: isDisabled,
     "has-error": hasError
   });
 
   return (
-    <div ref={inputContainerRef} role={role} className={inputContainerClassName}>
+    <div
+      ref={inputContainerRef}
+      role={role}
+      className={inputContainerClassName}
+      data-testid={testid}>
       {leftIcon && <span className={"input-container-left-icon"}>{leftIcon}</span>}
 
       <input

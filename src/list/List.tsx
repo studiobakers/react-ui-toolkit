@@ -2,11 +2,11 @@ import "./_list.scss";
 
 import React, {Fragment} from "react";
 import classNames from "classnames";
-import {Button} from "..";
+import Button from "../button/Button";
 import Spinner from "../spinner/Spinner";
 
 interface ListProps<Item = any> {
-  testid: string;
+  testid?: string;
   customClassName?: string;
   items: Item;
   isPending?: boolean;
