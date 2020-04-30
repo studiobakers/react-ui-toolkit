@@ -89,23 +89,7 @@ function DropdownList<OptionIdShape extends string>({
       aria-multiselectable={isMultiSelect}
       className={containerClassName}>
       {options.length ? (
-        options.map(function renderDropdownListItem(option, index) {
-          return (
-            <DropdownListItem
-              key={option.id}
-              testid={`${testid}.item-${index}`}
-              option={option}
-              selectedOption={selectedOption}
-              focusedOption={focusedOption}
-              onSelect={onSelect}
-              onMouseDown={onMouseDown}
-              onMouseUp={onMouseUp}
-              onFocus={onFocus}
-              onKeyDown={onKeyDown}
-              canSelectAlreadySelected={canSelectAlreadySelected}
-            />
-          );
-        })
+        options.map(renderDropdownListItem)
       ) : (
         <p data-testid={`${testid}.empty-message`} className={"dropdown-empty-message"}>
           {noOptionsMessage || "No available options"}
@@ -113,6 +97,24 @@ function DropdownList<OptionIdShape extends string>({
       )}
     </ul>
   );
+
+  function renderDropdownListItem(option: DropdownOption<OptionIdShape>, index: number) {
+    return (
+      <DropdownListItem
+        key={option.id}
+        testid={`${testid}.item-${index}`}
+        option={option}
+        selectedOption={selectedOption}
+        focusedOption={focusedOption}
+        onSelect={onSelect}
+        onMouseDown={onMouseDown}
+        onMouseUp={onMouseUp}
+        onFocus={onFocus}
+        onKeyDown={onKeyDown}
+        canSelectAlreadySelected={canSelectAlreadySelected}
+      />
+    );
+  }
 }
 
 export default DropdownList;
