@@ -6,7 +6,7 @@ import classNames from "classnames";
 import Spinner from "../spinner/Spinner";
 
 export interface ButtonProps {
-  testid: string;
+  testid?: string;
   children: React.ReactNode;
   onClick?: React.ReactEventHandler<HTMLButtonElement>;
   onMouseOver?: React.ReactEventHandler<HTMLButtonElement>;

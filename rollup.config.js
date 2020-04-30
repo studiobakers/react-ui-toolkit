@@ -12,12 +12,17 @@ export default [
       index: "src/index.ts",
       FormField: "src/form/field/FormField.tsx",
       Input: "src/form/input/Input.tsx",
+      FileInput: "src/form/input/file/FileInput.tsx",
       Checkbox: "src/form/input/checkbox/Checkbox.tsx",
       Radio: "src/form/input/radio/Radio.tsx",
       RadioGroup: "src/form/input/radio/group/RadioGroup.tsx",
+      TypeaheadInput: "src/form/input/typeahead/TypeaheadInput.tsx",
+      TypeaheadSelect: "src/select/typeahead/TypeaheadSelect.tsx",
       Dropdown: "src/dropdown/Dropdown.tsx",
+      List: "src/list/List.tsx",
       Button: "src/button/Button.tsx",
-      Spinner: "src/spinner/Spinner.tsx"
+      FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
+      Spinner: "src/spinner/Spinner.tsx",
     },
     output: {
       dir: "dist",

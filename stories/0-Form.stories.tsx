@@ -71,7 +71,6 @@ storiesOf("Form", module)
               onSelect={() => setState({...state, rememberMe: !state.rememberMe})}
               isSelected={state.rememberMe}
               item={{
-                testid: "rememberMe",
                 id: "rememberMe",
                 content: "Remember Me",
                 inputProps: {
@@ -88,7 +87,6 @@ storiesOf("Form", module)
               }
               isSelected={state.termsAndConditions}
               item={{
-                testid: "termsAndConditions",
                 id: "termsAndConditions",
                 content: "Terms and Conditions",
                 inputProps: {
@@ -104,7 +102,6 @@ storiesOf("Form", module)
               isSelected={state.privacyPolicy}
               isDisabled={true}
               item={{
-                testid: "privacyPolicy",
                 id: "privacyPolicy",
                 content: "Privacy Policy",
                 inputProps: {
@@ -194,7 +191,6 @@ storiesOf("Form", module)
           <Fragment>
             <FormField label={"Partially Disabled"}>
               <RadioGroup
-                testid="rg-test"
                 items={state.firstInput.choices}
                 selectedItem={state.firstInput.selectedItem}
                 onSelect={(name, item) =>
@@ -208,7 +204,6 @@ storiesOf("Form", module)
 
             <FormField label={"Fully Disabled"}>
               <RadioGroup
-                testid="rg-test-second"
                 items={state.secondInput.choices}
                 selectedItem={state.secondInput.selectedItem}
                 isDisabled={true}

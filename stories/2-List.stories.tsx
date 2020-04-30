@@ -68,9 +68,7 @@ function UserListItem({user}) {
 storiesOf("List", module)
   .add("Has Items", () => (
     <Fragment>
-      <List testid={"users-list"} items={users}>
-        {(item) => <UserListItem user={item} />}
-      </List>
+      <List items={users}>{(item) => <UserListItem user={item} />}</List>
 
       {style}
     </Fragment>
@@ -78,7 +76,6 @@ storiesOf("List", module)
   .add("Has Placeholder", () => (
     <Fragment>
       <List
-        testid={"users-list"}
         items={emptyUsers}
         isPending={true}
         placeholders={renderPlaceolders()}
@@ -91,7 +88,7 @@ storiesOf("List", module)
   ))
   .add("Pending State", () => (
     <Fragment>
-      <List testid={"users-list"} isPending={true} items={emptyUsers}>
+      <List isPending={true} items={emptyUsers}>
         {(item) => <UserListItem user={item} />}
       </List>
     </Fragment>
@@ -99,7 +96,6 @@ storiesOf("List", module)
   .add("Empty State", () => (
     <Fragment>
       <List
-        testid={"users-list"}
         items={emptyUsers}
         emptyStateMessage={"Sorry, there are no users"}
         emptyStateButtonText={"Create User"}

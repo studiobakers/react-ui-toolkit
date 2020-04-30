@@ -31,7 +31,6 @@ storiesOf("Dropdown", module).add("Dropdown States", () => {
           <FormField label={"Your Language"}>
             <Dropdown
               role={"listbox"}
-              testid={"dd-test"}
               options={state.options}
               placeholder={"Select Language"}
               onSelect={(option) => setState({...state, selectedOption: option})}
@@ -42,7 +41,6 @@ storiesOf("Dropdown", module).add("Dropdown States", () => {
           <FormField label={"Your Language"} errorMessages={["Please select a language"]}>
             <Dropdown
               role={"listbox"}
-              testid={"dd-test"}
               options={state.options}
               placeholder={"Select Language"}
               onSelect={(option) => setState({...state, selectedOption: option})}
@@ -54,7 +52,6 @@ storiesOf("Dropdown", module).add("Dropdown States", () => {
           <FormField label={"Your Language"}>
             <Dropdown
               role={"listbox"}
-              testid={"dd-test"}
               options={state.options}
               placeholder={"Select Language"}
               onSelect={(option) => setState({...state, selectedOption: option})}
@@ -66,7 +63,6 @@ storiesOf("Dropdown", module).add("Dropdown States", () => {
           <FormField label={"Your Language"}>
             <Dropdown
               role={"listbox"}
-              testid={"dd-test"}
               options={state.options}
               placeholder={"Select Language"}
               onSelect={(option) => setState({...state, selectedOption: option})}

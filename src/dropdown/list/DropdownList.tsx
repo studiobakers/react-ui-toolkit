@@ -11,7 +11,7 @@ import DropdownListItem, {
 import {computeScrollAmountToMakeChildVisible} from "../../core/utils/domUtils";
 
 interface DropdownListProps<OptionIdShape extends string> {
-  testid: string;
+  testid?: string;
   options: DropdownOption<OptionIdShape>[];
   selectedOption: TDropdownSelectedOption<OptionIdShape>;
   focusedOption: TDropdownSelectedOption<OptionIdShape>;
