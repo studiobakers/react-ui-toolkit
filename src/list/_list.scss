@@ -1,21 +1,7 @@
 @import "../ui/reference/animation";
 
 .list {
-  .list-item-placeholder {
-    animation: opacityAnimation $slow-animation-duration infinite;
-  }
-}
+  padding: 0;
 
-@keyframes opacityAnimation {
-  0% {
-    opacity: 1;
-  }
-
-  50% {
-    opacity: 0.7;
-  }
-
-  100% {
-    opacity: 1;
-  }
+  list-style-type: none;
 }

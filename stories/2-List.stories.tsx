@@ -35,12 +35,12 @@ const style = (
   </style>
 );
 
-function renderPlaceolders() {
+function renderPlaceholders() {
   return (
     <Fragment>
-      <div className={"list-item-placeholder"} />
-      <div className={"list-item-placeholder"} />
-      <div className={"list-item-placeholder"} />
+      <li className={"list-item-placeholder"} />
+      <li className={"list-item-placeholder"} />
+      <li className={"list-item-placeholder"} />
 
       <style>
         {`
@@ -50,7 +50,24 @@ function renderPlaceolders() {
             margin-bottom: 20px;
 
             background: lightgrey;
+
+            animation: opacityAnimation 1s infinite;
           }
+
+          @keyframes opacityAnimation {
+            0% {
+              opacity: 1;
+            }
+          
+            50% {
+              opacity: 0.7;
+            }
+          
+            100% {
+              opacity: 1;
+            }
+          }
+          
         `}
       </style>
     </Fragment>
@@ -59,9 +76,9 @@ function renderPlaceolders() {
 
 function UserListItem({user}) {
   return (
-    <div className={"list-item"}>
+    <li className={"list-item"}>
       {user.name} <small>{user.email}</small>
-    </div>
+    </li>
   );
 }
 
@@ -80,20 +97,14 @@ storiesOf("List", module)
       <List
         testid={"users-list"}
         items={emptyUsers}
-        isPending={true}
-        placeholders={renderPlaceolders()}
-        canDisplayPlaceholder={true}>
+        placeholderProps={{
+          shouldDisplayPlaceholder: true,
+          placeholder: renderPlaceholders()
+        }}>
         {(item) => <UserListItem user={item} />}
       </List>
 
       {style}
-    </Fragment>
-  ))
-  .add("Pending State", () => (
-    <Fragment>
-      <List testid={"users-list"} isPending={true} items={emptyUsers}>
-        {(item) => <UserListItem user={item} />}
-      </List>
     </Fragment>
   ))
   .add("Empty State", () => (
@@ -101,10 +112,10 @@ storiesOf("List", module)
       <List
         testid={"users-list"}
         items={emptyUsers}
-        emptyStateMessage={"Sorry, there are no users"}
-        emptyStateButtonText={"Create User"}
-        onEmptyStateButtonClick={() => alert("Thank you")}
-        canDisplayEmptyState={true}>
+        emptyStateProps={{
+          shouldDisplayEmptyState: true,
+          emptyState: "Sorry, there are no users"
+        }}>
         {(item) => <UserListItem user={item} />}
       </List>
     </Fragment>
