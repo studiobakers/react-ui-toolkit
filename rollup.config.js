@@ -22,21 +22,21 @@ export default [
       List: "src/list/List.tsx",
       Button: "src/button/Button.tsx",
       FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
-      Spinner: "src/spinner/Spinner.tsx",
+      Spinner: "src/spinner/Spinner.tsx"
     },
     output: {
       dir: "dist",
-      format: 'cjs',
+      format: "cjs"
     },
     plugins: [
       reactSvg(),
       terser(),
       eslint({
         fix: true,
-        exclude: ["./src/**/**.scss", "./src/**/**.svg"],
+        exclude: ["./src/**/**.scss", "./src/**/**.svg"]
       }),
       stylelint({
-        "ignoreFiles": ["**/*.ts", "**/*.js"]
+        ignoreFiles: ["**/*.ts", "**/*.js"]
       }),
       postcss(),
       typescript({

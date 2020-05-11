@@ -5,11 +5,14 @@
   
   .form-field-label {
     display: block;
+  }
 
+  .form-field-label-text {
+    display: block;
+    
     margin-bottom: 8px;
 
-    font-size: 12px;
-    font-weight: 600;
-    text-transform: uppercase;
+    font-size: inherit;
+    font-weight: inherit;
   }
 }

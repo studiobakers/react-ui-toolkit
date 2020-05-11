@@ -1,6 +1,6 @@
 import "./_button.scss";
 
-import React, {useEffect, useRef} from "react";
+import React from "react";
 import classNames from "classnames";
 
 import Spinner from "../spinner/Spinner";
@@ -53,23 +53,17 @@ function Button({
     inactive: isButtonDisabled,
     pending: shouldDisplaySpinner
   });
-  const buttonRef = useRef<HTMLButtonElement>(null);
-
-  useEffect(() => {
-    if (shouldFocus && buttonRef.current) {
-      buttonRef.current.focus();
-    }
-  }, [shouldFocus]);
 
   return (
     <button
-      ref={buttonRef}
       id={id}
       data-testid={testid}
       tabIndex={tabIndex}
       className={containerClassName}
       type={type}
       lang={lang}
+      // eslint-disable-next-line jsx-a11y/no-autofocus
+      autoFocus={shouldFocus}
       onClick={handleClick}
       onMouseOver={handleMouseOver}
       onMouseDown={onMouseDown}

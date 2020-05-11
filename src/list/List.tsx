@@ -5,7 +5,7 @@ import classNames from "classnames";
 import Button from "../button/Button";
 import Spinner from "../spinner/Spinner";
 
-interface ListProps<Item = any> {
+export interface ListProps<Item = any> {
   testid?: string;
   customClassName?: string;
   items: Item;

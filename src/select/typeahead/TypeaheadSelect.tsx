@@ -16,7 +16,7 @@ import {filterOptionsByKeyword} from "./util/typeaheadSelectUtils";
 import {filterOutItemsByKey} from "../../core/utils/arrayUtils";
 import Spinner from "../../spinner/Spinner";
 
-interface TypeaheadSelectProps {
+export interface TypeaheadSelectProps {
   testid?: string;
   selectedOptions: DropdownOption[];
   dropdownOptions: DropdownOption[];
