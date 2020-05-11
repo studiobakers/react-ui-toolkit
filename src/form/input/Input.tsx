@@ -3,9 +3,9 @@ import "./_input.scss";
 import React from "react";
 import classNames from "classnames";
 
-type InputType = "text" | "email" | "password" | "number" | "hidden" | "url";
+type InputType = "text" | "email" | "password" | "number" | "tel" | "hidden" | "url";
 
-interface InputProps {
+export interface InputProps {
   testid?: string;
   name: string;
   id?: string;
@@ -16,6 +16,7 @@ interface InputProps {
   onBlur?: React.ReactEventHandler<HTMLInputElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
+  onInput?: React.KeyboardEventHandler<HTMLInputElement>;
   placeholder?: string;
   min?: number;
   max?: number;
@@ -47,6 +48,7 @@ function Input(props: InputProps) {
     onBlur,
     onKeyUp,
     onKeyDown,
+    onInput,
     leftIcon,
     rightIcon,
     role,
@@ -84,6 +86,7 @@ function Input(props: InputProps) {
         disabled={isDisabled}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
+        onInput={onInput}
         {...rest}
       />
 

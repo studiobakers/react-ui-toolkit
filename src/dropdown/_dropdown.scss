@@ -10,11 +10,11 @@ $dropdown-header-horizontal-padding: 8px;
   .dropdown-header-button {
     width: 100%;
     height: 40px;
-  
+
     background-color: white;
     border: 1px solid $light-grey;
     border-radius: $small-radius-size;
-  
+
     &:focus {
       border: 1px solid $grey;
       outline: none;
@@ -104,6 +104,12 @@ $dropdown-header-horizontal-padding: 8px;
   &:focus {
     outline: none;
   }
+
+  svg {
+    path {
+      fill: $grey;
+    }
+  }
 }
 
 .dropdown-header-button-text {
@@ -114,12 +120,6 @@ $dropdown-header-horizontal-padding: 8px;
   color: $dark-grey;
 
   text-align: left;
-}
-
-svg {
-  path {
-    fill: $grey;
-  }
 }
 
 .dropdown-header-button-default-content {

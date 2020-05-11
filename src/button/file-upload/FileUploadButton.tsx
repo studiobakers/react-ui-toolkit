@@ -3,7 +3,7 @@ import "./_file-upload-button.scss";
 import React from "react";
 import FileInput, {FileInputProps} from "../../form/input/file/FileInput";
 
-interface FileUploadButtonProps {
+export interface FileUploadButtonProps {
   fileInputProps: Omit<FileInputProps, "children" | "onChange"> & {children?: never};
   children: React.ReactNode;
   onFileSelect?: (
