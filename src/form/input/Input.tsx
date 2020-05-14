@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 type InputType = "text" | "email" | "password" | "number" | "tel" | "hidden" | "url";
 
-export interface InputProps {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   testid?: string;
   name: string;
   id?: string;
