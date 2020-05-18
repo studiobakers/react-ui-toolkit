@@ -5,7 +5,8 @@
 .radio-input-label {
   position: relative;
 
-  display: block;
+  display: grid;
+  grid-template-columns: 20px 1fr;
 
   margin-bottom: 10px;
   padding-left: 28px;
@@ -65,9 +66,9 @@
 }
 
 .radio-input-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
+  position: relative;
+
+  display: block;
 
   width: 20px;
   height: 20px;
