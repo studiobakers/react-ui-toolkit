@@ -8,7 +8,7 @@ import Spinner from "../spinner/Spinner";
 export interface ListProps<Item = any> {
   testid?: string;
   customClassName?: string;
-  items: Item;
+  items: Item[];
   isPending?: boolean;
   children: (item: Item, testid: string, index?: number) => JSX.Element;
   listItemKeyGenerator?: (item: Item, testid: string) => string;
