@@ -1,0 +1,56 @@
+@import "../../ui/reference/_colors.scss";
+@import "../../ui/reference/_measurement.scss";
+
+$input-height: 45px;
+
+.input-container {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+
+  .input-container-left-icon,
+  .input-container-right-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: $input-height;
+  }
+}
+
+.input {
+  height: $input-height;
+  
+  flex: 1;
+
+  padding: 0 14px;
+
+  color: $black;
+
+  border: 1px solid $light-grey;
+  border-radius: $small-radius-size;
+  
+  font-size: inherit;
+  font-weight: inherit;
+
+  &::placeholder {
+    color: $grey;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:disabled {
+    color: $black;
+    -webkit-text-fill-color: $black;
+    
+    background-color: $light-grey;
+  }
+
+  &.has-error {
+    border: 1px solid $red;
+  }
+}

@@ -1,0 +1,52 @@
+@import "../ui/reference/colors";
+@import "../ui/reference/measurement";
+@import "../ui/reference/animation";
+@import "../ui/reference/util/truncate";
+
+.tag-container {
+  display: flex;
+  align-items: center;
+
+  width: auto;
+  min-width: 0;
+  height: 100%;
+
+  padding: 3px 10px;
+
+  color: $black;
+
+  background-color: $light-grey;
+  border-radius: $small-radius-size;
+
+  &.button {
+    border: none;
+    border-radius: $small-radius-size;
+  }
+
+  svg {
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+
+    margin-left: 10px;
+
+    background-color: transparent;
+    border: none;
+
+    path {
+      transition: stroke $animation-duration $animation-function;
+    }
+
+    &:hover {
+      path {
+        stroke: $black;
+      }
+    }
+  }
+}
+
+.tag-body {
+  @include truncate-line(calc(100% - 16px));
+
+  overflow: hidden;
+}

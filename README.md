@@ -28,8 +28,7 @@ function LoginForm() {
 ```  
   
 ### Styling  
-Every component holds a minimum amount of CSS, to get more information you can search for `css-in-js`.    
-- styled-components   
+Every component holds a minimum amount of CSS.
   
 ### Storybook  
 - To run Storybook `npm run storybook`  
@@ -37,11 +36,12 @@ Every component holds a minimum amount of CSS, to get more information you can s
   
 ### Development  
 Minimum system versions  
-- `node >= 8.x`  
+- `node >= 12.x`  
 - `npm >= 6.x`  
-- `react >= 16.8`  
   
-You can start to development with `npm run dev` command. The command watches for changes and builds the toolkit. If you want to generate a production ready build you can use `npm run build`.  
+You can start to development with `npm run dev` command. The command watches for changes and builds the toolkit. If you want to generate a production ready build you can use `npm run build`. 
+
+Or you can run `npm run storybook` to see the components live. Storybook has own Webpack config that compiles and runs the components.
   
 ### Linter  
 ESLint and Prettier will handle the linting task. You can set a watcher for `npm run prettier:fix` command in your IDE otherwise you need to run prettier manually or right before the production build it'll automatically runs.  
@@ -51,5 +51,5 @@ The ruleset can be found in [@hipo/eslint-config-base](https://github.com/Hipo/e
   
 ### TODO  
  - [ ] Add tests
- - [ ] Components should have basic CSS styles
  - [ ] Add source info of components to Storybook
+ - [x] Components should have basic CSS styles

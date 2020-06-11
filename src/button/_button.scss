@@ -1,0 +1,46 @@
+@import "../ui/reference/_measurement.scss";
+@import "../ui/reference/_colors.scss";
+
+.button {
+  display: block;
+
+  width: 150px;
+  height: 35px;
+
+  color: white;
+  background-color: $black;
+
+  border: none;
+  border-radius: $small-radius-size;
+  outline: none;
+
+  cursor: pointer;
+
+  font-size: 14px;
+
+  .spinner-background {
+    background: $black;
+  }
+
+  &:focus {
+    box-shadow: $default-box-shadow;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+  }
+
+  &.size-small {
+    width: 100px;
+    height: 25px;
+
+    font-size: 12px;
+
+    .spinner {
+      width: 15px;
+      height: 15px;
+    }
+  }
+}
