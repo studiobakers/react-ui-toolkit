@@ -4,17 +4,26 @@ import React from "react";
 import classNames from "classnames";
 import FormFieldMessageRow from "./message-row/FormFieldMessageRow";
 
-interface FormFieldProps {
+export interface FormFieldProps {
   children: React.ReactNode;
-  labelledBy?: string;
   label?: string;
-  className?: string;
+  labelledBy?: string;
+  labelFor?: string;
+  customClassName?: string;
   helperMessages?: Array<string>;
   errorMessages?: Array<string>;
 }
 
 function FormField(props: FormFieldProps) {
-  const {labelledBy, label, className, children, errorMessages, helperMessages} = props;
+  const {
+    label,
+    labelledBy,
+    labelFor,
+    customClassName,
+    children,
+    errorMessages,
+    helperMessages
+  } = props;
   const hasErrorMessage = Boolean(errorMessages?.length);
   const hasHelperMessage = Boolean(helperMessages?.length);
   const formFieldClassName = classNames(
@@ -22,18 +31,16 @@ function FormField(props: FormFieldProps) {
     {
       "has-error": hasErrorMessage
     },
-    className
+    customClassName
   );
 
   return (
     <div className={formFieldClassName}>
-      {Boolean(label) && (
-        <label id={labelledBy} className={"form-field-label"}>
-          {label}
-        </label>
-      )}
+      <label id={labelledBy} htmlFor={labelFor} className={"form-field-label"}>
+        {Boolean(label) && <span className={"form-field-label-text"}>{label}</span>}
 
-      {children}
+        {children}
+      </label>
 
       {hasErrorMessage &&
         errorMessages?.map((message) => (

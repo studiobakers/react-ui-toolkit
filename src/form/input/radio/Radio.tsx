@@ -4,7 +4,7 @@ import React from "react";
 import classNames from "classnames";
 
 export interface RadioInputItem<Id = string> {
-  testid: string;
+  testid?: string;
   id: Id;
   content: React.ReactNode;
   inputProps: {

@@ -5,21 +5,21 @@ import classNames from "classnames";
 
 import DropdownListItem, {
   DropdownOption,
-  TDropdownOptionSelectHandler,
-  TDropdownSelectedOption
+  DropdownOptionSelectHandler,
+  DropdownSelectedOption
 } from "./item/DropdownListItem";
 import {computeScrollAmountToMakeChildVisible} from "../../core/utils/domUtils";
 
 interface DropdownListProps<OptionIdShape extends string> {
-  testid: string;
+  testid?: string;
   options: DropdownOption<OptionIdShape>[];
-  selectedOption: TDropdownSelectedOption<OptionIdShape>;
-  focusedOption: TDropdownSelectedOption<OptionIdShape>;
-  onSelect: TDropdownOptionSelectHandler<OptionIdShape>;
-  onFocus: TDropdownOptionSelectHandler<OptionIdShape>;
+  selectedOption: DropdownSelectedOption<OptionIdShape>;
+  focusedOption: DropdownSelectedOption<OptionIdShape>;
+  onSelect: DropdownOptionSelectHandler<OptionIdShape>;
+  onFocus: DropdownOptionSelectHandler<OptionIdShape>;
   onMouseDown?: React.ReactEventHandler<HTMLLIElement>;
   onMouseUp?: React.ReactEventHandler<HTMLLIElement>;
-  onKeyDown?: TDropdownOptionSelectHandler<OptionIdShape>;
+  onKeyDown?: DropdownOptionSelectHandler<OptionIdShape>;
   role?: "listbox" | "menu" | "combobox";
   customClassName?: string;
   ariaLabelledBy?: string;

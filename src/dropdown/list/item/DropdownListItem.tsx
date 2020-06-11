@@ -5,32 +5,32 @@ import classNames from "classnames";
 
 export interface DropdownOption<Id = string, Context = any> {
   id: Id;
-  customClassName?: string;
   title: string;
+  customClassName?: string;
   CustomContent?: JSX.Element;
   icon?: React.ReactNode;
   subtitle?: string;
   context?: Context;
 }
 
-export type TDropdownOptionSelectHandler<Id = string, Context = any> = (
+export type DropdownOptionSelectHandler<Id = string, Context = any> = (
   option: DropdownOption<Id, Context> | null,
   event?: React.SyntheticEvent<HTMLLIElement>
 ) => void;
 
-export type TDropdownSelectedOption<Id = string, Context = any> =
+export type DropdownSelectedOption<Id = string, Context = any> =
   | DropdownOption<Id, Context>
   | null
   | undefined;
 
 interface DropdownListItemProps<OptionIdShape = string> {
-  testid: string;
+  testid?: string;
   option: DropdownOption<OptionIdShape>;
-  selectedOption: TDropdownSelectedOption<OptionIdShape>;
-  focusedOption?: TDropdownSelectedOption<OptionIdShape>;
-  onSelect: TDropdownOptionSelectHandler<OptionIdShape>;
-  onFocus: TDropdownOptionSelectHandler<OptionIdShape>;
-  onKeyDown?: TDropdownOptionSelectHandler<OptionIdShape>;
+  selectedOption: DropdownSelectedOption<OptionIdShape>;
+  focusedOption?: DropdownSelectedOption<OptionIdShape>;
+  onSelect: DropdownOptionSelectHandler<OptionIdShape>;
+  onFocus: DropdownOptionSelectHandler<OptionIdShape>;
+  onKeyDown?: DropdownOptionSelectHandler<OptionIdShape>;
   onMouseDown?: React.ReactEventHandler<HTMLLIElement>;
   onMouseUp?: React.ReactEventHandler<HTMLLIElement>;
   canSelectAlreadySelected?: boolean;
