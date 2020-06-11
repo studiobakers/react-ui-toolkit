@@ -6,7 +6,7 @@ import React from "react";
 import classNames from "classnames";
 
 export interface CheckboxInputItem {
-  testid: string;
+  testid?: string;
   id: string;
   content: React.ReactNode;
   inputProps: {
@@ -21,15 +21,22 @@ export interface CheckboxInputProps {
   onSelect: (name: string, item: CheckboxInputItem) => void;
   isSelected: boolean;
   isDisabled?: boolean;
+  customClassName?: string;
 }
 
-function CheckboxInput({item, onSelect, isSelected, isDisabled}: CheckboxInputProps) {
+function CheckboxInput({
+  item,
+  onSelect,
+  customClassName,
+  isSelected,
+  isDisabled
+}: CheckboxInputProps) {
   const {
     inputProps: {name, value, htmlFor},
     testid,
     content
   } = item;
-  const containerClassName = classNames("checkbox-input-label", {
+  const containerClassName = classNames("checkbox-input-label", customClassName, {
     selected: isSelected,
     disabled: isDisabled
   });

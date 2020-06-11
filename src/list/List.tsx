@@ -3,10 +3,10 @@ import "./_list.scss";
 import React, {Fragment} from "react";
 import classNames from "classnames";
 
-interface ListProps<Item = any> {
-  testid: string;
+export interface ListProps<Item = any> {
+  testid?: string;
   customClassName?: string;
-  items: Item;
+  items: Item[];
   children: (item: Item, testid: string, index?: number) => JSX.Element;
   listItemKeyGenerator?: (item: Item, testid: string) => string;
   placeholderProps?: {
@@ -19,7 +19,6 @@ interface ListProps<Item = any> {
   };
 }
 
-/* eslint-disable complexity */
 function List<Item extends any>({
   items,
   children,
@@ -56,6 +55,5 @@ function List<Item extends any>({
     </ul>
   );
 }
-/* eslint-enable complexity */
 
 export default List;

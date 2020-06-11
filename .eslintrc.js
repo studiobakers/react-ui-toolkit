@@ -85,6 +85,6 @@ module.exports = {
           rendering: ["render", "/^render.+$/"]
         }
       }
-    ],
+    ]
   }
 };

@@ -31,7 +31,7 @@ import useOnClickOutside from "../core/utils/hooks/onClickOutside";
 export type MenuVisibilityChangeHandlerTypeArgument = "open" | "closed";
 
 export interface DropdownProps<OptionIdShape> {
-  testid: string;
+  testid?: string;
   header?: React.ReactNode;
   placeholder?: string;
   options: DropdownOption<OptionIdShape>[];

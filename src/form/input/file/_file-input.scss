@@ -1,0 +1,42 @@
+@import "../../../ui/reference/colors";
+@import "../../../ui/reference/measurement";
+
+.file-input {
+  position: absolute;
+  z-index: -1;
+
+  width: 0.1px;
+  height: 0.1px;
+
+  overflow: hidden;
+
+  opacity: 0;
+
+  &:focus + .file-input-label {
+    box-shadow: $default-box-shadow;
+  }
+
+  & + .file-input-label.disabled {
+    background-color: $light-grey;
+    
+    cursor: not-allowed;
+  }
+}
+
+.file-input-label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 15px;
+
+  background-color: white;
+  border: 1px solid $light-grey;
+  border-radius: $small-radius-size;
+
+  cursor: pointer;
+
+  &.button {
+    min-width: 172px;
+  }
+}

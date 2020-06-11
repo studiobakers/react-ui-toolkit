@@ -85,9 +85,7 @@ function UserListItem({user}) {
 storiesOf("List", module)
   .add("Has Items", () => (
     <Fragment>
-      <List testid={"users-list"} items={users}>
-        {(item) => <UserListItem user={item} />}
-      </List>
+      <List items={users}>{(item) => <UserListItem user={item} />}</List>
 
       {style}
     </Fragment>
@@ -95,7 +93,6 @@ storiesOf("List", module)
   .add("Has Placeholder", () => (
     <Fragment>
       <List
-        testid={"users-list"}
         items={emptyUsers}
         placeholderProps={{
           shouldDisplayPlaceholder: true,
@@ -110,7 +107,6 @@ storiesOf("List", module)
   .add("Empty State", () => (
     <Fragment>
       <List
-        testid={"users-list"}
         items={emptyUsers}
         emptyStateProps={{
           shouldDisplayEmptyState: true,
