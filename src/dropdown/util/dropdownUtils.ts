@@ -1,10 +1,10 @@
-import {DropdownOption, TDropdownSelectedOption} from "../list/item/DropdownListItem";
+import {DropdownOption, DropdownSelectedOption} from "../list/item/DropdownListItem";
 import {DropdownPosition} from "./dropdownConstants";
 
 function generateInitialFocusedDropdownOptionIndex(
   position: DropdownPosition,
   options: DropdownOption[],
-  selectedOption: TDropdownSelectedOption<string>
+  selectedOption: DropdownSelectedOption<string>
 ) {
   const selectedOptionIndex = options.findIndex(
     (item) => item.id === (selectedOption && selectedOption.id)

@@ -36,7 +36,9 @@ function List<Item extends any>({
         const listItemTestId = `${testid}.item-${index}`;
         let key = listItemTestId;
 
+        // @ts-ignore
         if (item && typeof item === "object" && item.id) {
+          // @ts-ignore
           key = item.id;
         }
 

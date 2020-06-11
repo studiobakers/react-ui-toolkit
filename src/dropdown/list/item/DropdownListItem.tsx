@@ -18,7 +18,7 @@ export type DropdownOptionSelectHandler<Id = string, Context = any> = (
   event?: React.SyntheticEvent<HTMLLIElement>
 ) => void;
 
-export type TDropdownSelectedOption<Id = string, Context = any> =
+export type DropdownSelectedOption<Id = string, Context = any> =
   | DropdownOption<Id, Context>
   | null
   | undefined;
@@ -26,8 +26,8 @@ export type TDropdownSelectedOption<Id = string, Context = any> =
 interface DropdownListItemProps<OptionIdShape = string> {
   testid?: string;
   option: DropdownOption<OptionIdShape>;
-  selectedOption: TDropdownSelectedOption<OptionIdShape>;
-  focusedOption?: TDropdownSelectedOption<OptionIdShape>;
+  selectedOption: DropdownSelectedOption<OptionIdShape>;
+  focusedOption?: DropdownSelectedOption<OptionIdShape>;
   onSelect: DropdownOptionSelectHandler<OptionIdShape>;
   onFocus: DropdownOptionSelectHandler<OptionIdShape>;
   onKeyDown?: DropdownOptionSelectHandler<OptionIdShape>;

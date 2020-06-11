@@ -11,8 +11,8 @@ import DropdownList from "./list/DropdownList";
 import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboardEventConstants";
 import {
   DropdownOption,
-  TDropdownOptionSelectHandler,
-  TDropdownSelectedOption
+  DropdownOptionSelectHandler,
+  DropdownSelectedOption
 } from "./list/item/DropdownListItem";
 import {
   generateInitialFocusedDropdownOptionIndex,
@@ -35,8 +35,8 @@ export interface DropdownProps<OptionIdShape> {
   header?: React.ReactNode;
   placeholder?: string;
   options: DropdownOption<OptionIdShape>[];
-  selectedOption: TDropdownSelectedOption<OptionIdShape>;
-  onSelect: TDropdownOptionSelectHandler<OptionIdShape>;
+  selectedOption: DropdownSelectedOption<OptionIdShape>;
+  onSelect: DropdownOptionSelectHandler<OptionIdShape>;
   role: "listbox" | "menu" | "combobox";
   position?: DropdownPosition;
   customClassName?: string;
@@ -225,7 +225,7 @@ function Dropdown<OptionIdShape extends string>({
   );
 
   function handleOptionSelect(
-    option: Parameters<TDropdownOptionSelectHandler>[0],
+    option: Parameters<DropdownOptionSelectHandler>[0],
     event?: React.SyntheticEvent<HTMLLIElement>
   ) {
     if (!isDisabled && option) {
@@ -245,7 +245,7 @@ function Dropdown<OptionIdShape extends string>({
     }
   }
 
-  function handleOptionFocus(option: Parameters<TDropdownOptionSelectHandler>[0]) {
+  function handleOptionFocus(option: Parameters<DropdownOptionSelectHandler>[0]) {
     setFocusedOptionIndex(computedOptions.findIndex((item) => item.id === option!.id));
   }
 
