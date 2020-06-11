@@ -1,0 +1,16 @@
+.idea
+.vscode
+node_modules
+storybook-static
+
+# testing
+coverage
+
+# webpack stats
+stats.json
+*.stats.json
+
+# misc
+.DS_Store
+npm-debug.log
+.npm

@@ -1,11 +1,11 @@
 {
-  "name": "@hipo/react-ui-toolkit",
+  "name": "react-ui-toolkit",
   "version": "0.1.0",
   "description": "React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
-    "dev": "rollup -c -w",
-    "build": "npm run prettier:fix && rollup -c",
+    "dev": "./node_modules/.bin/rollup -c -w",
+    "build": "npm run prettier:fix && ./node_modules/.bin/rollup -c",
     "test": "jest",
     "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}' 'stories/**/*.{ts,tsx}'",
     "storybook": "start-storybook -p 6006",
