@@ -3,7 +3,7 @@ import "./_spinner.scss";
 import React from "react";
 import classNames from "classnames";
 
-interface SpinnerProps {
+export interface SpinnerProps {
   customClassName?: string;
   spinnerColor?: string;
   backgroundColor?: string;
