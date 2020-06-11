@@ -1,0 +1,54 @@
+@import "../../../ui/reference/util/truncate";
+@import "../../../ui/reference/colors";
+@import "../../../ui/reference/animation";
+
+.dropdown-list-item {
+  display: flex;
+  align-items: center;
+
+  min-height: 40px;
+
+  padding: 0 16px;
+
+  cursor: default;
+
+  transition: background-color $animation-duration $animation-function;
+
+  &.can-be-selected {
+    cursor: pointer;
+
+    &:focus,
+    &:hover {
+      background-color: darken(white, 5%);
+    }
+
+    &.focused {
+      background-color: darken(white, 5%);
+    }
+  }
+
+  &.selected {
+    background-color: $light-grey;
+  }
+}
+
+.dropdown-list-item-title {
+  @include truncate-line();
+
+  color: $black;
+
+  font-size: 14px;
+  line-height: 22px;
+}
+
+.dropdown-list-item-subtitle {
+  @include truncate-line();
+
+  margin-left: 5px;
+
+  color: $grey;
+}
+
+.dropdown-list-item-title-container {
+  min-width: 0;
+}

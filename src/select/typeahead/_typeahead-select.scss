@@ -1,0 +1,76 @@
+@import "../../ui/reference/colors";
+@import "../../ui/reference/measurement";
+
+.typeahead-select-container {
+  .typeahead-select-dropdown .dropdown-header-button {
+    height: auto;
+
+    border: none;
+    box-shadow: none;
+
+    text-align: left;
+  }
+}
+
+.typeahead-select-header-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  border: 1px solid $light-grey;
+  border-radius: $small-radius-size;
+}
+
+.typeahead-select-header-tags-container {
+  display: flex;
+
+  padding: 15px;
+
+  .typeahead-select-tag:not(:last-of-type) {
+    margin-right: 5px;
+  }
+}
+
+.typeahead-select-header {
+  &.can-select-multiple {
+    .input {
+      height: auto;
+      min-height: 45px;
+
+      flex: 1;
+
+      border: none;
+
+      &:focus {
+        border: none;
+      }
+    }
+
+    .typeahead-select-tag {
+      margin-top: 8px;
+      margin-left: 10px;
+    }
+  }
+
+  &.is-dropdown-menu-open {
+    position: relative;
+    z-index: 2;
+
+    & + .dropdown-overlay {
+      z-index: 1;
+    }
+  }
+}
+
+.typeahead-select-dropdown.disabled {
+  .typeahead-select-tag-list-container {
+    width: 100%;
+  }
+}
+
+.typeahead-select-right-icon-container {
+  path {
+    fill: $grey;
+  }
+}

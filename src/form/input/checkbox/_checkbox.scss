@@ -59,7 +59,7 @@
       background-color: $black;
       border-color: $black;
 
-      .check-icon {
+      svg {
         display: block;
       }
     }
@@ -86,6 +86,8 @@
   width: 20px;
   height: 20px;
 
+  flex-shrink: 0;
+
   margin-right: 10px;
 
   border: 1px solid $black;
@@ -108,7 +110,7 @@
 
   box-sizing: border-box;
 
-  .check-icon {
+  svg {
     display: none;
   }
 }

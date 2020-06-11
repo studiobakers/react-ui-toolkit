@@ -1,15 +1,12 @@
-import React, {Fragment, useState} from "react";
+import React, {Fragment} from "react";
 import {storiesOf} from "@storybook/react";
+
+import StateProvider from "./utils/StateProvider";
 
 import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
 import CheckboxInput from "../src/form/input/checkbox/Checkbox";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
-
-function StateProvider({children, initialState, ...props}) {
-  const [state, setState] = useState(initialState);
-  return <Fragment>{children(state, setState)}</Fragment>;
-}
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -74,7 +71,6 @@ storiesOf("Form", module)
               onSelect={() => setState({...state, rememberMe: !state.rememberMe})}
               isSelected={state.rememberMe}
               item={{
-                testid: "rememberMe",
                 id: "rememberMe",
                 content: "Remember Me",
                 inputProps: {
@@ -91,7 +87,6 @@ storiesOf("Form", module)
               }
               isSelected={state.termsAndConditions}
               item={{
-                testid: "termsAndConditions",
                 id: "termsAndConditions",
                 content: "Terms and Conditions",
                 inputProps: {
@@ -107,7 +102,6 @@ storiesOf("Form", module)
               isSelected={state.privacyPolicy}
               isDisabled={true}
               item={{
-                testid: "privacyPolicy",
                 id: "privacyPolicy",
                 content: "Privacy Policy",
                 inputProps: {
@@ -197,7 +191,6 @@ storiesOf("Form", module)
           <Fragment>
             <FormField label={"Partially Disabled"}>
               <RadioGroup
-                testid="rg-test"
                 items={state.firstInput.choices}
                 selectedItem={state.firstInput.selectedItem}
                 onSelect={(name, item) =>
@@ -209,11 +202,8 @@ storiesOf("Form", module)
               />
             </FormField>
 
-            <br />
-
             <FormField label={"Fully Disabled"}>
               <RadioGroup
-                testid="rg-test-second"
                 items={state.secondInput.choices}
                 selectedItem={state.secondInput.selectedItem}
                 isDisabled={true}

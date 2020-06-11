@@ -5,8 +5,8 @@ import classNames from "classnames";
 
 import RadioInput, {RadioInputItem, RadioInputProps} from "../Radio";
 
-interface RadioGroupProps {
-  testid: string;
+export interface RadioGroupProps {
+  testid?: string;
   items: RadioInputItem[];
   selectedItem: null | RadioInputItem;
   onSelect: RadioInputProps["onSelect"];
