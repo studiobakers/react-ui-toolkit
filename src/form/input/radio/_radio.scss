@@ -1,0 +1,101 @@
+@import "../../../ui/reference/_colors.scss";
+@import "../../../ui/reference/_measurement.scss";
+@import "../../../ui/reference/_animation.scss";
+
+.radio-input-label {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: 20px 1fr;
+
+  margin-bottom: 10px;
+  padding-left: 28px;
+
+  color: $dark-grey;
+
+  cursor: pointer;
+  user-select: none;
+
+  font-size: 16px;
+
+  &:hover {
+    .radio-input-icon {
+      border-color: $black;
+    }
+  }
+
+  &.selected {
+    color: $black;
+
+    .radio-input-icon {
+      background-color: $black;
+      border-color: transparent;
+    }
+  }
+
+  &.disabled {
+    opacity: 0.5;
+
+    cursor: not-allowed;
+  }
+}
+
+.radio-input {
+  position: absolute;
+
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+
+  cursor: pointer;
+
+  &:focus {
+    & ~ .radio-input-icon {
+      border-color: $black;
+    }
+  }
+
+  &:checked {
+    & ~ .radio-input-icon:after {
+      display: block;
+
+      background-color: white;
+    }
+  }
+}
+
+.radio-input-icon {
+  position: relative;
+
+  display: block;
+
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+
+  box-sizing: border-box;
+
+  border: 1px solid $dark-grey;
+  border-radius: 50%;
+
+  transition: background-color $fast-animation-duration $animation-function;
+
+  &:after {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    display: none;
+
+    width: 6px;
+    height: 6px;
+
+    background-color: $black;
+    border-radius: 50%;
+
+    content: "";
+
+    transform: translate(-50%, -50%);
+  }
+}

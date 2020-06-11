@@ -64,9 +64,12 @@ module.exports = {
     "@typescript-eslint/camelcase": 0,
     "@typescript-eslint/ban-ts-ignore": 0,
     "@typescript-eslint/no-non-null-assertion": 0,
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+    "@typescript-eslint/ban-ts-comment": 0,
 
     // 👇🏻 these will be fixed inside `eslint-config-hipo-base`
     "no-undefined": 0,
+    "no-use-before-define": 0,
     complexity: ["error", 10],
     "func-names": 0,
     "id-length": 0,
@@ -85,6 +88,6 @@ module.exports = {
           rendering: ["render", "/^render.+$/"]
         }
       }
-    ],
+    ]
   }
 };

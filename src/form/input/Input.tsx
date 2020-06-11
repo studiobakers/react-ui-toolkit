@@ -3,10 +3,12 @@ import "./_input.scss";
 import React from "react";
 import classNames from "classnames";
 
-type InputType = "text" | "email" | "password" | "number" | "hidden" | "url";
+type InputType = "text" | "email" | "password" | "number" | "tel" | "hidden" | "url";
 
-interface InputProps {
+export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+  testid?: string;
   name: string;
+  id?: string;
   onChange: React.ReactEventHandler<HTMLInputElement>;
   type?: InputType;
   value?: string;
@@ -14,6 +16,7 @@ interface InputProps {
   onBlur?: React.ReactEventHandler<HTMLInputElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
+  onInput?: React.KeyboardEventHandler<HTMLInputElement>;
   placeholder?: string;
   min?: number;
   max?: number;
@@ -23,12 +26,13 @@ interface InputProps {
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
   hasError?: boolean;
-  className?: string;
+  customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
 }
 
 function Input(props: InputProps) {
   const {
+    testid,
     name,
     type = "text",
     value,
@@ -40,24 +44,29 @@ function Input(props: InputProps) {
     isDisabled,
     hasError,
     onFocus,
-    className,
+    customClassName,
     onBlur,
     onKeyUp,
     onKeyDown,
+    onInput,
     leftIcon,
     rightIcon,
     role,
     inputContainerRef,
     ...rest
   } = props;
-  const inputContainerClassName = classNames("input-container", className);
+  const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     disabled: isDisabled,
     "has-error": hasError
   });
 
   return (
-    <div ref={inputContainerRef} role={role} className={inputContainerClassName}>
+    <div
+      ref={inputContainerRef}
+      role={role}
+      className={inputContainerClassName}
+      data-testid={testid}>
       {leftIcon && <span className={"input-container-left-icon"}>{leftIcon}</span>}
 
       <input
@@ -77,6 +86,7 @@ function Input(props: InputProps) {
         disabled={isDisabled}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
+        onInput={onInput}
         {...rest}
       />
 
