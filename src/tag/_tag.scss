@@ -13,14 +13,14 @@
 
   padding: 3px 10px;
 
-  color: $black;
+  color: var(--text-color);
 
-  background-color: $light-grey;
-  border-radius: $small-radius-size;
+  background-color: var(--tag-bg);
+  border-radius: var(--small-border-radius);
 
   &.button {
     border: none;
-    border-radius: $small-radius-size;
+    border-radius: var(--small-border-radius);
   }
 
   svg {
@@ -39,7 +39,7 @@
 
     &:hover {
       path {
-        stroke: $black;
+        stroke: var(--text-color);
       }
     }
   }

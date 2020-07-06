@@ -28,14 +28,12 @@
   }
 
   &.selected {
-    background-color: $light-grey;
+    background-color: var(--dropdown-selected-item-bg);
   }
 }
 
 .dropdown-list-item-title {
   @include truncate-line();
-
-  color: $black;
 
   font-size: 14px;
   line-height: 22px;
@@ -45,8 +43,6 @@
   @include truncate-line();
 
   margin-left: 5px;
-
-  color: $grey;
 }
 
 .dropdown-list-item-title-container {

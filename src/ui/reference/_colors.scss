@@ -1,11 +1,34 @@
 /* stylelint-disable color-no-hex */
-$black: black;
-$dark-grey: #484848;
-$grey: #757575;
-$light-grey: #EBEBEB;
 
-$red: #A43030;
+:root {
+  // Button
+  --button-bg: black;
 
-$default-box-shadow: 0 0 5px $light-grey;
+  // Dropdown
+  --dropdown-text-color: black;
+  --dropdown-header-button-bg: #ebebeb;
+  --dropdown-selected-item-bg: #ebebeb;
+
+  // Checkbox
+  --checkbox-border-color: black;
+  --checkbox-focus-border-color: black;
+  --checkbox-focus-bg: black;
+  --checkbox-icon-color: white;
+
+  // Radio
+  --radio-border-color: darkgrey;
+  --radio-focus-border-color: black;
+  --radio-focus-icon-color: black;
+
+  // Tag
+  --tag-bg: #ebebeb;
+
+  // Defaults
+  --text-color: black;
+  --invalid-text-color: #a43030;
+  --placeholder-text-color: #757575;
+  --default-border-color: #ebebeb;
+  --default-box-shadow: 0 0 5px #ebebeb;
+}
 
 /* stylelint-enable color-no-hex */

@@ -1,8 +1,6 @@
 @import "../../ui/reference/_colors.scss";
 @import "../../ui/reference/_measurement.scss";
 
-$input-height: 45px;
-
 .input-container {
   display: flex;
   align-items: center;
@@ -16,41 +14,34 @@ $input-height: 45px;
     justify-content: center;
 
     width: 40px;
-    height: $input-height;
+    height: var(--input-height);
   }
 }
 
 .input {
-  height: $input-height;
-  
+  height: var(--input-height);
+
   flex: 1;
 
   padding: 0 14px;
 
-  color: $black;
+  color: var(--text-color);
 
-  border: 1px solid $light-grey;
-  border-radius: $small-radius-size;
-  
+  border: 1px solid var(--default-border-color);
+  border-radius: var(--small-radius-size);
+
   font-size: inherit;
   font-weight: inherit;
 
   &::placeholder {
-    color: $grey;
+    color: var(--placeholder-text-color);
   }
 
   &:focus {
     outline: none;
   }
 
-  &:disabled {
-    color: $black;
-    -webkit-text-fill-color: $black;
-    
-    background-color: $light-grey;
-  }
-
   &.has-error {
-    border: 1px solid $red;
+    border: 1px solid var(--invalid-text-color);
   }
 }

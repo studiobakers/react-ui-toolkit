@@ -8,8 +8,8 @@
     "build": "npm run prettier:fix && ./node_modules/.bin/rollup -c",
     "test": "jest",
     "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}' 'stories/**/*.{ts,tsx}'",
-    "storybook": "start-storybook -p 6006",
-    "storybook:build": "build-storybook"
+    "storybook": "./node_modules/.bin/start-storybook -p 6006",
+    "storybook:build": "./node_modules/.bin/build-storybook"
   },
   "jest": {
     "preset": "ts-jest",

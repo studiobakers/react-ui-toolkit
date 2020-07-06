@@ -10,26 +10,10 @@
 
   margin-bottom: 10px;
 
-  color: $dark-grey;
-
   cursor: pointer;
   user-select: none;
 
   font-size: 16px;
-
-  &:hover {
-    .checkbox-input-icon-wrapper {
-      border-color: $dark-grey;
-    }
-  }
-
-  &.selected {
-    color: $black;
-
-    .checkbox-input-icon-wrapper {
-      border-color: $black;
-    }
-  }
 
   &.disabled {
     opacity: 0.5;
@@ -50,23 +34,21 @@
 
   &:focus {
     & ~ .checkbox-input-icon-wrapper {
-      border-color: $black;
+      border-color: var(--checkbox-focus-border-color);
     }
   }
 
   &:checked {
     & ~ .checkbox-input-icon-wrapper {
-      background-color: $black;
-      border-color: $black;
+      background-color: var(--checkbox-focus-bg);
+      border-color: var(--checkbox-focus-border-color);
 
       svg {
         display: block;
-      }
-    }
 
-    &:focus {
-      & ~ .checkbox-input-wrapper {
-        box-shadow: 0 0 5px rgba($black, 0.3);
+        path {
+          fill: var(--checkbox-icon-color);
+        }
       }
     }
   }
@@ -90,8 +72,8 @@
 
   margin-right: 10px;
 
-  border: 1px solid $black;
-  border-radius: $small-radius-size;
+  border: 1px solid var(--checkbox-border-color);
+  border-radius: var(--small-radius-size);
 
   transition: border-color $animation-duration $animation-function;
 }

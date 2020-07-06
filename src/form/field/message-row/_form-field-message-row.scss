@@ -8,6 +8,6 @@
   line-height: 15px;
 
   &.error-message {
-    color: $red;
+    color: var(--invalid-text-color);
   }
 }

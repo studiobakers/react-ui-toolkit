@@ -9,8 +9,8 @@
   padding: 0;
 
   background-color: white;
-  border: 1px solid $light-grey;
-  border-radius: $small-radius-size;
+  border: 1px solid var(--default-border-color);
+  border-radius: var(--small-radius-size);
 }
 
 .dropdown-empty-message {

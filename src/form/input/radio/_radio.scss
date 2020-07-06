@@ -6,29 +6,20 @@
   position: relative;
 
   display: grid;
-  grid-template-columns: 20px 1fr;
+  grid-template-columns: 30px 1fr;
 
   margin-bottom: 10px;
-  padding-left: 28px;
 
-  color: $dark-grey;
+  color: var(--text-color);
 
   cursor: pointer;
   user-select: none;
 
   font-size: 16px;
 
-  &:hover {
-    .radio-input-icon {
-      border-color: $black;
-    }
-  }
-
   &.selected {
-    color: $black;
-
     .radio-input-icon {
-      background-color: $black;
+      background-color: var(--radio-focus-icon-color);
       border-color: transparent;
     }
   }
@@ -52,7 +43,7 @@
 
   &:focus {
     & ~ .radio-input-icon {
-      border-color: $black;
+      background-color: var(--radio-focus-icon-color);
     }
   }
 
@@ -76,7 +67,7 @@
 
   box-sizing: border-box;
 
-  border: 1px solid $dark-grey;
+  border: 1px solid var(--radio-border-color);
   border-radius: 50%;
 
   transition: background-color $fast-animation-duration $animation-function;
@@ -91,7 +82,7 @@
     width: 6px;
     height: 6px;
 
-    background-color: $black;
+    background-color: var(--radio-focus-icon-color);
     border-radius: 50%;
 
     content: "";
