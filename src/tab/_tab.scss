@@ -1,0 +1,12 @@
+.tab {
+  .tab-header {
+    display: flex;
+  }
+
+  .tab-header-item {
+    --button-bg: transparent;
+    --button-width: auto;
+
+    color: black;
+  }
+}
