@@ -3,7 +3,7 @@ import "./_tab.scss";
 import React, {useState} from "react";
 import classNames from "classnames";
 
-import Button from "../button/Button";
+import TabHeaderItem from "./header/item/TabHeaderItem";
 
 export type TabItem = {
   id: string;
@@ -13,26 +13,26 @@ export type TabItem = {
 
 interface TabProps {
   items: TabItem[];
+  initialActiveTabIndex?: number;
   children: React.ReactNode[];
   customClassName?: string;
 }
 
-function Tab({items, children, customClassName}: TabProps) {
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
+function Tab({items, initialActiveTabIndex = 0, children, customClassName}: TabProps) {
+  const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
 
   return (
     <div className={tabClassName}>
       <header className={"tab-header"}>
         {items.map((item, index) => (
-          <Button
+          <TabHeaderItem
             key={item.id}
-            customClassName={"tab-header-item"}
-            onClick={handleChangeActiveTab(index)}>
-            {item.icon && <span className={"tab-header-item-icon"}>{item.icon}</span>}
-
+            onClick={handleChangeActiveTab}
+            icon={item.icon}
+            index={index}>
             {item.children}
-          </Button>
+          </TabHeaderItem>
         ))}
       </header>
 
@@ -41,7 +41,7 @@ function Tab({items, children, customClassName}: TabProps) {
   );
 
   function handleChangeActiveTab(index: number) {
-    return () => setActiveTabIndex(index);
+    setActiveTabIndex(index);
   }
 }
 
