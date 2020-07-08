@@ -10,7 +10,10 @@ type TabHeaderItemProps = Omit<TabItem, "id"> & {
 
 function TabHeaderItem({children, icon, index, onClick}: TabHeaderItemProps) {
   return (
-    <Button customClassName={"tab-header-item"} onClick={handleClick}>
+    <Button
+      customClassName={"tab-header-item"}
+      onClick={handleClick}
+      testid={`tab-header-item-${index}`}>
       {icon && <span className={"tab-header-item-icon"}>{icon}</span>}
 
       {children}
