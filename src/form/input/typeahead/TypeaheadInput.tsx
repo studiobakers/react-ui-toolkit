@@ -60,6 +60,12 @@ function TypeaheadInput(props: TypeaheadInputProps) {
     }
   }, [shouldResetValue, setInputValue]);
 
+  useEffect(() => {
+    if (value) {
+      setInputValue(value);
+    }
+  }, [value, setInputValue]);
+
   return (
     <Input
       inputContainerRef={inputContainerRef}
