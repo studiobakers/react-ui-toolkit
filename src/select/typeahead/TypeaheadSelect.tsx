@@ -21,7 +21,7 @@ export interface TypeaheadSelectProps {
   selectedOptions: DropdownOption[];
   dropdownOptions: DropdownOption[];
   onSelect: (option: DropdownOption) => void;
-  typeaheadProps: Omit<TypeaheadInputProps, "onQueryChange" | "testid" | "value">;
+  typeaheadProps: Omit<TypeaheadInputProps, "onQueryChange" | "testid">;
   onTagRemove?: (option: DropdownOption) => void;
   onKeywordChange?: (value: string) => void;
   selectedOptionLimit?: number;
@@ -118,6 +118,7 @@ function TypeaheadSelect({
           id={typeaheadProps.id}
           name={typeaheadProps.name}
           placeholder={typeaheadProps.placeholder}
+          value={typeaheadProps.value}
           onQueryChange={handleKeywordChange}
           shouldResetValue={shouldResetTypeaheadValue}
           rightIcon={
