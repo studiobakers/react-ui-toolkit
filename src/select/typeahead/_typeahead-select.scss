@@ -18,8 +18,8 @@
   align-items: center;
   justify-content: flex-start;
 
-  border: 1px solid $light-grey;
-  border-radius: $small-radius-size;
+  border: 1px solid var(--default-border-color);
+  border-radius: var(--small-border-radius);
 }
 
 .typeahead-select-header-tags-container {
@@ -66,11 +66,5 @@
 .typeahead-select-dropdown.disabled {
   .typeahead-select-tag-list-container {
     width: 100%;
-  }
-}
-
-.typeahead-select-right-icon-container {
-  path {
-    fill: $grey;
   }
 }

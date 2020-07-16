@@ -3,5 +3,10 @@
   "plugins": [
     "stylelint-order",
     "stylelint-scss"
-  ]
+  ],
+  "rules": 
+    {
+      "color-hex-case": "lower"
+    }
+  
 }
