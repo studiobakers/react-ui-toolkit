@@ -7,7 +7,7 @@
   width: var(--button-width);
   height: var(--button-height);
 
-  color: white;
+  color: var(--button-color);
   background-color: var(--button-bg);
 
   border: none;
@@ -15,8 +15,6 @@
   outline: none;
 
   cursor: pointer;
-
-  font-size: 14px;
 
   .spinner-background {
     background: var(--button-bg);
