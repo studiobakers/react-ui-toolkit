@@ -128,7 +128,7 @@ function TypeaheadSelect({
               <CaretDownIcon aria-hidden={true} />
             )
           }
-          onFocus={openDropdownMenu}
+          onFocus={handleTypeaheadInputFocus}
         />
       )}
     </div>
@@ -157,10 +157,17 @@ function TypeaheadSelect({
     setMenuVisibility(true);
   }
 
+  function handleTypeaheadInputFocus(event: React.SyntheticEvent<HTMLInputElement>) {
+    openDropdownMenu();
+
+    if (typeaheadProps.onFocus) {
+      typeaheadProps.onFocus(event);
+    }
+  }
+
   function handleSelect(option: DropdownOption | null) {
     if (!shouldDisplayOnlyTags) {
       onSelect(option!);
-      setShouldResetTypeaheadValue(true);
       setComputedDropdownOptions(dropdownOptions);
     }
   }
