@@ -30,9 +30,6 @@
   border: 1px solid var(--default-border-color);
   border-radius: var(--small-radius-size);
 
-  font-size: inherit;
-  font-weight: inherit;
-
   &::placeholder {
     color: var(--placeholder-text-color);
   }
