@@ -11,7 +11,7 @@ export type TabItem = {
   icon?: React.ReactNode;
 };
 
-interface TabProps {
+export interface TabProps {
   items: TabItem[];
   initialActiveTabIndex?: number;
   children: React.ReactNode[];

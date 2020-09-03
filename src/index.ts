@@ -13,8 +13,10 @@ import FileUploadButton, {
   FileUploadButtonProps
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
+import Tab, {TabItem, TabProps} from "./tab/Tab";
 
 export {
+  // Components
   FormField,
   Input,
   FileInput,
@@ -28,6 +30,8 @@ export {
   Button,
   FileUploadButton,
   Spinner,
+  Tab,
+  // Types
   FormFieldProps,
   InputProps,
   FileInputProps,
@@ -40,5 +44,7 @@ export {
   ListProps,
   ButtonProps,
   FileUploadButtonProps,
-  SpinnerProps
+  SpinnerProps,
+  TabItem,
+  TabProps
 };
