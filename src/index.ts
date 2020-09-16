@@ -7,6 +7,11 @@ import RadioGroup, {RadioGroupProps} from "./form/input/radio/group/RadioGroup";
 import TypeaheadInput, {TypeaheadInputProps} from "./form/input/typeahead/TypeaheadInput";
 import TypeaheadSelect, {TypeaheadSelectProps} from "./select/typeahead/TypeaheadSelect";
 import Dropdown, {DropdownProps} from "./dropdown/Dropdown";
+import {
+  DropdownOption,
+  DropdownOptionSelectHandler,
+  DropdownSelectedOption
+} from "./dropdown/list/item/DropdownListItem";
 import List, {ListProps} from "./list/List";
 import Button, {ButtonProps} from "./button/Button";
 import FileUploadButton, {
@@ -41,6 +46,9 @@ export {
   TypeaheadInputProps,
   TypeaheadSelectProps,
   DropdownProps,
+  DropdownOption,
+  DropdownOptionSelectHandler,
+  DropdownSelectedOption,
   ListProps,
   ButtonProps,
   FileUploadButtonProps,
