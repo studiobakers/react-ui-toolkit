@@ -1,8 +1,6 @@
 /* eslint-disable max-lines */
 import CaretDownIcon from "../ui/icons/caret-down.svg";
 
-import "./_dropdown.scss";
-
 import React, {Fragment, useState, useRef, useEffect} from "react";
 import classNames from "classnames";
 
@@ -27,6 +25,8 @@ import {
 import Spinner from "../spinner/Spinner";
 import {SINGLE_ALPHANUMERIC_CHARACTER_REGEX} from "../core/utils/stringConstants";
 import useOnClickOutside from "../core/utils/hooks/onClickOutside";
+
+import "./_dropdown.scss";
 
 export type MenuVisibilityChangeHandlerTypeArgument = "open" | "closed";
 
