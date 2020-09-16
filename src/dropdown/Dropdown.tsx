@@ -201,26 +201,25 @@ function Dropdown<OptionIdShape extends string>({
       onKeyDown={handleKeyDown}>
       {dropdownHeader}
 
-      {shouldShowMenu && (
-        <DropdownList
-          testid={testid}
-          customClassName={position}
-          role={role}
-          options={computedOptions}
-          selectedOption={selectedOption}
-          focusedOption={computedOptions[focusedOptionIndex]}
-          onSelect={handleOptionSelect}
-          onFocus={handleOptionFocus}
-          // Pass mouseDown and mouseUp handlers to catch clicks within an option element and prevent blur
-          onMouseDown={handleMouseDown}
-          onMouseUp={handleMouseUp}
-          ariaLabelledBy={`${testid}.header-button`}
-          ariaHidden={!isMenuOpen}
-          isMultiSelect={isMultiSelect}
-          canSelectAlreadySelected={canSelectAlreadySelected}
-          noOptionsMessage={noOptionsMessage}
-        />
-      )}
+      <DropdownList
+        testid={testid}
+        isVisible={shouldShowMenu}
+        customClassName={position}
+        role={role}
+        options={computedOptions}
+        selectedOption={selectedOption}
+        focusedOption={computedOptions[focusedOptionIndex]}
+        onSelect={handleOptionSelect}
+        onFocus={handleOptionFocus}
+        // Pass mouseDown and mouseUp handlers to catch clicks within an option element and prevent blur
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        ariaLabelledBy={`${testid}.header-button`}
+        ariaHidden={!isMenuOpen}
+        isMultiSelect={isMultiSelect}
+        canSelectAlreadySelected={canSelectAlreadySelected}
+        noOptionsMessage={noOptionsMessage}
+      />
     </div>
   );
 
@@ -235,6 +234,10 @@ function Dropdown<OptionIdShape extends string>({
         // @ts-ignore
         onSelect(option, event);
       }
+
+      setFocusedOptionIndex(
+        generateInitialFocusedDropdownOptionIndex(position, computedOptions, option)
+      );
     }
 
     if (shouldCloseOnSelect) {
@@ -254,18 +257,23 @@ function Dropdown<OptionIdShape extends string>({
   }
 
   function toggleDropdown() {
-    setMenuVisibility(!isMenuOpen);
+    if (isMenuOpen) {
+      closeDropdown();
+    } else {
+      setMenuVisibility(true);
+    }
   }
 
   function handleDropdownFocus() {
-    if (!isMouseDown && canOpenDropdownMenu) {
+    // `document.hidden` is used on dropdown focus and blur handlers to handle changes on screen visibility correctly
+    if (!document.hidden && !isMouseDown && canOpenDropdownMenu) {
       setMenuVisibility(true);
     }
   }
 
   function handleBlur() {
     // Prevent blur on option clicks
-    if (!isMouseDown && isMenuOpen) {
+    if (!document.hidden && !isMouseDown && isMenuOpen) {
       toggleDropdown();
     }
 

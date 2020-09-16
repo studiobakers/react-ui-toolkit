@@ -1,9 +1,8 @@
 function computeScrollAmountToMakeChildVisible(parent: HTMLElement, child: HTMLElement) {
-  let visibilityBoundary = 0;
-  let scrollSize = 0;
-
   const {clientHeight: parentHeight, scrollTop: parentScrollTop} = parent;
   const {clientHeight: childHeight, offsetTop: childOffsetTop} = child;
+  let visibilityBoundary = 0;
+  let scrollSize = 0;
 
   visibilityBoundary = parentHeight - (childOffsetTop - parentScrollTop);
 

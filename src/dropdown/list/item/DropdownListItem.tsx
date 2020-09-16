@@ -34,6 +34,7 @@ interface DropdownListItemProps<OptionIdShape = string> {
   onMouseDown?: React.ReactEventHandler<HTMLLIElement>;
   onMouseUp?: React.ReactEventHandler<HTMLLIElement>;
   canSelectAlreadySelected?: boolean;
+  focusedItemRef?: React.RefObject<HTMLLIElement>;
 }
 
 function DropdownListItem<OptionIdShape extends string>({
@@ -46,7 +47,8 @@ function DropdownListItem<OptionIdShape extends string>({
   onKeyDown,
   onMouseDown,
   onMouseUp,
-  canSelectAlreadySelected = false
+  canSelectAlreadySelected = false,
+  focusedItemRef
 }: DropdownListItemProps<OptionIdShape>) {
   const {id: optionId, customClassName, icon, title, subtitle, CustomContent} = option;
   const isSelected = Boolean(selectedOption && optionId === selectedOption.id);
@@ -59,6 +61,7 @@ function DropdownListItem<OptionIdShape extends string>({
 
   return (
     <li
+      ref={focusedItemRef}
       data-testid={testid}
       id={optionId}
       role={"option"}

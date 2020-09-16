@@ -1,6 +1,6 @@
 import "./_dropdown-list.scss";
 
-import React, {useRef, useEffect} from "react";
+import React, {useRef, useLayoutEffect} from "react";
 import classNames from "classnames";
 
 import DropdownListItem, {
@@ -11,12 +11,13 @@ import DropdownListItem, {
 import {computeScrollAmountToMakeChildVisible} from "../../core/utils/domUtils";
 
 interface DropdownListProps<OptionIdShape extends string> {
-  testid?: string;
+  isVisible: boolean;
   options: DropdownOption<OptionIdShape>[];
   selectedOption: DropdownSelectedOption<OptionIdShape>;
   focusedOption: DropdownSelectedOption<OptionIdShape>;
   onSelect: DropdownOptionSelectHandler<OptionIdShape>;
   onFocus: DropdownOptionSelectHandler<OptionIdShape>;
+  testid?: string;
   onMouseDown?: React.ReactEventHandler<HTMLLIElement>;
   onMouseUp?: React.ReactEventHandler<HTMLLIElement>;
   onKeyDown?: DropdownOptionSelectHandler<OptionIdShape>;
@@ -32,6 +33,7 @@ interface DropdownListProps<OptionIdShape extends string> {
 
 function DropdownList<OptionIdShape extends string>({
   testid,
+  isVisible,
   options,
   customClassName,
   role,
@@ -49,35 +51,19 @@ function DropdownList<OptionIdShape extends string>({
   noOptionsMessage
 }: DropdownListProps<OptionIdShape>) {
   const listRef = useRef<HTMLUListElement>(null);
-  const containerClassName = classNames("dropdown-list", customClassName);
+  const listItemRef = useRef<HTMLLIElement>(null);
+  const containerClassName = classNames("dropdown-list", customClassName, {
+    "dropdown-list__is-visible": isVisible
+  });
 
-  useEffect(() => {
-    if (listRef.current) {
-      const focusedOptionElement =
-        focusedOption && document.getElementById(focusedOption.id);
-
-      if (focusedOptionElement) {
-        listRef.current.scrollTop += computeScrollAmountToMakeChildVisible(
-          listRef.current,
-          focusedOptionElement
-        );
-      }
+  useLayoutEffect(() => {
+    if (isVisible && listRef.current && listItemRef.current) {
+      listRef.current.scrollTop += computeScrollAmountToMakeChildVisible(
+        listRef.current,
+        listItemRef.current
+      );
     }
-  }, [focusedOption]);
-
-  useEffect(() => {
-    if (listRef.current) {
-      const selectedOptionElement =
-        selectedOption && document.getElementById(selectedOption.id);
-
-      if (selectedOptionElement) {
-        listRef.current.scrollTop += computeScrollAmountToMakeChildVisible(
-          listRef.current,
-          selectedOptionElement
-        );
-      }
-    }
-  }, [selectedOption]);
+  }, [isVisible, focusedOption]);
 
   return (
     <ul
@@ -102,6 +88,7 @@ function DropdownList<OptionIdShape extends string>({
     return (
       <DropdownListItem
         key={option.id}
+        focusedItemRef={option.id === focusedOption?.id ? listItemRef : undefined}
         testid={`${testid}.item-${index}`}
         option={option}
         selectedOption={selectedOption}
