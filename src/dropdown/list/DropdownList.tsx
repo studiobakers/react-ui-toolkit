@@ -53,7 +53,7 @@ function DropdownList<OptionIdShape extends string>({
   const listRef = useRef<HTMLUListElement>(null);
   const listItemRef = useRef<HTMLLIElement>(null);
   const containerClassName = classNames("dropdown-list", customClassName, {
-    "dropdown-list__is-visible": isVisible
+    "dropdown-list--is-visible": isVisible
   });
 
   useLayoutEffect(() => {
