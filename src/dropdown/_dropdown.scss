@@ -43,7 +43,7 @@ $dropdown-header-horizontal-padding: 8px;
   width: 100%;
   height: var(--dropdown-header-button-height);
 
-  background-color: white;
+  background-color: var(--dropdown-header-button-bg);
   border: var(--dropdown-header-button-border-width) solid var(--default-border-color);
   border-radius: var(--small-border-radius);
 
