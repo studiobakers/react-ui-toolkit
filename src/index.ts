@@ -13,6 +13,7 @@ import {
   DropdownSelectedOption
 } from "./dropdown/list/item/DropdownListItem";
 import List, {ListProps} from "./list/List";
+import ListItem from "./list/item/ListItem";
 import Button, {ButtonProps} from "./button/Button";
 import FileUploadButton, {
   FileUploadButtonProps
@@ -32,6 +33,7 @@ export {
   TypeaheadSelect,
   Dropdown,
   List,
+  ListItem,
   Button,
   FileUploadButton,
   Spinner,

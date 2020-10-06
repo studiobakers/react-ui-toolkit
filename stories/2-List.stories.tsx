@@ -2,6 +2,9 @@ import React, {Fragment} from "react";
 import {storiesOf} from "@storybook/react";
 
 import List from "../src/list/List";
+import ListItem from "../src/list/item/ListItem";
+import {useState} from "@storybook/addons";
+import StateProvider from "./utils/StateProvider";
 
 const users = [
   {
@@ -38,9 +41,9 @@ const style = (
 function renderPlaceholders() {
   return (
     <Fragment>
-      <li className={"list-item-placeholder"} />
-      <li className={"list-item-placeholder"} />
-      <li className={"list-item-placeholder"} />
+      <ListItem customClassName={"list-item-placeholder"} />
+      <ListItem customClassName={"list-item-placeholder"} />
+      <ListItem customClassName={"list-item-placeholder"} />
 
       <style>
         {`
@@ -76,9 +79,27 @@ function renderPlaceholders() {
 
 function UserListItem({user}) {
   return (
-    <li className={"list-item"}>
+    <ListItem>
       {user.name} <small>{user.email}</small>
-    </li>
+    </ListItem>
+  );
+}
+
+function ClickableUserListItem({user}) {
+  return (
+    <StateProvider initialState={{displayEmail: false}}>
+      {(state, setState) => (
+        <ListItem
+          clickableListItemProps={{
+            onClick: () => {
+              setState({displayEmail: !state.displayEmail});
+            }
+          }}>
+          Click to toggle <em>{user.name}</em>`s email address
+          {state.displayEmail && <strong>{` ${user.email}`}</strong>}
+        </ListItem>
+      )}
+    </StateProvider>
   );
 }
 
@@ -114,5 +135,12 @@ storiesOf("List", module)
         }}>
         {(item) => <UserListItem user={item} />}
       </List>
+    </Fragment>
+  ))
+  .add("Clickable Items", () => (
+    <Fragment>
+      <List items={users}>{(item) => <ClickableUserListItem user={item} />}</List>
+
+      {style}
     </Fragment>
   ));
