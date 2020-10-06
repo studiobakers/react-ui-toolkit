@@ -20,6 +20,7 @@ export default [
       TypeaheadSelect: "src/select/typeahead/TypeaheadSelect.tsx",
       Dropdown: "src/dropdown/Dropdown.tsx",
       List: "src/list/List.tsx",
+      ListItem: "src/list/item/ListItem.tsx",
       Button: "src/button/Button.tsx",
       FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
       Spinner: "src/spinner/Spinner.tsx"
