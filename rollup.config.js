@@ -5,6 +5,8 @@ import postcss from "rollup-plugin-postcss";
 import stylelint from "rollup-plugin-stylelint";
 import reactSvg from "rollup-plugin-react-svg";
 
+const path = require("path");
+
 export default [
   {
     external: ["react", "classnames"],
@@ -38,7 +40,9 @@ export default [
       stylelint({
         ignoreFiles: ["**/*.ts", "**/*.js"]
       }),
-      postcss(),
+      postcss({
+        extract: path.resolve("dist/main.css")
+      }),
       typescript({
         rollupCommonJSResolveHack: true,
         exclude: "**/__tests__/**",
