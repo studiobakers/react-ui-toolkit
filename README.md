@@ -7,11 +7,10 @@ Hipo's React based UI Toolkit / [Demo](https://react-ui-toolkit.now.sh/)
 After installing the `@hipo/react-ui-toolkit` package you can start with simple example
 
 ```javascript
-import FormField from "@hipo/react-ui-toolkit/dist/Input";
-import Input from "@hipo/react-ui-toolkit/dist/Input";
+import {FormField, Input} from "@hipo/react-ui-toolkit/dist/Input";
 
-// or you can directly import the index
-// import {FormField, Input} from "@hipo/react-ui-toolkit"
+// This is required to gather the initial styles of the components
+import "@hipo/react-ui-toolkit/dist/main.css";
 
 function LoginForm() {
   return (
@@ -23,6 +22,8 @@ function LoginForm() {
       <FormField label="Password">
         <Input name="password" type="password" />
       </FormField>
+
+      <Button>Login</Button>
     </div>
   );
 }
@@ -53,9 +54,3 @@ Or you can run `npm run storybook` to see the components live. Storybook has own
 ESLint and Prettier will handle the linting task. You can set a watcher for `npm run prettier:fix` command in your IDE otherwise you need to run prettier manually or right before the production build it'll automatically runs.
 
 The ruleset can be found in [@hipo/eslint-config-base](https://github.com/Hipo/eslint-config-hipo-base), [@hipo/eslint-config-react](https://github.com/Hipo/eslint-config-hipo-base)
-
-### TODO
-
-- [ ] Add tests
-- [ ] Add source info of components to Storybook
-- [x] Components should have basic CSS styles
