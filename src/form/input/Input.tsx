@@ -22,6 +22,8 @@ export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> 
   max?: number;
   step?: number;
   role?: string;
+  autoComplete?: string;
+  autoCorrect?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
@@ -52,6 +54,8 @@ function Input(props: InputProps) {
     leftIcon,
     rightIcon,
     role,
+    autoComplete = "off",
+    autoCorrect = "off",
     inputContainerRef,
     ...rest
   } = props;
@@ -81,8 +85,8 @@ function Input(props: InputProps) {
         onFocus={onFocus}
         onBlur={onBlur}
         placeholder={placeholder}
-        autoComplete={"off"}
-        autoCorrect={"off"}
+        autoComplete={autoComplete}
+        autoCorrect={autoCorrect}
         disabled={isDisabled}
         onKeyDown={onKeyDown}
         onKeyUp={onKeyUp}
