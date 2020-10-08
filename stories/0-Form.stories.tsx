@@ -5,6 +5,7 @@ import StateProvider from "./utils/StateProvider";
 
 import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
+import PasswordInput from "../src/form/password-input/PasswordInput";
 import CheckboxInput from "../src/form/input/checkbox/Checkbox";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
 
@@ -55,6 +56,16 @@ storiesOf("Form", module)
         onChange={(e) => console.log(e.currentTarget.value)}
       />
     </FormField>
+  ))
+  .add("Password Input", () => (
+    <FormField label={"Password"}>
+        <PasswordInput
+          testid={"LoginForm.input"}
+          name={"password"}
+          placeholder={"Enter password"}
+          onChange={(e) => console.log(e.currentTarget.value)}
+        />
+      </FormField>
   ))
   .add("Checkbox States", () => {
     const initialState = {
