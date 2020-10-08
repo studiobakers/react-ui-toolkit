@@ -1,5 +1,6 @@
 import FormField, {FormFieldProps} from "./form/field/FormField";
 import Input, {InputProps} from "./form/input/Input";
+import PasswordInput, {PasswordInputProps} from "./form/password-input/PasswordInput";
 import FileInput, {FileInputProps} from "./form/input/file/FileInput";
 import CheckboxInput, {CheckboxInputProps} from "./form/input/checkbox/Checkbox";
 import RadioInput, {RadioInputProps} from "./form/input/radio/Radio";
@@ -25,6 +26,7 @@ export {
   FormField,
   Input,
   FileInput,
+  PasswordInput,
   CheckboxInput,
   RadioInput,
   RadioGroup,
@@ -40,6 +42,7 @@ export {
   FormFieldProps,
   InputProps,
   FileInputProps,
+  PasswordInputProps,
   CheckboxInputProps,
   RadioInputProps,
   RadioGroupProps,

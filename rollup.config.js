@@ -12,6 +12,7 @@ export default [
       index: "src/index.ts",
       FormField: "src/form/field/FormField.tsx",
       Input: "src/form/input/Input.tsx",
+      PasswordInput: "src/form/password-input/PasswordInput.tsx",
       FileInput: "src/form/input/file/FileInput.tsx",
       Checkbox: "src/form/input/checkbox/Checkbox.tsx",
       Radio: "src/form/input/radio/Radio.tsx",
