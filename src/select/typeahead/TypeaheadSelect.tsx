@@ -158,7 +158,9 @@ function TypeaheadSelect({
   }
 
   function handleTypeaheadInputFocus(event: React.SyntheticEvent<HTMLInputElement>) {
-    openDropdownMenu();
+    if (canOpenDropdownMenu) {
+      openDropdownMenu();
+    }
 
     if (typeaheadProps.onFocus) {
       typeaheadProps.onFocus(event);
