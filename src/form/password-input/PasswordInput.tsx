@@ -3,20 +3,19 @@ import "./_password-input.scss";
 import React, {useState} from "react";
 import classNames from "classnames";
 
-import Input from "../input/Input";
+import Input, {InputProps} from "../input/Input";
 import Button from "../../button/Button";
 
-export interface PasswordInputProps extends React.InputHTMLAttributes<HTMLInputElement> {
+export interface PasswordInputProps extends Omit<InputProps, "leftIcon" | "rightIcon"> {
   onChange: React.ReactEventHandler<HTMLInputElement>;
   onFocus?: React.ReactEventHandler<HTMLInputElement>;
   onBlur?: React.ReactEventHandler<HTMLInputElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
   onInput?: React.KeyboardEventHandler<HTMLInputElement>;
-  passwordVisibilityButtonTestId?: string;
-  hidePasswordButtonIcon?: Node;
-  showPasswordButtonIcon?: Node;
-  testid: string;
+  hideIcon?: React.ReactNode;
+  revealIcon?: React.ReactNode
+  testid?: string;
   name: string;
   value?: string;
   hasError?: boolean;
@@ -32,22 +31,21 @@ function PasswordInput({
   hasError,
   placeholder,
   customClassName,
-  hidePasswordButtonIcon,
-  showPasswordButtonIcon,
-  passwordVisibilityButtonTestId
+  hideIcon,
+  revealIcon
 }: PasswordInputProps) {
   const [isPasswordShown, setPasswordVisibility] = useState(false);
-  const passwrodInputIconClassName = classNames("password-input__icon", {
+  const passwordInputIconClassName = classNames("password-input__icon", {
     "password-input__icon--is-visible": Boolean(value)
   });
   const passwordInputClassName = classNames("password-input", customClassName);
   let iconAriaLabel = "Show password";
-  let icon = showPasswordButtonIcon;
+  let icon = revealIcon;
   let inputType: "password" | "text" = "password";
 
   if (isPasswordShown) {
     iconAriaLabel = "Hide password";
-    icon = hidePasswordButtonIcon;
+    icon = hideIcon;
     inputType = "text";
   }
 
@@ -61,10 +59,10 @@ function PasswordInput({
       hasError={hasError}
       placeholder={placeholder}
       onChange={onChange}
-      rightIcon={showPasswordButtonIcon && hidePasswordButtonIcon && (
+      rightIcon={revealIcon && hideIcon && (
         <Button
-          testid={passwordVisibilityButtonTestId}
-          customClassName={passwrodInputIconClassName}
+          testid={`${testid}-password-visibility-icon`}
+          customClassName={passwordInputIconClassName}
           ariaLabel={iconAriaLabel}
           onClick={togglePasswordVisibility}
           shouldStopPropagation={false}
