@@ -14,7 +14,7 @@ export interface PasswordInputProps extends Omit<InputProps, "leftIcon" | "right
   onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
   onInput?: React.KeyboardEventHandler<HTMLInputElement>;
   hideIcon?: React.ReactNode;
-  revealIcon?: React.ReactNode
+  revealIcon?: React.ReactNode;
   testid?: string;
   name: string;
   value?: string;
