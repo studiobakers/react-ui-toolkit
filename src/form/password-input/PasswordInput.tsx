@@ -7,20 +7,8 @@ import Input, {InputProps} from "../input/Input";
 import Button from "../../button/Button";
 
 export interface PasswordInputProps extends Omit<InputProps, "leftIcon" | "rightIcon"> {
-  onChange: React.ReactEventHandler<HTMLInputElement>;
-  onFocus?: React.ReactEventHandler<HTMLInputElement>;
-  onBlur?: React.ReactEventHandler<HTMLInputElement>;
-  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
-  onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
-  onInput?: React.KeyboardEventHandler<HTMLInputElement>;
   hideIcon?: React.ReactNode;
   revealIcon?: React.ReactNode;
-  testid?: string;
-  name: string;
-  value?: string;
-  hasError?: boolean;
-  placeholder?: string;
-  customClassName?: string;
 }
 
 function PasswordInput({
