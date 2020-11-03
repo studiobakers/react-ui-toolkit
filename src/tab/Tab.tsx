@@ -30,6 +30,7 @@ function Tab({items, initialActiveTabIndex = 0, children, customClassName}: TabP
             key={item.id}
             onClick={handleChangeActiveTab}
             icon={item.icon}
+            isActive={activeTabIndex === index}
             index={index}>
             {item.children}
           </TabHeaderItem>

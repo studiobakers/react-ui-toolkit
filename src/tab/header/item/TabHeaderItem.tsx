@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 import {TabItem} from "../../Tab";
 import Button from "../../../button/Button";
@@ -6,12 +7,13 @@ import Button from "../../../button/Button";
 type TabHeaderItemProps = Omit<TabItem, "id"> & {
   index: number;
   onClick: (index: number) => void;
+  isActive: boolean;
 };
 
-function TabHeaderItem({children, icon, index, onClick}: TabHeaderItemProps) {
+function TabHeaderItem({children, icon, index, onClick, isActive}: TabHeaderItemProps) {
   return (
     <Button
-      customClassName={"tab-header-item"}
+      customClassName={classNames("tab-header-item", {active: isActive})}
       onClick={handleClick}
       testid={`tab-header-item-${index}`}>
       {icon && <span className={"tab-header-item-icon"}>{icon}</span>}
