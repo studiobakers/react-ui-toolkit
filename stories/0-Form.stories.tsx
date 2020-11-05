@@ -59,13 +59,13 @@ storiesOf("Form", module)
   ))
   .add("Password Input", () => (
     <FormField label={"Password"}>
-        <PasswordInput
-          testid={"LoginForm.input"}
-          name={"password"}
-          placeholder={"Enter password"}
-          onChange={(e) => console.log(e.currentTarget.value)}
-        />
-      </FormField>
+      <PasswordInput
+        testid={"LoginForm.input"}
+        name={"password"}
+        placeholder={"Enter password"}
+        onChange={(e) => console.log(e.currentTarget.value)}
+      />
+    </FormField>
   ))
   .add("Checkbox States", () => {
     const initialState = {

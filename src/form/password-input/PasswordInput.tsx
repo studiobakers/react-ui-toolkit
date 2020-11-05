@@ -47,17 +47,20 @@ function PasswordInput({
       hasError={hasError}
       placeholder={placeholder}
       onChange={onChange}
-      rightIcon={revealIcon && hideIcon && (
-        <Button
-          testid={`${testid}-password-visibility-icon`}
-          customClassName={passwordInputIconClassName}
-          ariaLabel={iconAriaLabel}
-          onClick={togglePasswordVisibility}
-          shouldStopPropagation={false}
-          shouldPreventDefault={false}>
-          {icon}
-        </Button>
-      )}
+      rightIcon={
+        revealIcon &&
+        hideIcon && (
+          <Button
+            testid={`${testid}-password-visibility-icon`}
+            customClassName={passwordInputIconClassName}
+            ariaLabel={iconAriaLabel}
+            onClick={togglePasswordVisibility}
+            shouldStopPropagation={false}
+            shouldPreventDefault={false}>
+            {icon}
+          </Button>
+        )
+      }
     />
   );
 
