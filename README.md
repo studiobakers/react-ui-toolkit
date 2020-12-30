@@ -1,4 +1,4 @@
-### react-ui-toolkit 🧩
+### @hipo/react-ui-toolkit 🧩
 
 Hipo's React based UI Toolkit / [Demo](https://react-ui-toolkit.now.sh/)
 
@@ -9,12 +9,13 @@ After installing the `@hipo/react-ui-toolkit` package you can start with simple 
 ```javascript
 import {FormField, Input} from "@hipo/react-ui-toolkit/dist/Input";
 
-// This is required to gather the initial styles of the components
+// This import required to gather the initial styles of the components
+// You can do it while bootstrapping your apps
 import "@hipo/react-ui-toolkit/dist/main.css";
 
 function LoginForm() {
   return (
-    <div>
+    <form>
       <FormField label="E-mail">
         <Input name="email" />
       </FormField>
@@ -23,8 +24,8 @@ function LoginForm() {
         <Input name="password" type="password" />
       </FormField>
 
-      <Button>Login</Button>
-    </div>
+      <Button type="submit">Login</Button>
+    </form>
   );
 }
 ```
@@ -32,6 +33,21 @@ function LoginForm() {
 ### Styling
 
 Every component holds a minimum amount of CSS. You can modify them via the CSS variables. See `_colors.scss` and `_measurement.scss`
+
+Here is a simple example that shows how to customize `Button` and `Input`
+
+```css
+// _button.css
+.primary-button {
+  --button-bg: #989898;
+  --button-color: black;
+}
+
+// _input.css
+.input {
+  --default-border-color: black;
+}
+```
 
 ### Storybook
 
