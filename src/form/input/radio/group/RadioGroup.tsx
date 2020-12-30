@@ -6,12 +6,12 @@ import classNames from "classnames";
 import RadioInput, {RadioInputItem, RadioInputProps} from "../Radio";
 
 export interface RadioGroupProps {
-  testid?: string;
   items: RadioInputItem[];
   selectedItem: null | RadioInputItem;
   onSelect: RadioInputProps["onSelect"];
   customClassName?: string;
   isDisabled?: boolean;
+  testid?: string;
 }
 
 function RadioGroup({
@@ -29,7 +29,8 @@ function RadioGroup({
       {items.map((item) => (
         <li
           key={item.id}
-          className={classNames("radio-group-item", item.customClassName)}>
+          className={classNames("radio-group-item", item.customClassName)}
+          data-testid={`${testid}.item`}>
           <RadioInput
             isDisabled={isDisabled || item.isDisabled}
             item={item}
