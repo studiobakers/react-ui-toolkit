@@ -4,7 +4,6 @@ import React from "react";
 import classNames from "classnames";
 
 export interface RadioInputItem<Id = string> {
-  testid?: string;
   id: Id;
   content: React.ReactNode;
   inputProps: {
@@ -15,11 +14,12 @@ export interface RadioInputItem<Id = string> {
   context?: any;
   customClassName?: string;
   isDisabled?: boolean;
+  testid?: string;
 }
 
 export type RadioInputSelectHandler<Id = string> = (
-  name: RadioInputItem["inputProps"]["name"],
-  item: RadioInputItem<Id>
+  item: RadioInputItem<Id>,
+  event?: React.SyntheticEvent<HTMLInputElement>
 ) => void;
 
 export interface RadioInputProps {
@@ -60,7 +60,7 @@ function RadioInput({item, onSelect, isSelected, isDisabled}: RadioInputProps) {
   );
 
   function handleRadioButtonChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    onSelect(event.currentTarget.name, item);
+    onSelect(item, event);
   }
 }
 
