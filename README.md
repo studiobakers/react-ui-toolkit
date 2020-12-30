@@ -10,7 +10,7 @@ After installing the `@hipo/react-ui-toolkit` package you can start with simple 
 import {FormField, Input} from "@hipo/react-ui-toolkit/dist/Input";
 
 // This import required to gather the initial styles of the components
-// You can do it while bootstrapping your apps
+// You can do it while bootstrapping your app
 import "@hipo/react-ui-toolkit/dist/main.css";
 
 function LoginForm() {
