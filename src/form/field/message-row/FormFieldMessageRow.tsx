@@ -7,16 +7,26 @@ interface FormFieldMessageRowProps {
   className?: string;
   type: "error" | "warning" | "helper";
   message?: string;
+  testid?: string;
 }
 
-function FormFieldMessageRow({className, type, message}: FormFieldMessageRowProps) {
+function FormFieldMessageRow({
+  className,
+  type,
+  message,
+  testid
+}: FormFieldMessageRowProps) {
   const messageRowClassName = classNames(
     "form-field-message-row",
     className,
     `${[type]}-message`
   );
 
-  return <p className={messageRowClassName}>{message}</p>;
+  return (
+    <p data-testid={testid} className={messageRowClassName}>
+      {message}
+    </p>
+  );
 }
 
 export default FormFieldMessageRow;
