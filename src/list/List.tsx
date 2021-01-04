@@ -4,11 +4,12 @@ import React, {Fragment} from "react";
 import classNames from "classnames";
 
 export interface ListProps<Item = any> {
-  testid?: string;
-  customClassName?: string;
   items: Item[];
   children: (item: Item, testid: string, index?: number) => JSX.Element;
   listItemKeyGenerator?: (item: Item, testid: string) => string;
+  testid?: string;
+  role?: string;
+  customClassName?: string;
   placeholderProps?: {
     shouldDisplayPlaceholder: boolean;
     placeholder: React.ReactNode;
@@ -24,6 +25,7 @@ function List<Item extends any>({
   children,
   customClassName,
   testid,
+  role,
   listItemKeyGenerator,
   placeholderProps,
   emptyStateProps
@@ -31,7 +33,7 @@ function List<Item extends any>({
   const listClassName = classNames("list", customClassName);
 
   return (
-    <ul className={listClassName}>
+    <ul className={listClassName} role={role}>
       {items.map((item: Item, index: number) => {
         const listItemTestId = `${testid}.item-${index}`;
         let key = listItemTestId;

@@ -12,6 +12,7 @@ export interface FormFieldProps {
   customClassName?: string;
   helperMessages?: Array<string>;
   errorMessages?: Array<string>;
+  testid?: string;
 }
 
 function FormField(props: FormFieldProps) {
@@ -22,7 +23,8 @@ function FormField(props: FormFieldProps) {
     customClassName,
     children,
     errorMessages,
-    helperMessages
+    helperMessages,
+    testid
   } = props;
   const hasErrorMessage = Boolean(errorMessages?.length);
   const hasHelperMessage = Boolean(helperMessages?.length);
@@ -35,7 +37,7 @@ function FormField(props: FormFieldProps) {
   );
 
   return (
-    <div className={formFieldClassName}>
+    <div className={formFieldClassName} data-testid={testid}>
       <label id={labelledBy} htmlFor={labelFor} className={"form-field-label"}>
         {Boolean(label) && <span className={"form-field-label-text"}>{label}</span>}
 
@@ -48,6 +50,7 @@ function FormField(props: FormFieldProps) {
             key={`error.${message}`}
             type={"error"}
             message={message}
+            testid={`${testid}.form-field-message-row.error`}
           />
         ))}
 
@@ -58,6 +61,7 @@ function FormField(props: FormFieldProps) {
             key={`helper.${message}`}
             type={"helper"}
             message={message}
+            testid={`${testid}.form-field-message-row.helper`}
           />
         ))}
     </div>

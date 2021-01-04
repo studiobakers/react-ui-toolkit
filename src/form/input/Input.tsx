@@ -3,34 +3,19 @@ import "./_input.scss";
 import React from "react";
 import classNames from "classnames";
 
-type InputType = "text" | "email" | "password" | "number" | "tel" | "hidden" | "url";
-
-export interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  testid?: string;
+export type InputProps = Omit<
+  React.InputHTMLAttributes<HTMLInputElement>,
+  "disabled" | "name"
+> & {
   name: string;
-  id?: string;
-  onChange: React.ReactEventHandler<HTMLInputElement>;
-  type?: InputType;
-  value?: string;
-  onFocus?: React.ReactEventHandler<HTMLInputElement>;
-  onBlur?: React.ReactEventHandler<HTMLInputElement>;
-  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
-  onKeyUp?: React.KeyboardEventHandler<HTMLInputElement>;
-  onInput?: React.KeyboardEventHandler<HTMLInputElement>;
-  placeholder?: string;
-  min?: number;
-  max?: number;
-  step?: number;
-  role?: string;
-  autoComplete?: string;
-  autoCorrect?: string;
+  testid?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
   hasError?: boolean;
   customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
-}
+};
 
 function Input(props: InputProps) {
   const {

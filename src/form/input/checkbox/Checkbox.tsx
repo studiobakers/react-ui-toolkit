@@ -6,7 +6,6 @@ import React from "react";
 import classNames from "classnames";
 
 export interface CheckboxInputItem {
-  testid?: string;
   id: string;
   content: React.ReactNode;
   inputProps: {
@@ -14,11 +13,16 @@ export interface CheckboxInputItem {
     value: string;
     name: string;
   };
+  context?: any;
+  testid?: string;
 }
 
 export interface CheckboxInputProps {
   item: CheckboxInputItem;
-  onSelect: (name: string, item: CheckboxInputItem) => void;
+  onSelect: (
+    item: CheckboxInputItem,
+    event?: React.SyntheticEvent<HTMLInputElement>
+  ) => void;
   isSelected: boolean;
   isDisabled?: boolean;
   customClassName?: string;
@@ -65,7 +69,7 @@ function CheckboxInput({
   );
 
   function handleCheckboxChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    onSelect(event.currentTarget.name, item);
+    onSelect(item, event);
   }
 }
 
