@@ -77,9 +77,13 @@ function DropdownList<OptionIdShape extends string>({
       {options.length ? (
         options.map(renderDropdownListItem)
       ) : (
-        <p data-testid={`${testid}.empty-message`} className={"dropdown-empty-message"}>
-          {noOptionsMessage || "No available options"}
-        </p>
+        <li className={"dropdown-list-item dropdown-list__empty-message-item"}>
+          <p
+            data-testid={`${testid}.empty-message`}
+            className={"dropdown-list__empty-message"}>
+            {noOptionsMessage || "No available options"}
+          </p>
+        </li>
       )}
     </ul>
   );
