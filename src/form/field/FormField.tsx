@@ -10,8 +10,8 @@ export interface FormFieldProps {
   labelledBy?: string;
   labelFor?: string;
   customClassName?: string;
-  helperMessages?: Array<string>;
-  errorMessages?: Array<string>;
+  helperMessages?: string[];
+  errorMessages?: string[];
   testid?: string;
 }
 
@@ -28,18 +28,14 @@ function FormField(props: FormFieldProps) {
   } = props;
   const hasErrorMessage = Boolean(errorMessages?.length);
   const hasHelperMessage = Boolean(helperMessages?.length);
-  const formFieldClassName = classNames(
-    "form-field",
-    {
-      "has-error": hasErrorMessage
-    },
-    customClassName
-  );
+  const formFieldClassName = classNames("form-field", customClassName, {
+    "form-field--has-error": hasErrorMessage
+  });
 
   return (
     <div className={formFieldClassName} data-testid={testid}>
-      <label id={labelledBy} htmlFor={labelFor} className={"form-field-label"}>
-        {Boolean(label) && <span className={"form-field-label-text"}>{label}</span>}
+      <label id={labelledBy} htmlFor={labelFor} className={"form-field__label"}>
+        {Boolean(label) && <span className={"form-field__title"}>{label}</span>}
 
         {children}
       </label>
