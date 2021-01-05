@@ -12,38 +12,38 @@
   cursor: default;
 
   transition: background-color $animation-duration $animation-function;
+}
 
-  &.can-be-selected {
-    cursor: pointer;
+.dropdown-list-item--can-be-selected {
+  cursor: pointer;
 
-    &:focus,
-    &:hover {
-      background-color: darken(white, 5%);
-    }
-
-    &.focused {
-      background-color: darken(white, 5%);
-    }
-  }
-
-  &.selected {
-    background-color: var(--dropdown-selected-item-bg);
+  &:focus,
+  &:hover {
+    background-color: darken(white, 5%);
   }
 }
 
-.dropdown-list-item-title {
+.dropdown-list-item--is-focused {
+  background-color: darken(white, 5%);
+}
+
+.dropdown-list-item--is-selected {
+  background-color: var(--dropdown-selected-item-bg);
+}
+
+.dropdown-list-item__content {
+  min-width: 0;
+}
+
+.dropdown-list-item__title {
   @include truncate-line();
 
   font-size: 14px;
   line-height: 22px;
 }
 
-.dropdown-list-item-subtitle {
+.dropdown-list-item__subtitle {
   @include truncate-line();
 
   margin-left: 5px;
-}
-
-.dropdown-list-item-title-container {
-  min-width: 0;
 }

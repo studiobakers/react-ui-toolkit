@@ -54,9 +54,11 @@ function DropdownListItem<OptionIdShape extends string>({
   const isSelected = Boolean(selectedOption && optionId === selectedOption.id);
   const canItemBeClicked = !isSelected || canSelectAlreadySelected;
   const containerClassName = classNames("dropdown-list-item", customClassName, {
-    selected: isSelected,
-    focused: Boolean(focusedOption && optionId === focusedOption.id),
-    "can-be-selected": canItemBeClicked
+    "dropdown-list-item--is-selected": isSelected,
+    "dropdown-list-item--is-focused": Boolean(
+      focusedOption && optionId === focusedOption.id
+    ),
+    "dropdown-list-item--can-be-selected": canItemBeClicked
   });
 
   return (
@@ -75,17 +77,17 @@ function DropdownListItem<OptionIdShape extends string>({
       aria-selected={isSelected}>
       {CustomContent || (
         <Fragment>
-          {icon}
+          <div className={"dropdown-list-item__icon"}>{icon}</div>
 
-          <div className={"dropdown-list-item-title-container"}>
-            <p data-testid={`${testid}.title`} className={"dropdown-list-item-title"}>
+          <div className={"dropdown-list-item__content"}>
+            <p data-testid={`${testid}.title`} className={"dropdown-list-item__title"}>
               {title}
             </p>
 
             {subtitle && (
               <p
                 data-testid={`${testid}.subtitle`}
-                className={"dropdown-list-item-subtitle"}>
+                className={"dropdown-list-item__subtitle"}>
                 {subtitle}
               </p>
             )}
