@@ -15,6 +15,8 @@ import Dropdown from "../../dropdown/Dropdown";
 import {filterOptionsByKeyword} from "./util/typeaheadSelectUtils";
 import {filterOutItemsByKey} from "../../core/utils/arrayUtils";
 import Spinner from "../../spinner/Spinner";
+import List from "../../list/List";
+import ListItem from "../../list/item/ListItem";
 
 export interface TypeaheadSelectProps {
   testid?: string;
@@ -56,7 +58,7 @@ function TypeaheadSelect({
   const [shouldResetTypeaheadValue, setShouldResetTypeaheadValue] = useState(false);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
   const typeaheadSelectClassName = classNames(
-    "typeahead-select-dropdown",
+    "typeahead-select__dropdown",
     customClassName
   );
   const tags = mapDropdownOptionsToTagShapes(selectedOptions);
@@ -67,9 +69,9 @@ function TypeaheadSelect({
   const shouldCloseOnSelect =
     !canSelectMultiple ||
     Boolean(selectedOptionLimit && selectedOptions.length >= selectedOptionLimit - 1);
-  const typeaheadClassName = classNames("typeahead-select-header", {
-    "is-dropdown-menu-open": isMenuOpen,
-    "can-select-multiple": canSelectMultiple
+  const typeaheadClassName = classNames("typeahead-select__input", {
+    "typeahead-select__input--is-dropdown-menu-open": isMenuOpen,
+    "typeahead-select__input--can-select-multiple": canSelectMultiple
   });
   const typeaheadInputRef = useRef<HTMLDivElement | null>(null);
 
@@ -95,19 +97,23 @@ function TypeaheadSelect({
   }, [shouldFocusOnInput]);
 
   const dropdownHeader = (
-    <div className={"typeahead-select-header-container"}>
+    <div className={"typeahead-select__dropdown__header"}>
       {shouldDisplaySelectedOptions && Boolean(tags.length) && (
-        <div className={"typeahead-select-header-tags-container"}>
-          {tags.map((tag, index) => (
-            <Tag
-              key={tag.id}
-              testid={`${testid}.tag-${index}`}
-              onRemove={handleRemove}
-              customClassName={"typeahead-select-tag"}
-              tag={tag}
-            />
-          ))}
-        </div>
+        <List
+          testid={`${testid}.tags`}
+          items={tags}
+          customClassName={"typeahead-select__tag-list"}>
+          {(tag, tagTestId) => (
+            <ListItem customClassName={"typeahead-select__tag-list__item"}>
+              <Tag
+                testid={tagTestId}
+                onRemove={handleRemove}
+                customClassName={"typeahead-select__tag"}
+                tag={tag}
+              />
+            </ListItem>
+          )}
+        </List>
       )}
 
       {!shouldDisplayOnlyTags && (
