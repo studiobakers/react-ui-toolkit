@@ -1,25 +1,20 @@
-import "./_form-field-message-row.scss";
+import "./_form-field-message.scss";
 
 import React from "react";
 import classNames from "classnames";
 
-interface FormFieldMessageRowProps {
+interface FormFieldMessageProps {
   className?: string;
   type: "error" | "warning" | "helper";
   message?: string;
   testid?: string;
 }
 
-function FormFieldMessageRow({
-  className,
-  type,
-  message,
-  testid
-}: FormFieldMessageRowProps) {
+function FormFieldMessage({className, type, message, testid}: FormFieldMessageProps) {
   const messageRowClassName = classNames(
-    "form-field-message-row",
+    "form-field-message",
     className,
-    `${[type]}-message`
+    `form-field-message--is-${type}`
   );
 
   return (
@@ -29,4 +24,4 @@ function FormFieldMessageRow({
   );
 }
 
-export default FormFieldMessageRow;
+export default FormFieldMessage;

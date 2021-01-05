@@ -4,8 +4,8 @@
   font-size: 12px;
   font-weight: 500;
   line-height: 15px;
+}
 
-  &.error-message {
-    color: var(--invalid-text-color);
-  }
+.form-field-message--is-error {
+  color: var(--invalid-text-color);
 }
