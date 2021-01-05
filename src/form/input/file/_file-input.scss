@@ -30,8 +30,8 @@
 
 .file-input__spinner {
   margin: 0 0 0 16px;
-}
 
-.file-input__spinner__background {
-  background-color: var(--button-bg);
+  .spinner__background {
+    background-color: var(--button-bg);
+  }
 }
