@@ -2,7 +2,10 @@ import "./_form-field.scss";
 
 import React from "react";
 import classNames from "classnames";
-import FormFieldMessageRow from "./message-row/FormFieldMessageRow";
+
+import FormFieldMessage from "./message/FormFieldMessage";
+import List from "../../list/List";
+import ListItem from "../../list/item/ListItem";
 
 export interface FormFieldProps {
   children: React.ReactNode;
@@ -40,26 +43,35 @@ function FormField(props: FormFieldProps) {
         {children}
       </label>
 
-      {hasErrorMessage &&
-        errorMessages?.map((message) => (
-          <FormFieldMessageRow
-            key={`error.${message}`}
-            type={"error"}
-            message={message}
-            testid={`${testid}.form-field-message-row.error`}
-          />
-        ))}
+      {hasErrorMessage && (
+        <List
+          testid={`${testid}.error-messages`}
+          customClassName={"form-field__error-message-list"}
+          items={errorMessages!}>
+          {(message, messageTestId) => (
+            <ListItem customClassName={"form-field__error-message-list__item"}>
+              <FormFieldMessage type={"error"} message={message} testid={messageTestId} />
+            </ListItem>
+          )}
+        </List>
+      )}
 
-      {!hasErrorMessage &&
-        hasHelperMessage &&
-        helperMessages?.map((message) => (
-          <FormFieldMessageRow
-            key={`helper.${message}`}
-            type={"helper"}
-            message={message}
-            testid={`${testid}.form-field-message-row.helper`}
-          />
-        ))}
+      {!hasErrorMessage && hasHelperMessage && (
+        <List
+          testid={`${testid}.helper-messages`}
+          customClassName={"form-field__helper-message-list"}
+          items={helperMessages!}>
+          {(message, messageTestId) => (
+            <ListItem customClassName={"form-field__helper-message-list__item"}>
+              <FormFieldMessage
+                type={"helper"}
+                message={message}
+                testid={messageTestId}
+              />
+            </ListItem>
+          )}
+        </List>
+      )}
     </div>
   );
 }
