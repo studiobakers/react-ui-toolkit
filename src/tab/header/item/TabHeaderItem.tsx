@@ -1,27 +1,31 @@
+import "./_tab-header-item.scss";
+
 import React from "react";
 import classNames from "classnames";
 
 import {TabItem} from "../../Tab";
-import Button from "../../../button/Button";
+import ListItem from "../../../list/item/ListItem";
 
-type TabHeaderItemProps = Omit<TabItem, "id"> & {
-  index: number;
+type TabHeaderItemProps = {
+  tab: TabItem;
   onClick: (index: number) => void;
   isActive: boolean;
+  index: number;
+  testid?: string;
 };
 
-function TabHeaderItem({children, icon, index, onClick, isActive}: TabHeaderItemProps) {
+function TabHeaderItem({testid, tab, onClick, index, isActive}: TabHeaderItemProps) {
   return (
-    <Button
+    <ListItem
       customClassName={classNames("tab-header-item", {
-        "tab-header-item--active": isActive
+        "tab-header-item--is-active": isActive
       })}
-      onClick={handleClick}
-      testid={`tab-header-item-${index}`}>
-      {icon && <span className={"tab-header-item__icon"}>{icon}</span>}
+      clickableListItemProps={{onClick: handleClick}}
+      testid={testid}>
+      {tab.icon && <span className={"tab-header-item__icon"}>{tab.icon}</span>}
 
-      {children}
-    </Button>
+      {tab.content}
+    </ListItem>
   );
 
   function handleClick() {

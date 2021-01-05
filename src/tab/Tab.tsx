@@ -4,40 +4,47 @@ import React, {useState} from "react";
 import classNames from "classnames";
 
 import TabHeaderItem from "./header/item/TabHeaderItem";
+import List from "../list/List";
 
 export type TabItem = {
   id: string;
-  children: React.ReactNode;
+  content: React.ReactNode;
   icon?: React.ReactNode;
 };
 
 export interface TabProps {
   items: TabItem[];
-  initialActiveTabIndex?: number;
   children: React.ReactNode[];
+  testid?: string;
+  initialActiveTabIndex?: number;
   customClassName?: string;
 }
 
-function Tab({items, initialActiveTabIndex = 0, children, customClassName}: TabProps) {
+function Tab({
+  testid,
+  items,
+  initialActiveTabIndex = 0,
+  children,
+  customClassName
+}: TabProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
 
   return (
     <div className={tabClassName}>
-      <header className={"tab-header"}>
-        {items.map((item, index) => (
+      <List testid={`${testid}.header`} customClassName={"tab__header"} items={items}>
+        {(item, itemTestId, index) => (
           <TabHeaderItem
-            key={item.id}
+            testid={itemTestId}
             onClick={handleChangeActiveTab}
-            icon={item.icon}
+            tab={item}
             isActive={activeTabIndex === index}
-            index={index}>
-            {item.children}
-          </TabHeaderItem>
-        ))}
-      </header>
+            index={index!}
+          />
+        )}
+      </List>
 
-      <div className={"tab-body"}>{children[activeTabIndex]}</div>
+      <div className={"tab__body"}>{children[activeTabIndex]}</div>
     </div>
   );
 
