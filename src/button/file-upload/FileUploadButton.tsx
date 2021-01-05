@@ -1,5 +1,3 @@
-import "./_file-upload-button.scss";
-
 import React from "react";
 import classNames from "classnames";
 
@@ -11,6 +9,7 @@ export type FileUploadButtonProps = Omit<
 > & {
   children: React.ReactNode;
   customClassName?: string;
+  customLabelClassName?: string;
   onFileSelect?: (
     files: React.SyntheticEvent<HTMLInputElement>["currentTarget"]["files"]
   ) => void;
@@ -20,14 +19,18 @@ function FileUploadButton({
   onFileSelect,
   children,
   customClassName,
+  customLabelClassName,
   ...fileInputProps
 }: FileUploadButtonProps) {
-  const containerClassName = classNames("file-upload-button", customClassName);
-
   return (
     <FileInput
       {...fileInputProps}
-      customClassName={containerClassName}
+      customClassName={classNames("file-upload-button", customClassName)}
+      customLabelClassName={classNames(
+        "file-upload-button__label",
+        "button",
+        customLabelClassName
+      )}
       onChange={handleFileSelect}>
       {children}
     </FileInput>

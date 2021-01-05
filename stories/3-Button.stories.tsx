@@ -26,23 +26,52 @@ storiesOf("Button", module).add("Button States", () => (
     </Button>
 
     <br />
+    <hr />
+    <br />
 
     <FileUploadButton
-      onFileSelect={(files) => console.log(files)}
-      fileInputProps={{name: "photos", htmlFor: "photos"}}>
+      onFileSelect={(files) =>
+        alert(
+          Array.from(files)
+            .map((file) => file.name)
+            .join(", ")
+        )
+      }
+      name={"photos"}
+      htmlFor={"photos"}>
       {"Upload your photos"}
     </FileUploadButton>
 
     <br />
 
     <FileUploadButton
-      onFileSelect={(files) => console.log(files)}
-      fileInputProps={{
-        name: "second-photos",
-        htmlFor: "second-photos",
-        isDisabled: true
-      }}>
-      {"Upload your photos"}
+      onFileSelect={(files) =>
+        alert(
+          Array.from(files)
+            .map((file) => file.name)
+            .join(", ")
+        )
+      }
+      name={"second-photos"}
+      htmlFor={"second-photos"}
+      isDisabled={true}>
+      {"Upload your photos - isDisabled"}
+    </FileUploadButton>
+
+    <br />
+
+    <FileUploadButton
+      onFileSelect={(files) =>
+        alert(
+          Array.from(files)
+            .map((file) => file.name)
+            .join(", ")
+        )
+      }
+      name={"second-photos"}
+      htmlFor={"second-photos"}
+      isPending={true}>
+      {"Upload your photos - isPending"}
     </FileUploadButton>
   </Fragment>
 ));
