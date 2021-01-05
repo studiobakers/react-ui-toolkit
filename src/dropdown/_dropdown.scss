@@ -2,47 +2,35 @@
 
 $dropdown-header-horizontal-padding: 8px;
 
-.dropdown-container {
+.dropdown {
   position: relative;
-
-  &.has-header-box-shadow {
-    .dropdown-header-button {
-      box-shadow: var(--default-box-shadow);
-    }
-  }
-
-  &.disabled {
-    pointer-events: none;
-
-    .dropdown-header-button {
-      background-color: var(--dropdown-header-button-bg);
-      box-shadow: none;
-
-      cursor: not-allowed;
-    }
-
-    .dropdown-header-button-text {
-      opacity: 0.7;
-    }
-
-    &.option-selected {
-      svg {
-        display: none;
-      }
-    }
-  }
 
   &:focus {
     outline: none;
   }
 }
 
-.dropdown-header-button {
-  width: 100%;
-  height: var(--dropdown-header-button-height);
+.dropdown--is-disabled {
+  pointer-events: none;
 
-  background-color: var(--dropdown-header-button-bg);
-  border: var(--dropdown-header-button-border-width) solid var(--default-border-color);
+  .dropdown__header-button--has-header-box-shadow {
+    box-shadow: none;
+  }
+}
+
+.dropdown--has-selected-option {
+  svg {
+    display: none;
+  }
+}
+
+.dropdown__header-button {
+  /* stylelint-disable color-no-hex */
+  --button-bg: #ebebeb;
+  --border: 1px solid var(--default-border-color);
+  /* stylelint-enable color-no-hex */
+
+  border: var(--border);
   border-radius: var(--small-border-radius);
 
   &:focus {
@@ -50,7 +38,11 @@ $dropdown-header-horizontal-padding: 8px;
   }
 }
 
-.dropdown-header-button-text {
+.dropdown__header-button--has-header-box-shadow {
+  box-shadow: var(--default-box-shadow);
+}
+
+.dropdown__header-button__text {
   @include truncate-line(calc(100% - #{$dropdown-header-horizontal-padding}));
 
   flex: 1;
@@ -60,7 +52,7 @@ $dropdown-header-horizontal-padding: 8px;
   text-align: left;
 }
 
-.dropdown-header-button-default-content {
+.dropdown__header-button__default-content {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -72,8 +64,4 @@ $dropdown-header-horizontal-padding: 8px;
   svg {
     margin-bottom: 1px;
   }
-}
-
-.dropdown-label {
-  margin-bottom: 5px;
 }
