@@ -1,18 +1,19 @@
 .input-container {
+  --input-height: 48px;
+
   display: flex;
   align-items: center;
 
   width: 100%;
+}
 
-  .input-container-left-icon,
-  .input-container-right-icon {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.input-container__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    width: 40px;
-    height: var(--input-height);
-  }
+  width: 40px;
+  height: var(--input-height);
 }
 
 .input {
@@ -24,7 +25,7 @@
 
   color: var(--text-color);
 
-  border: var(--input-border-width) solid var(--default-border-color);
+  border: 1px solid var(--default-border-color);
   border-radius: var(--small-radius-size);
 
   &::placeholder {
@@ -34,8 +35,8 @@
   &:focus {
     outline: none;
   }
+}
 
-  &.has-error {
-    border: var(--input-border-width) solid var(--invalid-text-color);
-  }
+.input--has-error {
+  border: 1px solid var(--invalid-text-color);
 }
