@@ -1,10 +1,12 @@
 .button {
-  --button-width: 150px;
+  --button-width: 100%;
   --button-height: 35px;
   --button-bg: black;
   --button-color: white;
 
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   width: var(--button-width);
   height: var(--button-height);
