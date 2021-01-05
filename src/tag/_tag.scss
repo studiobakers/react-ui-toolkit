@@ -1,7 +1,7 @@
 @import "../ui/reference/animation";
 @import "../ui/reference/util/truncate";
 
-.tag-container {
+.tag {
   display: flex;
   align-items: center;
 
@@ -14,36 +14,31 @@
   color: var(--text-color);
 
   background-color: var(--tag-bg);
+  border: none;
   border-radius: var(--small-border-radius);
+}
 
-  &.button {
-    border: none;
-    border-radius: var(--small-border-radius);
-  }
-
-  svg {
-    width: 16px;
-    height: 16px;
-    flex: 0 0 16px;
-
-    margin-left: 10px;
-
-    background-color: transparent;
-    border: none;
-
+.tag--is-removable {
+  &:hover {
     path {
-      transition: stroke $animation-duration $animation-function;
-    }
-
-    &:hover {
-      path {
-        stroke: var(--text-color);
-      }
+      stroke: var(--text-color);
     }
   }
 }
 
-.tag-body {
+.tag__close-icon {
+  width: 16px;
+  height: 16px;
+  flex: 0 0 16px;
+
+  margin-left: 10px;
+
+  path {
+    transition: stroke $animation-duration $animation-function;
+  }
+}
+
+.tag__body {
   @include truncate-line(calc(100% - 16px));
 
   overflow: hidden;
