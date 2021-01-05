@@ -1,4 +1,9 @@
 .button {
+  --button-width: 150px;
+  --button-height: 35px;
+  --button-bg: black;
+  --button-color: white;
+
   display: block;
 
   width: var(--button-width);
@@ -13,29 +18,17 @@
 
   cursor: pointer;
 
-  .spinner-background {
-    background: var(--button-bg);
-  }
-
   &:focus {
     box-shadow: var(--default-box-shadow);
   }
+}
 
-  &:disabled {
-    opacity: 0.5;
+.button--is-inactive {
+  opacity: 0.5;
 
-    cursor: not-allowed;
-  }
+  cursor: not-allowed;
+}
 
-  &.size-small {
-    width: var(--small-button-width);
-    height: var(--small-button-height);
-
-    font-size: 12px;
-
-    .spinner {
-      width: 15px;
-      height: 15px;
-    }
-  }
+.button__spinner__background {
+  background: var(--button-bg);
 }
