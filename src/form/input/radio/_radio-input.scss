@@ -14,19 +14,19 @@
   user-select: none;
 
   font-size: 16px;
+}
 
-  &.selected {
-    .radio-input-icon {
-      background-color: var(--radio-focus-icon-color);
-      border-color: transparent;
-    }
+.radio-input-label--is-selected {
+  .radio-input-label__icon {
+    background-color: var(--radio-focus-icon-color);
+    border-color: transparent;
   }
+}
 
-  &.disabled {
-    opacity: 0.5;
+.radio-input-label--is-disabled {
+  opacity: 0.5;
 
-    cursor: not-allowed;
-  }
+  cursor: not-allowed;
 }
 
 .radio-input {
@@ -40,13 +40,13 @@
   cursor: pointer;
 
   &:focus {
-    & ~ .radio-input-icon {
+    & ~ .radio-input-label__icon {
       background-color: var(--radio-focus-icon-color);
     }
   }
 
   &:checked {
-    & ~ .radio-input-icon:after {
+    & ~ .radio-input-label__icon:after {
       display: block;
 
       background-color: white;
@@ -54,7 +54,7 @@
   }
 }
 
-.radio-input-icon {
+.radio-input-label__icon {
   position: relative;
 
   display: block;

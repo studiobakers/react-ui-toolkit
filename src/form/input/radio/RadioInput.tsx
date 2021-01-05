@@ -1,4 +1,4 @@
-import "./_radio.scss";
+import "./_radio-input.scss";
 
 import React from "react";
 import classNames from "classnames";
@@ -14,7 +14,6 @@ export interface RadioInputItem<Id = string> {
   context?: any;
   customClassName?: string;
   isDisabled?: boolean;
-  testid?: string;
 }
 
 export type RadioInputSelectHandler<Id = string> = (
@@ -26,18 +25,18 @@ export interface RadioInputProps {
   item: RadioInputItem;
   onSelect: RadioInputSelectHandler;
   isSelected: boolean;
+  testid?: string;
   isDisabled?: boolean;
 }
 
-function RadioInput({item, onSelect, isSelected, isDisabled}: RadioInputProps) {
+function RadioInput({testid, item, onSelect, isSelected, isDisabled}: RadioInputProps) {
   const {
     inputProps: {name, value, htmlFor},
-    testid,
     content
   } = item;
   const containerClassName = classNames("radio-input-label", {
-    selected: isSelected,
-    disabled: isDisabled
+    "radio-input-label--is-selected": isSelected,
+    "radio-input-label--is-disabled": isDisabled
   });
 
   return (
@@ -53,7 +52,7 @@ function RadioInput({item, onSelect, isSelected, isDisabled}: RadioInputProps) {
         disabled={isDisabled}
       />
 
-      <span className={"radio-input-icon"} />
+      <span className={"radio-input-label__icon"} />
 
       {content}
     </label>

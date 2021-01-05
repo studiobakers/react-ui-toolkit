@@ -3,7 +3,9 @@ import "./_radio-group.scss";
 import React from "react";
 import classNames from "classnames";
 
-import RadioInput, {RadioInputItem, RadioInputProps} from "../Radio";
+import RadioInput, {RadioInputItem, RadioInputProps} from "../RadioInput";
+import List from "../../../../list/List";
+import ListItem from "../../../../list/item/ListItem";
 
 export interface RadioGroupProps {
   items: RadioInputItem[];
@@ -22,24 +24,23 @@ function RadioGroup({
   customClassName,
   isDisabled
 }: RadioGroupProps) {
-  const radioGroupClassName = classNames("radio-group", customClassName);
-
   return (
-    <ul data-testid={testid} className={radioGroupClassName}>
-      {items.map((item) => (
-        <li
-          key={item.id}
-          className={classNames("radio-group-item", item.customClassName)}
-          data-testid={`${testid}.item`}>
+    <List
+      testid={testid}
+      items={items}
+      customClassName={classNames("radio-group", customClassName)}>
+      {(item, itemTestId) => (
+        <ListItem customClassName={classNames("radio-group__item", item.customClassName)}>
           <RadioInput
+            testid={itemTestId}
             isDisabled={isDisabled || item.isDisabled}
             item={item}
             onSelect={onSelect}
             isSelected={Boolean(selectedItem && selectedItem.id === item.id)}
           />
-        </li>
-      ))}
-    </ul>
+        </ListItem>
+      )}
+    </List>
   );
 }
 
