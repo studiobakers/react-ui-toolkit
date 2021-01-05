@@ -1,9 +1,10 @@
-import "./_button.scss";
-
 import React from "react";
 import classNames from "classnames";
 
 import Spinner from "../spinner/Spinner";
+
+// SCSS import is moved here to be able to override spinner styles without nesting
+import "./_button.scss";
 
 export interface ButtonProps {
   testid?: string;
@@ -50,8 +51,8 @@ function Button({
 }: ButtonProps) {
   const isButtonDisabled = Boolean(isDisabled || shouldDisplaySpinner);
   const containerClassName = classNames("button", customClassName, {
-    inactive: isButtonDisabled,
-    pending: shouldDisplaySpinner
+    "button--is-inactive": isButtonDisabled,
+    "button--is-pending": shouldDisplaySpinner
   });
 
   return (
@@ -74,7 +75,10 @@ function Button({
       aria-label={ariaLabel}>
       {shouldDisplaySpinner ? (
         <Spinner
-          customClassName={"button-spinner"}
+          customClassName={classNames(
+            "button__spinner",
+            customClassName && `${customClassName}__spinner`
+          )}
           aria-label={"Button spinner visible. Button inactivated."}
         />
       ) : (
