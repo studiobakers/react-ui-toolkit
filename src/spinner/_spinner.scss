@@ -1,4 +1,6 @@
 .spinner {
+  --spinner-background: 255, 255, 255;
+
   position: relative;
 
   width: 20px;
@@ -6,30 +8,30 @@
 
   margin: auto;
 
-  background: white;
-  background: linear-gradient(to right, white 10%, rgba(255, 255, 255, 0) 42%);
+  background: rgba(var(--spinner-background), 1);
+  background: linear-gradient(to right, rgba(var(--spinner-background), 1) 10%, rgba(var(--spinner-background), 0) 42%);
 
   border-radius: 50%;
-  
+
   transform: translateZ(0);
   animation: spinner 1.4s infinite linear;
+}
 
-  .spinner-background {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
+.spinner__background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 
-    width: 75%;
-    height: 75%;
-    
-    margin: auto;
+  width: 75%;
+  height: 75%;
 
-    border-radius: 50%;
+  margin: auto;
 
-    content: "";
-  }
+  border-radius: 50%;
+
+  content: "";
 }
 
 @keyframes spinner {
