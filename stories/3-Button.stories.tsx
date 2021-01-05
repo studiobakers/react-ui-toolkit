@@ -1,11 +1,12 @@
-import React, {Fragment} from "react";
+import React from "react";
 import {storiesOf} from "@storybook/react";
 
 import Button from "../src/button/Button";
 import FileUploadButton from "../src/button/file-upload/FileUploadButton";
+import StoryFragment from "./utils/StoryFragment";
 
 storiesOf("Button", module).add("Button States", () => (
-  <Fragment>
+  <StoryFragment>
     <Button type={"button"} onClick={(e) => alert("Thank You!")}>
       {"Click Me"}
     </Button>
@@ -73,5 +74,5 @@ storiesOf("Button", module).add("Button States", () => (
       isPending={true}>
       {"Upload your photos - isPending"}
     </FileUploadButton>
-  </Fragment>
+  </StoryFragment>
 ));
