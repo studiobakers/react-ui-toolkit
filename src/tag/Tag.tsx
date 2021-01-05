@@ -1,11 +1,12 @@
 import CloseIcon from "../ui/icons/close.svg";
 
-import "./_tag.scss";
-
 import React from "react";
 import classNames from "classnames";
 
 import Button from "../button/Button";
+
+// SCSS import is moved here to override Button styles without nesting
+import "./_tag.scss";
 
 export interface TagShape<Context = any> {
   id: string;
@@ -14,29 +15,39 @@ export interface TagShape<Context = any> {
 }
 
 interface TagProps {
-  testid?: string;
   tag: TagShape;
+  testid?: string;
   customClassName?: string;
   onRemove?: (tag: TagShape) => void;
 }
 
 function Tag({testid, tag, onRemove, customClassName}: TagProps) {
-  const containerClassName = classNames("tag-container", customClassName);
+  const containerClassName = classNames("tag", customClassName, {
+    "tag--is-removable": onRemove
+  });
 
   return (
     <Button
-      testid={`${testid}.remove-button`}
+      testid={testid}
       customClassName={containerClassName}
       onClick={handleRemove}
       shouldStopPropagation={true}>
-      <div className={"tag-body"}>{tag.content}</div>
+      <div className={"tag__body"}>{tag.content}</div>
 
-      <CloseIcon aria-hidden={true} />
+      {onRemove && (
+        <CloseIcon
+          // @ts-ignore
+          className={"tag__close-icon"}
+          aria-hidden={true}
+        />
+      )}
     </Button>
   );
 
   function handleRemove() {
-    onRemove!(tag);
+    if (onRemove) {
+      onRemove(tag);
+    }
   }
 }
 
