@@ -5,21 +5,12 @@ import "./_checkbox-input.scss";
 import React from "react";
 import classNames from "classnames";
 
-export interface CheckboxInputItem<Id = string, Context = any> {
-  id: Id;
-  content: React.ReactNode;
-  inputProps: {
-    htmlFor: string;
-    value: string;
-    name: string;
-  };
-  context?: Context;
-}
+import {RadioInputItem} from "../../..";
 
 export interface CheckboxInputProps {
-  item: CheckboxInputItem;
+  item: RadioInputItem;
   onSelect: (
-    item: CheckboxInputItem,
+    item: RadioInputItem,
     event?: React.SyntheticEvent<HTMLInputElement>
   ) => void;
   isSelected: boolean;

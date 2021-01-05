@@ -13,7 +13,6 @@ export interface RadioInputItem<Id = string, Context = any> {
   };
   context?: Context;
   customClassName?: string;
-  isDisabled?: boolean;
 }
 
 export type RadioInputSelectHandler<Id = string, Context = any> = (
@@ -32,9 +31,10 @@ export interface RadioInputProps {
 function RadioInput({testid, item, onSelect, isSelected, isDisabled}: RadioInputProps) {
   const {
     inputProps: {name, value, htmlFor},
+    customClassName,
     content
   } = item;
-  const containerClassName = classNames("radio-input-label", {
+  const containerClassName = classNames("radio-input-label", customClassName, {
     "radio-input-label--is-selected": isSelected,
     "radio-input-label--is-disabled": isDisabled
   });
