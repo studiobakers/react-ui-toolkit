@@ -1,20 +1,19 @@
 import CheckIcon from "../../../ui/icons/check.svg";
 
-import "./_checkbox.scss";
+import "./_checkbox-input.scss";
 
 import React from "react";
 import classNames from "classnames";
 
-export interface CheckboxInputItem {
-  id: string;
+export interface CheckboxInputItem<Id = string, Context = any> {
+  id: Id;
   content: React.ReactNode;
   inputProps: {
     htmlFor: string;
     value: string;
     name: string;
   };
-  context?: any;
-  testid?: string;
+  context?: Context;
 }
 
 export interface CheckboxInputProps {
@@ -26,6 +25,7 @@ export interface CheckboxInputProps {
   isSelected: boolean;
   isDisabled?: boolean;
   customClassName?: string;
+  testid?: string;
 }
 
 function CheckboxInput({
@@ -33,16 +33,16 @@ function CheckboxInput({
   onSelect,
   customClassName,
   isSelected,
-  isDisabled
+  isDisabled,
+  testid
 }: CheckboxInputProps) {
   const {
     inputProps: {name, value, htmlFor},
-    testid,
     content
   } = item;
   const containerClassName = classNames("checkbox-input-label", customClassName, {
-    selected: isSelected,
-    disabled: isDisabled
+    "checkbox-input-label--is-selected": isSelected,
+    "checkbox-input-label--is-disabled": isDisabled
   });
 
   return (
@@ -58,11 +58,9 @@ function CheckboxInput({
         disabled={isDisabled}
       />
 
-      <div className={"checkbox-input-icon-wrapper"}>
-        <span className={"checkbox-input-icon"}>
-          <CheckIcon />
-        </span>
-      </div>
+      <span className={"checkbox-input-label__icon"}>
+        <CheckIcon />
+      </span>
 
       {content}
     </label>

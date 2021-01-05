@@ -6,7 +6,7 @@ import StateProvider from "./utils/StateProvider";
 import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
 import PasswordInput from "../src/form/password-input/PasswordInput";
-import CheckboxInput from "../src/form/input/checkbox/Checkbox";
+import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
 
 storiesOf("Form", module)
