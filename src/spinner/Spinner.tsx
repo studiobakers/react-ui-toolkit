@@ -28,7 +28,13 @@ function Spinner({customClassName, spinnerColor, backgroundColor}: SpinnerProps)
 
   return (
     <div className={spinnerClassName} style={spinnerStyle}>
-      <span className={"spinner-background"} style={backgroundStyle} />
+      <span
+        className={classNames(
+          "spinner__background",
+          customClassName && `${customClassName}__background`
+        )}
+        style={backgroundStyle}
+      />
     </div>
   );
 }
