@@ -1,16 +1,17 @@
-import "./_file-input.scss";
-
 import React from "react";
 import classNames from "classnames";
 
 import Spinner from "../../../spinner/Spinner";
 
+// SCSS import is moved here to be able to override Spinner styles without nesting
+import "./_file-input.scss";
+
 export interface FileInputProps {
-  testid?: string;
   htmlFor: string;
   name: string;
   children: React.ReactNode;
   onChange: React.ReactEventHandler<HTMLInputElement>;
+  testid?: string;
   isDisabled?: boolean;
   isPending?: boolean;
   customClassName?: string;
@@ -32,10 +33,10 @@ function FileInput({
   isDisabled,
   labelRef
 }: FileInputProps) {
-  const containerClassName = classNames("file-input-container", customClassName);
+  const containerClassName = classNames("file-input__container", customClassName);
   const isInputDisabled = isPending || isDisabled;
-  const labelClassName = classNames("file-input-label", customLabelClassName, {
-    disabled: isInputDisabled
+  const labelClassName = classNames("file-input__label", customLabelClassName, {
+    "file-input__label--is-disabled": isInputDisabled
   });
 
   return (
@@ -59,7 +60,7 @@ function FileInput({
         data-testid={`${testid}.label`}>
         {children}
 
-        {isPending && <Spinner customClassName={"button-spinner"} />}
+        {isPending && <Spinner customClassName={"file-input__spinner"} />}
       </label>
     </div>
   );

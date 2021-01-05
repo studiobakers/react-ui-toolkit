@@ -9,19 +9,29 @@
 
   opacity: 0;
 
-  &:focus + .file-input-label {
+  &:focus + .file-input__label {
     box-shadow: var(--default-box-shadow);
   }
 
-  & + .file-input-label.disabled {
+  & + .file-input__label--is-disabled {
+    opacity: 0.5;
+
     cursor: not-allowed;
   }
 }
 
-.file-input-label {
+.file-input__label {
   display: flex;
   align-items: center;
   justify-content: center;
 
   cursor: pointer;
+}
+
+.file-input__spinner {
+  margin: 0 0 0 16px;
+}
+
+.file-input__spinner__background {
+  background-color: var(--button-bg);
 }
