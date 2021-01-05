@@ -1,6 +1,9 @@
 @import "../../../ui/reference/animation";
 
 .radio-input-label {
+  --radio-border-color: darkgrey;
+  --radio-focus-icon-color: black;
+
   position: relative;
 
   display: grid;
