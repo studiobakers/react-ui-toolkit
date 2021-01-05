@@ -46,8 +46,8 @@ function Input(props: InputProps) {
   } = props;
   const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
-    disabled: isDisabled,
-    "has-error": hasError
+    "input--is-disabled": isDisabled,
+    "input--has-error": hasError
   });
 
   return (
@@ -56,7 +56,11 @@ function Input(props: InputProps) {
       role={role}
       className={inputContainerClassName}
       data-testid={testid}>
-      {leftIcon && <span className={"input-container-left-icon"}>{leftIcon}</span>}
+      {leftIcon && (
+        <span className={"input-container__icon input-container__left-icon"}>
+          {leftIcon}
+        </span>
+      )}
 
       <input
         className={inputClassName}
@@ -79,7 +83,11 @@ function Input(props: InputProps) {
         {...rest}
       />
 
-      {rightIcon && <span className={"input-container-right-icon"}>{rightIcon}</span>}
+      {rightIcon && (
+        <span className={"input-container__icon input-container__right-icon"}>
+          {rightIcon}
+        </span>
+      )}
     </div>
   );
 }
