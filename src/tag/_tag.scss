@@ -2,6 +2,10 @@
 @import "../ui/reference/util/truncate";
 
 .tag {
+  /* stylelint-disable color-no-hex */
+  --tag-bg: #ebebeb;
+  /* stylelint-enable color-no-hex */
+
   display: flex;
   align-items: center;
 
