@@ -31,6 +31,8 @@
   cursor: not-allowed;
 }
 
-.button__spinner__background {
-  background: var(--button-bg);
+.button__spinner {
+  .spinner__background {
+    background: var(--button-bg);
+  }
 }
