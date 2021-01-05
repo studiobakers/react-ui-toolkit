@@ -28,6 +28,8 @@ $dropdown-header-horizontal-padding: 8px;
   /* stylelint-disable color-no-hex */
   --button-bg: #ebebeb;
   --border: 1px solid var(--default-border-color);
+  --dropdown-text-color: black;
+  --dropdown-selected-item-bg: #ebebeb;
   /* stylelint-enable color-no-hex */
 
   border: var(--border);
