@@ -1,6 +1,11 @@
 @import "../../../ui/reference/animation";
 
 .checkbox-input-label {
+  --checkbox-border-color: black;
+  --checkbox-focus-border-color: black;
+  --checkbox-focus-bg: black;
+  --checkbox-icon-color: white;
+
   position: relative;
 
   display: flex;
@@ -12,12 +17,27 @@
   user-select: none;
 
   font-size: 16px;
+}
 
-  &.disabled {
-    opacity: 0.5;
+.checkbox-input-label--is-selected {
+  .checkbox-input-label__icon {
+    background-color: var(--checkbox-focus-bg);
+    border-color: var(--checkbox-focus-border-color);
 
-    cursor: not-allowed;
+    svg {
+      display: block;
+
+      path {
+        fill: var(--checkbox-icon-color);
+      }
+    }
   }
+}
+
+.checkbox-input-label--is-disabled {
+  opacity: 0.5;
+
+  cursor: not-allowed;
 }
 
 .checkbox-input {
@@ -31,37 +51,24 @@
   cursor: pointer;
 
   &:focus {
-    & ~ .checkbox-input-icon-wrapper {
+    & ~ .checkbox-input-label__icon {
       border-color: var(--checkbox-focus-border-color);
-    }
-  }
-
-  &:checked {
-    & ~ .checkbox-input-icon-wrapper {
-      background-color: var(--checkbox-focus-bg);
-      border-color: var(--checkbox-focus-border-color);
-
-      svg {
-        display: block;
-
-        path {
-          fill: var(--checkbox-icon-color);
-        }
-      }
     }
   }
 
   &:disabled {
-    & ~ .checkbox-input-icon-wrapper {
+    & ~ .checkbox-input-label__icon {
       pointer-events: none;
     }
   }
 }
 
-.checkbox-input-icon-wrapper {
+.checkbox-input-label__icon {
   position: relative;
 
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 
   width: 20px;
   height: 20px;
@@ -74,23 +81,4 @@
   border-radius: var(--small-radius-size);
 
   transition: border-color $animation-duration $animation-function;
-}
-
-.checkbox-input-icon {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 20px;
-  height: 20px;
-
-  box-sizing: border-box;
-
-  svg {
-    display: none;
-  }
 }
