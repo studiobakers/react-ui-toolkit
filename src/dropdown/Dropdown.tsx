@@ -32,13 +32,13 @@ import "./_dropdown.scss";
 export type MenuVisibilityChangeHandlerTypeArgument = "open" | "closed";
 
 export interface DropdownProps<OptionIdShape> {
-  testid?: string;
-  header?: React.ReactNode;
-  placeholder?: string;
   options: DropdownOption<OptionIdShape>[];
   selectedOption: DropdownSelectedOption<OptionIdShape>;
   onSelect: DropdownOptionSelectHandler<OptionIdShape>;
   role: "listbox" | "menu" | "combobox";
+  testid?: string;
+  header?: React.ReactNode;
+  placeholder?: string;
   position?: DropdownPosition;
   customClassName?: string;
   isMultiSelect?: boolean;
@@ -85,7 +85,7 @@ function Dropdown<OptionIdShape extends string>({
   areOptionsFetching = false,
   deselectOptionTitle = "",
   noOptionsMessage,
-  headerButtonClassName = "white-button",
+  headerButtonClassName,
   shouldJumpToQuery = true,
   shouldShowEmptyOptions = true,
   canOpenDropdownMenu = true
@@ -101,12 +101,12 @@ function Dropdown<OptionIdShape extends string>({
   );
   // Button will gain focus when shouldFocusOnButton is set to true
   const [shouldFocusOnHeaderButton, setShouldFocusOnHeaderButton] = useState(false);
-  const containerClassName = classNames("dropdown-container", customClassName, {
-    "dropdown-open": isMenuOpen,
-    "option-selected": Boolean(selectedOption || deselectOptionTitle),
-    "has-header-box-shadow": hasHeaderBoxShadow,
-    "has-error": hasError,
-    disabled: isDisabled || areOptionsFetching
+  const containerClassName = classNames("dropdown", customClassName, {
+    "dropdown--is-open": isMenuOpen,
+    "dropdown--has-selected-option": Boolean(selectedOption || deselectOptionTitle),
+    "dropdown--has-header-box-shadow": hasHeaderBoxShadow,
+    "dropdown--has-error": hasError,
+    "dropdown--is-disabled": isDisabled || areOptionsFetching
   });
   const shouldShowMenu = isMenuOpen && (shouldShowEmptyOptions || options.length > 0);
 
@@ -142,10 +142,10 @@ function Dropdown<OptionIdShape extends string>({
   }, [keyQuery, computedOptions, isMenuOpen]);
 
   const defaultDropdownHeader = (
-    <div className={"dropdown-header-button-default-content"}>
+    <div className={"dropdown__header-button__default-content"}>
       {selectedOption && selectedOption.icon}
 
-      <span className={"dropdown-header-button-text"}>
+      <span className={"dropdown__header-button__text"}>
         {selectedOption ? selectedOption.title : deselectOptionTitle || placeholder}
       </span>
 
@@ -160,8 +160,15 @@ function Dropdown<OptionIdShape extends string>({
   let dropdownHeader = (
     <Button
       testid={`${testid}.header-button`}
-      customClassName={classNames("dropdown-header-button", headerButtonClassName)}
-      isDisabled={areOptionsFetching}
+      customClassName={classNames(
+        "button",
+        "dropdown__header-button",
+        headerButtonClassName,
+        {
+          "dropdown__header-button--has-header-box-shadow": hasHeaderBoxShadow
+        }
+      )}
+      isDisabled={isDisabled || areOptionsFetching}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onClick={toggleDropdown}
@@ -181,9 +188,9 @@ function Dropdown<OptionIdShape extends string>({
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.documentElement.classList.add("dropdown-menu-open");
+      document.documentElement.classList.add("dropdown--is-menu-open");
     } else {
-      document.documentElement.classList.remove("dropdown-menu-open");
+      document.documentElement.classList.remove("dropdown--is-menu-open");
     }
 
     if (onMenuVisibilityChange) {
