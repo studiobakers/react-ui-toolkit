@@ -38,7 +38,9 @@ storiesOf("Dropdown", module).add("Dropdown States", () => {
             />
           </FormField>
 
-          <FormField label={"Your Language"} errorMessages={["Please select a language"]}>
+          <FormField
+            label={"Your Language - hasError"}
+            errorMessages={["Please select a language"]}>
             <Dropdown
               role={"listbox"}
               options={state.options}
@@ -46,6 +48,16 @@ storiesOf("Dropdown", module).add("Dropdown States", () => {
               onSelect={(option) => setState({...state, selectedOption: option})}
               selectedOption={state.selectedOption}
               hasError={true}
+            />
+          </FormField>
+
+          <FormField label={"Your Language - no options"}>
+            <Dropdown
+              role={"listbox"}
+              options={[]}
+              placeholder={"Select Language"}
+              onSelect={(option) => setState({...state, selectedOption: option})}
+              selectedOption={state.selectedOption}
             />
           </FormField>
 
