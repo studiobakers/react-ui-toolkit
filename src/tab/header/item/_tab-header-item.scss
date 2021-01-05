@@ -1,0 +1,25 @@
+.tab-header-item {
+  --active-color: 50, 50, 211;
+
+  &:not(:first-of-type) {
+    margin-left: 48px;
+  }
+
+  .list-item__click-wrapper {
+    outline: none;
+
+    &:focus {
+      color: rgba(var(--active-color), 0.7);
+    }
+  }
+}
+
+.tab-header-item--is-active {
+  color: rgba(var(--active-color), 1);
+
+  .list-item__click-wrapper {
+    &:focus {
+      color: rgba(var(--active-color), 1);
+    }
+  }
+}

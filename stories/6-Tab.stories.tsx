@@ -6,16 +6,18 @@ import Tab, {TabItem} from "../src/tab/Tab";
 const tabItems: TabItem[] = [
   {
     id: "home",
-    children: "Home"
+    content: "Home"
   },
   {
     id: "following",
-    children: "Following"
+    content: "Following"
   }
 ];
 
 storiesOf("Tab", module).add("Tab", () => (
   <Fragment>
-    <Tab items={tabItems}>{[<div>{"Home"}</div>, <div>{"Following"}</div>]}</Tab>
+    <Tab items={tabItems}>
+      {[<div key={0}>{"Home"}</div>, <div key={1}>{"Following"}</div>]}
+    </Tab>
   </Fragment>
 ));
