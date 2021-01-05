@@ -5,20 +5,22 @@ import classNames from "classnames";
 
 import FileInput, {FileInputProps} from "../../form/input/file/FileInput";
 
-export interface FileUploadButtonProps {
-  fileInputProps: Omit<FileInputProps, "children" | "onChange"> & {children?: never};
+export type FileUploadButtonProps = Omit<
+  FileInputProps,
+  "children" | "onChange" | "children"
+> & {
   children: React.ReactNode;
   customClassName?: string;
   onFileSelect?: (
     files: React.SyntheticEvent<HTMLInputElement>["currentTarget"]["files"]
   ) => void;
-}
+};
 
 function FileUploadButton({
-  fileInputProps,
   onFileSelect,
   children,
-  customClassName
+  customClassName,
+  ...fileInputProps
 }: FileUploadButtonProps) {
   const containerClassName = classNames("file-upload-button", customClassName);
 
