@@ -11,6 +11,7 @@ export interface RadioInputItem<Id = string, Context = any> {
     value: string;
     name: string;
   };
+  isDisabled?: boolean;
   context?: Context;
   customClassName?: string;
 }

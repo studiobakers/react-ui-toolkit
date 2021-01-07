@@ -204,7 +204,7 @@ storiesOf("Form", module)
               <RadioGroup
                 items={state.firstInput.choices}
                 selectedItem={state.firstInput.selectedItem}
-                onSelect={(name, item) =>
+                onSelect={(item) =>
                   setState({
                     ...state,
                     firstInput: {...state.firstInput, selectedItem: item}
@@ -218,7 +218,7 @@ storiesOf("Form", module)
                 items={state.secondInput.choices}
                 selectedItem={state.secondInput.selectedItem}
                 isDisabled={true}
-                onSelect={(name, item) =>
+                onSelect={(item) =>
                   setState({
                     ...state,
                     secondInput: {...state.secondInput, selectedItem: item}
