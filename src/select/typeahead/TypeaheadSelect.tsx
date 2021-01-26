@@ -71,7 +71,8 @@ function TypeaheadSelect({
     Boolean(selectedOptionLimit && selectedOptions.length >= selectedOptionLimit - 1);
   const typeaheadClassName = classNames("typeahead-select__input", {
     "typeahead-select__input--is-dropdown-menu-open": isMenuOpen,
-    "typeahead-select__input--can-select-multiple": canSelectMultiple
+    "typeahead-select__input--can-select-multiple": canSelectMultiple,
+    "typeahead-select--has-selected-options": selectedOptions.length
   });
   const typeaheadInputRef = useRef<HTMLDivElement | null>(null);
 
