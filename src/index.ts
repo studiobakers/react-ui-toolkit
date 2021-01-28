@@ -24,6 +24,7 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
+import Avatar, {AvatarProps} from "./avatar/Avatar";
 
 export {
   // Components
@@ -37,6 +38,7 @@ export {
   TypeaheadInput,
   TypeaheadSelect,
   Dropdown,
+  Avatar,
   List,
   ListItem,
   Button,
@@ -63,5 +65,6 @@ export {
   FileUploadButtonProps,
   SpinnerProps,
   TabItem,
-  TabProps
+  TabProps,
+  AvatarProps
 };
