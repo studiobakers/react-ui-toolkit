@@ -17,6 +17,7 @@ import {filterOutItemsByKey} from "../../core/utils/arrayUtils";
 import Spinner from "../../spinner/Spinner";
 import List from "../../list/List";
 import ListItem from "../../list/item/ListItem";
+import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboardEventConstants";
 
 export interface TypeaheadSelectProps {
   testid?: string;
@@ -126,6 +127,7 @@ function TypeaheadSelect({
           placeholder={typeaheadProps.placeholder}
           value={typeaheadProps.value}
           onQueryChange={handleKeywordChange}
+          onKeyDown={handleKeyDown}
           shouldResetValue={shouldResetTypeaheadValue}
           rightIcon={
             areOptionsFetching ? (
@@ -184,6 +186,25 @@ function TypeaheadSelect({
     if (onTagRemove) {
       onTagRemove(tag.context!);
       setShouldFocusOnInput(true);
+    }
+  }
+
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
+    const {key} = event;
+
+    switch (key) {
+      case KEYBOARD_EVENT_KEY.ESCAPE: {
+        if (isMenuOpen) {
+          event.stopPropagation();
+          if (onTagRemove) {
+            onTagRemove(selectedOptions[selectedOptions.length - 1]);
+          }
+        }
+        break;
+      }
+
+      default:
+        break;
     }
   }
 
