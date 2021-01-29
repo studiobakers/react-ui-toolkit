@@ -194,8 +194,9 @@ function TypeaheadSelect({
 
     switch (key) {
       case KEYBOARD_EVENT_KEY.ESCAPE: {
-        if (isMenuOpen) {
+        if (!computedDropdownOptions.length) {
           event.stopPropagation();
+
           if (onTagRemove) {
             onTagRemove(selectedOptions[selectedOptions.length - 1]);
           }
