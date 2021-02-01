@@ -1,5 +1,3 @@
-import UserPlaceholder from "../ui/assets/images/user-placeholder.png";
-
 import "./_avatar.scss";
 
 import React, {useState} from "react";
@@ -11,16 +9,17 @@ export interface AvatarProps {
     width: string;
     height: string;
   };
+  placeholderSrc: string;
   src?: string | null;
   customClassName?: string;
 }
 
-function Avatar({alt, size, src, customClassName}: AvatarProps) {
+function Avatar({alt, size, src, customClassName, placeholderSrc}: AvatarProps) {
   const [shouldDisplayPlaceholder, setPlaceholderVisibility] = useState(true);
 
   return (
     <img
-      src={shouldDisplayPlaceholder ? UserPlaceholder : src || UserPlaceholder}
+      src={shouldDisplayPlaceholder ? placeholderSrc : src || placeholderSrc}
       alt={alt}
       style={{...size}}
       className={classNames("avatar", customClassName)}

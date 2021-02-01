@@ -8,16 +8,18 @@ import Avatar from "../src/avatar/Avatar";
 storiesOf("Avatar", module).add("Avatar", () => (
   <Fragment>
     <Avatar
+      placeholderSrc={UserPlaceholder}
       alt="user1's avatar"
       src={UserPlaceholder}
       size={{width: "150px", height: "150px"}}
     />
 
-    <Avatar alt="user2's avatar" src={UserPlaceholder} />
+    <Avatar alt="user2's avatar" placeholderSrc={UserPlaceholder} src={UserPlaceholder} />
 
     <Avatar
       alt="user3's avatar"
       src={UserPlaceholder}
+      placeholderSrc={UserPlaceholder}
       size={{width: "50px", height: "50px"}}
     />
   </Fragment>
