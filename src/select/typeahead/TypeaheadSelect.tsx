@@ -192,20 +192,14 @@ function TypeaheadSelect({
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     const {key} = event;
 
-    switch (key) {
-      case KEYBOARD_EVENT_KEY.ESCAPE: {
-        if (!computedDropdownOptions.length) {
-          event.stopPropagation();
+    if (key === KEYBOARD_EVENT_KEY.ESCAPE) {
+      if (!computedDropdownOptions.length) {
+        event.stopPropagation();
 
-          if (onTagRemove) {
-            onTagRemove(selectedOptions[selectedOptions.length - 1]);
-          }
+        if (onTagRemove) {
+          onTagRemove(selectedOptions[selectedOptions.length - 1]);
         }
-        break;
       }
-
-      default:
-        break;
     }
   }
 
