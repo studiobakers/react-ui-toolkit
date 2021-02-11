@@ -5,11 +5,11 @@ import classNames from "classnames";
 
 export interface AvatarProps {
   alt: string;
+  placeholderSrc: string;
   size?: {
     width: string;
     height: string;
   };
-  placeholderSrc: string;
   src?: string | null;
   customClassName?: string;
 }
@@ -23,11 +23,11 @@ function Avatar({alt, size, src, customClassName, placeholderSrc}: AvatarProps) 
       alt={alt}
       style={{...size}}
       className={classNames("avatar", customClassName)}
-      onLoad={handleHidePlaceholder}
+      onLoad={handleImageLoad}
     />
   );
 
-  function handleHidePlaceholder() {
+  function handleImageLoad() {
     setPlaceholderVisibility(false);
   }
 }
