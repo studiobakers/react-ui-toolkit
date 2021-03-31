@@ -53,28 +53,27 @@ function TypeaheadSelect({
   canOpenDropdownMenu = true,
   areOptionsFetching
 }: TypeaheadSelectProps) {
+  const typeaheadInputRef = useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setMenuVisibility] = useState(false);
   const [computedDropdownOptions, setComputedDropdownOptions] = useState(dropdownOptions);
   const [shouldResetTypeaheadValue, setShouldResetTypeaheadValue] = useState(false);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
-  const typeaheadSelectClassName = classNames(
-    "typeahead-select__dropdown",
-    customClassName
-  );
+
   const tags = mapDropdownOptionsToTagShapes(selectedOptions);
   const shouldDisplayOnlyTags = Boolean(
     selectedOptionLimit && selectedOptions.length >= selectedOptionLimit
   );
+
   const canSelectMultiple = !selectedOptionLimit || selectedOptionLimit > 1;
   const shouldCloseOnSelect =
     !canSelectMultiple ||
     Boolean(selectedOptionLimit && selectedOptions.length >= selectedOptionLimit - 1);
-  const typeaheadClassName = classNames("typeahead-select__input", {
-    "typeahead-select__input--is-dropdown-menu-open": isMenuOpen,
-    "typeahead-select__input--can-select-multiple": canSelectMultiple,
-    "typeahead-select__input--has-selected-options": Boolean(selectedOptions.length)
+
+  const typeaheadSelectClassName = classNames("typeahead-select", customClassName, {
+    "typeahead-select--has-selected-options": Boolean(selectedOptions.length),
+    "typeahead-select--can-select-multiple": canSelectMultiple,
+    "typeahead-select--is-dropdown-menu-open": isMenuOpen
   });
-  const typeaheadInputRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     setComputedDropdownOptions(dropdownOptions);
@@ -98,7 +97,7 @@ function TypeaheadSelect({
   }, [shouldFocusOnInput]);
 
   const dropdownHeader = (
-    <div className={"typeahead-select__dropdown__header"}>
+    <div className={"typeahead-select__header"}>
       {shouldDisplaySelectedOptions && Boolean(tags.length) && (
         <List
           testid={`${testid}.tags`}
@@ -120,7 +119,7 @@ function TypeaheadSelect({
       {!shouldDisplayOnlyTags && (
         <TypeaheadInput
           testid={`${testid}.search`}
-          customClassName={typeaheadClassName}
+          customClassName={"typeahead-select__input"}
           inputContainerRef={typeaheadInputRef}
           id={typeaheadProps.id}
           name={typeaheadProps.name}
@@ -136,6 +135,7 @@ function TypeaheadSelect({
             )
           }
           onFocus={handleTypeaheadInputFocus}
+          isDisabled={isDisabled}
         />
       )}
     </div>
@@ -165,7 +165,7 @@ function TypeaheadSelect({
   }
 
   function handleTypeaheadInputFocus(event: React.SyntheticEvent<HTMLInputElement>) {
-    if (canOpenDropdownMenu) {
+    if (canOpenDropdownMenu && !isDisabled) {
       openDropdownMenu();
     }
 
