@@ -19,13 +19,15 @@ import List from "../../list/List";
 import ListItem from "../../list/item/ListItem";
 
 export interface TypeaheadSelectProps {
-  testid?: string;
   selectedOptions: DropdownOption[];
   dropdownOptions: DropdownOption[];
   onSelect: (option: DropdownOption) => void;
-  typeaheadProps: Omit<TypeaheadInputProps, "onQueryChange" | "testid">;
-  onTagRemove?: (option: DropdownOption) => void;
+  testid?: string;
+  typeaheadProps: Pick<TypeaheadInputProps, "id" | "placeholder" | "name" | "onFocus">;
   onKeywordChange?: (value: string) => void;
+  initialKeyword?: string;
+  controlledKeyword?: string;
+  onTagRemove?: (option: DropdownOption) => void;
   selectedOptionLimit?: number;
   customClassName?: string;
   shouldDisplaySelectedOptions?: boolean;
@@ -51,13 +53,16 @@ function TypeaheadSelect({
   isDisabled,
   shouldShowEmptyOptions = true,
   canOpenDropdownMenu = true,
-  areOptionsFetching
+  areOptionsFetching,
+  initialKeyword = "",
+  controlledKeyword
 }: TypeaheadSelectProps) {
   const typeaheadInputRef = useRef<HTMLDivElement | null>(null);
   const [isMenuOpen, setMenuVisibility] = useState(false);
   const [computedDropdownOptions, setComputedDropdownOptions] = useState(dropdownOptions);
-  const [shouldResetTypeaheadValue, setShouldResetTypeaheadValue] = useState(false);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
+  const [keyword, setKeyword] = useState(initialKeyword);
+  const inputValue = typeof controlledKeyword === "string" ? controlledKeyword : keyword;
 
   const tags = mapDropdownOptionsToTagShapes(selectedOptions);
   const shouldDisplayOnlyTags = Boolean(
@@ -124,9 +129,8 @@ function TypeaheadSelect({
           id={typeaheadProps.id}
           name={typeaheadProps.name}
           placeholder={typeaheadProps.placeholder}
-          value={typeaheadProps.value}
+          value={inputValue}
           onQueryChange={handleKeywordChange}
-          shouldResetValue={shouldResetTypeaheadValue}
           rightIcon={
             areOptionsFetching ? (
               <Spinner spinnerColor={"#EBEBEB"} backgroundColor={"white"} />
@@ -178,6 +182,7 @@ function TypeaheadSelect({
     if (!shouldDisplayOnlyTags) {
       onSelect(option!);
       setComputedDropdownOptions(dropdownOptions);
+      setKeyword("");
     }
   }
 
@@ -197,8 +202,8 @@ function TypeaheadSelect({
       onKeywordChange(value);
     }
 
-    if (shouldResetTypeaheadValue && value === "") {
-      setShouldResetTypeaheadValue(false);
+    if (typeof controlledKeyword === "undefined") {
+      setKeyword(value);
     }
   }
 }
