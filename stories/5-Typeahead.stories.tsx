@@ -70,7 +70,7 @@ storiesOf("Typeahead", module).add("Typeahead States", () => {
             />
           </FormField>
 
-          <FormField label={"Select Languages (Max selectable 2)"}>
+          <FormField label={"Select Languages (Max selectable 2) - Disabled"}>
             <TypeaheadSelect
               selectedOptionLimit={2}
               isDisabled={true}

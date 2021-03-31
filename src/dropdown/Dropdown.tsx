@@ -267,14 +267,14 @@ function Dropdown<OptionIdShape extends string>({
   function toggleDropdown() {
     if (isMenuOpen) {
       closeDropdown();
-    } else {
+    } else if (!isDisabled) {
       setMenuVisibility(true);
     }
   }
 
   function handleDropdownFocus() {
     // `document.hidden` is used on dropdown focus and blur handlers to handle changes on screen visibility correctly
-    if (!document.hidden && !isMouseDown && canOpenDropdownMenu) {
+    if (!document.hidden && !isMouseDown && canOpenDropdownMenu && !isDisabled) {
       setMenuVisibility(true);
     }
   }
