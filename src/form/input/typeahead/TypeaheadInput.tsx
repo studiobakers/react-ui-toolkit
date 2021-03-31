@@ -5,15 +5,16 @@ import Input from "../Input";
 import useDebounce from "../../../core/utils/hooks/debounce";
 
 export interface TypeaheadInputProps {
+  onQueryChange: (value: string) => void;
+  value?: string;
   testid?: string;
   customClassName?: string;
   id?: string;
   name: string;
   isDisabled?: boolean;
-  value?: string;
+  initialValue?: string;
   placeholder: string;
   queryChangeDebounceTimeout?: number;
-  onQueryChange: (value: string) => void;
   onFocus?: React.ReactEventHandler<HTMLInputElement>;
   onBlur?: React.ReactEventHandler<HTMLInputElement>;
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
@@ -22,7 +23,6 @@ export interface TypeaheadInputProps {
   role?: string;
   children?: React.ReactNode;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
-  shouldResetValue?: boolean;
 }
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 250;
@@ -42,26 +42,20 @@ function TypeaheadInput(props: TypeaheadInputProps) {
     isDisabled = false,
     leftIcon,
     rightIcon,
-    value = "",
+    initialValue = "",
+    value,
     queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
-    inputContainerRef,
-    shouldResetValue
+    inputContainerRef
   } = props;
 
   const [inputValue, setInputValue] = useDebounce(
     onQueryChange,
-    value,
+    initialValue,
     queryChangeDebounceTimeout
   );
 
   useEffect(() => {
-    if (shouldResetValue) {
-      setInputValue("");
-    }
-  }, [shouldResetValue, setInputValue]);
-
-  useEffect(() => {
-    if (value) {
+    if (typeof value === "string") {
       setInputValue(value);
     }
   }, [value, setInputValue]);
