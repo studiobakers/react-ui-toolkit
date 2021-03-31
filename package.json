@@ -1,6 +1,6 @@
 {
   "name": "@hipo/react-ui-toolkit",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0-alpha-2.0.0",
   "description": "React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
