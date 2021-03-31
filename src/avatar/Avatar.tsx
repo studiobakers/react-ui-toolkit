@@ -1,35 +1,24 @@
 import "./_avatar.scss";
 
-import React, {useState} from "react";
+import React from "react";
 import classNames from "classnames";
 
 export interface AvatarProps {
+  src: string;
   alt: string;
-  placeholderSrc: string;
-  size?: {
-    width: string;
-    height: string;
-  };
-  src?: string | null;
+  size?: number;
   customClassName?: string;
 }
 
-function Avatar({alt, size, src, customClassName, placeholderSrc}: AvatarProps) {
-  const [shouldDisplayPlaceholder, setPlaceholderVisibility] = useState(true);
-
+function Avatar({alt, size, src, customClassName}: AvatarProps) {
   return (
     <img
-      src={shouldDisplayPlaceholder ? placeholderSrc : src || placeholderSrc}
+      src={src}
       alt={alt}
-      style={{...size}}
+      style={{width: `${size}px`, height: `${size}px`}}
       className={classNames("avatar", customClassName)}
-      onLoad={handleImageLoad}
     />
   );
-
-  function handleImageLoad() {
-    setPlaceholderVisibility(false);
-  }
 }
 
 export default Avatar;
