@@ -31,6 +31,15 @@
   background-color: var(--dropdown-selected-item-bg);
 }
 
+.dropdown-list-item--is-disabled {
+  opacity: 0.7;
+
+  &:hover,
+  &.dropdown-list-item--is-focused {
+    background-color: white;
+  }
+}
+
 .dropdown-list-item__content {
   min-width: 0;
 }

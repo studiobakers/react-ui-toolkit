@@ -235,7 +235,7 @@ function Dropdown<OptionIdShape extends string>({
     option: Parameters<DropdownOptionSelectHandler>[0],
     event?: React.SyntheticEvent<HTMLLIElement>
   ) {
-    if (!isDisabled && option) {
+    if (!isDisabled && option && !option.isDisabled) {
       if (option.id === DROPDOWN_DESELECT_OPTION) {
         onSelect(null, event);
       } else {
@@ -248,7 +248,7 @@ function Dropdown<OptionIdShape extends string>({
       );
     }
 
-    if (shouldCloseOnSelect) {
+    if (shouldCloseOnSelect && !option?.isDisabled) {
       toggleDropdown();
     } else {
       // Make sure focus is on the dropdown button to prevent loss of blur functionality after selection
