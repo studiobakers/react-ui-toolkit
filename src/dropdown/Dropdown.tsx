@@ -313,7 +313,10 @@ function Dropdown<OptionIdShape extends string>({
         if (isMenuOpen) {
           event.stopPropagation();
           event.preventDefault();
-          handleOptionSelect(computedOptions[focusedOptionIndex]);
+
+          if (!computedOptions[focusedOptionIndex]?.isDisabled) {
+            handleOptionSelect(computedOptions[focusedOptionIndex]);
+          }
         }
         break;
       }

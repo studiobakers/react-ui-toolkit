@@ -11,6 +11,7 @@ export interface DropdownOption<Id = string, Context = any> {
   icon?: React.ReactNode;
   subtitle?: string;
   context?: Context;
+  isDisabled?: boolean;
 }
 
 export type DropdownOptionSelectHandler<Id = string, Context = any> = (
@@ -52,13 +53,14 @@ function DropdownListItem<OptionIdShape extends string>({
 }: DropdownListItemProps<OptionIdShape>) {
   const {id: optionId, customClassName, icon, title, subtitle, CustomContent} = option;
   const isSelected = Boolean(selectedOption && optionId === selectedOption.id);
-  const canItemBeClicked = !isSelected || canSelectAlreadySelected;
+  const canItemBeClicked = !option.isDisabled && (!isSelected || canSelectAlreadySelected);
   const containerClassName = classNames("dropdown-list-item", customClassName, {
     "dropdown-list-item--is-selected": isSelected,
     "dropdown-list-item--is-focused": Boolean(
       focusedOption && optionId === focusedOption.id
     ),
-    "dropdown-list-item--can-be-selected": canItemBeClicked
+    "dropdown-list-item--can-be-selected": canItemBeClicked,
+    "dropdown-list-item--is-disabled": option.isDisabled
   });
 
   return (

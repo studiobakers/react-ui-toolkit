@@ -19,6 +19,11 @@ storiesOf("Dropdown", module).add("Dropdown States", () => {
       {
         id: "spanish",
         title: "Spanish"
+      },
+      {
+        id: "french",
+        title: "French - Disabled",
+        isDisabled: true
       }
     ],
     selectedOption: null
