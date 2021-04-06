@@ -15,7 +15,7 @@ function Avatar({alt, size, src, customClassName}: AvatarProps) {
     <img
       src={src}
       alt={alt}
-      style={{width: `${size}px`, height: `${size}px`}}
+      style={size ? {width: `${size}px`, height: `${size}px`} : undefined}
       className={classNames("avatar", customClassName)}
     />
   );
