@@ -8,6 +8,7 @@ export type InputProps = Omit<
   "disabled" | "name"
 > & {
   name: string;
+  type?: "text" | "color";
   testid?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
