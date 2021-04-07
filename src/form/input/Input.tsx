@@ -5,10 +5,32 @@ import classNames from "classnames";
 
 export type InputProps = Omit<
   React.InputHTMLAttributes<HTMLInputElement>,
-  "disabled" | "name"
+  "disabled" | "name" | "className"
 > & {
   name: string;
-  type?: "text" | "color";
+  type?:
+    | "checkbox"
+    | "button"
+    | "color"
+    | "date"
+    | "datetime-local"
+    | "email"
+    | "file"
+    | "hidden"
+    | "image"
+    | "month"
+    | "number"
+    | "password"
+    | "radio"
+    | "range"
+    | "reset"
+    | "search"
+    | "submit"
+    | "tel"
+    | "text"
+    | "time"
+    | "url"
+    | "week";
   testid?: string;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
@@ -21,22 +43,10 @@ export type InputProps = Omit<
 function Input(props: InputProps) {
   const {
     testid,
-    name,
     type = "text",
-    value,
-    onChange,
-    placeholder,
-    step,
-    min,
-    max,
     isDisabled,
     hasError,
-    onFocus,
     customClassName,
-    onBlur,
-    onKeyUp,
-    onKeyDown,
-    onInput,
     leftIcon,
     rightIcon,
     role,
@@ -65,22 +75,10 @@ function Input(props: InputProps) {
 
       <input
         className={inputClassName}
-        name={name}
         type={type}
-        step={step}
-        max={max}
-        min={min}
-        value={value}
-        onChange={onChange}
-        onFocus={onFocus}
-        onBlur={onBlur}
-        placeholder={placeholder}
         autoComplete={autoComplete}
         autoCorrect={autoCorrect}
         disabled={isDisabled}
-        onKeyDown={onKeyDown}
-        onKeyUp={onKeyUp}
-        onInput={onInput}
         {...rest}
       />
 
