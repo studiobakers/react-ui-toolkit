@@ -212,7 +212,12 @@ function TypeaheadSelect({
   function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     const {key} = event;
 
-    if (key === KEYBOARD_EVENT_KEY.BACKSPACE && !inputValue && onTagRemove) {
+    if (
+      key === KEYBOARD_EVENT_KEY.BACKSPACE &&
+      !inputValue &&
+      onTagRemove &&
+      selectedOptions.length
+    ) {
       event.stopPropagation();
       onTagRemove(selectedOptions[selectedOptions.length - 1]);
     }
