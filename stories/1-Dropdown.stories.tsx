@@ -5,77 +5,13 @@ import Dropdown from "../src/dropdown/Dropdown";
 import StateProvider from "./utils/StateProvider";
 import FormField from "../src/form/field/FormField";
 import StoryFragment from "./utils/StoryFragment";
-
-const initialState = {
-  options: [
-    {
-      id: "turkish",
-      title: "Turkish"
-    },
-    {
-      id: "english",
-      title: "English"
-    },
-    {
-      id: "spanish",
-      title: "Spanish"
-    },
-    {
-      id: "french",
-      title: "French - Disabled",
-      isDisabled: true
-    }
-  ],
-  selectedOption: null
-};
-
-const initialStateWithSubtitle = {
-  options: [
-    {
-      id: "html",
-      title: "HTML",
-      subtitle: "HyperText Markup Language"
-    },
-    {
-      id: "css",
-      title: "CSS",
-      subtitle: "Cascading Style Sheets"
-    },
-    {
-      id: "js",
-      title: "JS",
-      subtitle: "JavaScript"
-    }
-  ],
-  selectedOption: null
-};
-
-const initialStateWithContext = {
-  options: [
-    {
-      id: "js",
-      title: "JavaScript",
-      context: {
-        icon: "https://img.icons8.com/dusk/48/000000/javascript-logo.png",
-        url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript"
-      }
-    },
-    {
-      id: "ts",
-      title: "TypeScript",
-      context: {
-        icon: "https://img.icons8.com/color/48/000000/typescript.png",
-        url: "https://www.typescriptlang.org/"
-      }
-    }
-  ]
-};
+import {initialState} from "./utils/constants/dropdownStoryOptionConstants";
 
 storiesOf("Dropdown", module)
   .add("Dropdown States", () => (
-    <StateProvider initialState={initialState}>
+    <StateProvider initialState={initialState.basic}>
       {(state, setState) => (
-        <div style={{maxWidth: "350px"}}>
+        <div className={"dropdown-story-container"}>
           <FormField label={"Your Language"}>
             <Dropdown
               role={"listbox"}
@@ -103,10 +39,10 @@ storiesOf("Dropdown", module)
     </StateProvider>
   ))
   .add("Dropdown Menu", () => (
-    <StateProvider initialState={initialState}>
+    <StateProvider initialState={initialState.basic}>
       {(state, setState) => (
         <StoryFragment>
-          <div style={{maxWidth: "350px"}}>
+          <div className={"dropdown-story-container"}>
             <FormField>
               <Dropdown
                 role={"menu"}
@@ -119,22 +55,6 @@ storiesOf("Dropdown", module)
                   <div>
                     <span className={"circle"} />
                     <span className={"dropdown-header"}>{"Language Menu"}</span>
-                    <style>
-                      {`
-                        .circle {
-                          height: 8px;
-                          width: 8px;
-                          background-color: blue;
-                          border-radius: 50%;
-                          display: inline-block;
-                        }
-                        
-                        .dropdown-header {
-                          color: black;
-                          margin-left: 16px;
-                        }
-                        `}
-                    </style>
                   </div>
                 }
               />
@@ -149,9 +69,9 @@ storiesOf("Dropdown", module)
     </StateProvider>
   ))
   .add("Dropdown Options With Subtitles", () => (
-    <StateProvider initialState={initialStateWithSubtitle}>
+    <StateProvider initialState={initialState.withSubtitle}>
       {(state, setState) => (
-        <div style={{maxWidth: "350px"}}>
+        <div className={"dropdown-story-container"}>
           <FormField label={"Web Courses"}>
             <Dropdown
               role={"listbox"}
@@ -165,54 +85,71 @@ storiesOf("Dropdown", module)
       )}
     </StateProvider>
   ))
-  .add("Dropdown With Customized Options", () => (
-    <StateProvider initialState={initialStateWithContext}>
-      {(state, setState) => (
-        <div style={{maxWidth: "350px"}}>
-          <FormField label={"Web Courses"}>
-            <Dropdown
-              role={"listbox"}
-              options={state.options}
-              placeholder={"Select Language"}
-              onSelect={(option) => setState({...state, selectedOption: option})}
-              selectedOption={state.selectedOption}
-            />
-          </FormField>
-
-          {state.selectedOption && (
-            <Fragment>
-              <div
-                style={{
-                  width: "48px",
-                  height: "48px",
-                  backgroundImage: `url(${state.selectedOption.context.icon})`
-                }}
+  .add("Customized Dropdowns", () => (
+    <StoryFragment>
+      <StateProvider initialState={initialState.withContext}>
+        {(state, setState) => (
+          <div className={"dropdown-story-container"}>
+            <FormField label={"Using context to share more data with dropdown options"}>
+              <Dropdown
+                role={"listbox"}
+                options={state.options}
+                placeholder={"Select Language"}
+                onSelect={(option) => setState({...state, selectedOption: option})}
+                selectedOption={state.selectedOption}
               />
+            </FormField>
 
-              <a href={state.selectedOption.context.url}>{"Visit Website"}</a>
-            </Fragment>
-          )}
-        </div>
-      )}
-    </StateProvider>
+            {state.selectedOption && (
+              <Fragment>
+                <img
+                  className={"dropdown-context-icon"}
+                  src={state.selectedOption.context.icon}
+                />
+
+                <a href={state.selectedOption.context.url}>{"Visit Website"}</a>
+              </Fragment>
+            )}
+          </div>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={initialState.withCustomContent}>
+        {(state, setState) => (
+          <div className={"dropdown-story-container"}>
+            <FormField label={"Using CustomContent to display custom dropdown options"}>
+              <Dropdown
+                role={"listbox"}
+                options={state.options}
+                placeholder={"Select Coin"}
+                onSelect={(option) => setState({...state, selectedOption: option})}
+                selectedOption={state.selectedOption}
+              />
+            </FormField>
+          </div>
+        )}
+      </StateProvider>
+    </StoryFragment>
   ))
   .add("No Options", () => (
-    <div style={{maxWidth: "350px"}}>
+    <div className={"dropdown-story-container"}>
       <FormField label={"Your Language - No Options"}>
         <Dropdown
           role={"listbox"}
           options={[]}
           placeholder={"Select Language"}
           onSelect={(option) => console.log(option)}
-          selectedOption={initialState.selectedOption}
+          selectedOption={initialState.basic.selectedOption}
         />
       </FormField>
     </div>
   ))
   .add("Pending Request", () => (
-    <StateProvider initialState={initialState}>
+    <StateProvider initialState={initialState.basic}>
       {(state, setState) => (
-        <div style={{maxWidth: "350px"}}>
+        <div className={"dropdown-story-container"}>
           <FormField label={"Your Language"}>
             <Dropdown
               role={"listbox"}
@@ -228,14 +165,14 @@ storiesOf("Dropdown", module)
     </StateProvider>
   ))
   .add("Disabled", () => (
-    <div style={{maxWidth: "350px"}}>
+    <div className={"dropdown-story-container"}>
       <FormField label={"Your Language"}>
         <Dropdown
           role={"listbox"}
-          options={initialState.options}
+          options={initialState.basic.options}
           placeholder={"Select Language"}
           onSelect={(option) => console.log(option)}
-          selectedOption={initialState.options[1]}
+          selectedOption={initialState.basic.options[1]}
           isDisabled={true}
         />
       </FormField>
