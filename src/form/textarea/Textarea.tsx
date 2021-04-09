@@ -31,21 +31,15 @@ function Textarea(props: TextareaProps) {
   const {
     name,
     value,
-    onChange,
-    placeholder,
     isDisabled,
-    onFocus,
     customClassNames,
-    onBlur,
     testid,
     onKeyUp,
-    id,
     style,
     autoSizeProps,
     onJustEnterPressed,
     isRequired,
     onShiftEnter,
-    maxLength,
     hasError,
     autoComplete = "off",
     autoCorrect = "off",
@@ -55,11 +49,12 @@ function Textarea(props: TextareaProps) {
   const [isShiftPressed, setShiftPressedState] = useState(false);
   const containerClassName = classNames(
     "textarea-container",
-    customClassNames?.container
+    customClassNames?.container,
+    {"textarea--has-error": hasError,
+     "textarea--is-disabled" : isDisabled
+    }
   );
-  const textareaClassName = classNames("textarea", customClassNames?.textarea, {
-    "textarea--has-error": hasError
-  });
+  const textareaClassName = classNames("textarea", customClassNames?.textarea);
 
   return (
     <div className={containerClassName}>
@@ -67,13 +62,8 @@ function Textarea(props: TextareaProps) {
         <TextareaAutosize
           className={textareaClassName}
           data-testid={testid}
-          id={id}
           name={name}
           value={value}
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          placeholder={placeholder}
           autoComplete={autoComplete}
           autoCorrect={autoCorrect}
           disabled={isDisabled}
@@ -84,20 +74,15 @@ function Textarea(props: TextareaProps) {
           minRows={autoSizeProps.minRows}
           onHeightChange={autoSizeProps.onHeightChange}
           required={isRequired}
-          maxLength={maxLength}
           autoFocus={autoFocus}
+          {...otherProps}
         />
       ) : (
         <textarea
           className={textareaClassName}
           data-testid={testid}
-          id={id}
           name={name}
           value={value}
-          onChange={onChange}
-          onFocus={onFocus}
-          onBlur={onBlur}
-          placeholder={placeholder}
           autoComplete={autoComplete}
           autoCorrect={autoCorrect}
           disabled={isDisabled}
@@ -105,7 +90,6 @@ function Textarea(props: TextareaProps) {
           onKeyUp={handleKeyUp}
           style={style}
           required={isRequired}
-          maxLength={maxLength}
           autoFocus={autoFocus}
           {...otherProps}
         />

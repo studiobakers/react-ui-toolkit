@@ -59,7 +59,7 @@ storiesOf("Form", module)
       />
     </FormField>
   ))
-  .add("Textarea", () => (
+  .add("Textarea States", () => (
     <StoryFragment>
       <Textarea
         id={"textarea-fixed"}
@@ -70,6 +70,8 @@ storiesOf("Form", module)
         }}
       />
 
+      <br />
+
       <Textarea
         id={"textarea-fixed"}
         name={"Disabled fixed size Textarea"}
@@ -79,8 +81,11 @@ storiesOf("Form", module)
           console.log(e.currentTarget.value);
         }}
       />
-
-      <Textarea
+    </StoryFragment>
+  ))
+  .add("Textarea AutoSize", () => (
+    <StoryFragment>
+    <Textarea
         id={"textarea-auto-size"}
         name={"Auto size Textarea"}
         placeholder={"Write a paragraph"}
@@ -89,6 +94,8 @@ storiesOf("Form", module)
           console.log(e.currentTarget.value);
         }}
       />
+
+      <br />
 
       <Textarea
         id={"textarea-auto-size"}
@@ -100,7 +107,23 @@ storiesOf("Form", module)
           console.log(e.currentTarget.value);
         }}
       />
-    </StoryFragment>
+      </StoryFragment>
+  ))
+  .add("Textarea.HasErrorMessage", () => (
+    <FormField
+      labelledBy={"Address"}
+      label={"Address"}
+      errorMessages={["Please enter your address"]}>
+       <Textarea
+        id={"address"}
+        name={"Address"}
+        placeholder={"Write your address"}
+        hasError={true}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+        }}
+      />
+    </FormField>
   ))
   .add("Password Input", () => (
     <FormField label={"Password"}>

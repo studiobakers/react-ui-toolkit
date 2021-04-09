@@ -1,13 +1,14 @@
 .textarea-container {
+  --textarea-height: 72px;
+
   display: flex;
   align-items: center;
 
   width: 100%;
-  min-height: 112px;
 }
 
 .textarea {
-  min-height: var(--input-height);
+  min-height: var(--textarea-height);
 
   flex: 1;
 
@@ -33,17 +34,6 @@
 
   &--has-error {
     color: var(--invalid-text-color);
-  }
-
-  &--is-underlined {
-    padding: 0;
-
-    background-color: transparent;
-    border: none;
-    border-bottom: 1px solid var(--default-border-color);
-    border-radius: 0;
-
-    transition: border-bottom-color var(--default-animation-duration)
-      var(--default-animation-function);
+    border: 1px solid var(--invalid-text-color);
   }
 }
