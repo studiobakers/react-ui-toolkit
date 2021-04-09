@@ -1,0 +1,20 @@
+.toast {
+  position: fixed;
+  bottom: 0;
+  z-index: 2;
+
+  width: 100vw;
+
+  padding: 17px 0;
+
+  text-align: center;
+
+  &--danger {
+    color: red;
+  }
+
+  &--success {
+    color: green;
+    background-color: var(--cyan-700);
+  }
+}
