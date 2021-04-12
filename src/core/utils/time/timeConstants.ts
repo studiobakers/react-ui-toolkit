@@ -1,0 +1,8 @@
+const SECOND_IN_MS = 1000;
+const MINUTE_IN_S = 60;
+const HOUR_IN_MINS = 60;
+const HOUR_IN_S = HOUR_IN_MINS * MINUTE_IN_S;
+const DAY_IN_S = 86400;
+const DAY_IN_HRS = 24;
+
+export {DAY_IN_HRS, DAY_IN_S, HOUR_IN_S, MINUTE_IN_S, SECOND_IN_MS};
