@@ -7,7 +7,7 @@ import useCountDownTimer from "../core/utils/hooks/useCountdownTimer";
 import List from "../list/List";
 import ListItem from "../list/item/ListItem";
 
-interface CountdownProps {
+export interface CountdownProps {
   testid: string;
   startDate: Date;
   countDownIntervalInSeconds?: number;

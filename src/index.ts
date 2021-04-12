@@ -24,6 +24,7 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
+import Countdown, {CountdownProps} from "./countdown/Countdown";
 
 export {
   // Components
@@ -43,6 +44,7 @@ export {
   FileUploadButton,
   Spinner,
   Tab,
+  Countdown,
   // Types
   FormFieldProps,
   InputProps,
@@ -63,5 +65,6 @@ export {
   FileUploadButtonProps,
   SpinnerProps,
   TabItem,
-  TabProps
+  TabProps,
+  CountdownProps
 };
