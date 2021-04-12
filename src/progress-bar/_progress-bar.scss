@@ -1,0 +1,50 @@
+.progress-bar-container {
+  display: grid;
+}
+
+.progress-bar {
+  position: relative;
+
+  width: 100%;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  &--is-line-view {
+    height: 4px;
+  }
+
+  &--is-bar-view {
+    min-height: 50px;
+  }
+
+  &__track {
+    position: absolute;
+    left: 0;
+
+    height: 100%;
+  }
+
+  &__content {
+    position: relative;
+
+    height: 100%;
+
+    margin: auto;
+
+    color: black;
+
+    &--is-position-top {
+      grid-row: 1;
+    }
+
+    &--is-position-bottom {
+      grid-row: 2;
+    }
+
+    &--is-position-in {
+      width: max-content;
+    }
+  }
+}
