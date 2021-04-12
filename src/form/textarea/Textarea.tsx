@@ -21,8 +21,8 @@ type TextareaProps = Omit<
   };
   style?: React.CSSProperties;
   autoSizeProps?: TextareaAutosizeProps;
-  onJustEnterPressed?: VoidFunction;
-  onShiftEnter?: VoidFunction;
+  onJustEnterPressed?: () => void;
+  onShiftEnter?: () => void;
   isRequired?: boolean;
   hasError?: boolean;
 };
