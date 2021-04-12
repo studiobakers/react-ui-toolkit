@@ -21,8 +21,8 @@ type TextareaProps = Omit<
   };
   style?: React.CSSProperties;
   autoSizeProps?: TextareaAutosizeProps;
-  onJustEnterPressed?: () => void;
-  onShiftEnter?: () => void;
+  onJustEnterPressed?: VoidFunction;
+  onShiftEnter?: VoidFunction;
   isRequired?: boolean;
   hasError?: boolean;
 };
@@ -41,6 +41,7 @@ function Textarea(props: TextareaProps) {
     isRequired,
     onShiftEnter,
     hasError,
+    onKeyDown,
     autoComplete = "off",
     autoCorrect = "off",
     autoFocus = false,
@@ -50,8 +51,9 @@ function Textarea(props: TextareaProps) {
   const containerClassName = classNames(
     "textarea-container",
     customClassNames?.container,
-    {"textarea--has-error": hasError,
-     "textarea--is-disabled" : isDisabled
+    {
+      "textarea--has-error": hasError,
+      "textarea--is-disabled": isDisabled
     }
   );
   const textareaClassName = classNames("textarea", customClassNames?.textarea);
@@ -99,7 +101,6 @@ function Textarea(props: TextareaProps) {
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLTextAreaElement>) {
     const {key: pressedKey} = event;
-    const {onKeyDown} = props;
     const newEvent = {...event};
 
     newEvent.currentTarget.name = name;

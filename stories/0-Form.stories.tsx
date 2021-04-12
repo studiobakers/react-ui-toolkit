@@ -85,7 +85,7 @@ storiesOf("Form", module)
   ))
   .add("Textarea AutoSize", () => (
     <StoryFragment>
-    <Textarea
+      <Textarea
         id={"textarea-auto-size"}
         name={"Auto size Textarea"}
         placeholder={"Write a paragraph"}
@@ -107,14 +107,14 @@ storiesOf("Form", module)
           console.log(e.currentTarget.value);
         }}
       />
-      </StoryFragment>
+    </StoryFragment>
   ))
   .add("Textarea.HasErrorMessage", () => (
     <FormField
       labelledBy={"Address"}
       label={"Address"}
       errorMessages={["Please enter your address"]}>
-       <Textarea
+      <Textarea
         id={"address"}
         name={"Address"}
         placeholder={"Write your address"}
