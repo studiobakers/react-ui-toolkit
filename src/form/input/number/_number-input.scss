@@ -1,0 +1,7 @@
+.number-input {
+  &.can-be-formatted-to-locale-string {
+    .input:focus {
+      pointer-events: none;
+    }
+  }
+}

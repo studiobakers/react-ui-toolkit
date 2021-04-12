@@ -3,7 +3,7 @@ import "./_list-item.scss";
 import React from "react";
 import classNames from "classnames";
 
-import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboardEventConstants";
+import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard-event/keyboardEventConstants";
 
 interface ListItemProps {
   children?: React.ReactNode;

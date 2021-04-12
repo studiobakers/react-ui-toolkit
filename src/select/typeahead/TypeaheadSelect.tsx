@@ -13,7 +13,7 @@ import {mapDropdownOptionsToTagShapes} from "../../tag/util/tagUtils";
 import Tag, {TagShape} from "../../tag/Tag";
 import Dropdown from "../../dropdown/Dropdown";
 import {filterOptionsByKeyword} from "./util/typeaheadSelectUtils";
-import {filterOutItemsByKey} from "../../core/utils/arrayUtils";
+import {filterOutItemsByKey} from "../../core/utils/array/arrayUtils";
 import Spinner from "../../spinner/Spinner";
 import List from "../../list/List";
 import ListItem from "../../list/item/ListItem";

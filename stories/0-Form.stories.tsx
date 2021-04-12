@@ -5,6 +5,7 @@ import StateProvider from "./utils/StateProvider";
 
 import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
+import NumberInput from "../src/form/input/number/NumberInput";
 import PasswordInput from "../src/form/password-input/PasswordInput";
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
@@ -66,6 +67,62 @@ storiesOf("Form", module)
         onChange={(e) => console.log(e.currentTarget.value)}
       />
     </FormField>
+  ))
+  .add("Number Input", () => (
+    <Fragment>
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField label={"Price"}>
+              <NumberInput
+                testid={"AddProductForm.price"}
+                maxFractionDigits={2}
+                name={"price"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+                placeholder={"$ 10"}
+              />
+            </FormField>
+
+            <br />
+
+            <FormField
+              label={"Price - Has Error"}
+              errorMessages={["Please enter a valid price"]}>
+              <NumberInput
+                testid={"AddProductForm.price"}
+                maxFractionDigits={2}
+                name={"price"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+                placeholder={"$ 10"}
+                hasError={true}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField label={"Price (BTC)"}>
+              <NumberInput
+                testid={"AddProductForm.price"}
+                maxFractionDigits={8}
+                name={"price"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+                prefixIconToValue={"₿"}
+                placeholder={"Min. ₿ 0.00000001"}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+    </Fragment>
   ))
   .add("Checkbox States", () => {
     const initialState = {
