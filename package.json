@@ -73,9 +73,7 @@
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "classnames": "2.2.6"
-  },
-  "peerDependencies": {
+    "classnames": "2.2.6",
     "react-textarea-autosize": "8.3.2"
   }
 }
