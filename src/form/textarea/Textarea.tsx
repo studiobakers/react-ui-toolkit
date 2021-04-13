@@ -6,7 +6,7 @@ import TextareaAutosize, {TextareaAutosizeProps} from "react-textarea-autosize";
 
 import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboardEventConstants";
 
-type TextareaProps = Omit<
+export type TextareaProps = Omit<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
   "name" | "onChange" | "className"
 > & {
