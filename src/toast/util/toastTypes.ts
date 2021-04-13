@@ -1,6 +1,6 @@
 interface ToastData {
   mode: "danger" | "success";
-  component: React.ReactNode;
+  content: React.ReactNode;
   autoClose?: boolean;
   timeout?: number;
   customClassName?: string;

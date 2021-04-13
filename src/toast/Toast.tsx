@@ -10,10 +10,18 @@ function Toast() {
   const {
     toastState: {
       isDisplayed,
-      data: {autoClose, timeout, component, mode, customClassName}
+      data: {autoClose, timeout, content, mode, customClassName}
     },
     dispatchToastAction
   } = useToast();
+  let toastRootNode = document.querySelector("#toast-root");
+
+  if (!toastRootNode) {
+    toastRootNode = document.createElement("div");
+    toastRootNode.setAttribute("id", "toast-root");
+  }
+
+  document.body.appendChild(toastRootNode);
 
   useEffect(() => {
     let timeoutId: number;
@@ -23,6 +31,10 @@ function Toast() {
         dispatchToastAction({
           type: "HIDE"
         });
+
+        if (toastRootNode) {
+          document.body.removeChild(toastRootNode);
+        }
       }, timeout);
     }
 
@@ -33,11 +45,11 @@ function Toast() {
 
   const toast = (
     <div className={classNames("toast", `toast--${mode}`, customClassName)}>
-      {component}
+      {content}
     </div>
   );
 
-  return ReactDOM.createPortal(toast, document.querySelector("#toast-root")!);
+  return ReactDOM.createPortal(toast, toastRootNode);
 }
 
 export default Toast;

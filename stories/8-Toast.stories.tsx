@@ -1,23 +1,20 @@
 import {storiesOf} from "@storybook/react";
 import React from "react";
 import Button from "../src/button/Button";
-import {useToaster} from "../src/toast/util/toastHooks";
+import {useDisplayToast} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
 
 function ToastComponent() {
-  const dispatchToast = useToaster();
+  const displayToast = useDisplayToast();
 
   return (
     <StoryFragment>
       <Button
         type={"button"}
         onClick={() =>
-          dispatchToast({
-            type: "DISPLAY",
-            payload: {
-              mode: "success",
-              component: "Success Message"
-            }
+          displayToast({
+            mode: "success",
+            content: "Success Message"
           })
         }>
         {"Show Success Toast"}
@@ -28,18 +25,13 @@ function ToastComponent() {
       <Button
         type={"button"}
         onClick={() =>
-          dispatchToast({
-            type: "DISPLAY",
-            payload: {
-              mode: "danger",
-              component: "Error Message"
-            }
+          displayToast({
+            mode: "danger",
+            content: "Error Message"
           })
         }>
         {"Show Error Toast"}
       </Button>
-
-      <div id="toast-root"></div>
     </StoryFragment>
   );
 }
