@@ -30,11 +30,12 @@ storiesOf("Countdown", module).add("Countdown", () => (
 
     <hr />
 
-    <span>{"1 Day Later"}</span>
+    <span>{"1 Day Later - Show Seconds"}</span>
 
     <Countdown
       testid={"EventRemainingTime"}
       startDate={calculateFutureDate(1, "day")}
+      alwaysShowSeconds={true}
       onEnd={() => console.log("onEnd function triggered")}
     />
 

@@ -11,19 +11,26 @@ export interface CountdownProps {
   testid: string;
   startDate: Date;
   countDownIntervalInSeconds?: number;
+  alwaysShowSeconds?: boolean;
   onEnd?: () => void;
   customClassName?: string;
+}
+
+interface CountDownItem {
+  id: "days" | "hours" | "minutes" | "seconds";
+  count: string | number;
 }
 
 function Countdown({
   testid,
   startDate,
-  onEnd,
   countDownIntervalInSeconds = 1,
+  alwaysShowSeconds = false,
+  onEnd,
   customClassName
 }: CountdownProps) {
   const countDownData = useCountDownTimer(startDate, countDownIntervalInSeconds);
-  let items: {id: "days" | "hours" | "minutes" | "seconds"; count: string | number}[];
+  let items: CountDownItem[] = [];
 
   if (countDownData.days >= 1) {
     items = [
@@ -41,6 +48,10 @@ function Countdown({
       {id: "minutes", count: countDownData.minutes},
       {id: "seconds", count: countDownData.seconds}
     ];
+  }
+
+  if (alwaysShowSeconds && countDownData.hours >= 1) {
+    items.push({id: "seconds", count: countDownData.seconds});
   }
 
   useLayoutEffect(() => {
@@ -62,7 +73,11 @@ function Countdown({
             {item.count}
           </p>
 
-          <p className={"countdown-box__title"}>{item.id}</p>
+          <p
+            data-testid={`${itemTestId}.${item.id}.title`}
+            className={"countdown-box__title"}>
+            {item.id}
+          </p>
         </ListItem>
       )}
     </List>
