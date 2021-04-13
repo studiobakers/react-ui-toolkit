@@ -1,10 +1,7 @@
-import "./_number-input.scss";
-
 import React, {useRef, RefObject} from "react";
 import classNames from "classnames";
 
 import Input, {InputProps} from "../Input";
-import {numberToString} from "../../../core/utils/number/numberUtils";
 import {
   NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX,
   NOT_NUMBER_NOR_DECIMAL_POINT_REGEX,
@@ -27,7 +24,6 @@ export interface NumberInputProps {
   placeholder?: string;
   customClassName?: string;
   leftIcon?: React.ReactNode;
-  shouldFormatToLocaleString?: boolean;
   onFocus?: InputProps["onFocus"];
   onKeyDown?: InputProps["onKeyDown"];
   prefixIconToValue?: string;
@@ -48,22 +44,15 @@ function NumberInput({
   placeholder,
   customClassName,
   leftIcon,
-  shouldFormatToLocaleString = false,
   onFocus,
   onKeyDown,
   prefixIconToValue,
   isDisabled
 }: NumberInputProps) {
-  const className = classNames("number-input", customClassName, {
-    "can-be-formatted-to-locale-string": shouldFormatToLocaleString
-  });
+  const className = classNames("number-input", customClassName);
   const containerRef = useRef() as RefObject<HTMLDivElement>;
 
   let finalValue = value;
-
-  if (value && shouldFormatToLocaleString) {
-    finalValue = numberToString(finalValue);
-  }
 
   if (finalValue && prefixIconToValue && !finalValue.includes(prefixIconToValue)) {
     finalValue = `${prefixIconToValue} ${finalValue}`;
@@ -129,16 +118,6 @@ function NumberInput({
   function handleFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (onFocus) {
       onFocus(event);
-    }
-
-    if (shouldFormatToLocaleString && containerRef.current) {
-      const inputElem = event.currentTarget;
-
-      if (inputElem) {
-        setTimeout(() => {
-          inputElem.setSelectionRange(inputElem.value.length, inputElem.value.length);
-        });
-      }
     }
   }
 
