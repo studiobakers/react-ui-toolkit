@@ -24,6 +24,8 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
+import Toast from "./toast/Toast";
+import {useToaster} from "./toast/util/toastHooks";
 
 export {
   // Components
@@ -43,6 +45,7 @@ export {
   FileUploadButton,
   Spinner,
   Tab,
+  Toast,
   // Types
   FormFieldProps,
   InputProps,
@@ -63,5 +66,6 @@ export {
   FileUploadButtonProps,
   SpinnerProps,
   TabItem,
-  TabProps
+  TabProps,
+  useToaster
 };
