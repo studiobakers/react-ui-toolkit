@@ -3,9 +3,10 @@ import "./_countdown.scss";
 import React, {useLayoutEffect} from "react";
 import classNames from "classnames";
 
-import useCountDownTimer from "../core/utils/hooks/useCountdownTimer";
+import useCountdownTimer from "../core/utils/hooks/useCountdownTimer";
 import List from "../list/List";
 import ListItem from "../list/item/ListItem";
+import {generateCountdownItems} from "../core/utils/time/timeUtils";
 
 export interface CountdownProps {
   testid: string;
@@ -16,7 +17,7 @@ export interface CountdownProps {
   customClassName?: string;
 }
 
-interface CountDownItem {
+export interface CountdownItem {
   id: "days" | "hours" | "minutes" | "seconds";
   count: string | number;
 }
@@ -29,36 +30,14 @@ function Countdown({
   onEnd,
   customClassName
 }: CountdownProps) {
-  const countDownData = useCountDownTimer(startDate, countDownIntervalInSeconds);
-  let items: CountDownItem[] = [];
-
-  if (countDownData.days >= 1) {
-    items = [
-      {id: "days", count: countDownData.days},
-      {id: "hours", count: countDownData.hours},
-      {id: "minutes", count: countDownData.minutes}
-    ];
-  } else if (countDownData.hours >= 1) {
-    items = [
-      {id: "hours", count: countDownData.hours},
-      {id: "minutes", count: countDownData.minutes}
-    ];
-  } else {
-    items = [
-      {id: "minutes", count: countDownData.minutes},
-      {id: "seconds", count: countDownData.seconds}
-    ];
-  }
-
-  if (alwaysShowSeconds && countDownData.hours >= 1) {
-    items.push({id: "seconds", count: countDownData.seconds});
-  }
+  const countdownData = useCountdownTimer(startDate, countDownIntervalInSeconds);
+  let items = generateCountdownItems(countdownData, alwaysShowSeconds);
 
   useLayoutEffect(() => {
-    if (countDownData.delta <= 0 && onEnd) {
+    if (countdownData.delta <= 0 && onEnd) {
       onEnd();
     }
-  }, [countDownData.delta, onEnd]);
+  }, [countdownData.delta, onEnd]);
 
   return (
     <List

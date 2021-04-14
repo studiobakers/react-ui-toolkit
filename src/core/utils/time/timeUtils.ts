@@ -5,13 +5,14 @@ import {
   MINUTE_IN_S,
   SECOND_IN_MS
 } from "./timeConstants";
-import {CountDownResults} from "./timeTypes";
+import {CountdownResults} from "./timeTypes";
+import {CountdownItem} from "../../../countdown/Countdown";
 
-function calculateRemainingTime(target: Date): CountDownResults {
+function calculateRemainingTime(target: Date): CountdownResults {
   const maxDigit = 9;
   const delta = target.getTime() - new Date().getTime();
   const deltaInSeconds = delta / SECOND_IN_MS;
-  const countDownResults: CountDownResults = {
+  const countdownResults: CountdownResults = {
     delta,
     days: Math.floor(deltaInSeconds / DAY_IN_S),
     hours: Math.floor((deltaInSeconds / HOUR_IN_S) % DAY_IN_HRS),
@@ -19,31 +20,62 @@ function calculateRemainingTime(target: Date): CountDownResults {
     seconds: Math.floor((deltaInSeconds % HOUR_IN_S) % MINUTE_IN_S)
   };
 
-  if (countDownResults.days < 1) {
-    countDownResults.days = "0";
-  } else if (countDownResults.days <= maxDigit) {
-    countDownResults.days = `0${countDownResults.days}`;
+  if (countdownResults.days < 1) {
+    countdownResults.days = "0";
+  } else if (countdownResults.days <= maxDigit) {
+    countdownResults.days = `0${countdownResults.days}`;
   }
 
-  if (countDownResults.hours < 1) {
-    countDownResults.hours = "00";
-  } else if (countDownResults.hours <= maxDigit) {
-    countDownResults.hours = `0${countDownResults.hours}`;
+  if (countdownResults.hours < 1) {
+    countdownResults.hours = "00";
+  } else if (countdownResults.hours <= maxDigit) {
+    countdownResults.hours = `0${countdownResults.hours}`;
   }
 
-  if (countDownResults.minutes < 1) {
-    countDownResults.minutes = "00";
-  } else if (countDownResults.minutes <= maxDigit) {
-    countDownResults.minutes = `0${countDownResults.minutes}`;
+  if (countdownResults.minutes < 1) {
+    countdownResults.minutes = "00";
+  } else if (countdownResults.minutes <= maxDigit) {
+    countdownResults.minutes = `0${countdownResults.minutes}`;
   }
 
-  if (countDownResults.seconds < 1) {
-    countDownResults.seconds = "00";
-  } else if (countDownResults.seconds <= maxDigit) {
-    countDownResults.seconds = `0${countDownResults.seconds}`;
+  if (countdownResults.seconds < 1) {
+    countdownResults.seconds = "00";
+  } else if (countdownResults.seconds <= maxDigit) {
+    countdownResults.seconds = `0${countdownResults.seconds}`;
   }
 
-  return countDownResults;
+  return countdownResults;
 }
 
-export {calculateRemainingTime};
+function generateCountdownItems(
+  countdownData: CountdownResults,
+  secondVisibility: boolean
+): CountdownItem[] {
+  let items: CountdownItem[];
+
+  if (countdownData.days >= 1) {
+    items = [
+      {id: "days", count: countdownData.days},
+      {id: "hours", count: countdownData.hours},
+      {id: "minutes", count: countdownData.minutes}
+    ];
+  } else if (countdownData.hours >= 1) {
+    items = [
+      {id: "hours", count: countdownData.hours},
+      {id: "minutes", count: countdownData.minutes}
+    ];
+  } else {
+    items = [
+      {id: "minutes", count: countdownData.minutes},
+      {id: "seconds", count: countdownData.seconds}
+    ];
+  }
+
+  if (secondVisibility && countdownData.hours >= 1) {
+    items.push({id: "seconds", count: countdownData.seconds});
+  }
+
+  return items;
+}
+
+export {calculateRemainingTime, generateCountdownItems};

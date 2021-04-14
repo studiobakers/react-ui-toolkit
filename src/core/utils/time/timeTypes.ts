@@ -1,4 +1,4 @@
-interface CountDownResults {
+interface CountdownResults {
   delta: number;
   days: string | number;
   hours: string | number;
@@ -6,4 +6,4 @@ interface CountDownResults {
   seconds: string | number;
 }
 
-export {CountDownResults};
+export {CountdownResults};
