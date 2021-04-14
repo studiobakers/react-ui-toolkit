@@ -3,7 +3,7 @@ import "./_progress-bar.scss";
 import React from "react";
 import classNames from "classnames";
 
-interface ProgressBarProps {
+export interface ProgressBarProps {
   percentage: number;
   style: {
     trackColor?: string;
@@ -12,7 +12,7 @@ interface ProgressBarProps {
   };
   children: {
     content?: React.ReactNode;
-    position?: "top" | "bottom" | "in";
+    position?: "top" | "bottom" | "inside";
   };
   view?: "line" | "bar";
   customClassName?: string;
@@ -37,15 +37,8 @@ function ProgressBar(props: ProgressBarProps) {
 
   return (
     <div className={progressBarContainerClassName}>
-      {content && position !== "in" && (
-        <div
-          className={classNames(
-            "progress-bar__content",
-            `progress-bar__content--is-position-${position}`
-          )}>
-          {content}
-        </div>
-      )}
+      {content && position !== "inside" && renderContent()}
+
       <div
         className={progressBarClassName}
         style={{
@@ -59,14 +52,22 @@ function ProgressBar(props: ProgressBarProps) {
           }}
         />
 
-        {content && position === "in" && view === "bar" && (
-          <div className={"progress-bar__content progress-bar__content--is-position-in"}>
-            {content}
-          </div>
-        )}
+        {content && position === "inside" && view === "bar" && renderContent()}
       </div>
     </div>
   );
+
+  function renderContent() {
+    return (
+      <div
+        className={classNames(
+          "progress-bar__content",
+          `progress-bar__content--is-position-${position}`
+        )}>
+        {content}
+      </div>
+    );
+  }
 }
 
 export default ProgressBar;

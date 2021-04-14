@@ -162,7 +162,7 @@ storiesOf("Progress Bar", module)
 
       <br />
 
-      <span>{"Children position: In"}</span>
+      <span>{"Children position: Inside"}</span>
 
       <ProgressBar
         percentage={0}
@@ -172,10 +172,10 @@ storiesOf("Progress Bar", module)
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{content: <p>{"0 %"}</p>, position: "in"}}
+        children={{content: <p>{"0 %"}</p>, position: "inside"}}
       />
 
-      <br/>
+      <br />
 
       <ProgressBar
         percentage={85}
@@ -185,10 +185,10 @@ storiesOf("Progress Bar", module)
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{content: <p>{"85 %"}</p>, position: "in"}}
+        children={{content: <p>{"85 %"}</p>, position: "inside"}}
       />
 
-      <br/>
+      <br />
 
       <ProgressBar
         percentage={100}
@@ -198,7 +198,7 @@ storiesOf("Progress Bar", module)
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{content: <p>{"Completed!"}</p>, position: "in"}}
+        children={{content: <p>{"Completed!"}</p>, position: "inside"}}
       />
     </div>
   ));

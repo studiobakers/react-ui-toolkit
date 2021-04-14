@@ -24,6 +24,7 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
+import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
 
 export {
   // Components
@@ -43,6 +44,7 @@ export {
   FileUploadButton,
   Spinner,
   Tab,
+  ProgressBar,
   // Types
   FormFieldProps,
   InputProps,
@@ -63,5 +65,6 @@ export {
   FileUploadButtonProps,
   SpinnerProps,
   TabItem,
-  TabProps
+  TabProps,
+  ProgressBarProps
 };
