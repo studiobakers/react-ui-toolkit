@@ -6,7 +6,11 @@ import classNames from "classnames";
 
 import {useToast} from "./util/toastHooks";
 
-function Toast() {
+export interface ToastProps {
+  toastRootId?: string;
+}
+
+function Toast({toastRootId}: ToastProps) {
   const {
     toastState: {
       isDisplayed,
@@ -14,7 +18,7 @@ function Toast() {
     },
     dispatchToastAction
   } = useToast();
-  let toastRootNode = document.querySelector("#toast-root");
+  let toastRootNode = document.querySelector(toastRootId || "#toast-root");
 
   if (!toastRootNode) {
     toastRootNode = document.createElement("div");
@@ -24,7 +28,7 @@ function Toast() {
   document.body.appendChild(toastRootNode);
 
   useEffect(() => {
-    let timeoutId: number;
+    let timeoutId: NodeJS.Timeout;
 
     if (autoClose) {
       timeoutId = setTimeout(() => {

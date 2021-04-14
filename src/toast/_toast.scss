@@ -1,4 +1,13 @@
 .toast {
+  --toast-danger-text-color: white;
+  --toast-danger-bg: red;
+
+  --toast-warning-text-color: white;
+  --toast-warning-bg: orange;
+
+  --toast-success-text-color: white;
+  --toast-success-bg: green;
+
   position: fixed;
   bottom: 0;
   z-index: 2;
@@ -10,11 +19,17 @@
   text-align: center;
 
   &--danger {
-    color: red;
+    color: var(--toast-danger-text-color);
+    background-color: var(--toast-danger-bg);
+  }
+
+  &--warning {
+    color: var(--toast-warning-text-color);
+    background-color: var(--toast-warning-bg);
   }
 
   &--success {
-    color: green;
-    background-color: var(--cyan-700);
+    color: var(--toast-success-text-color);
+    background-color: var(--toast-success-bg);
   }
 }

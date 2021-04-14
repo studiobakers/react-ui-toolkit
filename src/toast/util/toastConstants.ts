@@ -1,12 +1,12 @@
-import {ToastData} from "./toastTypes";
+import {ToastItem} from "./toastTypes";
 
 const initialToastState = {
   isDisplayed: false,
   data: {
-    component: "",
+    content: "",
     timeout: 4000,
     autoClose: true
-  } as ToastData
+  } as ToastItem
 };
 
 export {initialToastState};

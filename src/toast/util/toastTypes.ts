@@ -1,5 +1,5 @@
-interface ToastData {
-  mode: "danger" | "success";
+interface ToastItem {
+  mode: "danger" | "warning" | "success";
   content: React.ReactNode;
   autoClose?: boolean;
   timeout?: number;
@@ -9,8 +9,8 @@ interface ToastData {
 type ToastAction =
   | {
       type: "DISPLAY";
-      payload: ToastData;
+      payload: ToastItem;
     }
   | {type: "HIDE"};
 
-export {ToastData, ToastAction};
+export {ToastItem, ToastAction};

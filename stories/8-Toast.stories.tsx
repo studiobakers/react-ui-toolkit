@@ -17,7 +17,20 @@ function ToastComponent() {
             content: "Success Message"
           })
         }>
-        {"Show Success Toast"}
+        {"Success Toast"}
+      </Button>
+
+      <br />
+
+      <Button
+        type={"button"}
+        onClick={() =>
+          displayToast({
+            mode: "warning",
+            content: "Warning Message"
+          })
+        }>
+        {"Warning Toast"}
       </Button>
 
       <br />
@@ -30,7 +43,7 @@ function ToastComponent() {
             content: "Error Message"
           })
         }>
-        {"Show Error Toast"}
+        {"Error Toast"}
       </Button>
     </StoryFragment>
   );

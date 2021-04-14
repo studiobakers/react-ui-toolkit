@@ -24,7 +24,7 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
-import Toast from "./toast/Toast";
+import Toast, {ToastProps} from "./toast/Toast";
 import {useDisplayToast, useToaster} from "./toast/util/toastHooks";
 
 export {
@@ -67,6 +67,7 @@ export {
   SpinnerProps,
   TabItem,
   TabProps,
+  ToastProps,
   useToaster,
   useDisplayToast
 };

@@ -1,7 +1,7 @@
 import {useContext} from "react";
 
 import {ToastContext} from "../ToastProvider";
-import {ToastData} from "./toastTypes";
+import {ToastItem} from "./toastTypes";
 
 function useToast() {
   return useContext(ToastContext);
@@ -14,7 +14,7 @@ function useToaster() {
 function useDisplayToast() {
   const dispatchToast = useToaster();
 
-  function displayToast(payload: ToastData) {
+  function displayToast(payload: ToastItem) {
     dispatchToast({
       type: "DISPLAY",
       payload
