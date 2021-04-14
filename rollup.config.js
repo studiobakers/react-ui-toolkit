@@ -26,7 +26,8 @@ export default [
       ListItem: "src/list/item/ListItem.tsx",
       Button: "src/button/Button.tsx",
       FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
-      Spinner: "src/spinner/Spinner.tsx"
+      Spinner: "src/spinner/Spinner.tsx",
+      NumberInput: "src/form/input/number/NumberInput.tsx"
     },
     output: {
       dir: "dist",
