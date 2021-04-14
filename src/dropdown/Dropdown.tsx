@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import Button from "../button/Button";
 import DropdownList from "./list/DropdownList";
-import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboard-event/keyboardEventConstants";
+import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboard/keyboardEventConstants";
 import {
   DropdownOption,
   DropdownOptionSelectHandler,

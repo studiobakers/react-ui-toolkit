@@ -10,7 +10,7 @@ import {
   DECIMAL_NUMBER_SEPARATOR,
   THOUSANDTHS_SEPARATOR
 } from "../../../core/utils/number/numberConstants";
-import {KEYBOARD_EVENT_KEY} from "../../../core/utils/keyboard-event/keyboardEventConstants";
+import {KEYBOARD_EVENT_KEY} from "../../../core/utils/keyboard/keyboardEventConstants";
 
 export interface NumberInputProps {
   testid: string;
@@ -49,7 +49,7 @@ function NumberInput({
   prefixIconToValue,
   isDisabled
 }: NumberInputProps) {
-  const className = classNames("number-input", customClassName);
+  const className = classNames("input__number", customClassName);
   const containerRef = useRef() as RefObject<HTMLDivElement>;
 
   let finalValue = value;
