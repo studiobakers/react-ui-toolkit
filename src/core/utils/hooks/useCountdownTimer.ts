@@ -1,33 +1,43 @@
 import {useEffect, useRef, useState, useLayoutEffect} from "react";
 
-import {MINUTE_IN_S, SECOND_IN_MS} from "../time/timeConstants";
-import {CountDownResults} from "../time/timeTypes";
+import {MINUTE_IN_MS} from "../time/timeConstants";
+import {CountdownResults} from "../time/timeTypes";
 import {calculateRemainingTime} from "../time/timeUtils";
 
 /**
  * A React Hook that provides a countdown time
  * @param {Date} target the target date we're counting down to
- * @param {number} cadence the rate of the timer in seconds
+ * @param {number} cadence the rate of the timer in milliseconds
  *
  * @returns {object} the CountDownResults object with ref
  */
-function useCountDownTimer(target: Date, cadence = MINUTE_IN_S): CountDownResults {
+function useCountDownTimer(target: Date, cadence = MINUTE_IN_MS): CountdownResults {
   const interval = useRef<NodeJS.Timeout>();
-  const [countdown, setCountDown] = useState<CountDownResults>(
+  const [countdown, setCountDown] = useState<CountdownResults>(
     calculateRemainingTime(target)
   );
 
   useLayoutEffect(() => {
     interval.current = setInterval(() => {
-      if (countdown.delta >= 0) {
-        setCountDown(calculateRemainingTime(target));
+      const data = calculateRemainingTime(target);
+
+      if (data.delta >= 0) {
+        setCountDown(data);
+      } else {
+        setCountDown({
+          delta: 0,
+          days: 0,
+          hours: 0,
+          minutes: 0,
+          seconds: 0
+        });
       }
-    }, cadence * SECOND_IN_MS);
+    }, cadence);
 
     return () => {
       clearInterval(interval.current!);
     };
-  }, [cadence, countdown.delta, target]);
+  }, [cadence, target]);
 
   useEffect(() => {
     if (countdown.delta <= 0) {

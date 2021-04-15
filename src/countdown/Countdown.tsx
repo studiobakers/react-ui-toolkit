@@ -1,6 +1,6 @@
 import "./_countdown.scss";
 
-import React, {useLayoutEffect} from "react";
+import React, {useLayoutEffect, useRef} from "react";
 import classNames from "classnames";
 
 import useCountdownTimer from "../core/utils/hooks/useCountdownTimer";
@@ -9,8 +9,8 @@ import ListItem from "../list/item/ListItem";
 import {generateCountdownItems} from "../core/utils/time/timeUtils";
 
 export interface CountdownProps {
-  testid: string;
   startDate: Date;
+  testid?: string;
   countDownIntervalInSeconds?: number;
   alwaysShowSeconds?: boolean;
   onEnd?: () => void;
@@ -31,11 +31,16 @@ function Countdown({
   customClassName
 }: CountdownProps) {
   const countdownData = useCountdownTimer(startDate, countDownIntervalInSeconds);
-  let items = generateCountdownItems(countdownData, alwaysShowSeconds);
+  const items = generateCountdownItems({alwaysShowSeconds}, countdownData);
+  const savedOnEndCallback = useRef<CountdownProps["onEnd"]>();
 
   useLayoutEffect(() => {
-    if (countdownData.delta <= 0 && onEnd) {
-      onEnd();
+    savedOnEndCallback.current = onEnd;
+  }, [onEnd]);
+
+  useLayoutEffect(() => {
+    if (countdownData.delta <= 0 && savedOnEndCallback.current) {
+      savedOnEndCallback.current();
     }
   }, [countdownData.delta, onEnd]);
 
