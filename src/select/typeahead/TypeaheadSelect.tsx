@@ -17,7 +17,7 @@ import {filterOutItemsByKey} from "../../core/utils/array/arrayUtils";
 import Spinner from "../../spinner/Spinner";
 import List from "../../list/List";
 import ListItem from "../../list/item/ListItem";
-import { KEYBOARD_EVENT_KEY } from "../../core/utils/keyboard/keyboardEventConstants";
+import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
 
 export interface TypeaheadSelectProps {
   selectedOptions: DropdownOption[];

@@ -5,7 +5,6 @@ import StateProvider from "./utils/StateProvider";
 
 import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
-import NumberInput from "../src/form/input/number/NumberInput";
 import PasswordInput from "../src/form/password-input/PasswordInput";
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
@@ -143,10 +142,11 @@ storiesOf("Form", module)
         {(state, setState) => (
           <Fragment>
             <FormField label={"Price"}>
-              <NumberInput
+              <Input
                 testid={"AddProductForm.price"}
                 maxFractionDigits={2}
                 name={"price"}
+                type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
                 placeholder={"$ 10"}
@@ -158,10 +158,11 @@ storiesOf("Form", module)
             <FormField
               label={"Price - Has Error"}
               errorMessages={["Please enter a valid price"]}>
-              <NumberInput
+              <Input
                 testid={"AddProductForm.price"}
                 maxFractionDigits={2}
                 name={"price"}
+                type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
                 placeholder={"$ 10"}
@@ -178,13 +179,13 @@ storiesOf("Form", module)
         {(state, setState) => (
           <Fragment>
             <FormField label={"Price (BTC)"}>
-              <NumberInput
+              <Input
                 testid={"AddProductForm.price"}
                 maxFractionDigits={8}
                 name={"price"}
+                type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
-                prefixIconToValue={"₿"}
                 placeholder={"Min. ₿ 0.00000001"}
               />
             </FormField>
