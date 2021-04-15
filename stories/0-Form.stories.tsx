@@ -9,6 +9,8 @@ import NumberInput from "../src/form/input/number/NumberInput";
 import PasswordInput from "../src/form/password-input/PasswordInput";
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
+import Textarea from "../src/form/textarea/Textarea";
+import StoryFragment from "./utils/StoryFragment";
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -58,6 +60,72 @@ storiesOf("Form", module)
       />
     </FormField>
   ))
+  .add("Textarea States", () => (
+    <StoryFragment>
+      <Textarea
+        id={"textarea-fixed"}
+        name={"Fixed size Textarea"}
+        placeholder={"Write your address"}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+        }}
+      />
+
+      <br />
+
+      <Textarea
+        id={"textarea-fixed"}
+        name={"Disabled fixed size Textarea"}
+        placeholder={"Write your address"}
+        isDisabled={true}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+        }}
+      />
+    </StoryFragment>
+  ))
+  .add("Textarea AutoSize", () => (
+    <StoryFragment>
+      <Textarea
+        id={"textarea-auto-size"}
+        name={"Auto size Textarea"}
+        placeholder={"Write a paragraph"}
+        autoSizeProps={{}}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+        }}
+      />
+
+      <br />
+
+      <Textarea
+        id={"textarea-auto-size"}
+        name={"Disabled auto size Textarea"}
+        placeholder={"Write a paragraph"}
+        autoSizeProps={{}}
+        isDisabled={true}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+        }}
+      />
+    </StoryFragment>
+  ))
+  .add("Textarea.HasErrorMessage", () => (
+    <FormField
+      labelledBy={"Address"}
+      label={"Address"}
+      errorMessages={["Please enter your address"]}>
+      <Textarea
+        id={"address"}
+        name={"Address"}
+        placeholder={"Write your address"}
+        hasError={true}
+        onChange={(e) => {
+          console.log(e.currentTarget.value);
+        }}
+      />
+    </FormField>
+  ))
   .add("Password Input", () => (
     <FormField label={"Password"}>
       <PasswordInput
@@ -68,6 +136,7 @@ storiesOf("Form", module)
       />
     </FormField>
   ))
+
   .add("Number Input", () => (
     <Fragment>
       <StateProvider initialState={null}>
@@ -123,6 +192,15 @@ storiesOf("Form", module)
         )}
       </StateProvider>
     </Fragment>
+  ))
+  .add("Color Input", () => (
+    <FormField labelledBy={"Color Picker"} label={"Color Picker"}>
+      <Input
+        name={"colorPicker"}
+        type={"color"}
+        onChange={(e) => console.log(e.currentTarget.value)}
+      />
+    </FormField>
   ))
   .add("Checkbox States", () => {
     const initialState = {

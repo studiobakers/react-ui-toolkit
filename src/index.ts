@@ -25,6 +25,8 @@ import FileUploadButton, {
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import NumberInput, {NumberInputProps} from "./form/input/number/NumberInput";
+import Textarea, {TextareaProps} from "./form/textarea/Textarea";
+import Avatar, {AvatarProps} from "./avatar/Avatar";
 
 export {
   // Components
@@ -38,6 +40,7 @@ export {
   TypeaheadInput,
   TypeaheadSelect,
   Dropdown,
+  Avatar,
   List,
   ListItem,
   Button,
@@ -45,6 +48,7 @@ export {
   Spinner,
   Tab,
   NumberInput,
+  Textarea,
   // Types
   FormFieldProps,
   InputProps,
@@ -66,5 +70,7 @@ export {
   SpinnerProps,
   TabItem,
   TabProps,
-  NumberInputProps
+  NumberInputProps,
+  TextareaProps,
+  AvatarProps
 };
