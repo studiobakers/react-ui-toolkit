@@ -26,6 +26,8 @@ import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Countdown, {CountdownItem, CountdownProps} from "./countdown/Countdown";
 import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
+import Textarea, { TextareaProps } from "./form/textarea/Textarea";
+import Avatar, {AvatarProps} from "./avatar/Avatar";
 
 export {
   // Components
@@ -39,6 +41,7 @@ export {
   TypeaheadInput,
   TypeaheadSelect,
   Dropdown,
+  Avatar,
   List,
   ListItem,
   Button,
@@ -46,6 +49,7 @@ export {
   Spinner,
   Tab,
   Countdown,
+  Textarea,
   // Types
   FormFieldProps,
   InputProps,
@@ -67,8 +71,10 @@ export {
   SpinnerProps,
   TabItem,
   TabProps,
+  AvatarProps,
   CountdownProps,
   CountdownItem,
+  TextareaProps,
   // Hooks
   useCountDownTimer
 };
