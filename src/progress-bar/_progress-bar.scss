@@ -6,18 +6,11 @@
   position: relative;
 
   width: 100%;
+  min-height: 4px;
 
   overflow: hidden;
 
   border-radius: 8px;
-
-  &--is-line-view {
-    height: 4px;
-  }
-
-  &--is-bar-view {
-    min-height: 50px;
-  }
 
   &__track {
     position: absolute;
@@ -29,22 +22,11 @@
   &__content {
     position: relative;
 
+    width: max-content;
     height: 100%;
 
     margin: auto;
 
     color: black;
-
-    &--is-position-top {
-      grid-row: 1;
-    }
-
-    &--is-position-bottom {
-      grid-row: 2;
-    }
-
-    &--is-position-inside {
-      width: max-content;
-    }
   }
 }

@@ -9,6 +9,14 @@ const colors = {
   completed: "#00B300"
 };
 
+const progressBarStory = (
+  <style>{`
+  .progress-bar-story {
+    height: 51.2px;
+  }
+`}</style>
+);
+
 storiesOf("Progress Bar", module)
   .add("Line View", () => (
     <div style={{maxWidth: "350px"}}>
@@ -16,12 +24,10 @@ storiesOf("Progress Bar", module)
 
       <ProgressBar
         percentage={0}
-        view={"line"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track
         }}
-        children={{}}
       />
 
       <br />
@@ -30,12 +36,10 @@ storiesOf("Progress Bar", module)
 
       <ProgressBar
         percentage={33}
-        view={"line"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track
         }}
-        children={{}}
       />
 
       <br />
@@ -44,13 +48,11 @@ storiesOf("Progress Bar", module)
 
       <ProgressBar
         percentage={100}
-        view={"line"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{}}
       />
     </div>
   ))
@@ -58,14 +60,14 @@ storiesOf("Progress Bar", module)
     <div style={{maxWidth: "350px"}}>
       <span>{"Children position: Top"}</span>
 
+      <p>{"0 %"}</p>
+
       <ProgressBar
         percentage={0}
-        view={"line"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track
         }}
-        children={{content: <p>{"0 %"}</p>, position: "top"}}
       />
 
       <br />
@@ -74,75 +76,75 @@ storiesOf("Progress Bar", module)
 
       <ProgressBar
         percentage={33}
-        view={"line"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{
-          content: <p>{"33 %"}</p>,
-          position: "bottom"
-        }}
       />
+
+      <p>{"33 %"}</p>
     </div>
   ))
   .add("Bar View", () => (
     <div style={{maxWidth: "350px"}}>
+      <span>{"Empty"}</span>
+
       <ProgressBar
         percentage={0}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{}}
+        customClassName={"progress-bar-story"}
       />
 
       <br />
+
+      <span>{"Incompleted"}</span>
 
       <ProgressBar
         percentage={25}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{}}
+        customClassName={"progress-bar-story"}
       />
 
       <br />
 
+      <span>{"Completed"}</span>
+
       <ProgressBar
         percentage={100}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{}}
+        customClassName={"progress-bar-story"}
       />
+
+      {progressBarStory}
     </div>
   ))
   .add("Bar View - Has Children", () => (
     <div style={{maxWidth: "350px"}}>
       <span>{"Children position: Top"}</span>
 
+      <p>{"35 %"}</p>
+
       <ProgressBar
         percentage={35}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{
-          content: <p>{"35 %"}</p>,
-          position: "top"
-        }}
+        customClassName={"progress-bar-story"}
       />
 
       <br />
@@ -151,14 +153,15 @@ storiesOf("Progress Bar", module)
 
       <ProgressBar
         percentage={50}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{content: <p>{"50 %"}</p>, position: "bottom"}}
+        customClassName={"progress-bar-story"}
       />
+
+      <p>{"50 %"}</p>
 
       <br />
 
@@ -166,39 +169,38 @@ storiesOf("Progress Bar", module)
 
       <ProgressBar
         percentage={0}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{content: <p>{"0 %"}</p>, position: "inside"}}
+        children={<p>{"0 %"}</p>}
       />
 
       <br />
 
       <ProgressBar
         percentage={85}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{content: <p>{"85 %"}</p>, position: "inside"}}
+        children={<p>{"85 %"}</p>}
       />
 
       <br />
 
       <ProgressBar
         percentage={100}
-        view={"bar"}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
         }}
-        children={{content: <p>{"Completed!"}</p>, position: "inside"}}
+        children={<p>{"Completed!"}</p>}
       />
+
+      {progressBarStory}
     </div>
   ));
