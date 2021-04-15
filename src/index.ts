@@ -24,6 +24,7 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
+import Textarea, { TextareaProps } from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 
 export {
@@ -45,6 +46,7 @@ export {
   FileUploadButton,
   Spinner,
   Tab,
+  Textarea,
   // Types
   FormFieldProps,
   InputProps,
@@ -66,5 +68,6 @@ export {
   SpinnerProps,
   TabItem,
   TabProps,
+  TextareaProps,
   AvatarProps
 };
