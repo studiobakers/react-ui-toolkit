@@ -26,6 +26,9 @@ import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Toast, {ToastProps} from "./toast/Toast";
 import {useDisplayToast, useToaster} from "./toast/util/toastHooks";
+import Textarea, { TextareaProps } from "./form/textarea/Textarea";
+import Avatar, {AvatarProps} from "./avatar/Avatar";
+import { ToastContext, ToastContextProvider } from "./toast/ToastProvider";
 
 export {
   // Components
@@ -39,6 +42,7 @@ export {
   TypeaheadInput,
   TypeaheadSelect,
   Dropdown,
+  Avatar,
   List,
   ListItem,
   Button,
@@ -46,6 +50,7 @@ export {
   Spinner,
   Tab,
   Toast,
+  Textarea,
   // Types
   FormFieldProps,
   InputProps,
@@ -68,6 +73,12 @@ export {
   TabItem,
   TabProps,
   ToastProps,
+  TextareaProps,
+  AvatarProps,
+  // Hooks
   useToaster,
-  useDisplayToast
+  useDisplayToast,
+  // Contexts
+  ToastContext,
+  ToastContextProvider
 };
