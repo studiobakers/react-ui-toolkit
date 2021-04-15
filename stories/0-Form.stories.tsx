@@ -135,6 +135,15 @@ storiesOf("Form", module)
       />
     </FormField>
   ))
+  .add("Color Input", () => (
+    <FormField labelledBy={"Color Picker"} label={"Color Picker"}>
+      <Input
+        name={"colorPicker"}
+        type={"color"}
+        onChange={(e) => console.log(e.currentTarget.value)}
+      />
+    </FormField>
+  ))
   .add("Checkbox States", () => {
     const initialState = {
       rememberMe: true,
