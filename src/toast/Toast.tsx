@@ -23,9 +23,8 @@ function Toast({toastRootId}: ToastProps) {
   if (!toastRootNode) {
     toastRootNode = document.createElement("div");
     toastRootNode.setAttribute("id", "toast-root");
+    document.body.appendChild(toastRootNode);
   }
-
-  document.body.appendChild(toastRootNode);
 
   useEffect(() => {
     let timeoutId: NodeJS.Timeout;

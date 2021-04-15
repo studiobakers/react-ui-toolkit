@@ -25,10 +25,10 @@ import FileUploadButton, {
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Toast, {ToastProps} from "./toast/Toast";
-import {useDisplayToast, useToaster} from "./toast/util/toastHooks";
-import Textarea, { TextareaProps } from "./form/textarea/Textarea";
+import {useDisplayToast, useToast, useToaster} from "./toast/util/toastHooks";
+import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
-import { ToastContext, ToastContextProvider } from "./toast/ToastProvider";
+import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
 
 export {
   // Components
@@ -76,6 +76,7 @@ export {
   TextareaProps,
   AvatarProps,
   // Hooks
+  useToast,
   useToaster,
   useDisplayToast,
   // Contexts
