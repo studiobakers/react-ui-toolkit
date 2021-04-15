@@ -53,7 +53,8 @@ function DropdownListItem<OptionIdShape extends string>({
 }: DropdownListItemProps<OptionIdShape>) {
   const {id: optionId, customClassName, icon, title, subtitle, CustomContent} = option;
   const isSelected = Boolean(selectedOption && optionId === selectedOption.id);
-  const canItemBeClicked = !option.isDisabled && (!isSelected || canSelectAlreadySelected);
+  const canItemBeClicked =
+    !option.isDisabled && (!isSelected || canSelectAlreadySelected);
   const containerClassName = classNames("dropdown-list-item", customClassName, {
     "dropdown-list-item--is-selected": isSelected,
     "dropdown-list-item--is-focused": Boolean(
