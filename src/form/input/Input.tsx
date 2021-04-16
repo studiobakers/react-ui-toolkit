@@ -48,6 +48,7 @@ export type InputProps = Omit<
   hasError?: boolean;
   customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
+  onChange: React.ReactEventHandler<HTMLInputElement>;
   maxFractionDigits?: number;
 };
 
@@ -93,7 +94,7 @@ function Input(props: InputProps) {
         autoComplete={autoComplete}
         autoCorrect={autoCorrect}
         disabled={isDisabled}
-        onChange={isNumberInput ? handleChange : onChange}
+        onChange={handleChange}
         {...rest}
       />
 
@@ -106,33 +107,37 @@ function Input(props: InputProps) {
   );
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    const {value: newValue} = event.currentTarget;
+    if (isNumberInput) {
+      const {value: newValue} = event.currentTarget;
 
-    let formattedNewValue = newValue
-      .replace(NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX, "")
-      .replace(NOT_NUMBER_NOR_DECIMAL_POINT_REGEX, "")
-      .replace(PRECISION_REGEX, "$1");
+      let formattedNewValue = newValue
+        .replace(NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX, "")
+        .replace(NOT_NUMBER_NOR_DECIMAL_POINT_REGEX, "")
+        .replace(PRECISION_REGEX, "$1");
 
-    if (maxFractionDigits > 0) {
-      const decimalNumberParts = newValue.split(DECIMAL_NUMBER_SEPARATOR);
-      const decimalPart = decimalNumberParts[1];
-      const integerPart = decimalNumberParts[0].replace(THOUSANDTHS_SEPARATOR, "");
+      if (maxFractionDigits > 0) {
+        const decimalNumberParts = newValue.split(DECIMAL_NUMBER_SEPARATOR);
+        const decimalPart = decimalNumberParts[1];
+        const integerPart = decimalNumberParts[0].replace(THOUSANDTHS_SEPARATOR, "");
 
-      if (decimalPart && decimalPart.length > maxFractionDigits) {
-        const trimmedDecimalPart = decimalPart.slice(0, maxFractionDigits);
+        if (decimalPart && decimalPart.length > maxFractionDigits) {
+          const trimmedDecimalPart = decimalPart.slice(0, maxFractionDigits);
 
-        formattedNewValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${trimmedDecimalPart}`;
+          formattedNewValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${trimmedDecimalPart}`;
+        }
+      } else {
+        formattedNewValue = formattedNewValue.replace(
+          IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
+          ""
+        );
       }
-    } else {
-      formattedNewValue = formattedNewValue.replace(
-        IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
-        ""
-      );
+
+      if (formattedNewValue !== newValue) {
+        event.currentTarget.value = formattedNewValue;
+      }
     }
 
-    if (formattedNewValue !== newValue) {
-      event.currentTarget.value = formattedNewValue;
-    }
+    onChange(event);
   }
 }
 
