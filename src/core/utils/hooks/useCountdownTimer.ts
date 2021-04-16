@@ -1,6 +1,6 @@
 import {useEffect, useRef, useState, useLayoutEffect} from "react";
 
-import {MINUTE_IN_MS} from "../time/timeConstants";
+import {SECOND_IN_MS} from "../time/timeConstants";
 import {RemainingTimeBreakdown} from "../time/timeTypes";
 import {calculateRemainingTimeBreakdown} from "../time/timeUtils";
 
@@ -10,7 +10,7 @@ import {calculateRemainingTimeBreakdown} from "../time/timeUtils";
  * @param {number} cadence - The rate of the timer in milliseconds
  * @returns {object} The CountDownResults object
  */
-function useCountDownTimer(target: Date, cadence = MINUTE_IN_MS): RemainingTimeBreakdown {
+function useCountDownTimer(target: Date, cadence = SECOND_IN_MS): RemainingTimeBreakdown {
   const interval = useRef<NodeJS.Timeout>();
   const [countdown, setCountDown] = useState<RemainingTimeBreakdown>(
     calculateRemainingTimeBreakdown(target)

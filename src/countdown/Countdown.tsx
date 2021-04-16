@@ -7,18 +7,19 @@ import useCountdownTimer from "../core/utils/hooks/useCountdownTimer";
 import List from "../list/List";
 import ListItem from "../list/item/ListItem";
 import {generateCountdownItems} from "./util/countdownUtils";
-import {CountdownProps} from "..";
+import {CountdownProps} from "./util/countdownTypes";
 
 function Countdown({
   testid,
   startDate,
   countDownIntervalInSeconds = 1,
   alwaysShowSeconds = false,
+  titleMap,
   onEnd,
   customClassName
 }: CountdownProps) {
   const countdownData = useCountdownTimer(startDate, countDownIntervalInSeconds);
-  const items = generateCountdownItems({alwaysShowSeconds}, countdownData);
+  const items = generateCountdownItems({titleMap, alwaysShowSeconds}, countdownData);
   const savedOnEndCallback = useRef<CountdownProps["onEnd"]>();
 
   useLayoutEffect(() => {
@@ -29,7 +30,7 @@ function Countdown({
     if (countdownData.delta <= 0 && savedOnEndCallback.current) {
       savedOnEndCallback.current();
     }
-  }, [countdownData.delta, onEnd]);
+  }, [countdownData.delta]);
 
   return (
     <List

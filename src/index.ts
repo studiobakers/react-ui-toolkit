@@ -24,10 +24,11 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
-import Countdown, {CountdownItem, CountdownProps} from "./countdown/Countdown";
+import Countdown from "./countdown/Countdown";
 import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
 import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
+import {CountdownProps} from "../src/countdown/util/countdownTypes";
 
 export {
   // Components
@@ -72,9 +73,8 @@ export {
   TabItem,
   TabProps,
   AvatarProps,
-  CountdownProps,
-  CountdownItem,
   TextareaProps,
+  CountdownProps,
   // Hooks
   useCountDownTimer
 };
