@@ -18,7 +18,7 @@ const progressBarStory = (
 );
 
 storiesOf("Progress Bar", module)
-  .add("Line View", () => (
+  .add("Progress Bar With Different Percentages", () => (
     <div style={{maxWidth: "350px"}}>
       <span>{"Empty"}</span>
 
@@ -56,37 +56,7 @@ storiesOf("Progress Bar", module)
       />
     </div>
   ))
-  .add("Line View - Has Children", () => (
-    <div style={{maxWidth: "350px"}}>
-      <span>{"Children position: Top"}</span>
-
-      <p>{"0 %"}</p>
-
-      <ProgressBar
-        percentage={0}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track
-        }}
-      />
-
-      <br />
-
-      <span>{"Children position: Bottom"}</span>
-
-      <ProgressBar
-        percentage={33}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}
-      />
-
-      <p>{"33 %"}</p>
-    </div>
-  ))
-  .add("Bar View", () => (
+  .add("Progress Bar With Height Overridden by CSS", () => (
     <div style={{maxWidth: "350px"}}>
       <span>{"Empty"}</span>
 
@@ -105,7 +75,7 @@ storiesOf("Progress Bar", module)
       <span>{"Incompleted"}</span>
 
       <ProgressBar
-        percentage={25}
+        percentage={50}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
@@ -131,10 +101,8 @@ storiesOf("Progress Bar", module)
       {progressBarStory}
     </div>
   ))
-  .add("Bar View - Has Children", () => (
+  .add("Progress Bar With Children", () => (
     <div style={{maxWidth: "350px"}}>
-      <span>{"Children position: Top"}</span>
-
       <p>{"35 %"}</p>
 
       <ProgressBar
@@ -148,8 +116,6 @@ storiesOf("Progress Bar", module)
       />
 
       <br />
-
-      <span>{"Children position: Bottom"}</span>
 
       <ProgressBar
         percentage={50}
@@ -165,17 +131,15 @@ storiesOf("Progress Bar", module)
 
       <br />
 
-      <span>{"Children position: Inside"}</span>
-
       <ProgressBar
         percentage={0}
         style={{
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
-        }}
-        children={<p>{"0 %"}</p>}
-      />
+        }}>
+        {<p>{"0 %"}</p>}
+      </ProgressBar>
 
       <br />
 
@@ -185,9 +149,9 @@ storiesOf("Progress Bar", module)
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
-        }}
-        children={<p>{"85 %"}</p>}
-      />
+        }}>
+        {<p>{"85 %"}</p>}
+      </ProgressBar>
 
       <br />
 
@@ -197,9 +161,9 @@ storiesOf("Progress Bar", module)
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
-        }}
-        children={<p>{"Completed!"}</p>}
-      />
+        }}>
+        {<p>{"Completed!"}</p>}
+      </ProgressBar>
 
       {progressBarStory}
     </div>

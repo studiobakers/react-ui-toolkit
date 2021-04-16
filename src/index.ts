@@ -25,7 +25,7 @@ import FileUploadButton, {
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
-import Textarea, { TextareaProps } from "./form/textarea/Textarea";
+import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 
 export {
