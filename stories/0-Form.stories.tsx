@@ -141,9 +141,8 @@ storiesOf("Form", module)
       <StateProvider initialState={null}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"Price"}>
+            <FormField label={"Price – maxFractionDigits={2}"}>
               <Input
-                testid={"AddProductForm.price"}
                 maxFractionDigits={2}
                 name={"price"}
                 type={"number"}
@@ -159,7 +158,6 @@ storiesOf("Form", module)
               label={"Price - Has Error"}
               errorMessages={["Please enter a valid price"]}>
               <Input
-                testid={"AddProductForm.price"}
                 maxFractionDigits={2}
                 name={"price"}
                 type={"number"}
@@ -178,15 +176,31 @@ storiesOf("Form", module)
       <StateProvider initialState={null}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"Price (BTC)"}>
+            <FormField label={"Price (BTC) – maxFractionDigits={8}"}>
               <Input
-                testid={"AddProductForm.price"}
                 maxFractionDigits={8}
                 name={"price"}
                 type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
                 placeholder={"Min. ₿ 0.00000001"}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField label={"ID or Passport Number – maxFractionDigits={0}"}>
+              <Input
+                name={"id-number"}
+                type={"number"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
               />
             </FormField>
           </Fragment>
