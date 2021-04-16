@@ -7,20 +7,7 @@ import useCountdownTimer from "../core/utils/hooks/useCountdownTimer";
 import List from "../list/List";
 import ListItem from "../list/item/ListItem";
 import {generateCountdownItems} from "./util/countdownUtils";
-
-export interface CountdownProps {
-  startDate: Date;
-  testid?: string;
-  countDownIntervalInSeconds?: number;
-  alwaysShowSeconds?: boolean;
-  onEnd?: () => void;
-  customClassName?: string;
-}
-
-export interface CountdownItem {
-  id: "days" | "hours" | "minutes" | "seconds";
-  count: string | number;
-}
+import {CountdownProps} from "..";
 
 function Countdown({
   testid,

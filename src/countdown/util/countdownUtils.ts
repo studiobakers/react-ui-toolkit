@@ -1,5 +1,5 @@
 import {RemainingTimeBreakdown} from "../../core/utils/time/timeTypes";
-import {CountdownItem} from "../Countdown";
+import {CountdownItem} from "../..";
 
 function generateCountdownItems(
   {alwaysShowSeconds}: {alwaysShowSeconds: boolean},
