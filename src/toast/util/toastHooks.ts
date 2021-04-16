@@ -4,24 +4,21 @@ import {ToastContext} from "../ToastProvider";
 import {ToastItem} from "./toastTypes";
 
 /**
- * @return {function} Return ToastContext that includes toastState & dispatchToastAction.
+ * @returns {Object} Current value of ToastContext
  */
 function useToast() {
   return useContext(ToastContext);
 }
 
 /**
- * @return {function} Return a function that display toast message.
+ * @returns {function} ToastContext's state reducer's dispatch function
  */
 function useToaster() {
   return useToast().dispatchToastAction;
 }
 
 /**
- * Displays Toast message with a content according to mode.
- * @param {string} mode A toast type for "danger" | "warning" | "success".
- * @param {ReactNode} content A node for displaying on the body.
- * @return {function} Return a function that display toast message and take a payload.
+ * @returns {function} A function which expects a ToastItem object as an argument and displays a Toast when executed. This function directly passes the provided argument as the payload to ToastContext's dispatch function with type "DISPLAY"
  */
 function useDisplayToast() {
   const dispatchToast = useToaster();
