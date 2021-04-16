@@ -1,25 +1,24 @@
 import {useEffect, useRef, useState, useLayoutEffect} from "react";
 
 import {MINUTE_IN_MS} from "../time/timeConstants";
-import {CountdownResults} from "../time/timeTypes";
-import {calculateRemainingTime} from "../time/timeUtils";
+import {RemainingTimeBreakdown} from "../time/timeTypes";
+import {calculateRemainingTimeBreakdown} from "../time/timeUtils";
 
 /**
  * A React Hook that provides a countdown time
- * @param {Date} target the target date we're counting down to
- * @param {number} cadence the rate of the timer in milliseconds
- *
- * @returns {object} the CountDownResults object with ref
+ * @param {Date} target - The target date we're counting down to
+ * @param {number} cadence - The rate of the timer in milliseconds
+ * @returns {object} The CountDownResults object
  */
-function useCountDownTimer(target: Date, cadence = MINUTE_IN_MS): CountdownResults {
+function useCountDownTimer(target: Date, cadence = MINUTE_IN_MS): RemainingTimeBreakdown {
   const interval = useRef<NodeJS.Timeout>();
-  const [countdown, setCountDown] = useState<CountdownResults>(
-    calculateRemainingTime(target)
+  const [countdown, setCountDown] = useState<RemainingTimeBreakdown>(
+    calculateRemainingTimeBreakdown(target)
   );
 
   useLayoutEffect(() => {
     interval.current = setInterval(() => {
-      const data = calculateRemainingTime(target);
+      const data = calculateRemainingTimeBreakdown(target);
 
       if (data.delta >= 0) {
         setCountDown(data);

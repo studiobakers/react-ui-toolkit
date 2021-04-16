@@ -6,7 +6,7 @@ import classNames from "classnames";
 import useCountdownTimer from "../core/utils/hooks/useCountdownTimer";
 import List from "../list/List";
 import ListItem from "../list/item/ListItem";
-import {generateCountdownItems} from "../core/utils/time/timeUtils";
+import {generateCountdownItems} from "./util/countdownUtils";
 
 export interface CountdownProps {
   startDate: Date;

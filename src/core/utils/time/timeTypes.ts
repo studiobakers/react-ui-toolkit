@@ -1,4 +1,4 @@
-interface CountdownResults {
+interface RemainingTimeBreakdown {
   delta: number;
   days: number;
   hours: number;
@@ -6,4 +6,4 @@ interface CountdownResults {
   seconds: number;
 }
 
-export {CountdownResults};
+export {RemainingTimeBreakdown};
