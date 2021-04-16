@@ -103,34 +103,6 @@ storiesOf("Progress Bar", module)
   ))
   .add("Progress Bar With Children", () => (
     <div style={{maxWidth: "350px"}}>
-      <p>{"35 %"}</p>
-
-      <ProgressBar
-        percentage={35}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}
-        customClassName={"progress-bar-story"}
-      />
-
-      <br />
-
-      <ProgressBar
-        percentage={50}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}
-        customClassName={"progress-bar-story"}
-      />
-
-      <p>{"50 %"}</p>
-
-      <br />
-
       <ProgressBar
         percentage={0}
         style={{
