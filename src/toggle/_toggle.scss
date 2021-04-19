@@ -1,0 +1,24 @@
+.toggle {
+  display: grid;
+  
+  overflow: hidden;
+
+  border: 1px solid gray;
+  border-radius: 8px;
+
+  &--is-vertical {
+    grid-template-rows: repeat(auto-fit, minmax(0, 1fr));
+
+    width: max-content;
+  }
+
+  &--is-horizontal {
+    grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+    
+    min-height: 32px;
+  }
+
+  &--is-disabled {
+    pointer-events: none;
+  }
+}

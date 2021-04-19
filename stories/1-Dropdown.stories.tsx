@@ -5,7 +5,7 @@ import Dropdown from "../src/dropdown/Dropdown";
 import StateProvider from "./utils/StateProvider";
 import FormField from "../src/form/field/FormField";
 import StoryFragment from "./utils/StoryFragment";
-import {initialState} from "./utils/constants/dropdownStoryOptionConstants";
+import {initialState} from "./utils/constants/dropdown/dropdownStoryOptionConstants";
 
 storiesOf("Dropdown", module)
   .add("Dropdown States", () => (
