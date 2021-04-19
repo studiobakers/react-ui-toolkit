@@ -59,7 +59,7 @@ function generateCountdownItems(
   if (alwaysShowSeconds && countdownData.hours >= 1) {
     items.push({
       id: "seconds",
-      count: countdownData.seconds,
+      count: countdownData.seconds.toString().padStart(2, "0"),
       title: titleMap?.second || "seconds"
     });
   }
