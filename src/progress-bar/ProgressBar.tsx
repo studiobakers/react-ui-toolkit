@@ -21,28 +21,23 @@ function ProgressBar(props: ProgressBarProps) {
     children,
     customClassName
   } = props;
-  const progressBarContainerClassName = classNames(
-    "progress-bar-container",
-    customClassName
-  );
+  const progressBarClassName = classNames("progress-bar", customClassName);
 
   return (
-    <div className={progressBarContainerClassName}>
+    <div
+      className={progressBarClassName}
+      style={{
+        backgroundColor: backgroundColor
+      }}>
       <div
-        className={"progress-bar"}
+        className={"progress-bar__track"}
         style={{
-          backgroundColor: backgroundColor
-        }}>
-        <div
-          className={"progress-bar__track"}
-          style={{
-            width: `${percentage}%`,
-            backgroundColor: percentage === 100 ? completedColor : trackColor
-          }}
-        />
+          width: `${percentage}%`,
+          backgroundColor: percentage === 100 ? completedColor : trackColor
+        }}
+      />
 
-        {children && <div className={"progress-bar__content"}>{children}</div>}
-      </div>
+      {children && <div className={"progress-bar__content"}>{children}</div>}
     </div>
   );
 }
