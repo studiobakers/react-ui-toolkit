@@ -60,7 +60,7 @@ function FileInput({
         data-testid={`${testid}.label`}>
         {children}
 
-        {isPending && <Spinner customClassName={"file-input__spinner"} />}
+        {isPending && <Spinner />}
       </label>
     </div>
   );

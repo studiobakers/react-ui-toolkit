@@ -22,9 +22,9 @@ import Button, {ButtonProps} from "./button/Button";
 import FileUploadButton, {
   FileUploadButtonProps
 } from "./button/file-upload/FileUploadButton";
-import Spinner, {SpinnerProps} from "./spinner/Spinner";
+import Spinner from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
-import Textarea, { TextareaProps } from "./form/textarea/Textarea";
+import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 
 export {
@@ -65,7 +65,6 @@ export {
   ListProps,
   ButtonProps,
   FileUploadButtonProps,
-  SpinnerProps,
   TabItem,
   TabProps,
   TextareaProps,

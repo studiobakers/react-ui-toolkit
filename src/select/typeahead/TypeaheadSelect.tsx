@@ -134,11 +134,7 @@ function TypeaheadSelect({
           onQueryChange={handleKeywordChange}
           onKeyDown={handleKeyDown}
           rightIcon={
-            areOptionsFetching ? (
-              <Spinner spinnerColor={"#EBEBEB"} backgroundColor={"white"} />
-            ) : (
-              <CaretDownIcon aria-hidden={true} />
-            )
+            areOptionsFetching ? <Spinner /> : <CaretDownIcon aria-hidden={true} />
           }
           onFocus={handleTypeaheadInputFocus}
           isDisabled={isDisabled}

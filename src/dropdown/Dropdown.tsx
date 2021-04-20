@@ -149,11 +149,7 @@ function Dropdown<OptionIdShape extends string>({
         {selectedOption ? selectedOption.title : deselectOptionTitle || placeholder}
       </span>
 
-      {areOptionsFetching ? (
-        <Spinner spinnerColor={"black"} backgroundColor={"#EBEBEB"} />
-      ) : (
-        <CaretDownIcon aria-hidden={true} />
-      )}
+      {areOptionsFetching ? <Spinner /> : <CaretDownIcon aria-hidden={true} />}
     </div>
   );
 
