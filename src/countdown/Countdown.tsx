@@ -48,7 +48,7 @@ function Countdown({
           <p
             data-testid={`${itemTestId}.${item.id}.title`}
             className={"countdown-box__title"}>
-            {item.id}
+            {item.title}
           </p>
         </ListItem>
       )}
