@@ -1,5 +1,13 @@
 import React from "react";
 
+const verticalToggleClass = (
+  <style>{`
+.toggle-vertically {
+  height: 400px;
+}
+`}</style>
+);
+
 const toggleOptions = {
   switchOptions: [
     {
@@ -49,4 +57,4 @@ const toggleOptions = {
   ]
 };
 
-export {toggleOptions};
+export {toggleOptions, verticalToggleClass};

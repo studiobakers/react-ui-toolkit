@@ -4,7 +4,10 @@ import React from "react";
 import StateProvider from "./utils/StateProvider";
 import Toggle, {ToggleOption} from "../src/toggle/Toggle";
 import StoryFragment from "./utils/StoryFragment";
-import {toggleOptions} from "./utils/constants/toggle/toggleStoryOptionConstants";
+import {
+  toggleOptions,
+  verticalToggleClass
+} from "./utils/constants/toggle/toggleStoryOptionConstants";
 
 storiesOf("Toggle", module)
   .add("Toggle States", () => {
@@ -60,17 +63,13 @@ storiesOf("Toggle", module)
               options={toggleOptions.deviceOptions}
               selectedOptions={state}
               position={"vertical"}
-              onToggle={(e) => setState(handleMultipleToggle(e, state))}
               customClassName={"toggle-vertically"}
+              onToggle={(e) => setState(handleMultipleToggle(e, state))}
             />
           )}
         </StateProvider>
 
-        <style>{`
-      .toggle-vertically {
-        height: 400px;
-      }
-    `}</style>
+        {verticalToggleClass}
       </div>
     );
   })
