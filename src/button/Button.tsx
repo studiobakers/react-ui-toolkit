@@ -56,7 +56,7 @@ function Button({
     "button--is-inactive": isButtonDisabled,
     "button--is-pending": shouldDisplaySpinner
   });
-  const displaySpinner = customSpinner || (
+  const spinnerContent = customSpinner || (
     <Spinner
       customClassName={classNames("button__spinner", {
         [`${customClassName}__spinner`]: customClassName
@@ -83,7 +83,7 @@ function Button({
       onBlur={onBlur}
       disabled={isButtonDisabled}
       aria-label={ariaLabel}>
-      {shouldDisplaySpinner ? displaySpinner : children}
+      {shouldDisplaySpinner ? spinnerContent : children}
     </button>
   );
 

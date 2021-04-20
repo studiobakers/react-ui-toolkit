@@ -40,7 +40,7 @@ function FileInput({
   const labelClassName = classNames("file-input__label", customLabelClassName, {
     "file-input__label--is-disabled": isInputDisabled
   });
-  const displaySpinner = customSpinner || (
+  const spinnerContent = customSpinner || (
     <Spinner customClassName={"file-input__spinner"} />
   );
 
@@ -65,7 +65,7 @@ function FileInput({
         data-testid={`${testid}.label`}>
         {children}
 
-        {isPending && displaySpinner}
+        {isPending && spinnerContent}
       </label>
     </div>
   );
