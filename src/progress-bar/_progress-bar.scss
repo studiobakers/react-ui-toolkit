@@ -1,0 +1,28 @@
+.progress-bar {
+  position: relative;
+
+  width: 100%;
+  min-height: 4px;
+
+  overflow: hidden;
+
+  border-radius: 8px;
+
+  &__track {
+    position: absolute;
+    left: 0;
+
+    height: 100%;
+  }
+
+  &__content {
+    position: relative;
+
+    width: max-content;
+    height: 100%;
+
+    margin: auto;
+
+    color: black;
+  }
+}

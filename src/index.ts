@@ -26,6 +26,7 @@ import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Countdown from "./countdown/Countdown";
 import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
+import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
 import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 import {CountdownProps} from "../src/countdown/util/countdownTypes";
@@ -50,6 +51,7 @@ export {
   Spinner,
   Tab,
   Countdown,
+  ProgressBar,
   Textarea,
   // Types
   FormFieldProps,
@@ -73,6 +75,7 @@ export {
   TabItem,
   TabProps,
   AvatarProps,
+  ProgressBarProps,
   TextareaProps,
   CountdownProps,
   // Hooks
