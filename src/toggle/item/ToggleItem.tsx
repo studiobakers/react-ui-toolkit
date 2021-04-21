@@ -3,35 +3,41 @@ import "./_toggle-item.scss";
 import React from "react";
 import classNames from "classnames";
 
-import ListItem from "../../list/item/ListItem";
-import {ToggleOption} from "../Toggle";
+import {useToggle} from "../util/toggleHooks";
 
-export interface ToggleItemProps {
-  testid: string;
-  option: ToggleOption;
-  isSelected: boolean;
-  onToggle: (option: ToggleOption, event?: React.SyntheticEvent<HTMLLIElement>) => void;
+interface ToggleItemProps {
+  children: React.ReactNode;
+  id: string;
+  customClassName?: string;
+  isDisabled?: boolean;
 }
 
-function ToggleItem({option, onToggle, isSelected, testid}: ToggleItemProps) {
-  const toggleItemClassName = classNames("toggle-item", {
+function ToggleItem({children, id, customClassName, isDisabled}: ToggleItemProps) {
+  const {toggleState, setToggleState, isMultiple, onToggleItem} = useToggle();
+  const isSelected = Boolean(toggleState.find((item) => item.id === id));
+  const toggleItemClassName = classNames("toggle-item", customClassName, {
     "toggle-item--is-selected": isSelected,
-    "toggle-item--is-disabled": option.isDisabled
+    "toggle-item--is-disabled": isDisabled
   });
 
   return (
-    <ListItem
-      testid={testid}
-      clickableListItemProps={{onClick: handleToggle}}
-      customClassName={toggleItemClassName}>
-      <div className={"toggle-item__icon"}>{option.icon}</div>
-
-      <div className={"toggle-item__content"}>{option.title}</div>
-    </ListItem>
+    <div className={toggleItemClassName} onClick={handleToggle}>
+      {children}
+    </div>
   );
 
   function handleToggle() {
-    onToggle(option);
+    if (isMultiple) {
+      if (isSelected) {
+        setToggleState([...toggleState.filter((item) => item.id !== id)]);
+      } else {
+        setToggleState([...toggleState, {id, children}]);
+      }
+    } else {
+      setToggleState([{id, children}]);
+    }
+
+    onToggleItem(id);
   }
 }
 

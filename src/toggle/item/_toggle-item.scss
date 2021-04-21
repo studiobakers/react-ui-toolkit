@@ -4,6 +4,13 @@
   --toggle-inactive-bg: black;
   --toggle-inactive-color: white;
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+  height: 100%;
+
   color: var(--toggle-inactive-color);
   background-color: var(--toggle-inactive-bg);
 
@@ -14,20 +21,7 @@
 
   &--is-disabled {
     background-color: gray;
-   
+
     pointer-events: none;
   }
-
-  .list-item__click-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 100%;
-    height: 100%;
-  }
-}
-
-.toggle-item__content {
-  height: auto;
 }

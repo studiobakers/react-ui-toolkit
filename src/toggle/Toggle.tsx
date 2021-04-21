@@ -1,18 +1,25 @@
 import "./_toggle.scss";
 
-import React from "react";
-
-import {DropdownOption} from "../dropdown/list/item/DropdownListItem";
-import ToggleItem from "./item/ToggleItem";
-import List from "../list/List";
+import React, {createContext, useState} from "react";
 import classNames from "classnames";
 
-export type ToggleOption = Omit<DropdownOption, "subtitle">;
+import ToggleItem from "./item/ToggleItem";
+export interface ToggleItemShape {
+  id: string;
+  children: React.ReactNode;
+}
+
+const ToggleContext = createContext({
+  toggleState: [] as ToggleItemShape[],
+  setToggleState: (() => null) as React.Dispatch<React.SetStateAction<ToggleItemShape[]>>,
+  isMultiple: false,
+  onToggleItem: (id: string) => id
+});
 
 export interface ToggleProps {
-  options: ToggleOption[];
-  selectedOptions: ToggleOption[];
-  onToggle: (option: ToggleOption, event?: React.SyntheticEvent<HTMLLIElement>) => void;
+  children: React.ReactNode;
+  onToggle: (id: string) => void;
+  isMultiple?: boolean;
   position?: "vertical" | "horizontal";
   isDisabled?: boolean;
   customClassName?: string;
@@ -20,9 +27,9 @@ export interface ToggleProps {
 }
 
 function Toggle({
-  options,
-  selectedOptions,
+  children,
   onToggle,
+  isMultiple = false,
   position = "horizontal",
   isDisabled,
   customClassName,
@@ -33,27 +40,24 @@ function Toggle({
     "toggle--is-vertical": position === "vertical",
     "toggle--is-disabled": isDisabled
   });
+  const [toggleState, setToggleState] = useState<ToggleItemShape[]>([]);
 
   return (
-    <List testid={testid} items={options} customClassName={toggleClassName}>
-      {(option, testid) => (
-        <ToggleItem
-          testid={testid}
-          option={option}
-          onToggle={onToggle}
-          isSelected={
-            selectedOptions.length
-              ? Boolean(
-                  selectedOptions.find(
-                    (selectedOption) => selectedOption.id === option.id
-                  )
-                )
-              : false
-          }
-        />
-      )}
-    </List>
+    <div data-testid={testid} className={toggleClassName}>
+      <ToggleContext.Provider
+        value={{toggleState, setToggleState, isMultiple, onToggleItem}}>
+        {children}
+      </ToggleContext.Provider>
+    </div>
   );
+
+  function onToggleItem(id: string) {
+    onToggle(id);
+
+    return id;
+  }
 }
 
-export default Toggle;
+Toggle.Item = ToggleItem;
+
+export {Toggle, ToggleContext};
