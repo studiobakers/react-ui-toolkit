@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import {useToggle} from "../util/toggleHooks";
 
-interface ToggleItemProps {
+export interface ToggleItemProps {
   children: React.ReactNode;
   id: string;
   customClassName?: string;

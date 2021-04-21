@@ -26,7 +26,8 @@ import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
-import Toggle, {ToggleProps} from "./toggle/Toggle";
+import {Toggle, ToggleItemShape, ToggleProps} from "./toggle/Toggle";
+import ToggleItem, { ToggleItemProps } from "./toggle/item/ToggleItem";
 
 export {
   // Components
@@ -49,6 +50,7 @@ export {
   Tab,
   Textarea,
   Toggle,
+  ToggleItem,
   // Types
   FormFieldProps,
   InputProps,
@@ -72,5 +74,7 @@ export {
   TabProps,
   TextareaProps,
   AvatarProps,
-  ToggleProps
+  ToggleProps,
+  ToggleItemProps,
+  ToggleItemShape
 };
