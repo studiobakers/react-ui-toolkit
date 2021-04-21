@@ -11,22 +11,34 @@ storiesOf("Switch", module).add("Switch States", () => {
     disabledState: false
   };
 
+  const darkTheme = (
+    <style>{`
+    .sb-show-main {
+      background-color: gray;
+    }
+  `}</style>
+  );
+
   return (
     <StateProvider initialState={initialState}>
       {(state, setState) => (
         <StoryFragment>
           <div style={{display: "flex", gap: "8px"}}>
-            <span>{"On"}</span>
+            <span>{"Dark"}</span>
 
             <Switch
               isToggledOn={state.switchState}
               onToggle={() => setState({...state, switchState: !state.switchState})}
             />
 
-            <span>{"Off"}</span>
+            <span>{"Light"}</span>
+
+            {!state.switchState && darkTheme}
           </div>
 
-          <hr />
+          <br />
+
+          <br />
 
           <span>{"Disabled Switch"}</span>
 

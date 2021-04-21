@@ -18,7 +18,9 @@ function Switch({
   customClassName,
   testid
 }: SwitchProps) {
-  const switchClassName = classNames("switch", customClassName);
+  const switchClassName = classNames("switch", customClassName, {
+    "switch__slider--is-disabled": isDisabled
+  });
 
   return (
     <label data-testid={testid} className={switchClassName}>
@@ -26,14 +28,11 @@ function Switch({
         className={"switch__controller"}
         type="checkbox"
         checked={isDisabled ? false : isToggledOn}
-        onChange={onToggle}
+        disabled={isDisabled}
+        onChange={isDisabled ? undefined : onToggle}
       />
 
-      <span
-        className={classNames("switch__slider", {
-          "switch__slider--is-disabled": isDisabled
-        })}
-      />
+      <span className={"switch__slider"} />
     </label>
   );
 }
