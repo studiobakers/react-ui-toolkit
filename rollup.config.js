@@ -27,7 +27,7 @@ export default [
       Button: "src/button/Button.tsx",
       FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
       Spinner: "src/spinner/Spinner.tsx",
-      NumberInput: "src/form/input/number/NumberInput.tsx",
+      ProgressBar: "src/progress-bar/ProgressBar.tsx",
       Textarea: "src/form/textarea/Textarea.tsx"
     },
     output: {
