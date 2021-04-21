@@ -19,7 +19,7 @@ function Switch({
   testid
 }: SwitchProps) {
   const switchClassName = classNames("switch", customClassName, {
-    "switch__slider--is-disabled": isDisabled
+    "switch--is-disabled": isDisabled
   });
 
   return (

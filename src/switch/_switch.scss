@@ -9,6 +9,11 @@
 
   width: 60px;
   height: 34px;
+
+  &--is-disabled {
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }
 
 .switch__controller {
@@ -44,10 +49,7 @@
 
   transition: 0.4s;
 
-  &--is-disabled {
-    cursor: not-allowed;
-    pointer-events: none;
-  }
+  
 
   &:before {
     position: absolute;
