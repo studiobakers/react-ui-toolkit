@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import classNames from "classnames";
 import TextareaAutosize, {TextareaAutosizeProps} from "react-textarea-autosize";
 
-import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboardEventConstants";
+import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
 
 export type TextareaProps = Omit<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
