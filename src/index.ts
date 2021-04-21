@@ -27,6 +27,10 @@ import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 import Switch, {SwitchProps} from "./switch/Switch";
+import Countdown from "./countdown/Countdown";
+import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
+import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
+import {CountdownProps} from "../src/countdown/util/countdownTypes";
 
 export {
   // Components
@@ -47,6 +51,8 @@ export {
   FileUploadButton,
   Spinner,
   Tab,
+  Countdown,
+  ProgressBar,
   Textarea,
   Switch,
   // Types
@@ -70,7 +76,11 @@ export {
   SpinnerProps,
   TabItem,
   TabProps,
-  TextareaProps,
   AvatarProps,
-  SwitchProps
+  ProgressBarProps,
+  TextareaProps,
+  SwitchProps,
+  CountdownProps,
+  // Hooks
+  useCountDownTimer
 };

@@ -8,7 +8,7 @@ import DropdownListItem, {
   DropdownOptionSelectHandler,
   DropdownSelectedOption
 } from "./item/DropdownListItem";
-import {computeScrollAmountToMakeChildVisible} from "../../core/utils/domUtils";
+import {computeScrollAmountToMakeChildVisible} from "../../core/utils/dom/domUtils";
 
 interface DropdownListProps<OptionIdShape extends string> {
   isVisible: boolean;
