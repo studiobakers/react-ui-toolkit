@@ -74,7 +74,12 @@ function Button({
       disabled={isButtonDisabled}
       aria-label={ariaLabel}>
       {shouldDisplaySpinner ? (
-        <Spinner aria-label={"Button spinner visible. Button inactivated."} />
+        <Spinner
+          customClassName={classNames("button__spinner", {
+            [`${customClassName}__spinner`]: customClassName
+          })}
+          aria-label={"Button spinner visible. Button inactivated."}
+        />
       ) : (
         children
       )}

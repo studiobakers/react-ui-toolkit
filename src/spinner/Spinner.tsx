@@ -1,19 +1,23 @@
 import "./_spinner.scss";
 
 import React from "react";
+import classNames from "classnames";
 
-interface SpinnerProps {
+export interface SpinnerProps {
   color?: string;
+  customClassName?: string;
 }
 
-function Spinner({color = "#150F2A"}: SpinnerProps) {
+function Spinner({color = "#150F2A", customClassName}: SpinnerProps) {
+  const spinnerClassName = classNames("spinner", customClassName);
+
   return (
     <svg
       width={"20"}
       height={"20"}
       viewBox={"0 0 20 20"}
       fill={"none"}
-      className={"spinner"}
+      className={spinnerClassName}
       xmlns={"http://www.w3.org/2000/svg"}>
       <path
         fillRule={"evenodd"}
