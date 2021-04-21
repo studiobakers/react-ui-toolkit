@@ -24,7 +24,8 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
-import Textarea, { TextareaProps } from "./form/textarea/Textarea";
+import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
+import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 
 export {
@@ -46,6 +47,7 @@ export {
   FileUploadButton,
   Spinner,
   Tab,
+  ProgressBar,
   Textarea,
   // Types
   FormFieldProps,
@@ -68,6 +70,7 @@ export {
   SpinnerProps,
   TabItem,
   TabProps,
+  ProgressBarProps,
   TextareaProps,
   AvatarProps
 };
