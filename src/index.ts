@@ -30,6 +30,7 @@ import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
 import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 import {CountdownProps} from "../src/countdown/util/countdownTypes";
+import TimeInput, {TimeInputDropdownOption, TimeInputProps} from "./form/time/TimeInput";
 
 export {
   // Components
@@ -53,6 +54,7 @@ export {
   Countdown,
   ProgressBar,
   Textarea,
+  TimeInput,
   // Types
   FormFieldProps,
   InputProps,
@@ -78,6 +80,8 @@ export {
   ProgressBarProps,
   TextareaProps,
   CountdownProps,
+  TimeInputProps,
+  TimeInputDropdownOption,
   // Hooks
   useCountDownTimer
 };

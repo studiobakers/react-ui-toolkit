@@ -7,9 +7,11 @@ import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
 import PasswordInput from "../src/form/password-input/PasswordInput";
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
+import TimeInput from "../src/form/time/TimeInput";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
 import Textarea from "../src/form/textarea/Textarea";
 import StoryFragment from "./utils/StoryFragment";
+import {getHourMinuteMeridiemFromDate} from "../src/core/utils/time/timeUtils";
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -208,6 +210,51 @@ storiesOf("Form", module)
       </StateProvider>
     </Fragment>
   ))
+  .add("Time Input", () => {
+    const lessonEndTime = new Date(new Date().setMinutes(new Date().getMinutes() + 30));
+
+    return (
+      <Fragment>
+        <FormField label={"Appointment Time"}>
+          <TimeInput onChange={(e) => console.log(e)} />
+        </FormField>
+
+        <br />
+
+        <FormField
+          label={"Appointment Time - Has Error"}
+          errorMessages={["Please enter a valid time"]}>
+          <TimeInput onChange={(e) => console.log(e)} hasError={true} />
+        </FormField>
+
+        <br />
+
+        <FormField label={"Appointment Time - Is Disabled"}>
+          <TimeInput isDisabled={true} onChange={(e) => console.log(e)} />
+        </FormField>
+
+        <br />
+
+        <FormField label={"Lesson Start Time - Selected Date: (Now)"}>
+          <TimeInput
+            startTime={new Date()}
+            selectedDate={new Date()}
+            onChange={(e) => console.log(e)}
+          />
+        </FormField>
+
+        <br />
+
+        <FormField label={"Lesson End Time - (Minimum 30 minutes)"}>
+          <TimeInput
+            startTime={new Date()}
+            placeholder={getHourMinuteMeridiemFromDate(lessonEndTime)}
+            onChange={(e) => console.log(e)}
+          />
+        </FormField>
+      </Fragment>
+    );
+  })
   .add("Color Input", () => (
     <FormField labelledBy={"Color Picker"} label={"Color Picker"}>
       <Input

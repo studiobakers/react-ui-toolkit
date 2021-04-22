@@ -6,4 +6,11 @@ interface RemainingTimeBreakdown {
   seconds: number;
 }
 
-export {RemainingTimeBreakdown};
+type FormatDateUtilOptions = {
+  timeZone?: string | null;
+  format?: string;
+  shouldShiftDateToCompensateForTimezone?: boolean;
+  isProvidedDateInUTC?: boolean;
+};
+
+export {RemainingTimeBreakdown, FormatDateUtilOptions};
