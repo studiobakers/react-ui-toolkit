@@ -1,5 +1,5 @@
 .button {
-  --button-width: 100%;
+  --button-width: max-content;
   --button-height: 35px;
   --button-bg: black;
   --button-color: white;
@@ -32,7 +32,15 @@
 }
 
 .button__spinner {
+  position: absolute;
+  
   .spinner__background {
     background: var(--button-bg);
+  }
+}
+
+.button__children {
+  &--is-hidden {
+    visibility: hidden;
   }
 }

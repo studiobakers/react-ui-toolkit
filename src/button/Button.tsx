@@ -54,6 +54,17 @@ function Button({
     "button--is-inactive": isButtonDisabled,
     "button--is-pending": shouldDisplaySpinner
   });
+  const childrenClassName = classNames("button__children", {
+    "button__children--is-hidden": shouldDisplaySpinner
+  });
+  const spinner = (
+    <Spinner
+      customClassName={classNames("button__spinner", {
+        [`${customClassName}__spinner`]: customClassName
+      })}
+      aria-label={"Button spinner visible. Button inactivated."}
+    />
+  );
 
   return (
     <button
@@ -73,16 +84,9 @@ function Button({
       onBlur={onBlur}
       disabled={isButtonDisabled}
       aria-label={ariaLabel}>
-      {shouldDisplaySpinner ? (
-        <Spinner
-          customClassName={classNames("button__spinner", {
-            [`${customClassName}__spinner`]: customClassName
-          })}
-          aria-label={"Button spinner visible. Button inactivated."}
-        />
-      ) : (
-        children
-      )}
+      <div className={childrenClassName}>{children}</div>
+
+      {shouldDisplaySpinner && spinner}
     </button>
   );
 
