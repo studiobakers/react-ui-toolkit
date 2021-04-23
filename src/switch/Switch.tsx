@@ -26,7 +26,7 @@ function Switch({
     <label data-testid={testid} className={switchClassName}>
       <input
         className={"switch__controller"}
-        type="checkbox"
+        type={"checkbox"}
         checked={isDisabled ? false : isToggledOn}
         disabled={isDisabled}
         onChange={isDisabled ? undefined : onToggle}

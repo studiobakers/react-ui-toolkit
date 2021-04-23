@@ -12,11 +12,14 @@ storiesOf("Switch", module).add("Switch States", () => {
   };
 
   const darkTheme = (
-    <style>{`
-    .sb-show-main {
-      background-color: gray;
-    }
-  `}</style>
+    <style>
+      {`
+        .sb-show-main {
+          background-color: gray;
+          color: white;
+        }
+      `}
+    </style>
   );
 
   return (

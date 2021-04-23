@@ -1,3 +1,5 @@
+@import "../ui/reference/animation";
+
 .switch {
   --switch-controller-bg: lightgreen;
   --switch-active-slider-bg: white;
@@ -12,7 +14,10 @@
 
   &--is-disabled {
     cursor: not-allowed;
-    pointer-events: none;
+
+    .switch__slider {
+      pointer-events: none;
+    }
   }
 }
 
@@ -47,8 +52,8 @@
 
   cursor: pointer;
 
-  transition: 0.4s;
-  
+  transition: $animation-duration;
+
   &:before {
     position: absolute;
     bottom: 4px;
@@ -63,6 +68,6 @@
 
     content: "";
 
-    transition: 0.4s;
+    transition: $animation-duration;
   }
 }
