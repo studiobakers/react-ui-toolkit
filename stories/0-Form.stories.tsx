@@ -172,6 +172,8 @@ storiesOf("Form", module)
       </StateProvider>
 
       <br />
+      <hr />
+      <br />
 
       <StateProvider initialState={null}>
         {(state, setState) => (
@@ -199,6 +201,53 @@ storiesOf("Form", module)
               <Input
                 name={"id-number"}
                 type={"number"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+      <hr />
+      <br />
+
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                "Wallet ($) – maxFractionDigits={2} - shouldFormatToLocaleString={true}"
+              }>
+              <Input
+                name={"wallet"}
+                maxFractionDigits={2}
+                type={"number"}
+                placeholder={"$ 1,000"}
+                shouldFormatToLocaleString={true}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                "World Population – maxFractionDigits={0} - shouldFormatToLocaleString={true}"
+              }>
+              <Input
+                name={"world-population"}
+                type={"number"}
+                placeholder={"7,794,798,739"}
+                shouldFormatToLocaleString={true}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
               />

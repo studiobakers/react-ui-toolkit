@@ -10,6 +10,7 @@ import {
   THOUSANDTHS_SEPARATOR,
   IS_LAST_CHARACTER_DECIMAL_POINT_REGEX
 } from "../../core/utils/number/numberConstants";
+import {numberToString} from "../../core/utils/number/numberUtils";
 
 type InputTypes =
   | "checkbox"
@@ -46,6 +47,7 @@ export type InputProps = Omit<
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
   hasError?: boolean;
+  shouldFormatToLocaleString?: boolean;
   customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
   onChange: React.ReactEventHandler<HTMLInputElement>;
@@ -55,12 +57,14 @@ export type InputProps = Omit<
 function Input(props: InputProps) {
   const {
     testid,
+    value,
     type = "text",
     isDisabled,
     hasError,
     customClassName,
     leftIcon,
     rightIcon,
+    shouldFormatToLocaleString,
     role,
     autoComplete = "off",
     autoCorrect = "off",
@@ -75,6 +79,11 @@ function Input(props: InputProps) {
     "input--has-error": hasError
   });
   const isNumberInput = type === "number";
+  let finalValue = value;
+
+  if (isNumberInput && value && shouldFormatToLocaleString && typeof value !== "object") {
+    finalValue = numberToString(value, maxFractionDigits);
+  }
 
   return (
     <div
@@ -92,6 +101,7 @@ function Input(props: InputProps) {
         className={inputClassName}
         type={isNumberInput ? "text" : type}
         autoComplete={autoComplete}
+        value={finalValue}
         autoCorrect={autoCorrect}
         disabled={isDisabled}
         onChange={handleChange}
@@ -119,6 +129,10 @@ function Input(props: InputProps) {
         const decimalNumberParts = newValue.split(DECIMAL_NUMBER_SEPARATOR);
         const decimalPart = decimalNumberParts[1];
         const integerPart = decimalNumberParts[0].replace(THOUSANDTHS_SEPARATOR, "");
+
+        if (decimalPart && decimalPart.length === maxFractionDigits + 1) {
+          return;
+        }
 
         if (decimalPart && decimalPart.length > maxFractionDigits) {
           const trimmedDecimalPart = decimalPart.slice(0, maxFractionDigits);
