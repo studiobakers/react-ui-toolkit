@@ -20,9 +20,12 @@
     color: var(--toggle-disabled-color);
     background-color: var(--toggle-disabled-bg);
 
-    pointer-events: none;
+    cursor: not-allowed;
+    
+    .list-item__click-wrapper {
+      pointer-events: none;
+    }
   }
-
 
   .list-item__click-wrapper {
     display: flex;

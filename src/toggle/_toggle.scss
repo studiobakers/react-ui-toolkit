@@ -19,6 +19,10 @@
   }
 
   &--is-disabled {
-    pointer-events: none;
+    cursor: not-allowed;
+
+    .toggle-item {
+      pointer-events: none;
+    }
   }
 }
