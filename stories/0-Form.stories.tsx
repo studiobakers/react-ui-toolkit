@@ -135,6 +135,79 @@ storiesOf("Form", module)
       />
     </FormField>
   ))
+
+  .add("Number Input", () => (
+    <Fragment>
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField label={"Price – maxFractionDigits={2}"}>
+              <Input
+                maxFractionDigits={2}
+                name={"price"}
+                type={"number"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+                placeholder={"$ 10"}
+              />
+            </FormField>
+
+            <br />
+
+            <FormField
+              label={"Price - Has Error"}
+              errorMessages={["Please enter a valid price"]}>
+              <Input
+                maxFractionDigits={2}
+                name={"price"}
+                type={"number"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+                placeholder={"$ 10"}
+                hasError={true}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField label={"Price (BTC) – maxFractionDigits={8}"}>
+              <Input
+                maxFractionDigits={8}
+                name={"price"}
+                type={"number"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+                placeholder={"Min. ₿ 0.00000001"}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField label={"ID or Passport Number – maxFractionDigits={0}"}>
+              <Input
+                name={"id-number"}
+                type={"number"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+    </Fragment>
+  ))
   .add("Color Input", () => (
     <FormField labelledBy={"Color Picker"} label={"Color Picker"}>
       <Input
