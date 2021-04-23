@@ -20,15 +20,6 @@ storiesOf("Button", module).add("Button States", () => (
 
     <br />
 
-    <Button
-      type={"button"}
-      onClick={(e) => alert("Thank You!")}
-      shouldDisplaySpinner={true}>
-      {"Click Me - shouldDisplaySpinner"}
-    </Button>
-
-    <br />
-
     <StateProvider initialState={false}>
       {(state, setState) => (
         <Button

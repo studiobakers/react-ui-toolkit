@@ -31,9 +31,13 @@
   cursor: not-allowed;
 }
 
+.button--is-pending {
+  color: var(--button-bg);
+}
+
 .button__spinner {
   position: absolute;
-  
+
   .spinner__background {
     background: var(--button-bg);
   }
