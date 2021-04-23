@@ -7,8 +7,8 @@ import StoryFragment from "./utils/StoryFragment";
 
 storiesOf("Switch", module).add("Switch States", () => {
   const initialState = {
-    switchState: true,
-    disabledState: false
+    isSwitchOn: true,
+    isDisabled: false
   };
 
   const darkTheme = (
@@ -27,13 +27,13 @@ storiesOf("Switch", module).add("Switch States", () => {
             <span>{"Dark"}</span>
 
             <Switch
-              isToggledOn={state.switchState}
-              onToggle={() => setState({...state, switchState: !state.switchState})}
+              isToggledOn={state.isSwitchOn}
+              onToggle={() => setState({...state, isSwitchOn: !state.isSwitchOn})}
             />
 
             <span>{"Light"}</span>
 
-            {!state.switchState && darkTheme}
+            {!state.isSwitchOn && darkTheme}
           </div>
 
           <br />
@@ -45,8 +45,8 @@ storiesOf("Switch", module).add("Switch States", () => {
           <br />
 
           <Switch
-            isToggledOn={state.disabledState}
-            onToggle={() => setState({...state, switchState: !state.disabledState})}
+            isToggledOn={state.isDisabled}
+            onToggle={() => setState({...state, isDisabled: !state.isDisabled})}
             isDisabled={true}
           />
         </StoryFragment>
