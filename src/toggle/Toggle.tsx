@@ -4,14 +4,17 @@ import React, {createContext, useState} from "react";
 import classNames from "classnames";
 
 import ToggleItem from "./item/ToggleItem";
+
 export interface ToggleItemShape {
   id: string;
   children: React.ReactNode;
 }
 
 const ToggleContext = createContext({
-  toggleState: [] as ToggleItemShape[],
-  setToggleState: (() => null) as React.Dispatch<React.SetStateAction<ToggleItemShape[]>>,
+  selectedToggleItemsState: [] as ToggleItemShape[],
+  setSelectedToggleItemsState: (() => null) as React.Dispatch<
+    React.SetStateAction<ToggleItemShape[]>
+  >,
   isMultiple: false,
   onToggleItem: (id: string) => id
 });
@@ -40,12 +43,19 @@ function Toggle({
     "toggle--is-vertical": position === "vertical",
     "toggle--is-disabled": isDisabled
   });
-  const [toggleState, setToggleState] = useState<ToggleItemShape[]>([]);
+  const [selectedToggleItemsState, setSelectedToggleItemsState] = useState<
+    ToggleItemShape[]
+  >([]);
 
   return (
     <div data-testid={testid} className={toggleClassName}>
       <ToggleContext.Provider
-        value={{toggleState, setToggleState, isMultiple, onToggleItem}}>
+        value={{
+          selectedToggleItemsState,
+          setSelectedToggleItemsState,
+          isMultiple,
+          onToggleItem
+        }}>
         {children}
       </ToggleContext.Provider>
     </div>

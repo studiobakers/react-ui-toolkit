@@ -3,13 +3,10 @@
   --toggle-active-color: darkgray;
   --toggle-inactive-bg: black;
   --toggle-inactive-color: white;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 100%;
-  height: 100%;
+  --toggle-disabled-bg: gray;
+  --toggle-disabled-color: white;
+  
+  list-style-type: none;
 
   color: var(--toggle-inactive-color);
   background-color: var(--toggle-inactive-bg);
@@ -20,8 +17,19 @@
   }
 
   &--is-disabled {
-    background-color: gray;
+    color: var(--toggle-disabled-color);
+    background-color: var(--toggle-disabled-bg);
 
     pointer-events: none;
+  }
+
+
+  .list-item__click-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
   }
 }

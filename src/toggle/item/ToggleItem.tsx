@@ -4,6 +4,7 @@ import React from "react";
 import classNames from "classnames";
 
 import {useToggle} from "../util/toggleHooks";
+import ListItem from "../../list/item/ListItem";
 
 export interface ToggleItemProps {
   children: React.ReactNode;
@@ -13,28 +14,37 @@ export interface ToggleItemProps {
 }
 
 function ToggleItem({children, id, customClassName, isDisabled}: ToggleItemProps) {
-  const {toggleState, setToggleState, isMultiple, onToggleItem} = useToggle();
-  const isSelected = Boolean(toggleState.find((item) => item.id === id));
+  const {
+    selectedToggleItemsState,
+    setSelectedToggleItemsState,
+    isMultiple,
+    onToggleItem
+  } = useToggle();
+  const isSelected = selectedToggleItemsState.some((item) => item.id === id);
   const toggleItemClassName = classNames("toggle-item", customClassName, {
     "toggle-item--is-selected": isSelected,
     "toggle-item--is-disabled": isDisabled
   });
 
   return (
-    <div className={toggleItemClassName} onClick={handleToggle}>
+    <ListItem
+      customClassName={toggleItemClassName}
+      clickableListItemProps={{onClick: handleToggle}}>
       {children}
-    </div>
+    </ListItem>
   );
 
   function handleToggle() {
     if (isMultiple) {
       if (isSelected) {
-        setToggleState([...toggleState.filter((item) => item.id !== id)]);
+        setSelectedToggleItemsState([
+          ...selectedToggleItemsState.filter((item) => item.id !== id)
+        ]);
       } else {
-        setToggleState([...toggleState, {id, children}]);
+        setSelectedToggleItemsState([...selectedToggleItemsState, {id, children}]);
       }
     } else {
-      setToggleState([{id, children}]);
+      setSelectedToggleItemsState([{id, children}]);
     }
 
     onToggleItem(id);
