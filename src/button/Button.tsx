@@ -24,6 +24,7 @@ export interface ButtonProps {
   shouldStopPropagation?: boolean;
   shouldFocus?: boolean;
   ariaLabel?: string;
+  customSpinner?: React.ReactNode;
   customClassName?: string;
   tabIndex?: number;
 }
@@ -35,6 +36,7 @@ function Button({
   lang,
   onClick,
   children,
+  customSpinner,
   customClassName,
   shouldPreventDefault = true,
   shouldStopPropagation = true,
@@ -54,6 +56,12 @@ function Button({
     "button--is-inactive": isButtonDisabled,
     "button--is-pending": shouldDisplaySpinner
   });
+  const spinnerContent = customSpinner || (
+    <Spinner
+      customClassName={"button__spinner"}
+      aria-label={"Button spinner visible. Button inactivated."}
+    />
+  );
 
   return (
     <button
@@ -73,16 +81,7 @@ function Button({
       onBlur={onBlur}
       disabled={isButtonDisabled}
       aria-label={ariaLabel}>
-      {shouldDisplaySpinner ? (
-        <Spinner
-          customClassName={classNames("button__spinner", {
-            [`${customClassName}__spinner`]: customClassName
-          })}
-          aria-label={"Button spinner visible. Button inactivated."}
-        />
-      ) : (
-        children
-      )}
+      {shouldDisplaySpinner ? spinnerContent : children}
     </button>
   );
 
