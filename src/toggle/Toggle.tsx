@@ -48,7 +48,7 @@ function Toggle({
   >([]);
 
   return (
-    <li data-testid={testid} className={toggleClassName}>
+    <ul data-testid={testid} className={toggleClassName}>
       <ToggleContext.Provider
         value={{
           selectedToggleItemsState,
@@ -58,7 +58,7 @@ function Toggle({
         }}>
         {children}
       </ToggleContext.Provider>
-    </li>
+    </ul>
   );
 
   function onToggleItem(id: string) {
