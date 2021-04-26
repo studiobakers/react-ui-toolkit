@@ -9,7 +9,10 @@ function toastReducer(
 
   switch (action.type) {
     case "DISPLAY": {
-      newState = {isDisplayed: true, data: {...state.data, ...action.payload}};
+      newState = {
+        isDisplayed: true,
+        data: {...initialToastState.data, ...action.payload}
+      };
       break;
     }
 

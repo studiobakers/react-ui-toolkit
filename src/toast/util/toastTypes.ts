@@ -4,6 +4,7 @@ interface ToastItem {
   autoClose?: boolean;
   timeout?: number;
   customClassName?: string;
+  customRootId?: string;
 }
 
 type ToastAction =
