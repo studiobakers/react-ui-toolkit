@@ -2,6 +2,7 @@ import "./_input.scss";
 
 import React from "react";
 import classNames from "classnames";
+
 import {
   NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX,
   NOT_NUMBER_NOR_DECIMAL_POINT_REGEX,
@@ -81,8 +82,8 @@ function Input(props: InputProps) {
   const isNumberInput = type === "number";
   let finalValue = value;
 
-  if (isNumberInput && value && shouldFormatToLocaleString && typeof value !== "object") {
-    finalValue = numberToString(value, maxFractionDigits);
+  if (isNumberInput && value && shouldFormatToLocaleString) {
+    finalValue = numberToString(value.toString(), maxFractionDigits);
   }
 
   return (
@@ -128,7 +129,9 @@ function Input(props: InputProps) {
       if (maxFractionDigits > 0) {
         const decimalNumberParts = newValue.split(DECIMAL_NUMBER_SEPARATOR);
         const decimalPart = decimalNumberParts[1];
-        const integerPart = decimalNumberParts[0].replace(THOUSANDTHS_SEPARATOR, "");
+        const integerPart = new Intl.NumberFormat(navigator.language).format(
+          Number(decimalNumberParts[0])
+        );
 
         if (decimalPart && decimalPart.length === maxFractionDigits + 1) {
           return;
