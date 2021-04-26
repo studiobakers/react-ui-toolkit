@@ -58,9 +58,7 @@ function Button({
   });
   const spinnerContent = customSpinner || (
     <Spinner
-      customClassName={classNames("button__spinner", {
-        [`${customClassName}__spinner`]: customClassName
-      })}
+      customClassName={"button__spinner"}
       aria-label={"Button spinner visible. Button inactivated."}
     />
   );
