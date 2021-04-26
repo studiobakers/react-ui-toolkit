@@ -26,7 +26,7 @@ import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
-import {Toggle, ToggleItemShape, ToggleProps} from "./toggle/Toggle";
+import {Toggle, ToggleProps} from "./toggle/Toggle";
 import ToggleItem, {ToggleItemProps} from "./toggle/item/ToggleItem";
 import Countdown from "./countdown/Countdown";
 import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
@@ -83,7 +83,6 @@ export {
   TextareaProps,
   ToggleProps,
   ToggleItemProps,
-  ToggleItemShape,
   CountdownProps,
   // Hooks
   useCountDownTimer

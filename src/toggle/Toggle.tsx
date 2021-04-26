@@ -1,71 +1,72 @@
 import "./_toggle.scss";
 
-import React, {createContext, useState} from "react";
+import React, {useCallback, useState} from "react";
 import classNames from "classnames";
 
 import ToggleItem from "./item/ToggleItem";
-
-export interface ToggleItemShape {
-  id: string;
-  children: React.ReactNode;
-}
-
-const ToggleContext = createContext({
-  selectedToggleItemsState: [] as ToggleItemShape[],
-  setSelectedToggleItemsState: (() => null) as React.Dispatch<
-    React.SetStateAction<ToggleItemShape[]>
-  >,
-  isMultiple: false,
-  onToggleItem: (id: string) => id
-});
+import {ToggleContext} from "./util/ToggleContext";
 
 export interface ToggleProps {
   children: React.ReactNode;
-  onToggle: (id: string) => void;
+  onToggle?: (dataId: string) => void;
+  selectedItems?: string[];
   isMultiple?: boolean;
   position?: "vertical" | "horizontal";
   isDisabled?: boolean;
   customClassName?: string;
-  testid?: string;
 }
 
 function Toggle({
   children,
   onToggle,
   isMultiple = false,
+  selectedItems = [],
   position = "horizontal",
   isDisabled,
-  customClassName,
-  testid
+  customClassName
 }: ToggleProps) {
   const toggleClassName = classNames("toggle", customClassName, {
     "toggle--is-horizontal": position === "horizontal",
     "toggle--is-vertical": position === "vertical",
     "toggle--is-disabled": isDisabled
   });
-  const [selectedToggleItemsState, setSelectedToggleItemsState] = useState<
-    ToggleItemShape[]
-  >([]);
+  const [selectedToggleItemsState, setSelectedToggleItemsState] = useState<string[]>(
+    selectedItems
+  );
+
+  const onToggleItem = useCallback(
+    (dataId: string) => {
+      if (onToggle) {
+        onToggle(dataId);
+        return;
+      }
+
+      if (isMultiple) {
+        if (selectedToggleItemsState.some((item) => item === dataId)) {
+          setSelectedToggleItemsState([
+            ...selectedToggleItemsState.filter((item) => item !== dataId)
+          ]);
+        } else {
+          setSelectedToggleItemsState([...selectedToggleItemsState, dataId]);
+        }
+      } else {
+        setSelectedToggleItemsState([dataId]);
+      }
+    },
+    [onToggle, selectedToggleItemsState, setSelectedToggleItemsState, isMultiple]
+  );
 
   return (
-    <ul data-testid={testid} className={toggleClassName}>
+    <ul className={toggleClassName}>
       <ToggleContext.Provider
         value={{
           selectedToggleItemsState,
-          setSelectedToggleItemsState,
-          isMultiple,
           onToggleItem
         }}>
         {children}
       </ToggleContext.Provider>
     </ul>
   );
-
-  function onToggleItem(id: string) {
-    onToggle(id);
-
-    return id;
-  }
 }
 
 Toggle.Item = ToggleItem;
