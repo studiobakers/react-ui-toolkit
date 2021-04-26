@@ -4,6 +4,8 @@
   --button-bg: black;
   --button-color: white;
 
+  position: relative;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -40,11 +42,5 @@
 
   .spinner__background {
     background: var(--button-bg);
-  }
-}
-
-.button__children {
-  &--is-hidden {
-    visibility: hidden;
   }
 }
