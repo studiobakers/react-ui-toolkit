@@ -29,7 +29,8 @@ module.exports = {
   },
   settings: {
     react: {
-      version: "detect" // Tells eslint-plugin-react to automatically detect the version of React to use
+      // Tells eslint-plugin-react to automatically detect the version of React to use
+      version: "detect" 
     }
   },
   globals: {
@@ -66,6 +67,7 @@ module.exports = {
     "@typescript-eslint/no-non-null-assertion": 0,
     "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/ban-ts-comment": 0,
+    "@typescript-eslint/no-empty-function": 0,
 
     // 👇🏻 these will be fixed inside `eslint-config-hipo-base`
     "no-undefined": 0,

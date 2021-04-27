@@ -2,40 +2,51 @@ import {storiesOf} from "@storybook/react";
 import React from "react";
 
 import {Toggle} from "../src/toggle/Toggle";
+import {initialState} from "./utils/constants/toggle/toggleStoryOptionConstants";
+import StateProvider from "./utils/StateProvider";
 
 storiesOf("Toggle", module)
   .add("Toggle States", () => {
     return (
       <div style={{width: "500px"}}>
         <span>{"Switch Toggle - 2 Options"}</span>
-        <Toggle onToggle={(e) => console.log(e)}>
-          <Toggle.Item id={"on"}>{"On"}</Toggle.Item>
-          <Toggle.Item id={"off"}>{"Off"}</Toggle.Item>
-        </Toggle>
+
+        <StateProvider initialState={initialState.switch}>
+          {(state, setState) => (
+            <Toggle selectedItems={state} onToggle={(e) => setState(e)}>
+              <Toggle.Item dataId={"on"}>{"On"}</Toggle.Item>
+              <Toggle.Item dataId={"off"}>{"Off"}</Toggle.Item>
+            </Toggle>
+          )}
+        </StateProvider>
 
         <br />
 
         <span>{"Swtich Toggle - Disabled"}</span>
 
-        <Toggle isDisabled={true} onToggle={(e) => console.log(e)}>
-          <Toggle.Item id={"mobile"}>{"Mobile"}</Toggle.Item>
-          <Toggle.Item id={"tablet"}>{"Tablet"}</Toggle.Item>
-          <Toggle.Item id={"notebook"}>{"Notebook"}</Toggle.Item>
-          <Toggle.Item id={"desktop"}>{"Desktop"}</Toggle.Item>
+        <Toggle selectedItems={[]} onToggle={(e) => console.log(e)} isDisabled={true}>
+          <Toggle.Item dataId={"mobile"}>{"Mobile"}</Toggle.Item>
+          <Toggle.Item dataId={"tablet"}>{"Tablet"}</Toggle.Item>
+          <Toggle.Item dataId={"notebook"}>{"Notebook"}</Toggle.Item>
+          <Toggle.Item dataId={"desktop"}>{"Desktop"}</Toggle.Item>
         </Toggle>
 
         <br />
 
         <span>{"Toggle - Disabled Item"}</span>
 
-        <Toggle onToggle={(e) => console.log(e)}>
-          <Toggle.Item id={"mobile"}>{"Mobile"}</Toggle.Item>
-          <Toggle.Item isDisabled={true} id={"tablet"}>
-            {"Tablet"}
-          </Toggle.Item>
-          <Toggle.Item id={"notebook"}>{"Notebook"}</Toggle.Item>
-          <Toggle.Item id={"desktop"}>{"Desktop"}</Toggle.Item>
-        </Toggle>
+        <StateProvider initialState={initialState.devices}>
+          {(state, setState) => (
+            <Toggle selectedItems={state} onToggle={(e) => setState(e)}>
+              <Toggle.Item dataId={"mobile"}>{"Mobile"}</Toggle.Item>
+              <Toggle.Item isDisabled={true} dataId={"tablet"}>
+                {"Tablet"}
+              </Toggle.Item>
+              <Toggle.Item dataId={"notebook"}>{"Notebook"}</Toggle.Item>
+              <Toggle.Item dataId={"desktop"}>{"Desktop"}</Toggle.Item>
+            </Toggle>
+          )}
+        </StateProvider>
       </div>
     );
   })
@@ -43,31 +54,53 @@ storiesOf("Toggle", module)
     <div style={{width: "500px"}}>
       <span>{"Toggle - Multiple"}</span>
 
-      <Toggle isMultiple={true} onToggle={(e) => console.log(e)}>
-        <Toggle.Item id="react">{"React"}</Toggle.Item>
-        <Toggle.Item id="vue">{"Vue"}</Toggle.Item>
-        <Toggle.Item id="angular">{"Angular"}</Toggle.Item>
-      </Toggle>
+      <StateProvider initialState={initialState.frameworks}>
+        {(state, setState) => (
+          <Toggle
+            selectedItems={state}
+            onToggle={(e) => setState(handleToggle(e, state))}>
+            <Toggle.Item dataId="react">{"React"}</Toggle.Item>
+            <Toggle.Item dataId="vue">{"Vue"}</Toggle.Item>
+            <Toggle.Item dataId="angular">{"Angular"}</Toggle.Item>
+          </Toggle>
+        )}
+      </StateProvider>
 
       <br />
 
       <span>{"Toggle - Vertically"}</span>
 
-      <Toggle
-        customClassName={"toggle-vertically"}
-        isMultiple={true}
-        position={"vertical"}
-        onToggle={(e) => console.log(e)}>
-        <Toggle.Item id={"mobile"}>{"Mobile"}</Toggle.Item>
-        <Toggle.Item id={"tablet"}>{"Tablet"}</Toggle.Item>
-        <Toggle.Item id={"notebook"}>{"Notebook"}</Toggle.Item>
-        <Toggle.Item id={"desktop"}>{"Desktop"}</Toggle.Item>
-      </Toggle>
+      <StateProvider initialState={initialState.devices}>
+        {(state, setState) => (
+          <Toggle
+            selectedItems={state}
+            onToggle={(e) => setState(handleToggle(e, state))}
+            customClassName={"toggle-vertically"}
+            position={"vertical"}>
+            <Toggle.Item dataId={"mobile"}>{"Mobile"}</Toggle.Item>
+            <Toggle.Item dataId={"tablet"}>{"Tablet"}</Toggle.Item>
+            <Toggle.Item dataId={"notebook"}>{"Notebook"}</Toggle.Item>
+            <Toggle.Item dataId={"desktop"}>{"Desktop"}</Toggle.Item>
+          </Toggle>
+        )}
+      </StateProvider>
 
       <style>{`
-          .toggle-vertically {
-            height: 500px;
-          }
+        .toggle-vertically {
+          height: 500px;
+        }
       `}</style>
     </div>
   ));
+
+function handleToggle(dataId: string, state: any) {
+  let selectedItems;
+
+  if (state.includes(dataId)) {
+    selectedItems = state.filter((item) => item !== dataId);
+  } else {
+    selectedItems = [...state, dataId];
+  }
+
+  return selectedItems;
+}

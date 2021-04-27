@@ -21,8 +21,8 @@ function ToggleItem({
   isDisabled,
   testid
 }: ToggleItemProps) {
-  const {selectedToggleItemsState, onToggleItem} = useToggle();
-  const isSelected = selectedToggleItemsState.some((item) => item === dataId);
+  const {selectedItems, onToggle} = useToggle();
+  const isSelected = selectedItems.includes(dataId);
   const toggleItemClassName = classNames("toggle-item", customClassName, {
     "toggle-item--is-selected": isSelected,
     "toggle-item--is-disabled": isDisabled
@@ -38,7 +38,7 @@ function ToggleItem({
   );
 
   function handleToggle() {
-    onToggleItem(dataId);
+    onToggle(dataId);
   }
 }
 

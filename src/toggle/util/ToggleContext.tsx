@@ -1,15 +1,16 @@
 import {createContext, useContext} from "react";
 
 type ToggleContextValue = {
-  selectedToggleItemsState: string[];
-  onToggleItem: (dataId: string) => void;
+  selectedItems: string[];
+  onToggle: (dataId: string) => void;
 };
 
 const ToggleContext = createContext<ToggleContextValue>({
-  selectedToggleItemsState: [] as string[],
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
-  onToggleItem: () => {}
+  selectedItems: [] as string[],
+  onToggle: () => {}
 });
+
+ToggleContext.displayName = "ToggleContext";
 
 function useToggle() {
   const toggleContext = useContext(ToggleContext);

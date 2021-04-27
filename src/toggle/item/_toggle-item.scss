@@ -5,7 +5,7 @@
   --toggle-inactive-color: white;
   --toggle-disabled-bg: gray;
   --toggle-disabled-color: white;
-  
+
   list-style-type: none;
 
   color: var(--toggle-inactive-color);
@@ -17,12 +17,16 @@
   }
 
   &--is-disabled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     color: var(--toggle-disabled-color);
     background-color: var(--toggle-disabled-bg);
 
     cursor: not-allowed;
-    
-    .list-item__click-wrapper {
+
+    * {
       pointer-events: none;
     }
   }

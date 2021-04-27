@@ -1,6 +1,6 @@
 import "./_toggle.scss";
 
-import React, {useCallback, useState} from "react";
+import React from "react";
 import classNames from "classnames";
 
 import ToggleItem from "./item/ToggleItem";
@@ -8,8 +8,8 @@ import {ToggleContext} from "./util/ToggleContext";
 
 export interface ToggleProps {
   children: React.ReactNode;
-  onToggle?: (dataId: string) => void;
-  selectedItems?: string[];
+  onToggle: (dataId: string) => void;
+  selectedItems: string[];
   isMultiple?: boolean;
   position?: "vertical" | "horizontal";
   isDisabled?: boolean;
@@ -19,7 +19,6 @@ export interface ToggleProps {
 function Toggle({
   children,
   onToggle,
-  isMultiple = false,
   selectedItems = [],
   position = "horizontal",
   isDisabled,
@@ -30,38 +29,13 @@ function Toggle({
     "toggle--is-vertical": position === "vertical",
     "toggle--is-disabled": isDisabled
   });
-  const [selectedToggleItemsState, setSelectedToggleItemsState] = useState<string[]>(
-    selectedItems
-  );
-
-  const onToggleItem = useCallback(
-    (dataId: string) => {
-      if (onToggle) {
-        onToggle(dataId);
-        return;
-      }
-
-      if (isMultiple) {
-        if (selectedToggleItemsState.some((item) => item === dataId)) {
-          setSelectedToggleItemsState([
-            ...selectedToggleItemsState.filter((item) => item !== dataId)
-          ]);
-        } else {
-          setSelectedToggleItemsState([...selectedToggleItemsState, dataId]);
-        }
-      } else {
-        setSelectedToggleItemsState([dataId]);
-      }
-    },
-    [onToggle, selectedToggleItemsState, setSelectedToggleItemsState, isMultiple]
-  );
 
   return (
     <ul className={toggleClassName}>
       <ToggleContext.Provider
         value={{
-          selectedToggleItemsState,
-          onToggleItem
+          selectedItems,
+          onToggle
         }}>
         {children}
       </ToggleContext.Provider>
