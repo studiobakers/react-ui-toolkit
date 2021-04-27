@@ -1,6 +1,8 @@
 import {RemainingTimeBreakdown} from "../../core/utils/time/timeTypes";
 import {CountdownItem, CountdownProps} from "./countdownTypes";
 
+/* eslint-disable no-magic-numbers */
+/* eslint-disable complexity */
 function generateCountdownItems(
   {
     titleMap,
@@ -66,5 +68,7 @@ function generateCountdownItems(
 
   return items;
 }
+/* eslint-enable complexity */
+/* eslint-enable no-magic-numbers */
 
 export {generateCountdownItems};

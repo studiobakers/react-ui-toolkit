@@ -75,6 +75,10 @@ module.exports = {
     "id-length": 0,
 
     "react/destructuring-assignment": 0,
+    "react/jsx-handler-names": ['error', {
+      "eventHandlerPrefix": false,
+      "eventHandlerPropPrefix": 'on',
+    }],
     "react/jsx-filename-extension": [
       1,
       {
