@@ -58,13 +58,16 @@ $dropdown-header-horizontal-padding: 8px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px;
 
   flex: 1;
 
   padding: 0 $dropdown-header-horizontal-padding;
 
   svg {
-    margin-bottom: 1px;
+    margin: 0 0 1px 8px;
+  }
+
+  .spinner {
+    margin-left: 8px;
   }
 }
