@@ -19,7 +19,7 @@ function truncateDecimalPart(limit: number) {
  * @return {boolean} Whether x is an integer or not
  */
 function isInteger(x: number): boolean {
-  return String(x).split(".")[1] === undefined;
+  return x % 1 === 0;
 }
 
 export {truncateDecimalPart, isInteger};
