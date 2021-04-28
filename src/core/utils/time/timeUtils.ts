@@ -172,19 +172,19 @@ function parseTime(time: string, format = "g:i A") {
 function getHourMinuteMeridiemFromTimeString(timeString: string) {
   const timeParts = timeString.match(hh_mm_a_TIME_FORMAT_REGEX);
   const defaultTime = {hours: "10", minutes: "00", meridiem: "AM"};
-  
+
   return timeParts
-  ? {
-    hours: timeParts[2],
-    minutes: timeParts[3],
-    meridiem: timeParts[4]
-  }
-  : defaultTime;
+    ? {
+        hours: timeParts[2],
+        minutes: timeParts[3],
+        meridiem: timeParts[4]
+      }
+    : defaultTime;
 }
 
 function formatTimeStringTo12hFormatWithMeridiem(timeString: string) {
   const {hours, minutes, meridiem} = getHourMinuteMeridiemFromTimeString(timeString);
-  
+
   return `${hours}:${minutes} ${meridiem}`;
 }
 
@@ -192,7 +192,7 @@ function getHourMinuteMeridiemFromDate(date: Date) {
   const hours = (date.getHours() % 12).toString().padStart(2, "0");
   const minutes = date.getMinutes().toString().padStart(2, "0");
   const meridiem = date.getHours() >= 12 ? "PM" : "AM";
-  
+
   return `${hours}:${minutes} ${meridiem}`;
 }
 /* eslint-enable no-magic-numbers */

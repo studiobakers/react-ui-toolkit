@@ -247,7 +247,7 @@ storiesOf("Form", module)
 
         <FormField label={"Lesson End Time - (Minimum 30 minutes)"}>
           <TimeInput
-            startTime={new Date()}
+            startTime={lessonEndTime}
             placeholder={getHourMinuteMeridiemFromDate(lessonEndTime)}
             onChange={(e) => console.log(e)}
           />

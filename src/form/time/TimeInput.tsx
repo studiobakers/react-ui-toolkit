@@ -67,7 +67,7 @@ function TimeInput({
 
   useEffect(() => {
     setDropdownOptions(generateTimeInputDropdownOptions({startTime: formattedStartTime}));
-  }, [startTime]);
+  }, [formattedStartTime]);
 
   const dropdownHeader = (
     <Input
