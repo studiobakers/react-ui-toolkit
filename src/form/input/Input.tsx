@@ -8,10 +8,9 @@ import {
   NOT_NUMBER_NOR_DECIMAL_POINT_REGEX,
   PRECISION_REGEX,
   DECIMAL_NUMBER_SEPARATOR,
-  THOUSANDTHS_SEPARATOR,
   IS_LAST_CHARACTER_DECIMAL_POINT_REGEX
 } from "../../core/utils/number/numberConstants";
-import {numberToString} from "../../core/utils/number/numberUtils";
+import {numberToString, parseNumber} from "../../core/utils/number/numberUtils";
 
 type InputTypes =
   | "checkbox"
@@ -48,6 +47,7 @@ export type InputProps = Omit<
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
   hasError?: boolean;
+  locale?: string;
   shouldFormatToLocaleString?: boolean;
   customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
@@ -65,6 +65,7 @@ function Input(props: InputProps) {
     customClassName,
     leftIcon,
     rightIcon,
+    locale,
     shouldFormatToLocaleString,
     role,
     autoComplete = "off",
@@ -83,7 +84,7 @@ function Input(props: InputProps) {
   let finalValue = value;
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
-    finalValue = numberToString(value.toString(), maxFractionDigits);
+    finalValue = numberToString(parseNumber(String(value)), maxFractionDigits, locale);
   }
 
   return (
@@ -129,9 +130,7 @@ function Input(props: InputProps) {
       if (maxFractionDigits > 0) {
         const decimalNumberParts = newValue.split(DECIMAL_NUMBER_SEPARATOR);
         const decimalPart = decimalNumberParts[1];
-        const integerPart = new Intl.NumberFormat(navigator.language).format(
-          Number(decimalNumberParts[0])
-        );
+        const integerPart = decimalNumberParts[0];
 
         if (decimalPart && decimalPart.length === maxFractionDigits + 1) {
           return;

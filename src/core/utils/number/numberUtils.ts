@@ -1,7 +1,8 @@
 import {
   IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
   MATCH_ZEROS_AFTER_DECIMAL_REGEX,
-  DECIMAL_NUMBER_SEPARATOR
+  DECIMAL_NUMBER_SEPARATOR,
+  THOUSANDTHS_SEPARATOR
 } from "./numberConstants";
 
 /**
@@ -38,9 +39,14 @@ function numberToString(
       if (decimalPart.length > maxFractionDigits) {
         const trimmedDecimalPart = decimalPart.slice(0, maxFractionDigits);
 
-        final = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${trimmedDecimalPart}`;
+        final = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${new Intl.NumberFormat(
+          locale
+        ).format(Number(trimmedDecimalPart))}`;
       } else {
-        final = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
+        final = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${new Intl.NumberFormat(locale)
+          .format(Number(decimalPart))
+          .replace(DECIMAL_NUMBER_SEPARATOR, "")
+          .replace(THOUSANDTHS_SEPARATOR, "")}`;
       }
     }
   }
@@ -48,4 +54,33 @@ function numberToString(
   return final;
 }
 
-export {numberToString};
+function parseNumber(value: number | string, locale = navigator.language) {
+  // eslint-disable-next-line no-magic-numbers
+  const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
+  const numerals = [
+    // eslint-disable-next-line no-magic-numbers
+    ...new Intl.NumberFormat(locale, {useGrouping: false}).format(9876543210)
+  ].reverse();
+
+  const group = new RegExp(`[${parts.find((d) => d.type === "group")?.value}]`, "g");
+  const decimal = new RegExp(`[${parts.find((d) => d.type === "decimal")?.value}]`);
+  const numeral = new RegExp(`[${numerals.join("")}]`, "g");
+
+  const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
+
+  return value
+    .toString()
+    .trim()
+    .replace(group, "")
+    .replace(decimal, ".")
+    .replace(numeral, digitMapper);
+
+  function getDigit(digitMap: Map<string, number>) {
+    return (d: string) => {
+      const digit = digitMap.get(d);
+
+      return typeof digit === "number" ? String(digit) : "";
+    };
+  }
+}
+export {numberToString, parseNumber};

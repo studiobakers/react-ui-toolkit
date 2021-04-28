@@ -10,6 +10,7 @@ import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
 import Textarea from "../src/form/textarea/Textarea";
 import StoryFragment from "./utils/StoryFragment";
+import {numberToString} from "../src/core/utils/number/numberUtils";
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -252,6 +253,34 @@ storiesOf("Form", module)
                 value={state}
               />
             </FormField>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+      <hr />
+      <br />
+
+      <StateProvider initialState={null}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                "Data Limit (kB) – maxFractionDigits={4} - shouldFormatToLocaleString={false}"
+              }>
+              <Input
+                name={"world-population"}
+                type={"number"}
+                placeholder={"Please type scientific notation"}
+                maxFractionDigits={4}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+
+            <p>{`TR Locale: ${numberToString(state, 4, "tr-TR")}`}</p>
+            <p>{`CN Locale: ${numberToString(state, 4, "zh-Hans-CN-u-nu-hanidec")}`}</p>
+            <p>{`AR Locale: ${numberToString(state, 4, "ar-EG")}`}</p>
           </Fragment>
         )}
       </StateProvider>
