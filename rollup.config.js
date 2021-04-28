@@ -28,7 +28,8 @@ export default [
       FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
       Spinner: "src/spinner/Spinner.tsx",
       Countdown: "src/countdown/Countdown.tsx",
-      ProgressBar: "src/progress-bar/ProgressBar.tsx"
+      ProgressBar: "src/progress-bar/ProgressBar.tsx",
+      Textarea: "src/form/textarea/Textarea.tsx"
     },
     output: {
       dir: "dist",
