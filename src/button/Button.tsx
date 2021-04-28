@@ -75,7 +75,7 @@ function Button({
       {children}
 
       {shouldDisplaySpinner && (
-        <div className={"button__spinner__container"}>
+        <div className={"button__spinner-container"}>
           <Spinner
             customClassName={"button__spinner"}
             aria-label={"Button spinner visible. Button inactivated."}
