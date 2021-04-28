@@ -2,12 +2,14 @@ import {createContext, useContext} from "react";
 
 type ToggleContextValue = {
   selectedItems: string[];
-  onToggle: (dataId: string) => void;
+  onToggle: (selectedItems: string[]) => void;
+  canSelectMultiple?: boolean;
 };
 
 const ToggleContext = createContext<ToggleContextValue>({
   selectedItems: [] as string[],
-  onToggle: () => {}
+  onToggle: () => {},
+  canSelectMultiple: false
 });
 
 ToggleContext.displayName = "ToggleContext";

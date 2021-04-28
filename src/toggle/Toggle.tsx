@@ -8,9 +8,9 @@ import {ToggleContext} from "./util/ToggleContext";
 
 export interface ToggleProps {
   children: React.ReactNode;
-  onToggle: (dataId: string) => void;
+  onToggle: (selectedItems: string[]) => void;
   selectedItems: string[];
-  isMultiple?: boolean;
+  canSelectMultiple?: boolean;
   position?: "vertical" | "horizontal";
   isDisabled?: boolean;
   customClassName?: string;
@@ -20,6 +20,7 @@ function Toggle({
   children,
   onToggle,
   selectedItems = [],
+  canSelectMultiple = false,
   position = "horizontal",
   isDisabled,
   customClassName
@@ -35,7 +36,8 @@ function Toggle({
       <ToggleContext.Provider
         value={{
           selectedItems,
-          onToggle
+          onToggle,
+          canSelectMultiple
         }}>
         {children}
       </ToggleContext.Provider>

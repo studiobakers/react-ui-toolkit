@@ -21,7 +21,7 @@ function ToggleItem({
   isDisabled,
   testid
 }: ToggleItemProps) {
-  const {selectedItems, onToggle} = useToggle();
+  const {selectedItems, onToggle, canSelectMultiple} = useToggle();
   const isSelected = selectedItems.includes(dataId);
   const toggleItemClassName = classNames("toggle-item", customClassName, {
     "toggle-item--is-selected": isSelected,
@@ -38,7 +38,19 @@ function ToggleItem({
   );
 
   function handleToggle() {
-    onToggle(dataId);
+    let newSelectedItems: string[];
+
+    if (canSelectMultiple) {
+      if (selectedItems.includes(dataId)) {
+        newSelectedItems = selectedItems.filter((item) => item !== dataId);
+      } else {
+        newSelectedItems = [...selectedItems, dataId];
+      }
+    } else {
+      newSelectedItems = [dataId];
+    }
+
+    onToggle(newSelectedItems);
   }
 }
 

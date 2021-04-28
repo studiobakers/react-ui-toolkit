@@ -58,7 +58,8 @@ storiesOf("Toggle", module)
         {(state, setState) => (
           <Toggle
             selectedItems={state}
-            onToggle={(e) => setState(handleToggle(e, state))}>
+            canSelectMultiple={true}
+            onToggle={(e) => setState(e)}>
             <Toggle.Item dataId="react">{"React"}</Toggle.Item>
             <Toggle.Item dataId="vue">{"Vue"}</Toggle.Item>
             <Toggle.Item dataId="angular">{"Angular"}</Toggle.Item>
@@ -74,7 +75,8 @@ storiesOf("Toggle", module)
         {(state, setState) => (
           <Toggle
             selectedItems={state}
-            onToggle={(e) => setState(handleToggle(e, state))}
+            canSelectMultiple={true}
+            onToggle={(e) => setState(e)}
             customClassName={"toggle-vertically"}
             position={"vertical"}>
             <Toggle.Item dataId={"mobile"}>{"Mobile"}</Toggle.Item>
@@ -92,15 +94,3 @@ storiesOf("Toggle", module)
       `}</style>
     </div>
   ));
-
-function handleToggle(dataId: string, state: any) {
-  let selectedItems;
-
-  if (state.includes(dataId)) {
-    selectedItems = state.filter((item) => item !== dataId);
-  } else {
-    selectedItems = [...state, dataId];
-  }
-
-  return selectedItems;
-}
