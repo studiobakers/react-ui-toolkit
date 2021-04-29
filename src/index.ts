@@ -24,11 +24,12 @@ import FileUploadButton, {
 } from "./button/file-upload/FileUploadButton";
 import Spinner, {SpinnerProps} from "./spinner/Spinner";
 import Tab, {TabItem, TabProps} from "./tab/Tab";
+import Textarea, {TextareaProps} from "./form/textarea/Textarea";
+import Avatar, {AvatarProps} from "./avatar/Avatar";
+import Switch, {SwitchProps} from "./switch/Switch";
 import Countdown from "./countdown/Countdown";
 import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
 import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
-import Textarea, {TextareaProps} from "./form/textarea/Textarea";
-import Avatar, {AvatarProps} from "./avatar/Avatar";
 import {CountdownProps} from "../src/countdown/util/countdownTypes";
 
 export {
@@ -53,6 +54,7 @@ export {
   Countdown,
   ProgressBar,
   Textarea,
+  Switch,
   // Types
   FormFieldProps,
   InputProps,
@@ -77,6 +79,7 @@ export {
   AvatarProps,
   ProgressBarProps,
   TextareaProps,
+  SwitchProps,
   CountdownProps,
   // Hooks
   useCountDownTimer
