@@ -14,10 +14,10 @@ export interface FileInputProps {
   testid?: string;
   isDisabled?: boolean;
   isPending?: boolean;
+  customSpinner?: React.ReactNode;
   customClassName?: string;
   customLabelClassName?: string;
   acceptedFileTypes?: string;
-  customSpinner?: React.ReactNode;
   labelRef?: React.RefObject<HTMLLabelElement>;
 }
 
@@ -28,11 +28,11 @@ function FileInput({
   name,
   htmlFor,
   acceptedFileTypes = "image/png, image/jpeg, .pdf",
+  customSpinner,
   customClassName,
   customLabelClassName,
   isPending,
   isDisabled,
-  customSpinner,
   labelRef
 }: FileInputProps) {
   const containerClassName = classNames("file-input__container", customClassName);

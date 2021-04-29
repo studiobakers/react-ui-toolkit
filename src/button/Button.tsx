@@ -9,6 +9,7 @@ import "./_button.scss";
 export interface ButtonProps {
   testid?: string;
   children: React.ReactNode;
+  customSpinner?: React.ReactNode;
   onClick?: React.ReactEventHandler<HTMLButtonElement>;
   onMouseOver?: React.ReactEventHandler<HTMLButtonElement>;
   onMouseDown?: React.ReactEventHandler<HTMLButtonElement>;
