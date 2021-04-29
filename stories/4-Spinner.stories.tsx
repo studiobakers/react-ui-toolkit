@@ -5,7 +5,7 @@ import Spinner from "../src/spinner/Spinner";
 
 storiesOf("Spinner", module).add("Spinner", () => (
   <Fragment>
-    <Spinner spinnerColor={"black"} backgroundColor={"white"} />
+    <Spinner />
 
     <style>
       {`
