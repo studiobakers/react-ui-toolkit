@@ -25,6 +25,7 @@ export interface ButtonProps {
   shouldStopPropagation?: boolean;
   shouldFocus?: boolean;
   ariaLabel?: string;
+  customSpinner?: React.ReactNode;
   customClassName?: string;
   tabIndex?: number;
 }

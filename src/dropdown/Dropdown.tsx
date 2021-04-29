@@ -6,7 +6,7 @@ import classNames from "classnames";
 
 import Button from "../button/Button";
 import DropdownList from "./list/DropdownList";
-import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboardEventConstants";
+import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboard/keyboardEventConstants";
 import {
   DropdownOption,
   DropdownOptionSelectHandler,
@@ -23,7 +23,7 @@ import {
   DROPDOWN_SEARCH_QUERY_TIMEOUT_IN_MS
 } from "./util/dropdownConstants";
 import Spinner from "../spinner/Spinner";
-import {SINGLE_ALPHANUMERIC_CHARACTER_REGEX} from "../core/utils/stringConstants";
+import {SINGLE_ALPHANUMERIC_CHARACTER_REGEX} from "../core/utils/string/stringConstants";
 import useOnClickOutside from "../core/utils/hooks/onClickOutside";
 
 // This import is moved to come after other imports so that we can avoid nesting to override some of the styles that comes from other components, such as `Button`.
@@ -50,6 +50,7 @@ export interface DropdownProps<OptionIdShape> {
   errorMessages?: string[];
   isMenuOpenHook?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   headerWithoutButton?: React.ReactNode;
+  customSpinner?: React.ReactNode;
   shouldCloseOnSelect?: boolean;
   onMenuVisibilityChange?: (type: MenuVisibilityChangeHandlerTypeArgument) => void;
   areOptionsFetching?: boolean;
@@ -80,6 +81,7 @@ function Dropdown<OptionIdShape extends string>({
   isDisabled,
   isMenuOpenHook,
   headerWithoutButton,
+  customSpinner,
   shouldCloseOnSelect = true,
   onMenuVisibilityChange,
   areOptionsFetching = false,
@@ -109,6 +111,9 @@ function Dropdown<OptionIdShape extends string>({
     "dropdown--is-disabled": isDisabled || areOptionsFetching
   });
   const shouldShowMenu = isMenuOpen && (shouldShowEmptyOptions || options.length > 0);
+  const spinnerContent = customSpinner || (
+    <Spinner customClassName={"dropdown__spinner"} />
+  );
 
   useEffect(() => {
     setComputedOptions(
@@ -149,11 +154,7 @@ function Dropdown<OptionIdShape extends string>({
         {selectedOption ? selectedOption.title : deselectOptionTitle || placeholder}
       </span>
 
-      {areOptionsFetching ? (
-        <Spinner spinnerColor={"black"} backgroundColor={"#EBEBEB"} />
-      ) : (
-        <CaretDownIcon aria-hidden={true} />
-      )}
+      {areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />}
     </div>
   );
 
