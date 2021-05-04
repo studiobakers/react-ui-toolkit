@@ -27,7 +27,7 @@ function ProgressBar(props: ProgressBarProps) {
     <div
       className={progressBarClassName}
       style={{
-        backgroundColor: backgroundColor
+        backgroundColor
       }}>
       <div
         className={"progress-bar__track"}

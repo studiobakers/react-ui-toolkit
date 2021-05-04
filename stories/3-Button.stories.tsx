@@ -4,6 +4,7 @@ import {storiesOf} from "@storybook/react";
 import Button from "../src/button/Button";
 import FileUploadButton from "../src/button/file-upload/FileUploadButton";
 import StoryFragment from "./utils/StoryFragment";
+import StateProvider from "./utils/StateProvider";
 import SpinnerStorySample from "./utils/constants/spinner/SpinnerStorySample";
 
 storiesOf("Button", module).add("Button States", () => (
@@ -20,12 +21,16 @@ storiesOf("Button", module).add("Button States", () => (
 
     <br />
 
-    <Button
-      type={"button"}
-      onClick={(e) => alert("Thank You!")}
-      shouldDisplaySpinner={true}>
-      {"Click Me - shouldDisplaySpinner"}
-    </Button>
+    <StateProvider initialState={false}>
+      {(state, setState) => (
+        <Button
+          type={"button"}
+          onClick={() => setState(true)}
+          shouldDisplaySpinner={state}>
+          {"Click Me - shouldDisplaySpinner"}
+        </Button>
+      )}
+    </StateProvider>
 
     <br />
 
