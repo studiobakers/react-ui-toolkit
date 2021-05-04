@@ -5,6 +5,7 @@ import Button from "../src/button/Button";
 import FileUploadButton from "../src/button/file-upload/FileUploadButton";
 import StoryFragment from "./utils/StoryFragment";
 import StateProvider from "./utils/StateProvider";
+import SpinnerStorySample from "./utils/constants/spinner/SpinnerStorySample";
 
 storiesOf("Button", module).add("Button States", () => (
   <StoryFragment>
@@ -30,6 +31,16 @@ storiesOf("Button", module).add("Button States", () => (
         </Button>
       )}
     </StateProvider>
+
+    <br />
+
+    <Button
+      type={"button"}
+      onClick={(e) => alert("Thank You!")}
+      shouldDisplaySpinner={true}
+      customSpinner={<SpinnerStorySample />}>
+      {"Click Me - shouldDisplaySpinner - customSpinner"}
+    </Button>
 
     <br />
     <hr />
@@ -78,6 +89,23 @@ storiesOf("Button", module).add("Button States", () => (
       htmlFor={"second-photos"}
       isPending={true}>
       {"Upload your photos - isPending"}
+    </FileUploadButton>
+
+    <br />
+
+    <FileUploadButton
+      onFileSelect={(files) =>
+        alert(
+          Array.from(files)
+            .map((file) => file.name)
+            .join(", ")
+        )
+      }
+      name={"second-photos"}
+      htmlFor={"second-photos"}
+      isPending={true}
+      customSpinner={<SpinnerStorySample />}>
+      {"Upload your photos - isPending - customSpinner"}
     </FileUploadButton>
   </StoryFragment>
 ));

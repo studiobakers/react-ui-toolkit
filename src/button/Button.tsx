@@ -9,6 +9,7 @@ import "./_button.scss";
 export interface ButtonProps {
   testid?: string;
   children: React.ReactNode;
+  customSpinner?: React.ReactNode;
   onClick?: React.ReactEventHandler<HTMLButtonElement>;
   onMouseOver?: React.ReactEventHandler<HTMLButtonElement>;
   onMouseDown?: React.ReactEventHandler<HTMLButtonElement>;
@@ -35,6 +36,7 @@ function Button({
   lang,
   onClick,
   children,
+  customSpinner,
   customClassName,
   shouldPreventDefault = true,
   shouldStopPropagation = true,
@@ -53,6 +55,12 @@ function Button({
   const containerClassName = classNames("button", customClassName, {
     "button--is-inactive": isButtonDisabled
   });
+  const spinnerContent = customSpinner || (
+    <Spinner
+      customClassName={"button__spinner"}
+      aria-label={"Button spinner visible. Button inactivated."}
+    />
+  );
 
   return (
     <button
@@ -72,16 +80,7 @@ function Button({
       onBlur={onBlur}
       disabled={isButtonDisabled}
       aria-label={ariaLabel}>
-      {children}
-
-      {shouldDisplaySpinner && (
-        <div className={"button__spinner-container"}>
-          <Spinner
-            customClassName={"button__spinner"}
-            aria-label={"Button spinner visible. Button inactivated."}
-          />
-        </div>
-      )}
+      {shouldDisplaySpinner ? spinnerContent : children}
     </button>
   );
 
