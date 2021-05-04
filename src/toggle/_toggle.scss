@@ -1,11 +1,13 @@
 .toggle {
+  --toggle-border-color: gray;
+
   display: grid;
   
   overflow: hidden;
   
   padding: 0;
 
-  border: 1px solid gray;
+  border: 1px solid var(--toggle-border-color);
   border-radius: 8px;
 
   &--is-vertical {
