@@ -27,6 +27,7 @@ import Tab, {TabItem, TabProps} from "./tab/Tab";
 import Textarea, {TextareaProps} from "./form/textarea/Textarea";
 import Avatar, {AvatarProps} from "./avatar/Avatar";
 import {Toggle, ToggleProps} from "./toggle/Toggle";
+import Switch, {SwitchProps} from "./switch/Switch";
 import Countdown from "./countdown/Countdown";
 import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
 import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
@@ -55,6 +56,7 @@ export {
   ProgressBar,
   Textarea,
   Toggle,
+  Switch,
   // Types
   FormFieldProps,
   InputProps,
@@ -80,6 +82,7 @@ export {
   ProgressBarProps,
   TextareaProps,
   ToggleProps,
+  SwitchProps,
   CountdownProps,
   // Hooks
   useCountDownTimer

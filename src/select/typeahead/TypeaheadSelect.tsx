@@ -34,11 +34,13 @@ export interface TypeaheadSelectProps {
   shouldDisplaySelectedOptions?: boolean;
   shouldFilterOptionsByKeyword?: boolean;
   isDisabled?: boolean;
+  customSpinner?: React.ReactNode;
   shouldShowEmptyOptions?: boolean;
   canOpenDropdownMenu?: boolean;
   areOptionsFetching?: boolean;
 }
 
+/* eslint-disable complexity */
 function TypeaheadSelect({
   testid,
   dropdownOptions,
@@ -55,6 +57,7 @@ function TypeaheadSelect({
   shouldShowEmptyOptions = true,
   canOpenDropdownMenu = true,
   areOptionsFetching,
+  customSpinner,
   initialKeyword = "",
   controlledKeyword
 }: TypeaheadSelectProps) {
@@ -80,6 +83,9 @@ function TypeaheadSelect({
     "typeahead-select--can-select-multiple": canSelectMultiple,
     "typeahead-select--is-dropdown-menu-open": isMenuOpen
   });
+  const spinnerContent = customSpinner || (
+    <Spinner customClassName={"typeahead-select__spinner"} />
+  );
 
   useEffect(() => {
     setComputedDropdownOptions(dropdownOptions);
@@ -134,11 +140,7 @@ function TypeaheadSelect({
           onQueryChange={handleKeywordChange}
           onKeyDown={handleKeyDown}
           rightIcon={
-            areOptionsFetching ? (
-              <Spinner spinnerColor={"#EBEBEB"} backgroundColor={"white"} />
-            ) : (
-              <CaretDownIcon aria-hidden={true} />
-            )
+            areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
           }
           onFocus={handleTypeaheadInputFocus}
           isDisabled={isDisabled}
@@ -223,5 +225,6 @@ function TypeaheadSelect({
     }
   }
 }
+/* eslint-enable complexity */
 
 export default TypeaheadSelect;
