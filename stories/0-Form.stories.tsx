@@ -10,7 +10,6 @@ import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
 import Textarea from "../src/form/textarea/Textarea";
 import StoryFragment from "./utils/StoryFragment";
-import {numberToString} from "../src/core/utils/number/numberUtils";
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -142,9 +141,9 @@ storiesOf("Form", module)
       <StateProvider initialState={null}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"Price – maxFractionDigits={2}"}>
+            <FormField label={"Price – maximumFractionDigits={2}"}>
               <Input
-                maxFractionDigits={2}
+                localizationOptions={{maximumFractionDigits: 2}}
                 name={"price"}
                 type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
@@ -159,7 +158,7 @@ storiesOf("Form", module)
               label={"Price - Has Error"}
               errorMessages={["Please enter a valid price"]}>
               <Input
-                maxFractionDigits={2}
+                localizationOptions={{maximumFractionDigits: 2}}
                 name={"price"}
                 type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
@@ -179,9 +178,9 @@ storiesOf("Form", module)
       <StateProvider initialState={null}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"Price (BTC) – maxFractionDigits={8}"}>
+            <FormField label={"Price (BTC) – maximumFractionDigits={8}"}>
               <Input
-                maxFractionDigits={8}
+                localizationOptions={{maximumFractionDigits: 8}}
                 name={"price"}
                 type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
@@ -219,18 +218,22 @@ storiesOf("Form", module)
           <Fragment>
             <FormField
               label={
-                "Wallet ($) – maxFractionDigits={2} - shouldFormatToLocaleString={true}"
+                "Wallet ($) – maximumFractionDigits={2} - shouldFormatToLocaleString={true}"
               }>
               <Input
                 name={"wallet"}
-                maxFractionDigits={2}
+                localizationOptions={{
+                  maximumFractionDigits: 2,
+                  shouldFormatToLocaleString: true
+                }}
                 type={"number"}
                 placeholder={"$ 1,000"}
-                shouldFormatToLocaleString={true}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -242,17 +245,19 @@ storiesOf("Form", module)
           <Fragment>
             <FormField
               label={
-                "World Population – maxFractionDigits={0} - shouldFormatToLocaleString={true}"
+                "World Population – maximumFractionDigits={0} - shouldFormatToLocaleString={true}"
               }>
               <Input
                 name={"world-population"}
                 type={"number"}
                 placeholder={"7,794,798,739"}
-                shouldFormatToLocaleString={true}
+                localizationOptions={{shouldFormatToLocaleString: true}}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -266,21 +271,22 @@ storiesOf("Form", module)
           <Fragment>
             <FormField
               label={
-                "Data Limit (kB) – maxFractionDigits={4} - shouldFormatToLocaleString={false}"
+                'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"zh-Hans-CN-u-nu-hanidec"}'
               }>
               <Input
                 name={"world-population"}
                 type={"number"}
-                placeholder={"Please type scientific notation"}
-                maxFractionDigits={4}
+                localizationOptions={{
+                  maximumFractionDigits: 4,
+                  shouldFormatToLocaleString: true,
+                  locale: "zh-Hans-CN-u-nu-hanidec"
+                }}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}
               />
             </FormField>
 
-            <p>{`TR Locale: ${numberToString(state, 4, "tr-TR")}`}</p>
-            <p>{`CN Locale: ${numberToString(state, 4, "zh-Hans-CN-u-nu-hanidec")}`}</p>
-            <p>{`AR Locale: ${numberToString(state, 4, "ar-EG")}`}</p>
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>

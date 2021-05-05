@@ -4,13 +4,10 @@ import React from "react";
 import classNames from "classnames";
 
 import {
-  NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX,
-  NOT_NUMBER_NOR_DECIMAL_POINT_REGEX,
-  PRECISION_REGEX,
   DECIMAL_NUMBER_SEPARATOR,
   IS_LAST_CHARACTER_DECIMAL_POINT_REGEX
 } from "../../core/utils/number/numberConstants";
-import {numberToString, parseNumber} from "../../core/utils/number/numberUtils";
+import {formatNumber, parseNumber} from "../../core/utils/number/numberUtils";
 
 type InputTypes =
   | "checkbox"
@@ -47,12 +44,14 @@ export type InputProps = Omit<
   rightIcon?: React.ReactNode;
   isDisabled?: boolean;
   hasError?: boolean;
-  locale?: string;
-  shouldFormatToLocaleString?: boolean;
   customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
   onChange: React.ReactEventHandler<HTMLInputElement>;
-  maxFractionDigits?: number;
+  localizationOptions?: {
+    shouldFormatToLocaleString?: boolean;
+    locale?: string;
+    maximumFractionDigits?: number;
+  };
 };
 
 function Input(props: InputProps) {
@@ -65,16 +64,20 @@ function Input(props: InputProps) {
     customClassName,
     leftIcon,
     rightIcon,
-    locale,
-    shouldFormatToLocaleString,
+    localizationOptions = {},
     role,
     autoComplete = "off",
     autoCorrect = "off",
     inputContainerRef,
     onChange,
-    maxFractionDigits = 0,
+
     ...rest
   } = props;
+  const {
+    shouldFormatToLocaleString = false,
+    locale,
+    maximumFractionDigits = 0
+  } = localizationOptions;
   const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     "input--is-disabled": isDisabled,
@@ -84,7 +87,14 @@ function Input(props: InputProps) {
   let finalValue = value;
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
-    finalValue = numberToString(parseNumber(String(value)), maxFractionDigits, locale);
+    finalValue = formatNumber({
+      maximumFractionDigits,
+      locale
+    })(Number(value));
+
+    if (IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(value.toString())) {
+      finalValue += DECIMAL_NUMBER_SEPARATOR;
+    }
   }
 
   return (
@@ -122,24 +132,13 @@ function Input(props: InputProps) {
     if (isNumberInput) {
       const {value: newValue} = event.currentTarget;
 
-      let formattedNewValue = newValue
-        .replace(NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX, "")
-        .replace(NOT_NUMBER_NOR_DECIMAL_POINT_REGEX, "")
-        .replace(PRECISION_REGEX, "$1");
+      let formattedNewValue = parseNumber(newValue, locale);
 
-      if (maxFractionDigits > 0) {
-        const decimalNumberParts = newValue.split(DECIMAL_NUMBER_SEPARATOR);
-        const decimalPart = decimalNumberParts[1];
-        const integerPart = decimalNumberParts[0];
+      if (maximumFractionDigits > 0) {
+        const decimalPart = newValue.split(DECIMAL_NUMBER_SEPARATOR)[1];
 
-        if (decimalPart && decimalPart.length === maxFractionDigits + 1) {
+        if (decimalPart && decimalPart.length === maximumFractionDigits + 1) {
           return;
-        }
-
-        if (decimalPart && decimalPart.length > maxFractionDigits) {
-          const trimmedDecimalPart = decimalPart.slice(0, maxFractionDigits);
-
-          formattedNewValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${trimmedDecimalPart}`;
         }
       } else {
         formattedNewValue = formattedNewValue.replace(

@@ -1,59 +1,53 @@
-import {
-  IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
-  MATCH_ZEROS_AFTER_DECIMAL_REGEX,
-  DECIMAL_NUMBER_SEPARATOR,
-  THOUSANDTHS_SEPARATOR
-} from "./numberConstants";
-
-/**
- * Coerces a number into a string.
- * @param {number} value - A number to convert to string
- * @param {number} maxFractionDigits - The decimal part length
- * @param {string} locale - Default locale used is "en"
- * @returns {string} The value after coercing the given value to a string.
- */
-function numberToString(
-  value: number | string,
-  maxFractionDigits: number,
-  locale = "en"
+function formatNumber(
+  providedOptions: Omit<Intl.NumberFormatOptions, "style"> & {
+    locale?: string;
+  } = {}
 ) {
-  let final = "";
+  const {locale, ...otherOptions} = providedOptions;
+  const options = {
+    style: "decimal",
+    ...otherOptions
+  };
 
-  if (typeof value === "number" && !Object.is(value, NaN)) {
-    final = value.toLocaleString(locale);
-  } else if (typeof value === "string") {
-    if (!value.includes(DECIMAL_NUMBER_SEPARATOR)) {
-      final = parseFloat(value).toLocaleString(locale);
-    }
+  let numberFormatter: {
+    format: (x: number | bigint) => string;
+  };
 
-    // If the value is `"[0-9]."` or `[0-9].0+"
-    else if (
-      IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(value) ||
-      MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(value) ||
-      value.includes(DECIMAL_NUMBER_SEPARATOR)
-    ) {
-      const decimalNumberParts = value.split(DECIMAL_NUMBER_SEPARATOR);
-      const decimalPart = decimalNumberParts[1];
-      const integerPart = parseFloat(decimalNumberParts[0]).toLocaleString(locale);
-
-      if (decimalPart.length > maxFractionDigits) {
-        const trimmedDecimalPart = decimalPart.slice(0, maxFractionDigits);
-
-        final = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${new Intl.NumberFormat(
-          locale
-        ).format(Number(trimmedDecimalPart))}`;
-      } else {
-        final = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${new Intl.NumberFormat(locale)
-          .format(Number(decimalPart))
-          .replace(DECIMAL_NUMBER_SEPARATOR, "")
-          .replace(THOUSANDTHS_SEPARATOR, "")}`;
+  try {
+    numberFormatter = new Intl.NumberFormat(
+      locale || [navigator.language, "en-GB"],
+      options
+    );
+  } catch (error) {
+    numberFormatter = {
+      format(x: number | bigint) {
+        return x.toLocaleString(locale);
       }
-    }
+    };
   }
 
-  return final;
+  return (value: number) => {
+    let formattedValue = "";
+
+    if (!Object.is(value, NaN)) {
+      formattedValue = numberFormatter.format(value);
+    }
+
+    if (formattedValue && options.currency === "USD") {
+      // in case `narrowSymbol` option was failed, make sure "US$" sign appears as just "$"
+      formattedValue = formattedValue.replace("US$", "$");
+    }
+
+    return formattedValue;
+  };
 }
 
+/**
+ * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing|Reference}
+ * @param {number} value - A number to convert to string
+ * @param {string} locale - Default locale used is browser locale
+ * @returns {string} The value after coercing the given value to a scientific notation.
+ */
 function parseNumber(value: number | string, locale = navigator.language) {
   // eslint-disable-next-line no-magic-numbers
   const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
@@ -74,13 +68,14 @@ function parseNumber(value: number | string, locale = navigator.language) {
     .replace(group, "")
     .replace(decimal, ".")
     .replace(numeral, digitMapper);
-
-  function getDigit(digitMap: Map<string, number>) {
-    return (d: string) => {
-      const digit = digitMap.get(d);
-
-      return typeof digit === "number" ? String(digit) : "";
-    };
-  }
 }
-export {numberToString, parseNumber};
+
+function getDigit(digitMap: Map<string, number>) {
+  return (d: string) => {
+    const digit = digitMap.get(d);
+
+    return typeof digit === "number" ? String(digit) : "";
+  };
+}
+
+export {formatNumber, parseNumber, getDigit};
