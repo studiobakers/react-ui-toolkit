@@ -100,9 +100,8 @@ function Input(props: InputProps) {
       IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(String(value)) ||
       MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(String(value))
     ) {
-      const decimalNumberParts = finalValue.split(DECIMAL_NUMBER_SEPARATOR);
-      const decimalPart = decimalNumberParts[1] || "";
-      const integerPart = decimalNumberParts[0];
+      const decimalPart = String(value).split(DECIMAL_NUMBER_SEPARATOR)[1] || "";
+      const integerPart = finalValue.split(DECIMAL_NUMBER_SEPARATOR)[0];
 
       finalValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
     }

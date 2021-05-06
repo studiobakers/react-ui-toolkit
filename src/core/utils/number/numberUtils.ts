@@ -38,7 +38,7 @@ function formatNumber(
 }
 
 /**
- * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing|Reference}
+ * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
  * @param {number} value - A number to convert to string
  * @param {string} locale - Default locale used is browser locale
  * @returns {string} The value after coercing the given value to a scientific notation.
