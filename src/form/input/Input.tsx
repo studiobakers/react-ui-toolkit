@@ -4,10 +4,14 @@ import React from "react";
 import classNames from "classnames";
 
 import {
-  DECIMAL_NUMBER_SEPARATOR,
-  IS_LAST_CHARACTER_DECIMAL_POINT_REGEX
+  IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
+  MATCH_ZEROS_AFTER_DECIMAL_REGEX
 } from "../../core/utils/number/numberConstants";
-import {formatNumber, parseNumber} from "../../core/utils/number/numberUtils";
+import {
+  formatNumber,
+  getNumberSeparators,
+  parseNumber
+} from "../../core/utils/number/numberUtils";
 
 type InputTypes =
   | "checkbox"
@@ -70,7 +74,6 @@ function Input(props: InputProps) {
     autoCorrect = "off",
     inputContainerRef,
     onChange,
-
     ...rest
   } = props;
   const {
@@ -78,6 +81,7 @@ function Input(props: InputProps) {
     locale,
     maximumFractionDigits = 0
   } = localizationOptions;
+  const {DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
   const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     "input--is-disabled": isDisabled,
@@ -92,8 +96,15 @@ function Input(props: InputProps) {
       locale
     })(Number(value));
 
-    if (IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(value.toString())) {
-      finalValue += DECIMAL_NUMBER_SEPARATOR;
+    if (
+      IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(String(value)) ||
+      MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(String(value))
+    ) {
+      const decimalNumberParts = finalValue.split(DECIMAL_NUMBER_SEPARATOR);
+      const decimalPart = decimalNumberParts[1] || "";
+      const integerPart = decimalNumberParts[0];
+
+      finalValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
     }
   }
 

@@ -33,11 +33,6 @@ function formatNumber(
       formattedValue = numberFormatter.format(value);
     }
 
-    if (formattedValue && options.currency === "USD") {
-      // in case `narrowSymbol` option was failed, make sure "US$" sign appears as just "$"
-      formattedValue = formattedValue.replace("US$", "$");
-    }
-
     return formattedValue;
   };
 }
@@ -49,24 +44,19 @@ function formatNumber(
  * @returns {string} The value after coercing the given value to a scientific notation.
  */
 function parseNumber(value: number | string, locale = navigator.language) {
-  // eslint-disable-next-line no-magic-numbers
-  const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
+  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
   const numerals = [
     // eslint-disable-next-line no-magic-numbers
     ...new Intl.NumberFormat(locale, {useGrouping: false}).format(9876543210)
   ].reverse();
-
-  const group = new RegExp(`[${parts.find((d) => d.type === "group")?.value}]`, "g");
-  const decimal = new RegExp(`[${parts.find((d) => d.type === "decimal")?.value}]`);
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
-
   const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
 
   return value
     .toString()
     .trim()
-    .replace(group, "")
-    .replace(decimal, ".")
+    .replace(new RegExp(`[${THOUSANDTHS_SEPARATOR}]`, "g"), "")
+    .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
 }
 
@@ -78,4 +68,13 @@ function getDigit(digitMap: Map<string, number>) {
   };
 }
 
-export {formatNumber, parseNumber, getDigit};
+function getNumberSeparators(locale = navigator.language) {
+  // eslint-disable-next-line no-magic-numbers
+  const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
+  const THOUSANDTHS_SEPARATOR = parts.find((d) => d.type === "group")!.value;
+  const DECIMAL_NUMBER_SEPARATOR = parts.find((d) => d.type === "decimal")!.value;
+
+  return {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR};
+}
+
+export {formatNumber, parseNumber, getDigit, getNumberSeparators};
