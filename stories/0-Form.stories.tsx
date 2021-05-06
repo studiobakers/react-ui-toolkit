@@ -152,6 +152,8 @@ storiesOf("Form", module)
               />
             </FormField>
 
+            <p>{`event.currentTarget.value: ${state}`}</p>
+
             <br />
 
             <FormField
@@ -167,6 +169,8 @@ storiesOf("Form", module)
                 hasError={true}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -188,6 +192,8 @@ storiesOf("Form", module)
                 placeholder={"Min. ₿ 0.00000001"}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -205,6 +211,8 @@ storiesOf("Form", module)
                 value={state}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>

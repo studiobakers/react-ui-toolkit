@@ -142,8 +142,18 @@ function Input(props: InputProps) {
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
     if (isNumberInput) {
       const {value: newValue} = event.currentTarget;
-
       let formattedNewValue = parseNumber(newValue, locale);
+
+      if (
+        IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(formattedNewValue) ||
+        MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(formattedNewValue)
+      ) {
+        const decimalNumberParts = formattedNewValue.split(DECIMAL_NUMBER_SEPARATOR);
+        const decimalPart = decimalNumberParts[1];
+        const integerPart = decimalNumberParts[0];
+
+        formattedNewValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
+      }
 
       if (maximumFractionDigits > 0) {
         const decimalPart = newValue.split(DECIMAL_NUMBER_SEPARATOR)[1];
