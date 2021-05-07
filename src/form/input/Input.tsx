@@ -91,19 +91,23 @@ function Input(props: InputProps) {
   let finalValue = value;
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
-    finalValue = formatNumber({
+    const numberFormatter = formatNumber({
       maximumFractionDigits,
       locale
-    })(Number(value));
+    });
 
     if (
       IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(String(value)) ||
       MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(String(value))
     ) {
       const decimalPart = String(value).split(DECIMAL_NUMBER_SEPARATOR)[1] || "";
-      const integerPart = finalValue.split(DECIMAL_NUMBER_SEPARATOR)[0];
+      const integerPart = numberFormatter(
+        Number(String(value).split(DECIMAL_NUMBER_SEPARATOR)[0])
+      );
 
       finalValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
+    } else {
+      finalValue = numberFormatter(Number(value));
     }
   }
 
@@ -141,31 +145,7 @@ function Input(props: InputProps) {
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
     if (isNumberInput) {
       const {value: newValue} = event.currentTarget;
-      let formattedNewValue = parseNumber(newValue, locale);
-
-      if (
-        IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(formattedNewValue) ||
-        MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(formattedNewValue)
-      ) {
-        const decimalNumberParts = formattedNewValue.split(DECIMAL_NUMBER_SEPARATOR);
-        const decimalPart = decimalNumberParts[1];
-        const integerPart = decimalNumberParts[0];
-
-        formattedNewValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
-      }
-
-      if (maximumFractionDigits > 0) {
-        const decimalPart = newValue.split(DECIMAL_NUMBER_SEPARATOR)[1];
-
-        if (decimalPart && decimalPart.length === maximumFractionDigits + 1) {
-          return;
-        }
-      } else {
-        formattedNewValue = formattedNewValue.replace(
-          IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
-          ""
-        );
-      }
+      const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
 
       if (formattedNewValue !== newValue) {
         event.currentTarget.value = formattedNewValue;

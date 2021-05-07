@@ -1,3 +1,8 @@
+import {
+  IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
+  NOT_NUMBER_OR_DECIMAL_POINT_REGEX
+} from "./numberConstants";
+
 function formatNumber(
   providedOptions: Omit<Intl.NumberFormatOptions, "style"> & {
     locale?: string;
@@ -37,27 +42,49 @@ function formatNumber(
   };
 }
 
+interface ParseNumberOptions {
+  locale?: string;
+  maximumFractionDigits: number;
+}
+
 /**
  * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
+ * @param {object} options - An object includes parse number options
+ * @param {string} options.locale - Default locale used is browser locale
+ * @param {number} options.maximumFractionDigits - The maximum digit a decimal can have
  * @param {number} value - A number to convert to string
- * @param {string} locale - Default locale used is browser locale
  * @returns {string} The value after coercing the given value to a scientific notation.
  */
-function parseNumber(value: number | string, locale = navigator.language) {
-  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
+function parseNumber(
+  options: ParseNumberOptions = {locale: navigator.language, maximumFractionDigits: 0},
+  value: string
+) {
+  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(
+    options.locale
+  );
   const numerals = [
     // eslint-disable-next-line no-magic-numbers
-    ...new Intl.NumberFormat(locale, {useGrouping: false}).format(9876543210)
+    ...new Intl.NumberFormat(options.locale, {useGrouping: false}).format(9876543210)
   ].reverse();
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
   const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
-
-  return value
-    .toString()
-    .trim()
+  let parsedNumber = value
+    .replace(new RegExp(NOT_NUMBER_OR_DECIMAL_POINT_REGEX), "")
     .replace(new RegExp(`[${THOUSANDTHS_SEPARATOR}]`, "g"), "")
     .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
+
+  if (options.maximumFractionDigits > 0) {
+    const decimalPart = parsedNumber.split(DECIMAL_NUMBER_SEPARATOR)[1];
+
+    if (decimalPart && decimalPart.length === options.maximumFractionDigits + 1) {
+      return parsedNumber.slice(0, parsedNumber.length - 1);
+    }
+  } else {
+    parsedNumber = parsedNumber.replace(IS_LAST_CHARACTER_DECIMAL_POINT_REGEX, "");
+  }
+
+  return parsedNumber;
 }
 
 function getDigit(digitMap: Map<string, number>) {
