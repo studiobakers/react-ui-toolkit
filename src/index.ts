@@ -89,15 +89,27 @@ export type FileInputProps = FileInputComponentProps;
 export type PasswordInputProps = PasswordInputComponentProps;
 export type CheckboxInputProps = CheckboxInputComponentProps;
 export type RadioInputProps = RadioInputComponentProps;
-export type RadioInputItem = RadioInputComponentItem;
+export type RadioInputItem<Id = string, Context = any> = RadioInputComponentItem<
+  Id,
+  Context
+>;
 export type RadioGroupProps = RadioGroupComponentProps;
 export type TypeaheadInputProps = TypeaheadInputComponentProps;
 export type TypeaheadSelectProps = TypeaheadSelectComponentProps;
-export type DropdownProps = DropdownComponentProps<any>;
-export type DropdownOption = DropdownComponentOption;
-export type DropdownOptionSelectHandler = DropdownOptionSelectComponentHandler;
-export type DropdownSelectedOption = DropdownSelectedComponentOption;
-export type ListProps = ListComponentProps;
+export type DropdownProps<OptionIdShape> = DropdownComponentProps<OptionIdShape>;
+export type DropdownOption<Id = string, Context = any> = DropdownComponentOption<
+  Id,
+  Context
+>;
+export type DropdownOptionSelectHandler<
+  Id = string,
+  Context = any
+> = DropdownOptionSelectComponentHandler<Id, Context>;
+export type DropdownSelectedOption<
+  Id = string,
+  Context = any
+> = DropdownSelectedComponentOption<Id, Context>;
+export type ListProps<Item = any> = ListComponentProps<Item>;
 export type ButtonProps = ButtonComponentProps;
 export type FileUploadButtonProps = FileUploadButtonComponentProps;
 export type SpinnerProps = SpinnerComponentProps;
