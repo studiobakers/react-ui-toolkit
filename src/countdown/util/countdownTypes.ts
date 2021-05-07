@@ -1,4 +1,4 @@
-interface CountdownProps {
+export interface CountdownProps {
   startDate: Date;
   testid?: string;
   titleMap?: {
@@ -13,10 +13,8 @@ interface CountdownProps {
   customClassName?: string;
 }
 
-interface CountdownItem {
+export interface CountdownItem {
   id: "days" | "hours" | "minutes" | "seconds";
   title: string;
   count: string | number;
 }
-
-export {CountdownItem, CountdownProps};
