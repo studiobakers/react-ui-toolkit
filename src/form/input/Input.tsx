@@ -92,8 +92,10 @@ function Input(props: InputProps) {
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
     const numberFormatter = formatNumber({
-      maximumFractionDigits,
-      locale
+      providedOptions: {
+        maximumFractionDigits,
+        locale
+      }
     });
 
     if (

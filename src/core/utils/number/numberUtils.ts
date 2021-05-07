@@ -2,12 +2,9 @@ import {
   IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
   NOT_NUMBER_OR_DECIMAL_POINT_REGEX
 } from "./numberConstants";
+import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
-function formatNumber(
-  providedOptions: Omit<Intl.NumberFormatOptions, "style"> & {
-    locale?: string;
-  } = {}
-) {
+function formatNumber({providedOptions}: FormatNumberOptions) {
   const {locale, ...otherOptions} = providedOptions;
   const options = {
     style: "decimal",
@@ -40,11 +37,6 @@ function formatNumber(
 
     return formattedValue;
   };
-}
-
-interface ParseNumberOptions {
-  locale?: string;
-  maximumFractionDigits: number;
 }
 
 /**
