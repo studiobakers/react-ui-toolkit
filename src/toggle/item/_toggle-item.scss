@@ -1,0 +1,42 @@
+.toggle-item {
+  --toggle-active-bg: white;
+  --toggle-active-color: darkgray;
+  --toggle-inactive-bg: black;
+  --toggle-inactive-color: white;
+  --toggle-disabled-bg: gray;
+  --toggle-disabled-color: white;
+
+  list-style-type: none;
+
+  color: var(--toggle-inactive-color);
+  background-color: var(--toggle-inactive-bg);
+
+  &--is-selected {
+    color: var(--toggle-active-color);
+    background-color: var(--toggle-active-bg);
+  }
+
+  &--is-disabled {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    color: var(--toggle-disabled-color);
+    background-color: var(--toggle-disabled-bg);
+
+    cursor: not-allowed;
+
+    * {
+      pointer-events: none;
+    }
+  }
+
+  .list-item__click-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    height: 100%;
+  }
+}

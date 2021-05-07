@@ -1,0 +1,73 @@
+@import "../ui/reference/animation";
+
+.switch {
+  --switch-controller-bg: lightgreen;
+  --switch-active-slider-bg: white;
+  --switch-inactive-slider-bg: darkgrey;
+
+  position: relative;
+
+  display: inline-block;
+
+  width: 60px;
+  height: 34px;
+
+  &--is-disabled {
+    cursor: not-allowed;
+
+    .switch__slider {
+      pointer-events: none;
+    }
+  }
+}
+
+.switch__controller {
+  width: 0;
+  height: 0;
+
+  opacity: 0;
+
+  &:checked + .switch__slider {
+    background-color: var(--switch-controller-bg);
+  }
+
+  &:focus + .switch__slider {
+    box-shadow: 0 0 1px var(--switch-controller-bg);
+  }
+
+  &:checked + .switch__slider:before {
+    transform: translateX(26px);
+  }
+}
+
+.switch__slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  background-color: var(--switch-inactive-slider-bg);
+  border-radius: 34px;
+
+  cursor: pointer;
+
+  transition: $animation-duration;
+
+  &:before {
+    position: absolute;
+    bottom: 4px;
+    left: 4px;
+
+    width: 26px;
+    height: 26px;
+
+    background-color: var(--switch-active-slider-bg);
+
+    border-radius: 50%;
+
+    content: "";
+
+    transition: $animation-duration;
+  }
+}

@@ -45,7 +45,7 @@ $dropdown-header-horizontal-padding: 8px;
 }
 
 .dropdown__header-button__text {
-  @include truncate-line(calc(100% - #{$dropdown-header-horizontal-padding}));
+  @include truncate-line();
 
   flex: 1;
 
@@ -64,6 +64,10 @@ $dropdown-header-horizontal-padding: 8px;
   padding: 0 $dropdown-header-horizontal-padding;
 
   svg {
-    margin-bottom: 1px;
+    margin: 0 0 1px 8px;
+  }
+
+  .spinner {
+    margin-left: 8px;
   }
 }
