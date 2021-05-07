@@ -55,6 +55,14 @@ function Button({
   const containerClassName = classNames("button", customClassName, {
     "button--is-inactive": isButtonDisabled
   });
+  const spinnerContent = customSpinner || (
+    <div className={"button__spinner-container"}>
+      <Spinner
+        customClassName={"button__spinner"}
+        aria-label={"Button spinner visible. Button inactivated."}
+      />
+    </div>
+  );
 
   return (
     <button
@@ -76,14 +84,7 @@ function Button({
       aria-label={ariaLabel}>
       {children}
 
-      {shouldDisplaySpinner && (
-        <div className={"button__spinner-container"}>
-          <Spinner
-            customClassName={"button__spinner"}
-            aria-label={"Button spinner visible. Button inactivated."}
-          />
-        </div>
-      )}
+      {shouldDisplaySpinner && spinnerContent}
     </button>
   );
 
