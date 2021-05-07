@@ -1,6 +1,6 @@
 {
   "name": "@hipo/react-ui-toolkit",
-  "version": "1.0.0-alpha.3.0.0",
+  "version": "1.0.0-alpha.3.0.1",
   "description": "React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,8 @@
     "test": "jest",
     "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}' 'stories/**/*.{ts,tsx}'",
     "storybook": "./node_modules/.bin/start-storybook -p 6006",
-    "storybook:build": "./node_modules/.bin/build-storybook"
+    "storybook:build": "./node_modules/.bin/build-storybook",
+    "type-check": "echo \"type-checking...\" && tsc --noEmit"
   },
   "jest": {
     "preset": "ts-jest",

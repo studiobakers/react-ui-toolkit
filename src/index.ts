@@ -1,37 +1,58 @@
 import "./ui/reference/_colors.scss";
 import "./ui/reference/_measurement.scss";
 
-import FormField, {FormFieldProps} from "./form/field/FormField";
-import Input, {InputProps} from "./form/input/Input";
-import PasswordInput, {PasswordInputProps} from "./form/password-input/PasswordInput";
-import FileInput, {FileInputProps} from "./form/input/file/FileInput";
-import CheckboxInput, {CheckboxInputProps} from "./form/input/checkbox/CheckboxInput";
-import RadioInput, {RadioInputProps, RadioInputItem} from "./form/input/radio/RadioInput";
-import RadioGroup, {RadioGroupProps} from "./form/input/radio/group/RadioGroup";
-import TypeaheadInput, {TypeaheadInputProps} from "./form/input/typeahead/TypeaheadInput";
-import TypeaheadSelect, {TypeaheadSelectProps} from "./select/typeahead/TypeaheadSelect";
-import Dropdown, {DropdownProps} from "./dropdown/Dropdown";
+import FormField, {
+  FormFieldProps as FormFieldComponentProps
+} from "./form/field/FormField";
+import Input, {InputProps as InputComponentProps} from "./form/input/Input";
+import PasswordInput, {
+  PasswordInputProps as PasswordInputComponentProps
+} from "./form/password-input/PasswordInput";
+import FileInput, {
+  FileInputProps as FileInputComponentProps
+} from "./form/input/file/FileInput";
+import CheckboxInput, {
+  CheckboxInputProps as CheckboxInputComponentProps
+} from "./form/input/checkbox/CheckboxInput";
+import RadioInput, {
+  RadioInputProps as RadioInputComponentProps,
+  RadioInputItem as RadioInputComponentItem
+} from "./form/input/radio/RadioInput";
+import RadioGroup, {
+  RadioGroupProps as RadioGroupComponentProps
+} from "./form/input/radio/group/RadioGroup";
+import TypeaheadInput, {
+  TypeaheadInputProps as TypeaheadInputComponentProps
+} from "./form/input/typeahead/TypeaheadInput";
+import TypeaheadSelect, {
+  TypeaheadSelectProps as TypeaheadSelectComponentProps
+} from "./select/typeahead/TypeaheadSelect";
+import Dropdown, {DropdownProps as DropdownComponentProps} from "./dropdown/Dropdown";
 import {
-  DropdownOption,
-  DropdownOptionSelectHandler,
-  DropdownSelectedOption
+  DropdownOption as DropdownComponentOption,
+  DropdownOptionSelectHandler as DropdownOptionSelectComponentHandler,
+  DropdownSelectedOption as DropdownSelectedComponentOption
 } from "./dropdown/list/item/DropdownListItem";
-import List, {ListProps} from "./list/List";
+import List, {ListProps as ListComponentProps} from "./list/List";
 import ListItem from "./list/item/ListItem";
-import Button, {ButtonProps} from "./button/Button";
+import Button, {ButtonProps as ButtonComponentProps} from "./button/Button";
 import FileUploadButton, {
-  FileUploadButtonProps
+  FileUploadButtonProps as FileUploadButtonComponentProps
 } from "./button/file-upload/FileUploadButton";
-import Spinner, {SpinnerProps} from "./spinner/Spinner";
-import Tab, {TabItem, TabProps} from "./tab/Tab";
-import Textarea, {TextareaProps} from "./form/textarea/Textarea";
-import Avatar, {AvatarProps} from "./avatar/Avatar";
-import {Toggle, ToggleProps} from "./toggle/Toggle";
-import Switch, {SwitchProps} from "./switch/Switch";
+import Spinner, {SpinnerProps as SpinnerComponentProps} from "./spinner/Spinner";
+import Tab, {TabItem as TabComponentItem, TabProps as TabComponentProps} from "./tab/Tab";
+import Textarea, {
+  TextareaProps as TextareaComponentProps
+} from "./form/textarea/Textarea";
+import Avatar, {AvatarProps as AvatarComponentProps} from "./avatar/Avatar";
+import {Toggle, ToggleProps as ToggleComponentProps} from "./toggle/Toggle";
+import Switch, {SwitchProps as SwitchComponentProps} from "./switch/Switch";
 import Countdown from "./countdown/Countdown";
 import useCountDownTimer from "./core/utils/hooks/useCountdownTimer";
-import ProgressBar, {ProgressBarProps} from "./progress-bar/ProgressBar";
-import {CountdownProps} from "../src/countdown/util/countdownTypes";
+import ProgressBar, {
+  ProgressBarProps as ProgressBarComponentProps
+} from "./progress-bar/ProgressBar";
+import {CountdownProps as CountdownComponentProps} from "../src/countdown/util/countdownTypes";
 
 export {
   // Components
@@ -57,33 +78,34 @@ export {
   Textarea,
   Toggle,
   Switch,
-  // Types
-  FormFieldProps,
-  InputProps,
-  FileInputProps,
-  PasswordInputProps,
-  CheckboxInputProps,
-  RadioInputProps,
-  RadioInputItem,
-  RadioGroupProps,
-  TypeaheadInputProps,
-  TypeaheadSelectProps,
-  DropdownProps,
-  DropdownOption,
-  DropdownOptionSelectHandler,
-  DropdownSelectedOption,
-  ListProps,
-  ButtonProps,
-  FileUploadButtonProps,
-  SpinnerProps,
-  TabItem,
-  TabProps,
-  AvatarProps,
-  ProgressBarProps,
-  TextareaProps,
-  ToggleProps,
-  SwitchProps,
-  CountdownProps,
   // Hooks
   useCountDownTimer
 };
+
+// Types
+export type FormFieldProps = FormFieldComponentProps;
+export type InputProps = InputComponentProps;
+export type FileInputProps = FileInputComponentProps;
+export type PasswordInputProps = PasswordInputComponentProps;
+export type CheckboxInputProps = CheckboxInputComponentProps;
+export type RadioInputProps = RadioInputComponentProps;
+export type RadioInputItem = RadioInputComponentItem;
+export type RadioGroupProps = RadioGroupComponentProps;
+export type TypeaheadInputProps = TypeaheadInputComponentProps;
+export type TypeaheadSelectProps = TypeaheadSelectComponentProps;
+export type DropdownProps = DropdownComponentProps<any>;
+export type DropdownOption = DropdownComponentOption;
+export type DropdownOptionSelectHandler = DropdownOptionSelectComponentHandler;
+export type DropdownSelectedOption = DropdownSelectedComponentOption;
+export type ListProps = ListComponentProps;
+export type ButtonProps = ButtonComponentProps;
+export type FileUploadButtonProps = FileUploadButtonComponentProps;
+export type SpinnerProps = SpinnerComponentProps;
+export type TabItem = TabComponentItem;
+export type TabProps = TabComponentProps;
+export type AvatarProps = AvatarComponentProps;
+export type ProgressBarProps = ProgressBarComponentProps;
+export type TextareaProps = TextareaComponentProps;
+export type ToggleProps = ToggleComponentProps;
+export type SwitchProps = SwitchComponentProps;
+export type CountdownProps = CountdownComponentProps;
