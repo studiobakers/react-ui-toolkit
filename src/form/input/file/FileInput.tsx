@@ -14,6 +14,7 @@ export interface FileInputProps {
   testid?: string;
   isDisabled?: boolean;
   isPending?: boolean;
+  customSpinner?: React.ReactNode;
   customClassName?: string;
   customLabelClassName?: string;
   acceptedFileTypes?: string;
@@ -27,6 +28,7 @@ function FileInput({
   name,
   htmlFor,
   acceptedFileTypes = "image/png, image/jpeg, .pdf",
+  customSpinner,
   customClassName,
   customLabelClassName,
   isPending,
@@ -38,6 +40,9 @@ function FileInput({
   const labelClassName = classNames("file-input__label", customLabelClassName, {
     "file-input__label--is-disabled": isInputDisabled
   });
+  const spinnerContent = customSpinner || (
+    <Spinner customClassName={"file-input__spinner"} />
+  );
 
   return (
     <div className={containerClassName}>
@@ -60,7 +65,7 @@ function FileInput({
         data-testid={`${testid}.label`}>
         {children}
 
-        {isPending && <Spinner customClassName={"file-input__spinner"} />}
+        {isPending && spinnerContent}
       </label>
     </div>
   );

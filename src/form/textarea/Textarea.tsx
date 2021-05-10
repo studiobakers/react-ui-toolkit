@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import classNames from "classnames";
 import TextareaAutosize, {TextareaAutosizeProps} from "react-textarea-autosize";
 
-import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboardEventConstants";
+import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
 
 export type TextareaProps = Omit<
   React.TextareaHTMLAttributes<HTMLTextAreaElement>,
@@ -76,6 +76,7 @@ function Textarea(props: TextareaProps) {
           minRows={autoSizeProps.minRows}
           onHeightChange={autoSizeProps.onHeightChange}
           required={isRequired}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           {...otherProps}
         />
@@ -92,6 +93,7 @@ function Textarea(props: TextareaProps) {
           onKeyUp={handleKeyUp}
           style={style}
           required={isRequired}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           {...otherProps}
         />

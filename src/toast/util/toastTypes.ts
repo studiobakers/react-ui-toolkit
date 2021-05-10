@@ -1,4 +1,4 @@
-interface ToastItem {
+export interface ToastItem {
   mode: "danger" | "warning" | "success";
   content: React.ReactNode;
   autoClose?: boolean;
@@ -7,7 +7,7 @@ interface ToastItem {
   customToastId?: string;
 }
 
-type ToastAction =
+export type ToastAction =
   | {
       type: "DISPLAY";
       payload: ToastItem;
@@ -18,5 +18,3 @@ type ToastAction =
         customToastId: ToastItem["customToastId"];
       };
     };
-
-export {ToastItem, ToastAction};

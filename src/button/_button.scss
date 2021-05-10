@@ -1,8 +1,10 @@
 .button {
-  --button-width: 100%;
+  --button-width: max-content;
   --button-height: 35px;
   --button-bg: black;
   --button-color: white;
+
+  position: relative;
 
   display: flex;
   align-items: center;
@@ -29,6 +31,14 @@
   opacity: 0.5;
 
   cursor: not-allowed;
+}
+
+.button__spinner-container {
+  position: absolute;
+
+  width: 100%;
+
+  background-color: var(--button-bg);
 }
 
 .button__spinner {
