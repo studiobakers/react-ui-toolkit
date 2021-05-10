@@ -30,7 +30,14 @@ function useDisplayToast() {
     });
   }
 
-  return displayToast;
+  function hideToast(customToastId: ToastItem["customToastId"]) {
+    dispatchToast({
+      type: "HIDE",
+      payload: {customToastId}
+    });
+  }
+
+  return {displayToast, hideToast};
 }
 
 export {useToast, useToaster, useDisplayToast};

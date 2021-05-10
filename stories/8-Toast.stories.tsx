@@ -6,19 +6,7 @@ import {useDisplayToast} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
 
 function ToastComponent() {
-  const displayToast = useDisplayToast();
-  const customRootClassName = (
-    <style>{`
-    .custom-toast {
-      width: 100px;
-
-      top: 0;
-      bottom: unset;
-      right: 0;
-
-    }
-  `}</style>
-  );
+  const {displayToast} = useDisplayToast();
 
   return (
     <StoryFragment>
@@ -69,15 +57,12 @@ function ToastComponent() {
           displayToast({
             mode: "success",
             content: "Success Message",
-            customRootId: "custom-toast-root",
             customClassName: "custom-toast",
             timeout: 10000
           })
         }>
         {"Toast with Custom Root Id"}
       </Button>
-
-      {customRootClassName}
     </StoryFragment>
   );
 }

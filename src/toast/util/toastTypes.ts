@@ -4,7 +4,7 @@ interface ToastItem {
   autoClose?: boolean;
   timeout?: number;
   customClassName?: string;
-  customRootId?: string;
+  customToastId?: string;
 }
 
 type ToastAction =
@@ -12,6 +12,11 @@ type ToastAction =
       type: "DISPLAY";
       payload: ToastItem;
     }
-  | {type: "HIDE"};
+  | {
+      type: "HIDE";
+      payload?: {
+        customToastId: ToastItem["customToastId"];
+      };
+    };
 
 export {ToastItem, ToastAction};

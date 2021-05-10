@@ -1,12 +1,13 @@
 import {ToastItem} from "./toastTypes";
 
-const initialToastState = {
-  isDisplayed: false,
-  data: {
-    content: "",
-    timeout: 4000,
-    autoClose: true
-  } as ToastItem
+const initialToastStackState = {
+  toastItems: [] as ToastItem[]
 };
 
-export {initialToastState};
+const initialToastState = {
+  content: "",
+  timeout: 4000,
+  autoClose: true
+};
+
+export {initialToastStackState, initialToastState};

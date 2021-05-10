@@ -1,23 +1,30 @@
-import {initialToastState} from "./toastConstants";
+import {initialToastStackState, initialToastState} from "./toastConstants";
 import {ToastAction} from "./toastTypes";
 
 function toastReducer(
-  state: typeof initialToastState,
+  state: typeof initialToastStackState,
   action: ToastAction
-): typeof initialToastState {
+): typeof initialToastStackState {
   let newState = state;
 
   switch (action.type) {
     case "DISPLAY": {
       newState = {
-        isDisplayed: true,
-        data: {...initialToastState.data, ...action.payload}
+        toastItems: [...state.toastItems, {...initialToastState, ...action.payload}]
       };
+
       break;
     }
 
     case "HIDE": {
-      newState = {...initialToastState};
+      newState = {
+        toastItems: [
+          ...state.toastItems.filter(
+            (item) => item.customToastId !== action.payload?.customToastId
+          )
+        ]
+      };
+
       break;
     }
 

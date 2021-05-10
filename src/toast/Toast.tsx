@@ -1,23 +1,18 @@
 import "./_toast.scss";
 
 import React, {useLayoutEffect} from "react";
-import ReactDOM from "react-dom";
 import classNames from "classnames";
 
 import {useToast} from "./util/toastHooks";
+import {ToastItem} from "./util/toastTypes";
 
-function Toast() {
-  const {
-    toastState: {
-      isDisplayed,
-      data: {autoClose, timeout, content, mode, customClassName, customRootId}
-    },
-    dispatchToastAction
-  } = useToast();
-  const toastRootNode = document.createElement("div");
+export interface ToastProps {
+  toastItem: ToastItem;
+}
 
-  toastRootNode.setAttribute("id", customRootId || "toast-root");
-  document.body.appendChild(toastRootNode);
+function Toast({toastItem}: ToastProps) {
+  const {dispatchToastAction} = useToast();
+  const {mode, content, autoClose, timeout, customClassName, customToastId} = toastItem;
 
   useLayoutEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -25,27 +20,22 @@ function Toast() {
     if (autoClose) {
       timeoutId = setTimeout(() => {
         dispatchToastAction({
-          type: "HIDE"
+          type: "HIDE",
+          payload: {customToastId}
         });
-      }, timeout);
+      }, timeout!);
     }
 
     return () => {
       clearTimeout(timeoutId);
-
-      if (toastRootNode) {
-        document.body.removeChild(toastRootNode);
-      }
     };
-  }, [isDisplayed, autoClose, timeout, toastRootNode, dispatchToastAction]);
+  }, [customToastId, autoClose, timeout, dispatchToastAction]);
 
-  const toast = (
+  return (
     <div className={classNames("toast", `toast--${mode}`, customClassName)}>
       {content}
     </div>
   );
-
-  return ReactDOM.createPortal(toast, toastRootNode);
 }
 
 export default Toast;
