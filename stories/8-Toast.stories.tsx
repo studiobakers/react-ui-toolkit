@@ -6,14 +6,14 @@ import {useDisplayToast} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
 
 function ToastComponent() {
-  const {displayToast} = useDisplayToast();
+  const {display} = useDisplayToast();
 
   return (
     <StoryFragment>
       <Button
         type={"button"}
         onClick={() =>
-          displayToast({
+          display({
             mode: "success",
             content: "Success Message"
           })
@@ -26,7 +26,7 @@ function ToastComponent() {
       <Button
         type={"button"}
         onClick={() =>
-          displayToast({
+          display({
             mode: "warning",
             content: "Warning Message"
           })
@@ -39,29 +39,12 @@ function ToastComponent() {
       <Button
         type={"button"}
         onClick={() =>
-          displayToast({
+          display({
             mode: "danger",
             content: "Error Message"
           })
         }>
         {"Error Toast"}
-      </Button>
-
-      <br />
-      <hr />
-      <br />
-
-      <Button
-        type={"button"}
-        onClick={() =>
-          displayToast({
-            mode: "success",
-            content: "Success Message",
-            customClassName: "custom-toast",
-            timeout: 10000
-          })
-        }>
-        {"Toast with Custom Root Id"}
       </Button>
     </StoryFragment>
   );

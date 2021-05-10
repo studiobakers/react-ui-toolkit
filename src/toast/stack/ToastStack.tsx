@@ -1,9 +1,11 @@
+import "./_toast-stack.scss";
+
 import React from "react";
 import ReactDOM from "react-dom";
 
-import List from "../list/List";
-import Toast from "./Toast";
-import {useToast} from "./util/toastHooks";
+import List from "../../list/List";
+import Toast from "../Toast";
+import {useToast} from "../util/toastHooks";
 
 function ToastStack() {
   const {

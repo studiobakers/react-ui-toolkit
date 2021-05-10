@@ -3,15 +3,16 @@ import "./_toast.scss";
 import React, {useLayoutEffect} from "react";
 import classNames from "classnames";
 
-import {useToast} from "./util/toastHooks";
+import {useDisplayToast} from "./util/toastHooks";
 import {ToastItem} from "./util/toastTypes";
+import Button from "../button/Button";
 
 export interface ToastProps {
   toastItem: ToastItem;
 }
 
 function Toast({toastItem}: ToastProps) {
-  const {dispatchToastAction} = useToast();
+  const {hide} = useDisplayToast();
   const {mode, content, autoClose, timeout, customClassName, customToastId} = toastItem;
 
   useLayoutEffect(() => {
@@ -19,23 +20,28 @@ function Toast({toastItem}: ToastProps) {
 
     if (autoClose) {
       timeoutId = setTimeout(() => {
-        dispatchToastAction({
-          type: "HIDE",
-          payload: {customToastId}
-        });
+        hide(customToastId);
       }, timeout!);
     }
 
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [customToastId, autoClose, timeout, dispatchToastAction]);
+  }, [customToastId, autoClose, timeout, hide]);
 
   return (
     <div className={classNames("toast", `toast--${mode}`, customClassName)}>
       {content}
+
+      <Button onClick={handleCloseButton} customClassName={"toast__close-button"}>
+        {"X"}
+      </Button>
     </div>
   );
+
+  function handleCloseButton() {
+    hide(customToastId);
+  }
 }
 
 export default Toast;

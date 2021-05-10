@@ -8,11 +8,15 @@
   --toast-success-text-color: white;
   --toast-success-bg: green;
 
-  position: fixed;
-  bottom: 0;
-  z-index: 2;
+  --toast-height: 20px;
+  --toast-margin-bottom: 10px;
+  --toast-margin-top: 10px;
+  --toast-z-index: 2;
 
-  width: 100vw;
+  z-index: var(--toast-z-index);
+  
+  width: var(--toast-width);
+  height: var(--toast-height);
 
   padding: 17px 0;
 
@@ -31,5 +35,16 @@
   &--success {
     color: var(--toast-success-text-color);
     background-color: var(--toast-success-bg);
+  }
+
+  &__close-button {
+    position: absolute;
+    bottom: 36px;
+    
+    &.button {
+      width: 36px;
+
+      background-color: transparent;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import React, {createContext, useReducer} from "react";
 
-import ToastStack from "./ToastStack";
+import ToastStack from "./stack/ToastStack";
 import {initialToastStackState} from "./util/toastConstants";
 import toastReducer from "./util/toastReducer";
 import {ToastAction} from "./util/toastTypes";
