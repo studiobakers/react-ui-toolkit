@@ -76,6 +76,7 @@ function Textarea(props: TextareaProps) {
           minRows={autoSizeProps.minRows}
           onHeightChange={autoSizeProps.onHeightChange}
           required={isRequired}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           {...otherProps}
         />
@@ -92,6 +93,7 @@ function Textarea(props: TextareaProps) {
           onKeyUp={handleKeyUp}
           style={style}
           required={isRequired}
+          // eslint-disable-next-line jsx-a11y/no-autofocus
           autoFocus={autoFocus}
           {...otherProps}
         />

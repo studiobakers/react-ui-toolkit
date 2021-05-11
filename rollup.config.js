@@ -27,9 +27,11 @@ export default [
       Button: "src/button/Button.tsx",
       FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
       Spinner: "src/spinner/Spinner.tsx",
+      Textarea: "src/form/textarea/Textarea.tsx",
+      Toggle: "src/toggle/Toggle.tsx",
+      Switch: "src/switch/Switch.tsx",
       Countdown: "src/countdown/Countdown.tsx",
       ProgressBar: "src/progress-bar/ProgressBar.tsx",
-      Textarea: "src/form/textarea/Textarea.tsx",
       TimeInput: "src/form/time/TimeInput.tsx"
     },
     output: {

@@ -1,4 +1,4 @@
-interface RemainingTimeBreakdown {
+export interface RemainingTimeBreakdown {
   delta: number;
   days: number;
   hours: number;
@@ -6,11 +6,9 @@ interface RemainingTimeBreakdown {
   seconds: number;
 }
 
-type FormatDateUtilOptions = {
+export type FormatDateUtilOptions = {
   timeZone?: string | null;
   format?: string;
   shouldShiftDateToCompensateForTimezone?: boolean;
   isProvidedDateInUTC?: boolean;
 };
-
-export {RemainingTimeBreakdown, FormatDateUtilOptions};

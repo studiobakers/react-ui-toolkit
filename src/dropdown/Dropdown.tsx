@@ -50,6 +50,7 @@ export interface DropdownProps<OptionIdShape> {
   errorMessages?: string[];
   isMenuOpenHook?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   headerWithoutButton?: React.ReactNode;
+  customSpinner?: React.ReactNode;
   shouldCloseOnSelect?: boolean;
   onMenuVisibilityChange?: (type: MenuVisibilityChangeHandlerTypeArgument) => void;
   areOptionsFetching?: boolean;
@@ -80,6 +81,7 @@ function Dropdown<OptionIdShape extends string>({
   isDisabled,
   isMenuOpenHook,
   headerWithoutButton,
+  customSpinner,
   shouldCloseOnSelect = true,
   onMenuVisibilityChange,
   areOptionsFetching = false,
@@ -109,6 +111,9 @@ function Dropdown<OptionIdShape extends string>({
     "dropdown--is-disabled": isDisabled || areOptionsFetching
   });
   const shouldShowMenu = isMenuOpen && (shouldShowEmptyOptions || options.length > 0);
+  const spinnerContent = customSpinner || (
+    <Spinner customClassName={"dropdown__spinner"} />
+  );
 
   useEffect(() => {
     setComputedOptions(
@@ -149,11 +154,7 @@ function Dropdown<OptionIdShape extends string>({
         {selectedOption ? selectedOption.title : deselectOptionTitle || placeholder}
       </span>
 
-      {areOptionsFetching ? (
-        <Spinner spinnerColor={"black"} backgroundColor={"#EBEBEB"} />
-      ) : (
-        <CaretDownIcon aria-hidden={true} />
-      )}
+      {areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />}
     </div>
   );
 
