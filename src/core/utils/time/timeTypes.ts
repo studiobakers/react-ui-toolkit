@@ -11,4 +11,4 @@ export type FormatDateUtilOptions = {
   format?: string;
   shouldShiftDateToCompensateForTimezone?: boolean;
   isProvidedDateInUTC?: boolean;
-};
+}; 
