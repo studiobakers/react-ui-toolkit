@@ -1,4 +1,4 @@
-const hh_mm_a_TIME_FORMAT_REGEX = /((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/;
+const HH_MM_A_TIME_FORMAT_REGEX = /((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/;
 const YYYY_MM_DD_DATE_FORMAT_REGEX = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
 
 const SECOND_IN_MS = 1000;
@@ -39,7 +39,7 @@ const DATE_FORMAT = {
 };
 
 export {
-  hh_mm_a_TIME_FORMAT_REGEX,
+  HH_MM_A_TIME_FORMAT_REGEX,
   YYYY_MM_DD_DATE_FORMAT_REGEX,
   DAY_IN_HRS,
   DAY_IN_S,

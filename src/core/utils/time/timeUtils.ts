@@ -7,7 +7,7 @@ import {
   DATE_FORMAT,
   DAY_IN_HRS,
   DAY_IN_S,
-  hh_mm_a_TIME_FORMAT_REGEX,
+  HH_MM_A_TIME_FORMAT_REGEX,
   HOUR_IN_S,
   MINUTE_IN_MS,
   MINUTE_IN_S,
@@ -170,7 +170,7 @@ function parseTime(time: string, format = "g:i A") {
 }
 
 function getHourMinuteMeridiemFromTimeString(timeString: string) {
-  const timeParts = timeString.match(hh_mm_a_TIME_FORMAT_REGEX);
+  const timeParts = timeString.match(HH_MM_A_TIME_FORMAT_REGEX);
   const defaultTime = {hours: "10", minutes: "00", meridiem: "AM"};
 
   return timeParts

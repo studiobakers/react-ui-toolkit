@@ -70,6 +70,7 @@ function generateTimeInputDropdownOptions(options?: {
 
     // First four options are separated by only 15 mins
     const firstHourOptions = generateTimeInputDropdownDates(startTimeDate, {
+      // eslint-disable-next-line no-magic-numbers
       arrayLength: 4,
       interval: TIME_INPUT_DROPDOWN_OPTIONS_FIRST_HOUR_INTERVAL
     })
@@ -79,6 +80,7 @@ function generateTimeInputDropdownOptions(options?: {
     // Remaining options are separated by 30 mins
     const remainingOptions = generateTimeInputDropdownDates(startTimeDate, {
       arrayLength:
+        // eslint-disable-next-line no-magic-numbers
         DAY_IN_S / (MINUTE_IN_S * TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL) - 2,
       startTimeOffsetInMins: HOUR_IN_MINS
     });
