@@ -1,12 +1,13 @@
-import {useContext} from "react";
+import {useCallback, useContext} from "react";
 
+import {generateRandomString} from "../../core/utils/string/stringUtils";
 import {ToastContext} from "../ToastProvider";
-import {ToastItem} from "./toastTypes";
+import {ToastData} from "./toastTypes";
 
 /**
  * @returns {Object} Current value of ToastContext
  */
-function useToast() {
+function useToastContext() {
   return useContext(ToastContext);
 }
 
@@ -14,36 +15,63 @@ function useToast() {
  * @returns {function} ToastContext's state reducer's dispatch function
  */
 function useToaster() {
-  return useToast().dispatchToastAction;
+  const dispatch = useToastContext()[1];
+
+  return {
+    /**
+     * Display a Toast
+     * @returns {string} Toast's id
+     */
+    display: useCallback(
+      (toastData: ToastData) => {
+        const toastId = toastData.id || generateRandomString();
+
+        dispatch({
+          type: "DISPLAY",
+          toastData: {
+            ...toastData,
+            id: toastId
+          }
+        });
+
+        return toastId;
+      },
+      [dispatch]
+    ),
+    /**
+     * Hide a Toast with a given id
+     */
+    hide: useCallback(
+      (toastId: string) => {
+        dispatch({
+          type: "HIDE",
+          toastId
+        });
+      },
+      [dispatch]
+    ),
+    /**
+     * Updates the data for a Toast given its ID
+     */
+    update: useCallback(
+      (toastId, toastData: Partial<ToastData>) => {
+        dispatch({
+          type: "UPDATE",
+          toastId,
+          toastData
+        });
+      },
+      [dispatch]
+    ),
+    /**
+     * Hide all visible Toasts
+     */
+    hideAll: useCallback(() => {
+      dispatch({
+        type: "HIDE_ALL"
+      });
+    }, [dispatch])
+  };
 }
 
-/**
- * @returns {function} A function which expects a ToastItem object as an argument and displays a Toast when executed. This function directly passes the provided argument as the payload to ToastContext's dispatch function with type "DISPLAY"
- * @returns {function} A function which expects a customToastId string as an argument and hide a Toast when executed. This function directly passes the provided argument as the payload to ToastContext's dispatch function with type "HIDE"
- */
-function useDisplayToast() {
-  const dispatchToast = useToaster();
-
-  function display(payload: ToastItem) {
-    if (!payload.customToastId) {
-      // eslint-disable-next-line no-magic-numbers
-      payload.customToastId = Math.random().toString(36).substring(7);
-    }
-
-    dispatchToast({
-      type: "DISPLAY",
-      payload
-    });
-  }
-
-  function hide(customToastId: ToastItem["customToastId"]) {
-    dispatchToast({
-      type: "HIDE",
-      payload: {customToastId}
-    });
-  }
-
-  return {display, hide};
-}
-
-export {useToast, useToaster, useDisplayToast};
+export {useToastContext, useToaster};

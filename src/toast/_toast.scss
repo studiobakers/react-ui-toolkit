@@ -6,7 +6,10 @@
   --toast-warning-bg: orange;
 
   --toast-success-text-color: white;
-  --toast-success-bg: green;
+  --toast-success-bg: yellowgreen;
+
+  --toast-info-text-color: white;
+  --toast-info-bg: darkcyan;
 
   --toast-height: 20px;
   --toast-margin-bottom: 10px;
@@ -35,6 +38,11 @@
   &--success {
     color: var(--toast-success-text-color);
     background-color: var(--toast-success-bg);
+  }
+
+  &--info {
+    color: var(--toast-info-text-color);
+    background-color: var(--toast-info-bg);
   }
 
   &__close-button {

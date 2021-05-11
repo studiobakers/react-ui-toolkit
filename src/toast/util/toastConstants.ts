@@ -1,13 +1,9 @@
-import {ToastItem} from "./toastTypes";
+import {ToastContextState} from "./toastTypes";
 
-const initialToastStackState = {
-  toastItems: [] as ToastItem[]
+const DEFAULT_TOAST_TIMEOUT = 4000;
+
+const initialToastState: ToastContextState = {
+  toastStack: []
 };
 
-const initialToastState = {
-  content: "",
-  timeout: 4000,
-  autoClose: true
-};
-
-export {initialToastStackState, initialToastState};
+export {DEFAULT_TOAST_TIMEOUT, initialToastState};

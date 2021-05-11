@@ -1,14 +1,14 @@
 import React, {createContext, useReducer} from "react";
 
 import ToastStack from "./stack/ToastStack";
-import {initialToastStackState} from "./util/toastConstants";
+import {initialToastState} from "./util/toastConstants";
 import toastReducer from "./util/toastReducer";
-import {ToastAction} from "./util/toastTypes";
+import {ToastAction, ToastContextState} from "./util/toastTypes";
 
-const ToastContext = createContext({
-  toastState: initialToastStackState,
-  dispatchToastAction: (() => null) as React.Dispatch<ToastAction>
-});
+const ToastContext = createContext<[ToastContextState, React.Dispatch<ToastAction>]>([
+  initialToastState,
+  () => undefined
+]);
 
 interface ToastContextProviderProps {
   children: React.ReactNode;
@@ -20,13 +20,13 @@ interface ToastContextProviderProps {
  */
 
 function ToastContextProvider({children}: ToastContextProviderProps) {
-  const [state, dispatch] = useReducer(toastReducer, initialToastStackState);
+  const [state, dispatch] = useReducer(toastReducer, initialToastState);
 
   return (
-    <ToastContext.Provider value={{toastState: state, dispatchToastAction: dispatch}}>
+    <ToastContext.Provider value={[state, dispatch]}>
       {children}
 
-      {state.toastItems.length && <ToastStack />}
+      <ToastStack />
     </ToastContext.Provider>
   );
 }

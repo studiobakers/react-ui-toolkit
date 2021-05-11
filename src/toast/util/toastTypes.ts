@@ -1,20 +1,25 @@
-export interface ToastItem {
-  mode: "danger" | "warning" | "success";
+export interface ToastData {
+  mode: "danger" | "warning" | "success" | "info";
   content: React.ReactNode;
+  id?: string;
   autoClose?: boolean;
   timeout?: number;
   customClassName?: string;
-  customToastId?: string;
 }
 
 export type ToastAction =
   | {
       type: "DISPLAY";
-      payload: ToastItem;
+      toastData: Omit<ToastData, "id"> & {id: string};
     }
+  | {type: "HIDE"; toastId: string}
+  | {type: "HIDE_ALL"}
   | {
-      type: "HIDE";
-      payload?: {
-        customToastId: ToastItem["customToastId"];
-      };
+      type: "UPDATE";
+      toastId: string;
+      toastData: Partial<Omit<ToastData, "id">>;
     };
+
+export interface ToastContextState {
+  toastStack: (Omit<ToastData, "id"> & {id: string})[];
+}

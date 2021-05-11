@@ -1,32 +1,47 @@
 import "./_toast-stack.scss";
 
-import React from "react";
+import React, {useLayoutEffect, useState} from "react";
 import ReactDOM from "react-dom";
 
 import List from "../../list/List";
 import Toast from "../Toast";
-import {useToast} from "../util/toastHooks";
+import {useToastContext} from "../util/toastHooks";
 
-function ToastStack() {
-  const {
-    toastState: {toastItems}
-  } = useToast();
-  let toastRootNode = document.getElementById("toast-root");
+interface ToastStackProps {
+  customRootId?: string;
+}
 
-  if (!toastRootNode) {
-    toastRootNode = document.createElement("div");
-  }
+function ToastStack({customRootId}: ToastStackProps) {
+  const [state] = useToastContext();
+  const [rootNode, setRootNode] = useState<null | Element>(null);
 
-  toastRootNode.setAttribute("id", "toast-root");
-  document.body.appendChild(toastRootNode);
+  useLayoutEffect(() => {
+    const providedNode = customRootId && document.querySelector(`#${customRootId}`);
 
-  const toastStack = (
-    <List customClassName={"toast-stack"} items={toastItems}>
-      {(toastItem) => <Toast toastItem={toastItem} />}
-    </List>
+    if (providedNode) {
+      setRootNode(providedNode);
+    } else {
+      const toastRootNode: Element = document.createElement("div");
+
+      toastRootNode.setAttribute("id", "toast-root");
+      document.body.insertBefore(toastRootNode, document.body.firstChild);
+
+      setRootNode(toastRootNode);
+    }
+  }, [customRootId]);
+
+  return (
+    rootNode &&
+    ReactDOM.createPortal(
+      <List
+        testid={"ToastStack"}
+        items={state.toastStack}
+        customClassName={"toast-stack"}>
+        {(toast, testid) => <Toast testid={testid} data={toast} />}
+      </List>,
+      rootNode
+    )
   );
-
-  return ReactDOM.createPortal(toastStack, toastRootNode);
 }
 
 export default ToastStack;
