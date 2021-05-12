@@ -1,5 +1,4 @@
 import {
-  IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
   NOT_NUMBER_OR_DECIMAL_POINT_REGEX
 } from "./numberConstants";
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
@@ -73,7 +72,7 @@ function parseNumber(
       return parsedNumber.slice(0, parsedNumber.length - 1);
     }
   } else {
-    parsedNumber = parsedNumber.replace(IS_LAST_CHARACTER_DECIMAL_POINT_REGEX, "");
+    parsedNumber = String(parseInt(parsedNumber));
   }
 
   return parsedNumber;
