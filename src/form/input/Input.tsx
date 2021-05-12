@@ -2,6 +2,7 @@ import "./_input.scss";
 
 import React from "react";
 import classNames from "classnames";
+
 import {
   NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX,
   NOT_NUMBER_NOR_DECIMAL_POINT_REGEX,

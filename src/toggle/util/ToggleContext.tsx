@@ -8,7 +8,7 @@ type ToggleContextValue = {
 
 const ToggleContext = createContext<ToggleContextValue>({
   selectedItems: [] as string[],
-  onToggle: () => {},
+  onToggle: () => undefined,
   canSelectMultiple: false
 });
 

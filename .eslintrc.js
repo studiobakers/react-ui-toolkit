@@ -11,10 +11,9 @@ module.exports = {
   extends: [
     "@hipo/eslint-config-base",
     "@hipo/eslint-config-react",
-    "plugin:@typescript-eslint/recommended",
+    "@hipo/eslint-config-typescript",
     "plugin:jsx-a11y/recommended",
-    "prettier/@typescript-eslint",
-    "prettier/react",
+    "plugin:import/typescript",
     "prettier"
   ],
   parserOptions: {
@@ -57,22 +56,9 @@ module.exports = {
     "react-hooks/exhaustive-deps": 1,
 
     // 👇🏻 `@typescript-eslint` overrides
-    "@typescript-eslint/explicit-function-return-type": 0,
-    "@typescript-eslint/no-unused-vars": 0,
-    "@typescript-eslint/no-use-before-define": 0,
-    "@typescript-eslint/explicit-member-accessibility": 0,
-    "@typescript-eslint/no-explicit-any": 0,
-    "@typescript-eslint/camelcase": 0,
-    "@typescript-eslint/ban-ts-ignore": 0,
-    "@typescript-eslint/no-non-null-assertion": 0,
-    "@typescript-eslint/explicit-module-boundary-types": 0,
     "@typescript-eslint/ban-ts-comment": 0,
-    "@typescript-eslint/no-empty-function": 0,
 
     // 👇🏻 these will be fixed inside `eslint-config-hipo-base`
-    "no-undefined": 0,
-    "no-use-before-define": 0,
-    complexity: ["error", 10],
     "func-names": 0,
     "id-length": 0,
 
