@@ -11,7 +11,7 @@ import {
   IS_LAST_CHARACTER_DECIMAL_POINT_REGEX
 } from "../../core/utils/number/numberConstants";
 
-type InputTypes =
+export type InputTypes =
   | "checkbox"
   | "button"
   | "color"

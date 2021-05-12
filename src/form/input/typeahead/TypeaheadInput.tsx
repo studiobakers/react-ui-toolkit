@@ -1,19 +1,20 @@
 import React, {useEffect} from "react";
 import classNames from "classnames";
 
-import Input from "../Input";
+import Input, {InputTypes} from "../Input";
 import useDebounce from "../../../core/utils/hooks/debounce";
 
 export interface TypeaheadInputProps {
   onQueryChange: (value: string) => void;
+  name: string;
+  placeholder: string;
+  type?: InputTypes;
   value?: string;
   testid?: string;
   customClassName?: string;
   id?: string;
-  name: string;
   isDisabled?: boolean;
   initialValue?: string;
-  placeholder: string;
   queryChangeDebounceTimeout?: number;
   onFocus?: React.ReactEventHandler<HTMLInputElement>;
   onBlur?: React.ReactEventHandler<HTMLInputElement>;
@@ -32,6 +33,7 @@ function TypeaheadInput(props: TypeaheadInputProps) {
     testid,
     placeholder,
     name,
+    type = "text",
     customClassName,
     onFocus,
     onBlur,
@@ -67,6 +69,7 @@ function TypeaheadInput(props: TypeaheadInputProps) {
       id={id}
       testid={testid}
       name={name}
+      type={type}
       placeholder={placeholder}
       onChange={handleInputChange}
       onFocus={onFocus}
