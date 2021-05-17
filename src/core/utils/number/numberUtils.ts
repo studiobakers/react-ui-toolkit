@@ -1,4 +1,3 @@
-import {NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX} from "./numberConstants";
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
 function formatNumber({providedOptions}: FormatNumberOptions) {
@@ -51,10 +50,10 @@ function parseNumber(
   const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(
     options.locale
   );
-  const numerals = [
-    // eslint-disable-next-line no-magic-numbers
-    ...new Intl.NumberFormat(options.locale, {useGrouping: false}).format(9876543210)
-  ].reverse();
+  const {NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX} = generateNumberRegExps(
+    options.locale
+  );
+  const numerals = getLocaleNumerals(options.locale);
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
   const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
   let parsedNumber = value
@@ -62,7 +61,7 @@ function parseNumber(
     .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
 
-  // Prevents formats other than 1,234,567.89
+  // Prevents formats other than 1,234,567.89 (Multiple Thouthousandth & Single Decimal Separators)
   if (!value.match(NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX)) {
     return parsedNumber.slice(0, parsedNumber.length - 1);
   }
@@ -97,4 +96,33 @@ function getNumberSeparators(locale = navigator.language) {
   return {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR};
 }
 
-export {formatNumber, parseNumber, getDigit, getNumberSeparators};
+function getLocaleNumerals(locale = navigator.language) {
+  const numerals = [
+    // eslint-disable-next-line no-magic-numbers
+    ...new Intl.NumberFormat(locale, {useGrouping: false}).format(9876543210)
+  ].reverse();
+
+  return numerals;
+}
+
+function generateNumberRegExps(locale = navigator.language) {
+  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
+  const NUMERALS_REGEX = new RegExp(`[${getLocaleNumerals(locale).join("")}]`, "g");
+
+  const IS_LAST_CHARACTER_DECIMAL_POINT_REGEX = new RegExp(
+    `\\${DECIMAL_NUMBER_SEPARATOR}$`
+  );
+  const MATCH_ZEROS_AFTER_DECIMAL_REGEX = new RegExp(`\\${DECIMAL_NUMBER_SEPARATOR}0+$`);
+  const NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX = new RegExp(
+    `^-?(${NUMERALS_REGEX}|[0-9]*${THOUSANDTHS_SEPARATOR}*)*\\${DECIMAL_NUMBER_SEPARATOR}?${NUMERALS_REGEX}|[0-9]*$`,
+    "g"
+  );
+
+  return {
+    IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
+    MATCH_ZEROS_AFTER_DECIMAL_REGEX,
+    NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX
+  };
+}
+
+export {formatNumber, parseNumber, getDigit, getNumberSeparators, generateNumberRegExps};

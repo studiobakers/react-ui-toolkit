@@ -4,13 +4,10 @@ import React from "react";
 import classNames from "classnames";
 
 import {
-  IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
-  MATCH_ZEROS_AFTER_DECIMAL_REGEX
-} from "../../core/utils/number/numberConstants";
-import {
   formatNumber,
   getNumberSeparators,
-  parseNumber
+  parseNumber,
+  generateNumberRegExps
 } from "../../core/utils/number/numberUtils";
 
 type InputTypes =
@@ -96,6 +93,10 @@ function Input(props: InputProps) {
   }
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
+    const {
+      IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
+      MATCH_ZEROS_AFTER_DECIMAL_REGEX
+    } = generateNumberRegExps(locale);
     const numberFormatter = formatNumber({
       providedOptions: {
         maximumFractionDigits,
