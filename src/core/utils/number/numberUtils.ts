@@ -1,4 +1,4 @@
-import {NOT_NUMBER_OR_DECIMAL_POINT_REGEX} from "./numberConstants";
+import {NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX} from "./numberConstants";
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
 function formatNumber({providedOptions}: FormatNumberOptions) {
@@ -63,7 +63,7 @@ function parseNumber(
     .replace(numeral, digitMapper);
 
   // Prevents formats other than 1,234,567.89
-  if (!value.match(NOT_NUMBER_OR_DECIMAL_POINT_REGEX)) {
+  if (!value.match(NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX)) {
     return parsedNumber.slice(0, parsedNumber.length - 1);
   }
 

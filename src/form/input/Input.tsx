@@ -58,6 +58,7 @@ export type InputProps = Omit<
   };
 };
 
+/* eslint-disable complexity */
 function Input(props: InputProps) {
   const {
     testid,
@@ -89,6 +90,10 @@ function Input(props: InputProps) {
   });
   const isNumberInput = type === "number";
   let finalValue = value;
+
+  if (isNaN(Number(value))) {
+    finalValue = "";
+  }
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
     const numberFormatter = formatNumber({
@@ -158,5 +163,6 @@ function Input(props: InputProps) {
     onChange(event);
   }
 }
+/* eslint-enable complexity */
 
 export default Input;
