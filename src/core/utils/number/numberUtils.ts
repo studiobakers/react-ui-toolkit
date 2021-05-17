@@ -62,7 +62,7 @@ function parseNumber(
     .replace(numeral, digitMapper);
 
   // Prevents formats other than 1,234,567.89 (Multiple Thouthousandth & Single Decimal Separators)
-  if (!value.match(NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX)) {
+  if (!NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX.test(value)) {
     return parsedNumber.slice(0, parsedNumber.length - 1);
   }
 
