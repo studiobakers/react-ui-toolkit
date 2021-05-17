@@ -19,7 +19,7 @@
     "prettify": "./node_modules/.bin/prettier --config ./.prettierrc.js --write \"src/**/*.{ts,tsx}\" \"stories/**/*.{ts,tsx}\"",
     "lint:fix": "npm run stylelint:fix && npm run eslint:fix",
     "lint": "npm run stylelint && npm run eslint",
-    "checkPackageUpdates": "npx npm-check-updates"
+    "check-package-updates": "npx npm-check-updates"
   },
   "jest": {
     "preset": "ts-jest",
