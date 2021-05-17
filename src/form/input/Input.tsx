@@ -98,7 +98,7 @@ function Input(props: InputProps) {
       }
     });
 
-    // Number() parse disappear decimal separator, itrovides 1234.56 format for numberFormatter
+    // Number() parse disappear decimal separator, provides 1234.56 format for numberFormatter
     if (
       IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(String(value)) ||
       MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(String(value))

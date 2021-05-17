@@ -1,6 +1,4 @@
-import {
-  NOT_NUMBER_OR_DECIMAL_POINT_REGEX
-} from "./numberConstants";
+import {NOT_NUMBER_OR_DECIMAL_POINT_REGEX} from "./numberConstants";
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
 function formatNumber({providedOptions}: FormatNumberOptions) {
@@ -60,10 +58,14 @@ function parseNumber(
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
   const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
   let parsedNumber = value
-    .replace(new RegExp(NOT_NUMBER_OR_DECIMAL_POINT_REGEX), "")
     .replace(new RegExp(`[${THOUSANDTHS_SEPARATOR}]`, "g"), "")
     .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
+
+  // Prevents formats other than 1,234,567.89
+  if (!value.match(NOT_NUMBER_OR_DECIMAL_POINT_REGEX)) {
+    return parsedNumber.slice(0, parsedNumber.length - 1);
+  }
 
   if (options.maximumFractionDigits > 0) {
     const decimalPart = parsedNumber.split(DECIMAL_NUMBER_SEPARATOR)[1];
