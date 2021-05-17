@@ -10,8 +10,11 @@ const ToastContext = createContext<[ToastContextState, React.Dispatch<ToastActio
   () => undefined
 ]);
 
+ToastContext.displayName = "ToastContext";
+
 interface ToastContextProviderProps {
   children: React.ReactNode;
+  customRootId?: string;
 }
 
 /**
@@ -19,14 +22,14 @@ interface ToastContextProviderProps {
  * these children can then use the useToast hook to show toast messages
  */
 
-function ToastContextProvider({children}: ToastContextProviderProps) {
+function ToastContextProvider({children, customRootId}: ToastContextProviderProps) {
   const [state, dispatch] = useReducer(toastReducer, initialToastState);
 
   return (
     <ToastContext.Provider value={[state, dispatch]}>
       {children}
 
-      <ToastStack />
+      <ToastStack customRootId={customRootId} />
     </ToastContext.Provider>
   );
 }

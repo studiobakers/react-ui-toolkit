@@ -1,4 +1,4 @@
-import "./utils/constants/toast/_toast-story-sample.scss";
+import "./utils/constants/toast/_toast-story.scss";
 
 import {storiesOf} from "@storybook/react";
 import React from "react";
@@ -6,6 +6,15 @@ import React from "react";
 import Button from "../src/button/Button";
 import {useToaster} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
+
+interface ToastStoryProps {
+  mode?: "info" | "success" | "warning" | "error";
+  content: string;
+}
+
+function renderToast({mode, content}: ToastStoryProps) {
+  return () => <div className={`toast toast--${mode}`}>{content}</div>;
+}
 
 function ToastComponent() {
   const {display, update, hideAll} = useToaster();
@@ -17,8 +26,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              mode: "info",
-              content: "Information Message"
+              render: renderToast({mode: "info", content: "Information Message"})
             })
           }>
           {"Info Toast"}
@@ -28,8 +36,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              mode: "success",
-              content: "Success Message"
+              render: renderToast({mode: "success", content: "Success Message"})
             })
           }>
           {"Success Toast"}
@@ -39,8 +46,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              mode: "warning",
-              content: "Warning Message"
+              render: renderToast({mode: "warning", content: "Warning Message"})
             })
           }>
           {"Warning Toast"}
@@ -50,8 +56,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              mode: "danger",
-              content: "Error Message"
+              render: renderToast({mode: "error", content: "Error Message"})
             })
           }>
           {"Error Toast"}
@@ -65,8 +70,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              mode: "info",
-              content: "Info Toast with Custom ID",
+              render: renderToast({mode: "info", content: "Info Toast Witch Custom ID"}),
               id: "custom-info-toast"
             })
           }>
@@ -77,8 +81,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             update("custom-info-toast", {
-              mode: "success",
-              content: "Custom Toast has updated!",
+              render: renderToast({mode: "info", content: "Custom Toast has updated!"}),
               timeout: 10000
             })
           }>

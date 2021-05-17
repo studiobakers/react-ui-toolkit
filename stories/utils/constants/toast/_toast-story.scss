@@ -25,7 +25,7 @@
 
   text-align: center;
 
-  &--danger {
+  &--error {
     color: var(--toast-danger-text-color);
     background-color: var(--toast-danger-bg);
   }
@@ -55,4 +55,11 @@
       background-color: transparent;
     }
   }
+}
+
+.toast-button-group {
+  display: flex;
+  justify-content: space-between;
+
+  width: 400px;
 }

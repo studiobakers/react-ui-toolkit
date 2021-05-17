@@ -1,6 +1,5 @@
 export interface ToastData {
-  mode: "danger" | "warning" | "success" | "info";
-  content: React.ReactNode;
+  render: () => React.ReactNode;
   id?: string;
   autoClose?: boolean;
   timeout?: number;

@@ -1,4 +1,4 @@
-import {useCallback, useContext} from "react";
+import React, {useCallback} from "react";
 
 import {generateRandomString} from "../../core/utils/string/stringUtils";
 import {ToastContext} from "../ToastProvider";
@@ -8,7 +8,13 @@ import {ToastData} from "./toastTypes";
  * @returns {Object} Current value of ToastContext
  */
 function useToastContext() {
-  return useContext(ToastContext);
+  const context = React.useContext(ToastContext);
+
+  if (context === undefined) {
+    throw new Error("useToastContext must be used within a ToastContextProvider");
+  }
+
+  return context;
 }
 
 /**

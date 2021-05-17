@@ -1,7 +1,4 @@
-import "./_toast.scss";
-
 import React, {useLayoutEffect} from "react";
-import classNames from "classnames";
 
 import {useToaster} from "./util/toastHooks";
 import {ToastContextState} from "./util/toastTypes";
@@ -18,8 +15,7 @@ function Toast({testid, data}: ToastProps) {
   const {
     autoClose = true,
     timeout = DEFAULT_TOAST_TIMEOUT,
-    mode,
-    content,
+    render,
     customClassName,
     id: toastId
   } = data;
@@ -39,10 +35,8 @@ function Toast({testid, data}: ToastProps) {
   }, [autoClose, timeout, hide, toastId]);
 
   return (
-    <ListItem
-      testid={testid}
-      customClassName={classNames("toast", `toast--${mode}`, customClassName)}>
-      {content}
+    <ListItem testid={testid} customClassName={customClassName}>
+      {render()}
     </ListItem>
   );
 }
