@@ -11,7 +11,7 @@ function useToastContext() {
   const context = React.useContext(ToastContext);
 
   if (context === undefined) {
-    throw new Error("useToastContext must be used within a ToastContextProvider");
+    throw new Error("No context found for ToastContext");
   }
 
   return context;

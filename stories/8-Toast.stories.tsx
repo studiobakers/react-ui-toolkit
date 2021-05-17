@@ -6,14 +6,20 @@ import React from "react";
 import Button from "../src/button/Button";
 import {useToaster} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
+import ToastStory from "./utils/constants/toast/ToastStory";
 
-interface ToastStoryProps {
-  mode?: "info" | "success" | "warning" | "error";
+interface renderToastProps {
+  toastId?: string;
+  mode: "info" | "success" | "warning" | "error";
   content: string;
 }
 
-function renderToast({mode, content}: ToastStoryProps) {
-  return () => <div className={`toast toast--${mode}`}>{content}</div>;
+function renderToast({toastId, mode, content}: renderToastProps) {
+  return () => (
+    <ToastStory toastId={toastId} mode={mode} content={content}>
+      {toastId && <ToastStory.CloseButton>{"X"}</ToastStory.CloseButton>}
+    </ToastStory>
+  );
 }
 
 function ToastComponent() {
@@ -92,6 +98,22 @@ function ToastComponent() {
           {"Hide All"}
         </Button>
       </div>
+
+      <br />
+
+      <div className={"toast-button-group"}>
+      <Button
+          type={"button"}
+          onClick={() =>
+            display({
+              autoClose: false,
+              id: "custom-toast-with-id",
+              render: renderToast({mode: "success", content: "Toast with Close Button", toastId: "custom-toast-with-id"})
+            })
+          }>
+          {"Toast with Close Button"}
+        </Button>
+        </div>
     </StoryFragment>
   );
 }

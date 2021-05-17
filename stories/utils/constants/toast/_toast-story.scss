@@ -1,4 +1,4 @@
-.toast {
+.toast-story {
   --toast-danger-text-color: white;
   --toast-danger-bg: red;
 
@@ -46,8 +46,8 @@
   }
 
   &__close-button {
-    position: absolute;
-    bottom: 36px;
+    position: relative;
+    bottom: 55px;
     
     &.button {
       width: 36px;
