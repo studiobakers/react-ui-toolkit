@@ -10,8 +10,8 @@ import {ToastData} from "./toastTypes";
 function useToastContext() {
   const context = React.useContext(ToastContext);
 
-  if (context === undefined) {
-    throw new Error("No context found for ToastContext");
+  if (!context) {
+    throw new Error("Trying to consume ToastContext outside of its provider.");
   }
 
   return context;

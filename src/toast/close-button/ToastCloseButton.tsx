@@ -4,7 +4,7 @@ import React from "react";
 
 import Button from "../../button/Button";
 import {useToaster} from "../util/toastHooks";
-import {useToastCloseButton} from "./ToastCloseButtonProvider";
+import {useToastCloseButton} from "./ToastItemContext";
 
 interface ToastCloseButtonProps {
   children: React.ReactNode;

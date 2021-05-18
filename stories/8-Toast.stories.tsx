@@ -18,7 +18,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              render: () => {
+              render() {
                 return (
                   <div className={"toast toast--info"}>
                     <div data-testid={"info-toast"}>{"Info Toast"}</div>
@@ -34,7 +34,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              render: () => {
+              render() {
                 return (
                   <div className={"toast toast--success"}>
                     <div data-testid={"success-toast"}>{"Success Toast"}</div>
@@ -50,7 +50,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              render: () => {
+              render() {
                 return (
                   <div className={"toast toast--warning"}>
                     <div data-testid={"warning-toast"}>{"Warning Toast"}</div>
@@ -66,7 +66,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              render: () => {
+              render() {
                 return (
                   <div className={"toast toast--error"}>
                     <div data-testid={"error-toast"}>{"Error Toast"}</div>
@@ -86,7 +86,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             display({
-              render: () => {
+              render() {
                 return (
                   <div className={"toast toast--warning"}>
                     <div data-testid={"custom-toast-with-id"}>
@@ -105,7 +105,7 @@ function ToastComponent() {
           type={"button"}
           onClick={() =>
             update("custom-info-toast", {
-              render: () => {
+              render() {
                 return (
                   <div className={"toast toast--success"}>
                     <div data-testid={"custom-info-toast"}>
@@ -134,7 +134,7 @@ function ToastComponent() {
             display({
               autoClose: false,
               id: "custom-toast-with-id",
-              render: () => {
+              render() {
                 return (
                   <div className={"toast toast--info"}>
                     <Toast.CloseButton>{"X"}</Toast.CloseButton>
