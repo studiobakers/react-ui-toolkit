@@ -88,10 +88,6 @@ function Input(props: InputProps) {
   const isNumberInput = type === "number";
   let finalValue = value;
 
-  if (isNaN(Number(value))) {
-    finalValue = "";
-  }
-
   if (isNumberInput && value && shouldFormatToLocaleString) {
     const {
       IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
