@@ -33,8 +33,8 @@ function calculateRemainingTimeBreakdown(target: Date): RemainingTimeBreakdown {
  *
  * Note on usage:
  *    Whenever the timezone information is not available and a date object that is passed to this function is generated from a ISO-8601 date string (yyyy-MM-dd), `shouldShiftDateToCompensateForTimezone` option should be set to `true`.
- *    Otherwise, the displayed date would be inconsistent with the data. For example, for a user with Eastern Daylight Time (to generalize, any user that has a negative UTC offset), the following Date object is created for "2007-05-16": Tue May 15 2007 20:00:00 GMT-0400 (Eastern Daylight Time) {}. Therefore, 15 May appears on the screen. By passing `new Date("2007-05-16")` value to `compensateForTimezone` utility, we fix this problem.
- *    When the timezone information is passed to `formatDateWithOptions`, this extra compensation is redundant as `date-fns-tz/utcToZonedTime` handles it corrently.
+ *    Otherwise, displayed date would be inconsistent with the data. For example, for a user with Eastern Daylight Time (to generalize, any user that has a negative UTC offset), the following Date object is created for "2007-05-16": Tue May 15 2007 20:00:00 GMT-0400 (Eastern Daylight Time) {}. Therefore, 15 May appears on the screen. By passing `new Date("2007-05-16")` value to `compensateForTimezone` utility, we fix this problem.
+ *    When the timezone information is passed to `formatDateWithOptions`, this extra compensation is redundant as `date-fns-tz/utcToZonedTime` handles it correctly.
  *
  * @param {object} options FormatDateUtilOptions
  * @return {string} Formatted date
@@ -188,13 +188,6 @@ function formatTimeStringTo12hFormatWithMeridiem(timeString: string) {
   return `${hours}:${minutes} ${meridiem}`;
 }
 
-function getHourMinuteMeridiemFromDate(date: Date) {
-  const hours = (date.getHours() % 12).toString().padStart(2, "0");
-  const minutes = date.getMinutes().toString().padStart(2, "0");
-  const meridiem = date.getHours() >= 12 ? "PM" : "AM";
-
-  return `${hours}:${minutes} ${meridiem}`;
-}
 /* eslint-enable no-magic-numbers */
 
 export {
@@ -203,6 +196,5 @@ export {
   compansateForTimezone,
   parseTime,
   getHourMinuteMeridiemFromTimeString,
-  formatTimeStringTo12hFormatWithMeridiem,
-  getHourMinuteMeridiemFromDate
+  formatTimeStringTo12hFormatWithMeridiem
 };

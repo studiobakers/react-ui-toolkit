@@ -1,25 +1,21 @@
-import "./_time-input.scss";
+import "./_time-select.scss";
 
 import React, {useEffect, useState} from "react";
 import classNames from "classnames";
 
-import Input from "../input/Input";
-import {generateTimeInputDropdownOptions} from "./util/timeInputUtils";
-import {
-  formatDateWithOptions,
-  getHourMinuteMeridiemFromDate,
-  parseTime
-} from "../../core/utils/time/timeUtils";
-import {DATE_FORMAT} from "../../core/utils/time/timeConstants";
-import Dropdown from "../../dropdown/Dropdown";
-import {DropdownOption} from "../../dropdown/list/item/DropdownListItem";
+import Input from "../../input/Input";
+import {formatDateWithOptions, parseTime} from "../../../core/utils/time/timeUtils";
+import {DATE_FORMAT} from "../../../core/utils/time/timeConstants";
+import Dropdown from "../../../dropdown/Dropdown";
+import {DropdownOption} from "../../../dropdown/list/item/DropdownListItem";
+import {generateTimeDropdownOptions} from "../dropdown/util/timeDropdownUtils";
 
-export type TimeInputDropdownOption = DropdownOption<
+export type TimeSelectDropdownOption = DropdownOption<
   string,
   {date: Date; differenceInMinutes: number}
 >;
 
-export interface TimeInputProps {
+export interface TimeSelectProps {
   onChange: (timeString: string) => void;
   testid?: string;
   selectedDate?: Date | null;
@@ -32,7 +28,7 @@ export interface TimeInputProps {
   hasError?: boolean;
 }
 
-function TimeInput({
+function TimeSelect({
   testid,
   selectedDate,
   onChange,
@@ -43,8 +39,8 @@ function TimeInput({
   name = "",
   icon,
   hasError
-}: TimeInputProps) {
-  const timeInputClassName = classNames("time-input", customClassName);
+}: TimeSelectProps) {
+  const timeInputClassName = classNames("time-select", customClassName);
   const timeStringOfDate = selectedDate
     ? formatDateWithOptions({
         format: DATE_FORMAT.LONG_TIME_FORMAT,
@@ -52,10 +48,13 @@ function TimeInput({
       })(selectedDate)
     : "";
   const formattedStartTime = startTime
-    ? getHourMinuteMeridiemFromDate(startTime)
+    ? formatDateWithOptions({
+        format: DATE_FORMAT.LONG_TIME_FORMAT,
+        shouldShiftDateToCompensateForTimezone: false
+      })(startTime)
     : undefined;
   const [dropdownOptions, setDropdownOptions] = useState(
-    generateTimeInputDropdownOptions({
+    generateTimeDropdownOptions({
       startTime: formattedStartTime,
       startDate: selectedDate
     })
@@ -66,14 +65,14 @@ function TimeInput({
   });
 
   useEffect(() => {
-    setDropdownOptions(generateTimeInputDropdownOptions({startTime: formattedStartTime}));
+    setDropdownOptions(generateTimeDropdownOptions({startTime: formattedStartTime}));
   }, [formattedStartTime]);
 
   const dropdownHeader = (
     <Input
       type={"text"}
-      testid={`${testid}.time-input`}
-      customClassName={"time-input__header"}
+      testid={`${testid}.time-select`}
+      customClassName={"time-select__header"}
       name={name}
       value={value.input}
       placeholder={placeholder}
@@ -116,4 +115,4 @@ function TimeInput({
   }
 }
 
-export default TimeInput;
+export default TimeSelect;

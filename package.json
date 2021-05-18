@@ -43,8 +43,6 @@
     "@typescript-eslint/parser": "3.2.0",
     "babel-loader": "8.1.0",
     "css-loader": "3.5.3",
-    "date-fns": "2.21.1",
-    "date-fns-tz": "1.1.4",
     "eslint": "7.2.0",
     "eslint-config-prettier": "6.11.0",
     "eslint-plugin-jsx-a11y": "6.2.3",
@@ -77,6 +75,8 @@
   },
   "dependencies": {
     "classnames": "2.2.6",
-    "react-textarea-autosize": "8.3.2"
+    "react-textarea-autosize": "8.3.2",
+    "date-fns": "2.21.1",
+    "date-fns-tz": "1.1.4"
   }
 }

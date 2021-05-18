@@ -7,11 +7,12 @@ import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
 import PasswordInput from "../src/form/password-input/PasswordInput";
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
-import TimeInput from "../src/form/time/TimeInput";
+import TimeSelect from "../src/form/time/select/TimeSelect";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
 import Textarea from "../src/form/textarea/Textarea";
 import StoryFragment from "./utils/StoryFragment";
-import {getHourMinuteMeridiemFromDate} from "../src/core/utils/time/timeUtils";
+import {formatDateWithOptions} from "../src/core/utils/time/timeUtils";
+import {DATE_FORMAT} from "../src/core/utils/time/timeConstants";
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -216,7 +217,7 @@ storiesOf("Form", module)
     return (
       <Fragment>
         <FormField label={"Appointment Time"}>
-          <TimeInput onChange={(e) => console.log(e)} />
+          <TimeSelect onChange={(e) => console.log(e)} />
         </FormField>
 
         <br />
@@ -224,19 +225,19 @@ storiesOf("Form", module)
         <FormField
           label={"Appointment Time - Has Error"}
           errorMessages={["Please enter a valid time"]}>
-          <TimeInput onChange={(e) => console.log(e)} hasError={true} />
+          <TimeSelect onChange={(e) => console.log(e)} hasError={true} />
         </FormField>
 
         <br />
 
         <FormField label={"Appointment Time - Is Disabled"}>
-          <TimeInput isDisabled={true} onChange={(e) => console.log(e)} />
+          <TimeSelect isDisabled={true} onChange={(e) => console.log(e)} />
         </FormField>
 
         <br />
 
         <FormField label={"Lesson Start Time - Selected Date: (Now)"}>
-          <TimeInput
+          <TimeSelect
             startTime={new Date()}
             selectedDate={new Date()}
             onChange={(e) => console.log(e)}
@@ -246,9 +247,12 @@ storiesOf("Form", module)
         <br />
 
         <FormField label={"Lesson End Time - (Minimum 30 minutes)"}>
-          <TimeInput
+          <TimeSelect
             startTime={lessonEndTime}
-            placeholder={getHourMinuteMeridiemFromDate(lessonEndTime)}
+            placeholder={formatDateWithOptions({
+              format: DATE_FORMAT.LONG_TIME_FORMAT,
+              shouldShiftDateToCompensateForTimezone: false
+            })(lessonEndTime)}
             onChange={(e) => console.log(e)}
           />
         </FormField>

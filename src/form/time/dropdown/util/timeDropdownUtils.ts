@@ -4,31 +4,31 @@ import formatDate from "date-fns/format";
 import startOfToday from "date-fns/startOfToday";
 import startOfDay from "date-fns/startOfDay";
 
-import {truncateDecimalPart} from "../../../core/utils/number/numberUtils";
+import {truncateDecimalPart} from "../../../../core/utils/number/numberUtils";
 import {
   DATE_FORMAT,
   DAY_IN_S,
   MINUTE_IN_S,
   HOUR_IN_MINS
-} from "../../../core/utils/time/timeConstants";
-import {TimeInputDropdownOption} from "../TimeInput";
+} from "../../../../core/utils/time/timeConstants";
+import {formatTimeStringTo12hFormatWithMeridiem} from "../../../../core/utils/time/timeUtils";
+import {TimeSelectDropdownOption} from "../../select/TimeSelect";
 import {
   TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL,
   TIME_INPUT_DROPDOWN_OPTIONS_FIRST_HOUR_INTERVAL
-} from "./timeInputConstants";
-import {formatTimeStringTo12hFormatWithMeridiem} from "../../../core/utils/time/timeUtils";
+} from "./timeDropdownConstants";
 
-function generateTimeInputDropdownOptionFromStartTimeDate(
+function generateTimeDropdownOptionFromStartTimeDate(
   startTimeDate: Date,
   differenceInMinutes: number
-): TimeInputDropdownOption {
+): TimeSelectDropdownOption {
   const date = addMinutes(startTimeDate, differenceInMinutes);
   const timeString = formatDate(date, DATE_FORMAT.LONG_TIME_FORMAT);
 
   return {
     id: timeString,
     title: timeString,
-    subtitle: generateTimeInputDropdownOptionSubtitle(differenceInMinutes),
+    subtitle: generateTimeDropdownOptionSubtitle(differenceInMinutes),
     context: {
       date,
       differenceInMinutes
@@ -36,7 +36,7 @@ function generateTimeInputDropdownOptionFromStartTimeDate(
   };
 }
 
-function generateTimeInputDropdownDates(
+function generateTimeDropdownDates(
   startTimeDate: Date,
   {
     arrayLength,
@@ -46,19 +46,19 @@ function generateTimeInputDropdownDates(
 ) {
   return new Array(arrayLength)
     .fill(0)
-    .map<TimeInputDropdownOption>((_item, index) =>
-      generateTimeInputDropdownOptionFromStartTimeDate(
+    .map<TimeSelectDropdownOption>((_item, index) =>
+      generateTimeDropdownOptionFromStartTimeDate(
         startTimeDate,
         startTimeOffsetInMins + index * interval
       )
     );
 }
 
-function generateTimeInputDropdownOptions(options?: {
+function generateTimeDropdownOptions(options?: {
   startDate?: Date | null;
   startTime?: string;
-}): TimeInputDropdownOption[] {
-  let dropdownOptions: TimeInputDropdownOption[] = [];
+}): TimeSelectDropdownOption[] {
+  let dropdownOptions: TimeSelectDropdownOption[] = [];
   const {startDate, startTime} = options || {};
 
   if (startTime) {
@@ -69,7 +69,7 @@ function generateTimeInputDropdownOptions(options?: {
     );
 
     // First four options are separated by only 15 mins
-    const firstHourOptions = generateTimeInputDropdownDates(startTimeDate, {
+    const firstHourOptions = generateTimeDropdownDates(startTimeDate, {
       // eslint-disable-next-line no-magic-numbers
       arrayLength: 4,
       interval: TIME_INPUT_DROPDOWN_OPTIONS_FIRST_HOUR_INTERVAL
@@ -78,7 +78,7 @@ function generateTimeInputDropdownOptions(options?: {
       .slice(1);
 
     // Remaining options are separated by 30 mins
-    const remainingOptions = generateTimeInputDropdownDates(startTimeDate, {
+    const remainingOptions = generateTimeDropdownDates(startTimeDate, {
       arrayLength:
         // eslint-disable-next-line no-magic-numbers
         DAY_IN_S / (MINUTE_IN_S * TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL) - 2,
@@ -87,25 +87,25 @@ function generateTimeInputDropdownOptions(options?: {
 
     dropdownOptions = [...firstHourOptions, ...remainingOptions];
   } else if (startDate) {
-    dropdownOptions = generateTimeInputDropdownDates(startOfDay(startDate), {
+    dropdownOptions = generateTimeDropdownDates(startOfDay(startDate), {
       arrayLength: DAY_IN_S / (MINUTE_IN_S * TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL)
     });
   } else {
-    dropdownOptions = generateTimeInputDropdownDates(startOfToday(), {
+    dropdownOptions = generateTimeDropdownDates(startOfToday(), {
       arrayLength: DAY_IN_S / (MINUTE_IN_S * TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL)
     });
   }
 
   return dropdownOptions.map((option) => ({
     ...option,
-    subtitle: generateTimeInputDropdownOptionSubtitle(option.context!.differenceInMinutes)
+    subtitle: generateTimeDropdownOptionSubtitle(option.context!.differenceInMinutes)
   }));
 }
 
-function generateTimeInputDropdownOptionSubtitle(differenceInMinutes: number): string {
+function generateTimeDropdownOptionSubtitle(differenceInMinutes: number): string {
   return differenceInMinutes <= HOUR_IN_MINS
     ? `${differenceInMinutes} mins`
     : `${truncateDecimalPart(1)(differenceInMinutes / HOUR_IN_MINS)} hrs`;
 }
 
-export {generateTimeInputDropdownOptions};
+export {generateTimeDropdownOptions};
