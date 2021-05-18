@@ -1,10 +1,11 @@
 .toast-stack {
   --toast-width: 300px;
+  --toast-z-index: 2;
   
   position: fixed;
   bottom: 0;
   right: 0;
-  z-index: 2;
+  z-index: var(--toast-z-index);
 
   max-height: 100vh;
 

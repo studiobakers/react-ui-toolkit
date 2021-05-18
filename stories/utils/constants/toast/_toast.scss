@@ -1,4 +1,4 @@
-.toast-story {
+.toast {
   --toast-danger-text-color: white;
   --toast-danger-bg: red;
 
@@ -44,17 +44,6 @@
     color: var(--toast-info-text-color);
     background-color: var(--toast-info-bg);
   }
-
-  &__close-button {
-    position: relative;
-    bottom: 55px;
-    
-    &.button {
-      width: 36px;
-
-      background-color: transparent;
-    }
-  }
 }
 
 .toast-button-group {
@@ -62,4 +51,20 @@
   justify-content: space-between;
 
   width: 400px;
+}
+
+.toast-close-button {
+  position: relative;
+  bottom: 16px;
+  
+  &.button {
+    width: 36px;
+
+    background-color: transparent;
+  }
+}
+
+.toast-content {
+  position: relative;
+  bottom: 34px;
 }

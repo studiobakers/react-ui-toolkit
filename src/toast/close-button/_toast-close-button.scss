@@ -1,0 +1,5 @@
+.toast-close-button {
+  --toast-close-button-z-index: 3;
+  
+  z-index: var(--toast-close-button-z-index);
+}

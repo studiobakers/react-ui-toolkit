@@ -4,6 +4,8 @@ import {useToaster} from "./util/toastHooks";
 import {ToastContextState} from "./util/toastTypes";
 import ListItem from "../list/item/ListItem";
 import {DEFAULT_TOAST_TIMEOUT} from "./util/toastConstants";
+import ToastCloseButton from "./close-button/ToastCloseButton";
+import {ToastCloseButtonContext} from "./close-button/ToastCloseButtonProvider";
 
 export interface ToastProps {
   testid: string;
@@ -35,10 +37,14 @@ function Toast({testid, data}: ToastProps) {
   }, [autoClose, timeout, hide, toastId]);
 
   return (
-    <ListItem testid={testid} customClassName={customClassName}>
-      {render()}
-    </ListItem>
+    <ToastCloseButtonContext.Provider value={{toastId}}>
+      <ListItem testid={testid} customClassName={customClassName}>
+        {render()}
+      </ListItem>
+    </ToastCloseButtonContext.Provider>
   );
 }
+
+Toast.CloseButton = ToastCloseButton;
 
 export default Toast;
