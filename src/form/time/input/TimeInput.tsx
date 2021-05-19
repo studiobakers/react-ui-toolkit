@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import classNames from "classnames";
 
 import Input from "../../input/Input";
 import {DATE_FORMAT} from "../../../core/utils/time/timeConstants";
@@ -6,13 +7,14 @@ import {formatDateWithOptions, parseTime} from "../../../core/utils/time/timeUti
 
 export interface TimeInputProps {
   testid: string;
-  selectedDate: Date | null;
   onChange: (timeString: string) => void;
+  selectedDate?: Date | null;
   isDisabled?: boolean;
   placeholder?: string;
   name?: string;
   icon?: React.ReactNode;
   hasError?: boolean;
+  customClassName?: string;
 }
 
 function TimeInput({
@@ -23,6 +25,7 @@ function TimeInput({
   placeholder = "03:30 PM",
   name = "",
   icon,
+  customClassName,
   hasError
 }: TimeInputProps) {
   const timeStringOfDate = selectedDate
@@ -37,7 +40,7 @@ function TimeInput({
     <Input
       type={"text"}
       testid={`${testid}.input`}
-      customClassName={"time-input"}
+      customClassName={classNames("time-input", customClassName)}
       name={name}
       value={value}
       placeholder={placeholder}

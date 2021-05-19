@@ -1,14 +1,13 @@
 import "./_time-select.scss";
 
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import classNames from "classnames";
 
-import Input from "../../input/Input";
-import {formatDateWithOptions, parseTime} from "../../../core/utils/time/timeUtils";
+import {formatDateWithOptions} from "../../../core/utils/time/timeUtils";
 import {DATE_FORMAT} from "../../../core/utils/time/timeConstants";
-import Dropdown from "../../../dropdown/Dropdown";
 import {DropdownOption} from "../../../dropdown/list/item/DropdownListItem";
-import {generateTimeDropdownOptions} from "../dropdown/util/timeDropdownUtils";
+import TimeInput from "../input/TimeInput";
+import TimeDropdown from "../dropdown/TimeDropdown";
 
 export type TimeSelectDropdownOption = DropdownOption<
   string,
@@ -17,14 +16,18 @@ export type TimeSelectDropdownOption = DropdownOption<
 
 export interface TimeSelectProps {
   onChange: (timeString: string) => void;
-  testid?: string;
+  startTime: Date;
+  testid: string;
   selectedDate?: Date | null;
-  startTime?: Date;
   customClassName?: string;
   isDisabled?: boolean;
   placeholder?: string;
+  hasDeselectOption?: boolean;
   name?: string;
-  icon?: React.ReactNode;
+  icon?: {
+    input?: React.ReactNode;
+    dropdown?: React.ReactNode;
+  };
   hasError?: boolean;
 }
 
@@ -34,70 +37,58 @@ function TimeSelect({
   onChange,
   startTime,
   customClassName,
+  hasDeselectOption,
   isDisabled = false,
   placeholder = "03:30 PM",
   name = "",
   icon,
   hasError
 }: TimeSelectProps) {
-  const timeInputClassName = classNames("time-select", customClassName);
   const timeStringOfDate = selectedDate
     ? formatDateWithOptions({
         format: DATE_FORMAT.LONG_TIME_FORMAT,
         shouldShiftDateToCompensateForTimezone: false
       })(selectedDate)
     : "";
-  const formattedStartTime = startTime
-    ? formatDateWithOptions({
-        format: DATE_FORMAT.LONG_TIME_FORMAT,
-        shouldShiftDateToCompensateForTimezone: false
-      })(startTime)
-    : undefined;
-  const [dropdownOptions, setDropdownOptions] = useState(
-    generateTimeDropdownOptions({
-      startTime: formattedStartTime,
-      startDate: selectedDate
-    })
-  );
+  const formattedStartTime = formatDateWithOptions({
+    format: DATE_FORMAT.LONG_TIME_FORMAT,
+    shouldShiftDateToCompensateForTimezone: false
+  })(startTime);
   const [value, setValue] = useState({
     input: timeStringOfDate,
     dropdown: null
   });
 
-  useEffect(() => {
-    setDropdownOptions(generateTimeDropdownOptions({startTime: formattedStartTime}));
-  }, [formattedStartTime]);
-
-  const dropdownHeader = (
-    <Input
-      type={"text"}
+  const timeDropdownHeader = (
+    <TimeInput
       testid={`${testid}.time-select`}
-      customClassName={"time-select__header"}
       name={name}
-      value={value.input}
-      placeholder={placeholder}
-      isDisabled={isDisabled}
+      selectedDate={selectedDate}
       onChange={handleChange}
-      onBlur={handleBlur}
+      placeholder={placeholder}
+      icon={icon?.input}
       hasError={hasError}
-      rightIcon={icon}
     />
   );
 
   return (
-    <Dropdown
-      customClassName={timeInputClassName}
-      headerWithoutButton={dropdownHeader}
-      role={"listbox"}
-      onSelect={handleSelect}
-      options={dropdownOptions}
-      isDisabled={isDisabled}
+    <TimeDropdown
+      testid={`${testid}.time-dropdown`}
+      startTimeString={formattedStartTime}
       selectedOption={value.dropdown}
+      onSelect={handleSelect}
+      icon={icon?.dropdown}
+      hasDeselectOption={hasDeselectOption}
+      isDisabled={isDisabled}
+      customClassName={classNames("time-select", customClassName)}
+      customHeader={timeDropdownHeader}
     />
   );
 
-  function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    setValue({...value, input: event.currentTarget.value});
+  function handleChange(timeString: string) {
+    setValue({...value, input: timeString});
+
+    onChange(value.input);
   }
 
   function handleSelect(option: DropdownOption | null) {
@@ -105,13 +96,6 @@ function TimeSelect({
       input: option!.title,
       dropdown: option!.context
     });
-  }
-
-  function handleBlur() {
-    const formattedTimeString = parseTime(value.input);
-
-    onChange(formattedTimeString);
-    setValue({...value, input: formattedTimeString});
   }
 }
 

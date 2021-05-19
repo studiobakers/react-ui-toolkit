@@ -1,0 +1,23 @@
+.time-dropdown-header {
+  display: flex;
+  justify-content: space-around;
+
+  width: 100%;
+
+  margin: auto;
+
+  &__title {
+    color: black;
+  }
+
+  &__subtitle {
+    width: max-content;
+
+    color: gray;
+  }
+
+  svg {
+    position: relative;
+    top: 5px;
+  }
+}

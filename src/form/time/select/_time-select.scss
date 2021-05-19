@@ -6,4 +6,13 @@
 
     border-radius: var(--default-border-radius);
   }
+
+  .dropdown__header-button {
+    width: max-content;
+    height: max-content;
+
+    padding: unset;
+    
+    border: unset;
+  }
 }

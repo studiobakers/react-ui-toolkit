@@ -1,3 +1,5 @@
+import CaretDownIcon from "../src/ui/icons/caret-down.svg";
+
 import React, {Fragment} from "react";
 import {storiesOf} from "@storybook/react";
 
@@ -13,6 +15,8 @@ import Textarea from "../src/form/textarea/Textarea";
 import StoryFragment from "./utils/StoryFragment";
 import {formatDateWithOptions} from "../src/core/utils/time/timeUtils";
 import {DATE_FORMAT} from "../src/core/utils/time/timeConstants";
+import TimeInput from "../src/form/time/input/TimeInput";
+import TimeDropdown from "../src/form/time/dropdown/TimeDropdown";
 
 storiesOf("Form", module)
   .add("Input States", () => (
@@ -216,28 +220,88 @@ storiesOf("Form", module)
 
     return (
       <Fragment>
-        <FormField label={"Appointment Time"}>
-          <TimeSelect onChange={(e) => console.log(e)} />
+        <FormField label={"Appointment Time - TimeInput"}>
+          <TimeInput
+            testid={"appointment-time"}
+            selectedDate={new Date()}
+            onChange={(timeString) => console.log(timeString)}
+          />
         </FormField>
 
         <br />
 
         <FormField
-          label={"Appointment Time - Has Error"}
+          label={"Appointment Time - TimeInput - Has Error"}
           errorMessages={["Please enter a valid time"]}>
-          <TimeSelect onChange={(e) => console.log(e)} hasError={true} />
+          <TimeInput
+            testid={"appointment-time-has-error"}
+            onChange={(e) => console.log(e)}
+            hasError={true}
+          />
         </FormField>
 
         <br />
 
-        <FormField label={"Appointment Time - Is Disabled"}>
-          <TimeSelect isDisabled={true} onChange={(e) => console.log(e)} />
+        <FormField label={"Appointment Time - TimeInput - Is Disabled"}>
+          <TimeInput
+            testid={"appointment-time-is-disabled"}
+            isDisabled={true}
+            onChange={(e) => console.log(e)}
+          />
         </FormField>
 
         <br />
 
-        <FormField label={"Lesson Start Time - Selected Date: (Now)"}>
+        <StateProvider initialState={null}>
+          {(state, setState) => (
+            <FormField label={"Lesson Start Time - TimeDropdown"}>
+              <TimeDropdown
+                testid={"lesson-start-time-dropdown"}
+                startTimeString={"10:30 PM"}
+                selectedOption={state}
+                onSelect={(option) => setState(option)}
+              />
+            </FormField>
+          )}
+        </StateProvider>
+
+        <br />
+
+        <StateProvider initialState={null}>
+          {(state, setState) => (
+            <FormField label={"Lesson Start Time - TimeDropdown - Has Icon"}>
+              <TimeDropdown
+                testid={"lesson-start-time-dropdown-has-icon"}
+                startTimeString={"10:30 PM"}
+                selectedOption={state}
+                onSelect={(option) => setState(option)}
+                icon={<CaretDownIcon aria-hidden={true} />}
+              />
+            </FormField>
+          )}
+        </StateProvider>
+
+        <br />
+
+        <StateProvider initialState={null}>
+          {(state, setState) => (
+            <FormField label={"Lesson Start Time - TimeDropdown - isDisabled"}>
+              <TimeDropdown
+                testid={"lesson-start-time-dropdown-is-disabled"}
+                isDisabled={true}
+                startTimeString={"08:15 AM"}
+                selectedOption={state}
+                onSelect={(option) => setState(option)}
+              />
+            </FormField>
+          )}
+        </StateProvider>
+
+        <br />
+
+        <FormField label={"Lesson Start Time - TimeSelect"}>
           <TimeSelect
+            testid={"lesson-start-time"}
             startTime={new Date()}
             selectedDate={new Date()}
             onChange={(e) => console.log(e)}
@@ -248,6 +312,7 @@ storiesOf("Form", module)
 
         <FormField label={"Lesson End Time - (Minimum 30 minutes)"}>
           <TimeSelect
+            testid={"lesson-end-time"}
             startTime={lessonEndTime}
             placeholder={formatDateWithOptions({
               format: DATE_FORMAT.LONG_TIME_FORMAT,

@@ -1,3 +1,5 @@
+import "./_time-dropdown.scss";
+
 import React, {useEffect, useState} from "react";
 import classNames from "classnames";
 
@@ -15,6 +17,7 @@ export interface TimeDropdownProps {
   startTimeString: string;
   selectedOption: null | TimeDropdownOption;
   onSelect: (option: null | TimeDropdownOption) => void;
+  customHeader?: React.ReactNode;
   icon?: React.ReactNode;
   hasDeselectOption?: boolean;
   isDisabled?: boolean;
@@ -25,6 +28,7 @@ function TimeDropdown({
   testid,
   startTimeString,
   selectedOption,
+  customHeader,
   onSelect,
   icon,
   hasDeselectOption,
@@ -52,8 +56,8 @@ function TimeDropdown({
       hasDeselectOption={hasDeselectOption}
       isDisabled={isDisabled}
       header={
-        <div className={"time-dropdown-header"}>
-          <div className={"time-dropdown-header__selection-option-detail"}>
+        customHeader || (
+          <div className={"time-dropdown-header"}>
             <span className={"time-dropdown-header__title"}>
               {selectedOption?.title || "Select time"}
             </span>
@@ -63,10 +67,10 @@ function TimeDropdown({
                 {selectedOption.subtitle}
               </span>
             )}
-          </div>
 
-          {icon}
-        </div>
+            {icon}
+          </div>
+        )
       }
     />
   );
