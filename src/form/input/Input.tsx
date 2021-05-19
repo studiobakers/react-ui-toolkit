@@ -1,13 +1,12 @@
 import "./_input.scss";
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import classNames from "classnames";
 
 import {
   formatNumber,
   getNumberSeparators,
-  parseNumber,
-  generateNumberRegExps
+  parseNumber
 } from "../../core/utils/number/numberUtils";
 
 type InputTypes =
@@ -79,7 +78,9 @@ function Input(props: InputProps) {
     locale,
     maximumFractionDigits = 0
   } = localizationOptions;
-  const {DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
+  const [decimalSeparatorForLocale, setDecimalSeparatorForLocale] = useState(
+    () => getNumberSeparators(locale).DECIMAL_NUMBER_SEPARATOR
+  );
   const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     "input--is-disabled": isDisabled,
@@ -89,10 +90,6 @@ function Input(props: InputProps) {
   let finalValue = value;
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
-    const {
-      IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
-      MATCH_ZEROS_AFTER_DECIMAL_REGEX
-    } = generateNumberRegExps(locale);
     const numberFormatter = formatNumber({
       providedOptions: {
         maximumFractionDigits,
@@ -101,18 +98,19 @@ function Input(props: InputProps) {
     });
 
     // Number() parse disappear decimal separator, provides 1234.56 format for numberFormatter
-    if (
-      IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(String(value)) ||
-      MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(String(value))
-    ) {
+    if (String(value).match(/\.$/)?.length || String(value).match(/\.0+$/)?.length) {
       const decimalPart = String(value).split(".")[1] || "";
       const integerPart = numberFormatter(parseInt(String(value)));
 
-      finalValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
+      finalValue = `${integerPart}${decimalSeparatorForLocale}${decimalPart}`;
     } else {
       finalValue = numberFormatter(Number(value));
     }
   }
+
+  useEffect(() => {
+    setDecimalSeparatorForLocale(getNumberSeparators(locale).DECIMAL_NUMBER_SEPARATOR);
+  }, [locale]);
 
   return (
     <div
