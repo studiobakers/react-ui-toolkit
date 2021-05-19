@@ -107,14 +107,14 @@ function getLocaleNumerals(locale = navigator.language) {
 
 function generateNumberRegExps(locale = navigator.language) {
   const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
-  // const NUMERALS = `[${getLocaleNumerals(locale).join("")}]`;
+  const NUMERALS = getLocaleNumerals(locale).join("");
 
   const IS_LAST_CHARACTER_DECIMAL_POINT_REGEX = new RegExp(
     `\\${DECIMAL_NUMBER_SEPARATOR}$`
   );
   const MATCH_ZEROS_AFTER_DECIMAL_REGEX = new RegExp(`\\${DECIMAL_NUMBER_SEPARATOR}0+$`);
   const NUMBER_WITH_THOUTHOUSANDTH_AND_DECIMAL_POINT_REGEX = new RegExp(
-    `^-?([0-9]*,*)*\\.?[0-9]*$`
+    `^-?([${NUMERALS}0-9]*${THOUSANDTHS_SEPARATOR}*)*\\${DECIMAL_NUMBER_SEPARATOR}?[${NUMERALS}0-9]*$`
   );
 
   return {
