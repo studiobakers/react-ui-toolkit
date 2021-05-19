@@ -105,10 +105,8 @@ function Input(props: InputProps) {
       IS_LAST_CHARACTER_DECIMAL_POINT_REGEX.test(String(value)) ||
       MATCH_ZEROS_AFTER_DECIMAL_REGEX.test(String(value))
     ) {
-      const decimalPart = String(value).split(DECIMAL_NUMBER_SEPARATOR)[1] || "";
-      const integerPart = numberFormatter(
-        Number(String(value).split(DECIMAL_NUMBER_SEPARATOR)[0])
-      );
+      const decimalPart = String(value).split(".")[1] || "";
+      const integerPart = numberFormatter(parseInt(String(value)));
 
       finalValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${decimalPart}`;
     } else {
