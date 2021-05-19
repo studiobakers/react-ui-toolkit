@@ -138,7 +138,7 @@ storiesOf("Form", module)
 
   .add("Number Input", () => (
     <Fragment>
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
             <FormField label={"Price – maximumFractionDigits={2}"}>
@@ -153,7 +153,13 @@ storiesOf("Form", module)
             </FormField>
 
             <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
 
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
             <br />
 
             <FormField
@@ -179,7 +185,7 @@ storiesOf("Form", module)
       <hr />
       <br />
 
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
             <FormField label={"Price (BTC) – maximumFractionDigits={8}"}>
@@ -200,7 +206,7 @@ storiesOf("Form", module)
 
       <br />
 
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
             <FormField label={"ID or Passport Number – maxFractionDigits={0}"}>
@@ -221,7 +227,7 @@ storiesOf("Form", module)
       <hr />
       <br />
 
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
             <FormField
@@ -248,7 +254,7 @@ storiesOf("Form", module)
 
       <br />
 
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
             <FormField
@@ -274,7 +280,7 @@ storiesOf("Form", module)
       <hr />
       <br />
 
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
             <FormField
