@@ -1,4 +1,4 @@
-import {createContext, useContext} from "react";
+import {createContext} from "react";
 
 type ToastItemContextValue = {
   toastId: string;
@@ -10,14 +10,4 @@ const ToastItemContext = createContext<ToastItemContextValue>({
 
 ToastItemContext.displayName = "ToastItemContext";
 
-function useToastCloseButton() {
-  const toastStoryContext = useContext(ToastItemContext);
-
-  if (!toastStoryContext) {
-    throw new Error("Trying to consume ToastItemContext outside of its provider");
-  }
-
-  return toastStoryContext;
-}
-
-export {ToastItemContext, useToastCloseButton};
+export {ToastItemContext};

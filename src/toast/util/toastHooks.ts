@@ -1,6 +1,7 @@
-import React, {useCallback} from "react";
+import {useCallback, useContext} from "react";
 
 import {generateRandomString} from "../../core/utils/string/stringUtils";
+import {ToastItemContext} from "../close-button/ToastItemContext";
 import {ToastContext} from "../ToastProvider";
 import {ToastData} from "./toastTypes";
 
@@ -8,7 +9,7 @@ import {ToastData} from "./toastTypes";
  * @returns {Object} Current value of ToastContext
  */
 function useToastContext() {
-  const context = React.useContext(ToastContext);
+  const context = useContext(ToastContext);
 
   if (!context) {
     throw new Error("Trying to consume ToastContext outside of its provider.");
@@ -80,4 +81,14 @@ function useToaster() {
   };
 }
 
-export {useToastContext, useToaster};
+function useToastCloseButton() {
+  const toastStoryContext = useContext(ToastItemContext);
+
+  if (!toastStoryContext) {
+    throw new Error("Trying to consume ToastItemContext outside of its provider");
+  }
+
+  return toastStoryContext;
+}
+
+export {useToastContext, useToaster, useToastCloseButton};

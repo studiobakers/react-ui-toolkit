@@ -1,48 +1,31 @@
 .toast {
-  --toast-danger-text-color: white;
-  --toast-danger-bg: red;
-
-  --toast-warning-text-color: white;
-  --toast-warning-bg: orange;
-
-  --toast-success-text-color: white;
-  --toast-success-bg: yellowgreen;
-
-  --toast-info-text-color: white;
-  --toast-info-bg: darkcyan;
-
-  --toast-height: 20px;
-  --toast-margin-bottom: 10px;
-  --toast-margin-top: 10px;
-  --toast-z-index: 2;
-
-  z-index: var(--toast-z-index);
+  z-index: 2;
   
-  width: var(--toast-width);
-  height: var(--toast-height);
+  width: 300px;
+  height: 20px;
 
   padding: 17px 0;
 
   text-align: center;
 
   &--error {
-    color: var(--toast-danger-text-color);
-    background-color: var(--toast-danger-bg);
+    color: white;
+    background-color: red;
   }
 
   &--warning {
-    color: var(--toast-warning-text-color);
-    background-color: var(--toast-warning-bg);
+    color: white;
+    background-color: orange;
   }
 
   &--success {
-    color: var(--toast-success-text-color);
-    background-color: var(--toast-success-bg);
+    color: white;
+    background-color: yellowgreen;
   }
 
   &--info {
-    color: var(--toast-info-text-color);
-    background-color: var(--toast-info-bg);
+    color: white;
+    background-color: darkcyan;
   }
 }
 

@@ -3,8 +3,7 @@ import "./_toast-close-button.scss";
 import React from "react";
 
 import Button from "../../button/Button";
-import {useToaster} from "../util/toastHooks";
-import {useToastCloseButton} from "./ToastItemContext";
+import {useToastCloseButton, useToaster} from "../util/toastHooks";
 
 interface ToastCloseButtonProps {
   children: React.ReactNode;
