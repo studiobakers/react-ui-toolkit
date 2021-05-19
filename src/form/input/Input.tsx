@@ -78,9 +78,13 @@ function Input(props: InputProps) {
     locale,
     maximumFractionDigits = 0
   } = localizationOptions;
-  const [decimalSeparatorForLocale, setDecimalSeparatorForLocale] = useState(
-    () => getNumberSeparators(locale).DECIMAL_NUMBER_SEPARATOR
-  );
+  const [
+    {
+      DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
+      THOUSANDTHS_SEPARATOR: thousandthSeparatorForLocale
+    },
+    setNumberSeparatorsForLocale
+  ] = useState(() => getNumberSeparators(locale));
   const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     "input--is-disabled": isDisabled,
@@ -105,7 +109,7 @@ function Input(props: InputProps) {
 
       if (decimalPart) {
         formattedDecimalPart = numberFormatter(parseInt(decimalPart)).replace(
-          new RegExp(`[${getNumberSeparators(locale).THOUSANDTHS_SEPARATOR}]`),
+          new RegExp(`[${thousandthSeparatorForLocale}]`),
           ""
         );
       }
@@ -116,7 +120,10 @@ function Input(props: InputProps) {
   }
 
   useEffect(() => {
-    setDecimalSeparatorForLocale(getNumberSeparators(locale).DECIMAL_NUMBER_SEPARATOR);
+    setNumberSeparatorsForLocale({
+      THOUSANDTHS_SEPARATOR: getNumberSeparators(locale).THOUSANDTHS_SEPARATOR,
+      DECIMAL_NUMBER_SEPARATOR: getNumberSeparators(locale).DECIMAL_NUMBER_SEPARATOR
+    });
   }, [locale]);
 
   return (
