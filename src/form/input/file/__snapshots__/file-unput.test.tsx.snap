@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FileInput /> should matches snapshot 1`] = `
+<div
+  className="file-input__container"
+>
+  <input
+    accept="image/png, image/jpeg, .pdf"
+    className="file-input"
+    data-testid="file-input"
+    id="file-input"
+    name="file-input"
+    onChange={[MockFunction]}
+    type="file"
+    value=""
+  />
+  <label
+    className="file-input__label"
+    data-testid="file-input.label"
+    htmlFor="file-input"
+  >
+    Upload File
+  </label>
+</div>
+`;

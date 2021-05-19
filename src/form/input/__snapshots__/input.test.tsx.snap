@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Input /> should matches snapshot 1`] = `
+<div
+  className="input-container"
+  data-testid="input"
+>
+  <input
+    autoComplete="off"
+    autoCorrect="off"
+    className="input"
+    name="input"
+    onChange={[Function]}
+    type="text"
+  />
+</div>
+`;
