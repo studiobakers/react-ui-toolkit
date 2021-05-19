@@ -120,10 +120,7 @@ function Input(props: InputProps) {
   }
 
   useEffect(() => {
-    setNumberSeparatorsForLocale({
-      THOUSANDTHS_SEPARATOR: getNumberSeparators(locale).THOUSANDTHS_SEPARATOR,
-      DECIMAL_NUMBER_SEPARATOR: getNumberSeparators(locale).DECIMAL_NUMBER_SEPARATOR
-    });
+    setNumberSeparatorsForLocale(getNumberSeparators(locale));
   }, [locale]);
 
   return (
