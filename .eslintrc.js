@@ -58,7 +58,6 @@ module.exports = {
     // 👇🏻 `@typescript-eslint` overrides
     "@typescript-eslint/ban-ts-comment": 0,
 
-    // 👇🏻 these will be fixed inside `eslint-config-hipo-base`
     "func-names": 0,
     "id-length": 0,
 
