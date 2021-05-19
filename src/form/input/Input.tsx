@@ -74,7 +74,7 @@ function Input(props: InputProps) {
     ...rest
   } = props;
   const {
-    shouldFormatToLocaleString = true,
+    shouldFormatToLocaleString = false,
     locale,
     maximumFractionDigits = 0
   } = localizationOptions;
@@ -101,7 +101,15 @@ function Input(props: InputProps) {
 
     // IF there is a decimal part or the value ends with ".", make sure we add the decimal separator
     if (String(value).match(/\.$/)?.length || decimalPart) {
-      finalValue = `${integerPart}${decimalSeparatorForLocale}${decimalPart}`;
+      let formattedDecimalPart = decimalPart;
+
+      if (decimalPart) {
+        formattedDecimalPart = numberFormatter(parseInt(decimalPart)).replace(
+          new RegExp(`[${getNumberSeparators(locale).THOUSANDTHS_SEPARATOR}]`),
+          ""
+        );
+      }
+      finalValue = `${integerPart}${decimalSeparatorForLocale}${formattedDecimalPart}`;
     } else if (integerPart) {
       finalValue = integerPart;
     }
