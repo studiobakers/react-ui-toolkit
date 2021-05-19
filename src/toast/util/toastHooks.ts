@@ -1,7 +1,7 @@
 import {useCallback, useContext} from "react";
 
 import {generateRandomString} from "../../core/utils/string/stringUtils";
-import {ToastItemContext} from "../close-button/ToastItemContext";
+import {ToastItemContext} from "../ToastItemContext";
 import {ToastContext} from "../ToastProvider";
 import {ToastData} from "./toastTypes";
 
@@ -81,7 +81,7 @@ function useToaster() {
   };
 }
 
-function useToastCloseButton() {
+function useToastItemContext() {
   const toastStoryContext = useContext(ToastItemContext);
 
   if (!toastStoryContext) {
@@ -91,4 +91,4 @@ function useToastCloseButton() {
   return toastStoryContext;
 }
 
-export {useToastContext, useToaster, useToastCloseButton};
+export {useToastContext, useToaster, useToastItemContext};

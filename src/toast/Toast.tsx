@@ -5,7 +5,7 @@ import {ToastContextState} from "./util/toastTypes";
 import ListItem from "../list/item/ListItem";
 import {DEFAULT_TOAST_TIMEOUT} from "./util/toastConstants";
 import ToastCloseButton from "./close-button/ToastCloseButton";
-import {ToastItemContext} from "./close-button/ToastItemContext";
+import {ToastItemContext} from "./ToastItemContext";
 
 export interface ToastProps {
   testid: string;
