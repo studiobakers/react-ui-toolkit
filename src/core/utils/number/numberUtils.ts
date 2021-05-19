@@ -16,6 +16,7 @@ function formatNumber({providedOptions}: FormatNumberOptions) {
       locale || [navigator.language, "en-GB"],
       options
     );
+    // NumberFormat or navigator is not supported, just use toLocaleString for formatting
   } catch (error) {
     numberFormatter = {
       format(x: number | bigint) {
@@ -89,10 +90,11 @@ function getNumberSeparators(locale = navigator.language) {
 }
 
 function getLocaleNumerals(locale = navigator.language) {
-  const numerals = [
+  const numerals = new Intl.NumberFormat(locale, {useGrouping: false})
     // eslint-disable-next-line no-magic-numbers
-    ...new Intl.NumberFormat(locale, {useGrouping: false}).format(9876543210)
-  ].reverse();
+    .format(9876543210)
+    .split("")
+    .reverse();
 
   return numerals;
 }
