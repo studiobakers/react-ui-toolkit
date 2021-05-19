@@ -74,7 +74,7 @@ function Input(props: InputProps) {
     ...rest
   } = props;
   const {
-    shouldFormatToLocaleString = false,
+    shouldFormatToLocaleString = true,
     locale,
     maximumFractionDigits = 0
   } = localizationOptions;
@@ -96,15 +96,14 @@ function Input(props: InputProps) {
         locale
       }
     });
+    const decimalPart = String(value).split(".")[1] || "";
+    const integerPart = numberFormatter(parseInt(String(value)));
 
-    // Number() parse disappear decimal separator, provides 1234.56 format for numberFormatter
-    if (String(value).match(/\.$/)?.length || String(value).match(/\.0+$/)?.length) {
-      const decimalPart = String(value).split(".")[1] || "";
-      const integerPart = numberFormatter(parseInt(String(value)));
-
+    // IF there is a decimal part or the value ends with ".", make sure we add the decimal separator
+    if (String(value).match(/\.$/)?.length || decimalPart) {
       finalValue = `${integerPart}${decimalSeparatorForLocale}${decimalPart}`;
-    } else {
-      finalValue = numberFormatter(Number(value));
+    } else if (integerPart) {
+      finalValue = integerPart;
     }
   }
 
@@ -147,10 +146,17 @@ function Input(props: InputProps) {
     if (isNumberInput) {
       const {value: newValue} = event.currentTarget;
       const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
+      const isFormattedNewValueNotAValidNumber = Number.isNaN(Number(formattedNewValue));
+      let finalEventValue = formattedNewValue ? String(Number(formattedNewValue)) : "";
 
-      if (formattedNewValue !== newValue) {
-        event.currentTarget.value = formattedNewValue;
+      // IF the parsed number is a valid and there is a decimal separator, we need to save the number as it is so that decimal part doesn't disappear
+      if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
+        finalEventValue = String(formattedNewValue);
+      } else if (isFormattedNewValueNotAValidNumber) {
+        finalEventValue = value as string;
       }
+
+      event.currentTarget.value = finalEventValue;
     }
 
     onChange(event);
