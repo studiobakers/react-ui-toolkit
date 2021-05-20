@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TextArea /> should matches snapshot 1`] = `
+<div
+  className="textarea-container"
+  data-testid="textarea-container"
+>
+  <textarea
+    autoComplete="off"
+    autoCorrect="off"
+    autoFocus={false}
+    className="textarea"
+    data-testid="text-area"
+    name="text-area"
+    onChange={[MockFunction]}
+    onKeyDown={[Function]}
+    onKeyUp={[Function]}
+  />
+</div>
+`;
