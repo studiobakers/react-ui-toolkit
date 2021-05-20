@@ -1,15 +1,13 @@
 import "./_input.scss";
 
-import React from "react";
+import React, {useState, useEffect} from "react";
 import classNames from "classnames";
+
 import {
-  NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX,
-  NOT_NUMBER_NOR_DECIMAL_POINT_REGEX,
-  PRECISION_REGEX,
-  DECIMAL_NUMBER_SEPARATOR,
-  THOUSANDTHS_SEPARATOR,
-  IS_LAST_CHARACTER_DECIMAL_POINT_REGEX
-} from "../../core/utils/number/numberConstants";
+  formatNumber,
+  getNumberSeparators,
+  parseNumber
+} from "../../core/utils/number/numberUtils";
 
 export type InputTypes =
   | "checkbox"
@@ -49,32 +47,81 @@ export type InputProps = Omit<
   customClassName?: string;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
   onChange: React.ReactEventHandler<HTMLInputElement>;
-  maxFractionDigits?: number;
+  localizationOptions?: {
+    shouldFormatToLocaleString?: boolean;
+    locale?: string;
+    maximumFractionDigits?: number;
+  };
 };
 
+/* eslint-disable complexity */
 function Input(props: InputProps) {
   const {
     testid,
+    value,
     type = "text",
     isDisabled,
     hasError,
     customClassName,
     leftIcon,
     rightIcon,
+    localizationOptions = {},
     role,
     autoComplete = "off",
     autoCorrect = "off",
     inputContainerRef,
     onChange,
-    maxFractionDigits = 0,
     ...rest
   } = props;
+  const {
+    shouldFormatToLocaleString = false,
+    locale,
+    maximumFractionDigits = 0
+  } = localizationOptions;
+  const [
+    {
+      DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
+      THOUSANDTHS_SEPARATOR: thousandthSeparatorForLocale
+    },
+    setNumberSeparatorsForLocale
+  ] = useState(() => getNumberSeparators(locale));
   const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     "input--is-disabled": isDisabled,
     "input--has-error": hasError
   });
   const isNumberInput = type === "number";
+  let finalValue = value;
+
+  if (isNumberInput && value && shouldFormatToLocaleString) {
+    const numberFormatter = formatNumber({
+      providedOptions: {
+        maximumFractionDigits,
+        locale
+      }
+    });
+    const decimalPart = String(value).split(".")[1] || "";
+    const integerPart = numberFormatter(parseInt(String(value)));
+
+    // IF there is a decimal part or the value ends with ".", make sure we add the decimal separator
+    if (String(value).match(/\.$/)?.length || decimalPart) {
+      let formattedDecimalPart = decimalPart;
+
+      if (decimalPart) {
+        formattedDecimalPart = numberFormatter(parseInt(decimalPart)).replace(
+          new RegExp(`[${thousandthSeparatorForLocale}]`),
+          ""
+        );
+      }
+      finalValue = `${integerPart}${decimalSeparatorForLocale}${formattedDecimalPart}`;
+    } else if (integerPart) {
+      finalValue = integerPart;
+    }
+  }
+
+  useEffect(() => {
+    setNumberSeparatorsForLocale(getNumberSeparators(locale));
+  }, [locale]);
 
   return (
     <div
@@ -92,6 +139,7 @@ function Input(props: InputProps) {
         className={inputClassName}
         type={isNumberInput ? "text" : type}
         autoComplete={autoComplete}
+        value={finalValue}
         autoCorrect={autoCorrect}
         disabled={isDisabled}
         onChange={handleChange}
@@ -109,36 +157,23 @@ function Input(props: InputProps) {
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
     if (isNumberInput) {
       const {value: newValue} = event.currentTarget;
+      const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
+      const isFormattedNewValueNotAValidNumber = Number.isNaN(Number(formattedNewValue));
+      let finalEventValue = formattedNewValue ? String(Number(formattedNewValue)) : "";
 
-      let formattedNewValue = newValue
-        .replace(NOT_INTEGER_FIRST_CHARACTER_OF_STRING_REGEX, "")
-        .replace(NOT_NUMBER_NOR_DECIMAL_POINT_REGEX, "")
-        .replace(PRECISION_REGEX, "$1");
-
-      if (maxFractionDigits > 0) {
-        const decimalNumberParts = newValue.split(DECIMAL_NUMBER_SEPARATOR);
-        const decimalPart = decimalNumberParts[1];
-        const integerPart = decimalNumberParts[0].replace(THOUSANDTHS_SEPARATOR, "");
-
-        if (decimalPart && decimalPart.length > maxFractionDigits) {
-          const trimmedDecimalPart = decimalPart.slice(0, maxFractionDigits);
-
-          formattedNewValue = `${integerPart}${DECIMAL_NUMBER_SEPARATOR}${trimmedDecimalPart}`;
-        }
-      } else {
-        formattedNewValue = formattedNewValue.replace(
-          IS_LAST_CHARACTER_DECIMAL_POINT_REGEX,
-          ""
-        );
+      // IF the parsed number is a valid and there is a decimal separator, we need to save the number as it is so that decimal part doesn't disappear
+      if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
+        finalEventValue = String(formattedNewValue);
+      } else if (isFormattedNewValueNotAValidNumber) {
+        finalEventValue = value as string;
       }
 
-      if (formattedNewValue !== newValue) {
-        event.currentTarget.value = formattedNewValue;
-      }
+      event.currentTarget.value = finalEventValue;
     }
 
     onChange(event);
   }
 }
+/* eslint-enable complexity */
 
 export default Input;
