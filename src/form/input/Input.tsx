@@ -85,12 +85,13 @@ function Input(props: InputProps) {
     },
     setNumberSeparatorsForLocale
   ] = useState(() => getNumberSeparators(locale));
+  const isNumberInput = type === "number";
   const inputContainerClassName = classNames("input-container", customClassName);
   const inputClassName = classNames("input", {
     "input--is-disabled": isDisabled,
-    "input--has-error": hasError
+    "input--has-error": hasError,
+    "number-input": isNumberInput
   });
-  const isNumberInput = type === "number";
   let finalValue = value;
 
   if (isNumberInput && value && shouldFormatToLocaleString) {
@@ -107,7 +108,7 @@ function Input(props: InputProps) {
     if (String(value).match(/\.$/)?.length || decimalPart) {
       let formattedDecimalPart = decimalPart;
 
-      if (decimalPart) {
+      if (String(decimalPart).match(/\.0+$/)?.length) {
         formattedDecimalPart = numberFormatter(parseInt(decimalPart)).replace(
           new RegExp(`[${thousandthSeparatorForLocale}]`),
           ""
