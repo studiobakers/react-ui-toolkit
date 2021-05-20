@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<TypeaheadInput /> should matches snapshot 1`] = `
+<div
+  className="input-container typeahead-input"
+  data-testid="typeahead-input"
+>
+  <input
+    autoComplete="off"
+    autoCorrect="off"
+    className="input"
+    disabled={false}
+    name="typeahead-input"
+    onChange={[Function]}
+    placeholder="typeahead input"
+    type="text"
+    value=""
+  />
+</div>
+`;

@@ -33,7 +33,7 @@ function List<Item extends any>({
   const listClassName = classNames("list", customClassName);
 
   return (
-    <ul className={listClassName} role={role}>
+    <ul className={listClassName} role={role} data-testid={testid}>
       {items.map((item: Item, index: number) => {
         const listItemTestId = `${testid}.item-${index}`;
         let key = listItemTestId;
