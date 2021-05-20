@@ -9,7 +9,7 @@ const path = require("path");
 
 export default [
   {
-    external: ["react", "classnames"],
+    external: ["react", "react-dom", "classnames", "react-textarea-autosize"],
     input: {
       index: "src/index.ts",
       FormField: "src/form/field/FormField.tsx",
