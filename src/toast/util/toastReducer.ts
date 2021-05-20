@@ -1,7 +1,8 @@
 import {updateAtIndex} from "../../core/utils/array/arrayUtils";
+import {not} from "../../core/utils/function/functionUtils";
 import {initialToastState} from "./toastConstants";
 import {ToastAction} from "./toastTypes";
-import {isDifferentToast, isSameToast} from "./toastUtils";
+import {isSameToast} from "./toastUtils";
 
 type ToastState = typeof initialToastState;
 
@@ -14,7 +15,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
 
       newState = {
         toastStack: [
-          ...state.toastStack.filter(isDifferentToast(toastData.id)),
+          ...state.toastStack.filter(not(isSameToast(toastData.id))),
           toastData
         ]
       };
@@ -23,7 +24,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
 
     case "HIDE": {
       newState = {
-        toastStack: state.toastStack.filter(isDifferentToast(action.toastId))
+        toastStack: state.toastStack.filter(not(isSameToast(action.toastId)))
       };
       break;
     }

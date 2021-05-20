@@ -18,7 +18,7 @@ interface ToastContextProviderProps {
 }
 
 /**
- * <ToastContextProvider> Wraps its children in a context provider
+ * Wraps its children in a context provider
  * these children can then use the useToast hook to show toast messages
  */
 
