@@ -1,16 +1,25 @@
 {
   "name": "@hipo/react-ui-toolkit",
-  "version": "1.0.0-alpha.3.0.2",
+  "version": "1.0.0-alpha.3.1.0",
   "description": "React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
     "dev": "./node_modules/.bin/rollup -c -w",
     "build": "npm run prettier:fix && ./node_modules/.bin/rollup -c",
     "test": "jest",
-    "prettier:fix": "./node_modules/.bin/prettier --config ./.prettierrc.js --write 'src/**/*.{ts,tsx}' 'stories/**/*.{ts,tsx}'",
+    "test:watch": "npm t -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 6006",
     "storybook:build": "./node_modules/.bin/build-storybook",
-    "type-check": "echo \"type-checking...\" && tsc --noEmit"
+    "type-check": "echo \"type-checking...\" && tsc --noEmit",
+    "type-check:watch": "npm run type-check -- --watch",
+    "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
+    "eslint:fix": "./node_modules/.bin/eslint --fix --ext .jsx,.js,.tsx,.ts src/",
+    "stylelint": "./node_modules/.bin/stylelint \"src/**/*.{css,scss}\"",
+    "stylelint:fix": "npm run stylelint -- --fix",
+    "prettify": "./node_modules/.bin/prettier --config ./.prettierrc.js --write \"src/**/*.{ts,tsx}\" \"stories/**/*.{ts,tsx}\"",
+    "lint:fix": "npm run stylelint:fix && npm run eslint:fix",
+    "lint": "npm run stylelint && npm run eslint",
+    "check-package-updates": "npx npm-check-updates"
   },
   "jest": {
     "preset": "ts-jest",
@@ -20,6 +29,19 @@
     "ui",
     "react"
   ],
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run prettify && lint-staged && npm run type-check"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.{ts,tsx}": [
+      "eslint"
+    ],
+    "src/**/*.scss": [
+      "stylelint"
+    ]
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -27,29 +49,32 @@
     "@babel/plugin-proposal-nullish-coalescing-operator": "7.10.1",
     "@babel/plugin-proposal-optional-chaining": "7.10.1",
     "@babel/preset-typescript": "7.10.1",
-    "@hipo/eslint-config-base": "2.1.4",
-    "@hipo/eslint-config-react": "1.0.4",
-    "@hipo/stylelint-config-base": "1.0.0",
+    "@hipo/eslint-config-base": "4.1.1",
+    "@hipo/eslint-config-react": "2.1.0",
+    "@hipo/eslint-config-typescript": "1.0.1",
+    "@hipo/stylelint-config-base": "2.2.0",
     "@storybook/addon-actions": "5.3.19",
     "@storybook/addon-links": "5.3.19",
     "@storybook/addons": "5.3.19",
     "@storybook/react": "5.3.19",
-    "@types/classnames": "2.2.10",
-    "@types/jest": "26.0.0",
-    "@types/react": "16.9.36",
-    "@types/react-dom": "16.9.8",
-    "@types/react-test-renderer": "16.9.2",
-    "@typescript-eslint/eslint-plugin": "3.2.0",
-    "@typescript-eslint/parser": "3.2.0",
+    "@types/classnames": "2.3.0",
+    "@types/jest": "26.0.23",
+    "@types/react": "17.0.5",
+    "@types/react-dom": "17.0.4",
+    "@types/react-test-renderer": "17.0.1",
+    "@typescript-eslint/eslint-plugin": "4.23.0",
+    "@typescript-eslint/parser": "4.23.0",
     "babel-loader": "8.1.0",
-    "css-loader": "3.5.3",
-    "eslint": "7.2.0",
-    "eslint-config-prettier": "6.11.0",
-    "eslint-plugin-jsx-a11y": "6.2.3",
-    "eslint-plugin-react": "7.20.0",
-    "eslint-plugin-react-hooks": "4.0.4",
+    "css-loader": "5.2.4",
+    "eslint": "7.26.0",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-react": "7.23.2",
+    "eslint-plugin-react-hooks": "4.2.0",
     "fork-ts-checker-webpack-plugin": "4.1.6",
-    "jest": "26.0.1",
+    "husky": "4.2.5",
+    "jest": "26.4.2",
+    "lint-staged": "10.2.13",
     "node-sass": "4.14.1",
     "prettier": "2.0.5",
     "react-docgen-typescript-loader": "3.7.2",
@@ -64,15 +89,15 @@
     "rollup-plugin-typescript2": "0.27.1",
     "sass-loader": "8.0.2",
     "style-loader": "1.2.1",
-    "stylelint": "13.6.0",
+    "stylelint": "13.12.0",
     "stylelint-order": "4.1.0",
-    "stylelint-scss": "3.17.2",
+    "stylelint-scss": "3.19.0",
     "ts-jest": "26.1.0",
     "ts-loader": "7.0.5",
     "typescript": "3.9.5"
   },
   "dependencies": {
-    "classnames": "2.2.6",
+    "classnames": "2.3.1",
     "react-textarea-autosize": "8.3.2"
   },
   "peerDependencies": {
