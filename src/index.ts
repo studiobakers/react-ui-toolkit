@@ -53,6 +53,9 @@ import ProgressBar, {
   ProgressBarProps as ProgressBarComponentProps
 } from "./progress-bar/ProgressBar";
 import {CountdownProps as CountdownComponentProps} from "../src/countdown/util/countdownTypes";
+import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
+import {useToastContext, useToaster} from "./toast/util/toastHooks";
+import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
 
 export {
   // Components
@@ -78,8 +81,14 @@ export {
   Textarea,
   Toggle,
   Switch,
+  Toast,
   // Hooks
-  useCountDownTimer
+  useToastContext,
+  useToaster,
+  useCountDownTimer,
+  // Contexts
+  ToastContext,
+  ToastContextProvider
 };
 
 // Types
@@ -121,3 +130,4 @@ export type TextareaProps = TextareaComponentProps;
 export type ToggleProps = ToggleComponentProps;
 export type SwitchProps = SwitchComponentProps;
 export type CountdownProps = CountdownComponentProps;
+export type ToastProps = ToastComponentProps;

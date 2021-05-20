@@ -1,0 +1,53 @@
+.toast {
+  z-index: 2;
+  
+  width: 300px;
+  height: 20px;
+
+  padding: 17px 0;
+
+  text-align: center;
+
+  &--error {
+    color: white;
+    background-color: red;
+  }
+
+  &--warning {
+    color: white;
+    background-color: orange;
+  }
+
+  &--success {
+    color: white;
+    background-color: yellowgreen;
+  }
+
+  &--info {
+    color: white;
+    background-color: darkcyan;
+  }
+}
+
+.toast-button-group {
+  display: flex;
+  justify-content: space-between;
+
+  width: 400px;
+}
+
+.toast-close-button {
+  position: relative;
+  bottom: 16px;
+  
+  &.button {
+    width: 36px;
+
+    background-color: transparent;
+  }
+}
+
+.toast-content {
+  position: relative;
+  bottom: 34px;
+}

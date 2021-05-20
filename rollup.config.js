@@ -27,6 +27,7 @@ export default [
       Button: "src/button/Button.tsx",
       FileUploadButton: "src/button/file-upload/FileUploadButton.tsx",
       Spinner: "src/spinner/Spinner.tsx",
+      Toast: "src/toast/Toast.tsx",
       Textarea: "src/form/textarea/Textarea.tsx",
       Toggle: "src/toggle/Toggle.tsx",
       Switch: "src/switch/Switch.tsx",
