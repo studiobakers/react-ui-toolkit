@@ -8,7 +8,7 @@ export interface TypeaheadInputProps {
   onQueryChange: (value: string) => void;
   name: string;
   placeholder: string;
-  type?: InputTypes;
+  type?: Extract<InputTypes, "text" | "number">;
   value?: string;
   testid?: string;
   customClassName?: string;
