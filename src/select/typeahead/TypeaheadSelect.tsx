@@ -23,8 +23,11 @@ export interface TypeaheadSelectProps {
   selectedOptions: DropdownOption[];
   dropdownOptions: DropdownOption[];
   onSelect: (option: DropdownOption) => void;
+  typeaheadProps: Pick<
+    TypeaheadInputProps,
+    "id" | "placeholder" | "name" | "onFocus" | "type"
+  >;
   testid?: string;
-  typeaheadProps: Pick<TypeaheadInputProps, "id" | "placeholder" | "name" | "onFocus">;
   onKeywordChange?: (value: string) => void;
   initialKeyword?: string;
   controlledKeyword?: string;
@@ -135,6 +138,7 @@ function TypeaheadSelect({
           inputContainerRef={typeaheadInputRef}
           id={typeaheadProps.id}
           name={typeaheadProps.name}
+          type={typeaheadProps.type}
           placeholder={typeaheadProps.placeholder}
           value={inputValue}
           onQueryChange={handleKeywordChange}
