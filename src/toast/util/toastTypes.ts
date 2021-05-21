@@ -21,4 +21,5 @@ export type ToastAction =
 
 export interface ToastContextState {
   toastStack: (Omit<ToastData, "id"> & {id: string})[];
+  autoCloseToasts: boolean;
 }

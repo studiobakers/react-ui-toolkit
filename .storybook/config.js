@@ -7,10 +7,5 @@ const req = require.context("../stories", true, /\.stories\.tsx$/);
 function loadStories() {
   req.keys().forEach(req);
 }
- 
-const ToastDecorator = storyFn => (
-  <ToastContextProvider>{storyFn()}</ToastContextProvider>
-)
 
 configure(loadStories, module);
-addDecorator(ToastDecorator);

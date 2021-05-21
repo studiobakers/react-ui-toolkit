@@ -7,12 +7,31 @@ import Button from "../src/button/Button";
 import {useToaster} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
 import Toast from "../src/toast/Toast";
+import {ToastContextProvider} from "../src/toast/ToastProvider";
 
 function ToastComponent() {
+  return (
+    <StoryFragment>
+      <p>{"ToastProvider with default props"}</p>
+
+      <ToastContextProvider>
+        <ToastExamples />
+      </ToastContextProvider>
+
+      <p>{"ToastProvider with autoCloseToasts={false}"}</p>
+
+      <ToastContextProvider autoCloseToasts={false}>
+        <ToastExamples />
+      </ToastContextProvider>
+    </StoryFragment>
+  );
+}
+
+function ToastExamples() {
   const {display, update, hideAll} = useToaster();
 
   return (
-    <StoryFragment>
+    <div>
       <div className={"toast-button-group"}>
         <Button
           type={"button"}
@@ -150,7 +169,7 @@ function ToastComponent() {
           {"Toast with Close Button"}
         </Button>
       </div>
-    </StoryFragment>
+    </div>
   );
 }
 
