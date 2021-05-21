@@ -80,6 +80,22 @@ function getDigit(digitMap: Map<string, number>) {
   };
 }
 
+function mapDigitsToLocalVersion(
+  {locale = navigator.language}: {locale?: string},
+  digits: string
+) {
+  return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
+}
+
+function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {
+  const numerals = getLocaleNumerals(locale);
+  const digitMap = new Map(numerals.map((d, i) => [i, d]));
+
+  return (digit: string) => {
+    return digitMap.get(parseInt(digit));
+  };
+}
+
 function getNumberSeparators(locale = navigator.language) {
   // eslint-disable-next-line no-magic-numbers
   const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
@@ -99,4 +115,10 @@ function getLocaleNumerals(locale = navigator.language) {
   return numerals;
 }
 
-export {formatNumber, parseNumber, getDigit, getNumberSeparators};
+export {
+  formatNumber,
+  parseNumber,
+  getDigit,
+  getNumberSeparators,
+  mapDigitsToLocalVersion
+};
