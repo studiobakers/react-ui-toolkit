@@ -4,7 +4,6 @@ import React, {useState, useEffect} from "react";
 import classNames from "classnames";
 
 import {
-  formatNumber,
   getNumberSeparators,
   parseNumber,
   mapDigitsToLocalVersion
@@ -92,26 +91,29 @@ function Input(props: InputProps) {
   });
   let finalValue = value;
 
+  if (
+    !(
+      typeof maximumFractionDigits === "number" &&
+      Number.isInteger(maximumFractionDigits) &&
+      maximumFractionDigits >= 0
+    )
+  ) {
+    throw new Error("maximumFractionDigits should be zero or a positive integer.");
+  }
+
   if (isNumberInput && typeof value === "string" && shouldFormatToLocaleString) {
-    const numberFormatter = formatNumber({
-      providedOptions: {
-        maximumFractionDigits,
-        locale
-      }
-    });
-    const decimalPart = value.split(".")[1] || "";
-    const integerPart = numberFormatter(parseInt(value));
+    const [integerPart, decimalPart] = String(value).split(".");
 
     // IF there is a decimal part or the value ends with ".",
     // make sure we add the decimal separator and map each digit on the decimal part to localized versions.
     // We shouldn't use parseInt or parseFloat with numberFormat util here because that removes zeros on the decimal part and disallows users to write something like: 10.01 or 10.102
     if (value.match(/\.$/)?.length || decimalPart) {
-      finalValue = `${integerPart}${decimalSeparatorForLocale}${mapDigitsToLocalVersion(
+      finalValue = `${mapDigitsToLocalVersion(
         {locale},
-        decimalPart
-      )}`;
+        integerPart
+      )}${decimalSeparatorForLocale}${mapDigitsToLocalVersion({locale}, decimalPart)}`;
     } else if (integerPart) {
-      finalValue = integerPart;
+      finalValue = mapDigitsToLocalVersion({locale}, integerPart);
     }
   }
 
@@ -153,18 +155,23 @@ function Input(props: InputProps) {
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
     if (isNumberInput) {
       const {value: newValue} = event.currentTarget;
-      const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
-      const isFormattedNewValueNotAValidNumber = Number.isNaN(Number(formattedNewValue));
-      let finalEventValue = formattedNewValue ? String(Number(formattedNewValue)) : "";
 
-      // IF the parsed number is a valid and there is a decimal separator, we need to save the number as it is so that decimal part doesn't disappear
-      if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
-        finalEventValue = String(formattedNewValue);
-      } else if (isFormattedNewValueNotAValidNumber) {
-        finalEventValue = value as string;
+      if (newValue) {
+        const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
+        const isFormattedNewValueNotAValidNumber = Number.isNaN(
+          Number(formattedNewValue)
+        );
+        let finalEventValue = formattedNewValue ? String(formattedNewValue) : "";
+
+        // IF the parsed number is a valid and there is a decimal separator, we need to save the number as it is so that decimal part doesn't disappear
+        if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
+          finalEventValue = String(formattedNewValue);
+        } else if (isFormattedNewValueNotAValidNumber) {
+          finalEventValue = value as string;
+        }
+
+        event.currentTarget.value = finalEventValue;
       }
-
-      event.currentTarget.value = finalEventValue;
     }
 
     onChange(event);
