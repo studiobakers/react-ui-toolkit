@@ -1,6 +1,6 @@
 import React, {useLayoutEffect} from "react";
 
-import {useToaster} from "./util/toastHooks";
+import {useToaster, useToastContext} from "./util/toastHooks";
 import {ToastContextState} from "./util/toastTypes";
 import ListItem from "../list/item/ListItem";
 import {DEFAULT_TOAST_TIMEOUT} from "./util/toastConstants";
@@ -13,14 +13,11 @@ export interface ToastProps {
 }
 
 function Toast({testid, data}: ToastProps) {
+  const [contextState] = useToastContext();
   const {hide} = useToaster();
-  const {
-    autoClose = true,
-    timeout = DEFAULT_TOAST_TIMEOUT,
-    render,
-    customClassName,
-    id: toastId
-  } = data;
+  const {timeout = DEFAULT_TOAST_TIMEOUT, render, customClassName, id: toastId} = data;
+  const autoClose =
+    typeof data.autoClose === "boolean" ? data.autoClose : contextState.autoCloseToasts;
 
   useLayoutEffect(() => {
     let timeoutId: NodeJS.Timeout;
@@ -32,7 +29,9 @@ function Toast({testid, data}: ToastProps) {
     }
 
     return () => {
-      clearTimeout(timeoutId);
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
     };
   }, [autoClose, timeout, hide, toastId]);
 

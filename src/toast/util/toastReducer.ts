@@ -14,6 +14,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
       const {toastData} = action;
 
       newState = {
+        ...state,
         toastStack: [
           ...state.toastStack.filter(not(isSameToast(toastData.id))),
           toastData
@@ -24,6 +25,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
 
     case "HIDE": {
       newState = {
+        ...state,
         toastStack: state.toastStack.filter(not(isSameToast(action.toastId)))
       };
       break;
@@ -31,6 +33,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
 
     case "HIDE_ALL": {
       newState = {
+        ...state,
         toastStack: []
       };
       break;
@@ -41,6 +44,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
 
       if (currentIndex > -1) {
         newState = {
+          ...state,
           toastStack: updateAtIndex(state.toastStack, currentIndex, {
             ...state.toastStack[currentIndex],
             ...action.toastData

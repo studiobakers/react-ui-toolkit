@@ -15,6 +15,7 @@ ToastContext.displayName = "ToastContext";
 interface ToastContextProviderProps {
   children: React.ReactNode;
   customRootId?: string;
+  autoCloseToasts?: boolean;
 }
 
 /**
@@ -22,8 +23,15 @@ interface ToastContextProviderProps {
  * these children can then use the useToast hook to show toast messages
  */
 
-function ToastContextProvider({children, customRootId}: ToastContextProviderProps) {
-  const [state, dispatch] = useReducer(toastReducer, initialToastState);
+function ToastContextProvider({
+  children,
+  customRootId,
+  autoCloseToasts = true
+}: ToastContextProviderProps) {
+  const [state, dispatch] = useReducer(toastReducer, {
+    ...initialToastState,
+    autoCloseToasts
+  });
 
   return (
     <ToastContext.Provider value={[state, dispatch]}>
