@@ -83,9 +83,11 @@ function Input(props: InputProps) {
     setNumberSeparatorsForLocale
   ] = useState(() => getNumberSeparators(locale));
   const isNumberInput = type === "number";
-  const inputContainerClassName = classNames("input-container", customClassName, {
-    "input-container--type-number": isNumberInput
-  });
+  const inputContainerClassName = classNames(
+    "input-container",
+    customClassName,
+    `input-container--type-${type}`
+  );
   const inputClassName = classNames("input", {
     "input--is-disabled": isDisabled,
     "input--has-error": hasError
