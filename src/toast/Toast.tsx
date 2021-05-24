@@ -1,4 +1,5 @@
 import React, {useLayoutEffect} from "react";
+import classNames from "classnames";
 
 import {useToaster, useToastContext} from "./util/toastHooks";
 import {ToastContextState} from "./util/toastTypes";
@@ -37,7 +38,7 @@ function Toast({testid, data}: ToastProps) {
 
   return (
     <ToastItemContext.Provider value={{toastId}}>
-      <ListItem testid={testid} customClassName={customClassName}>
+      <ListItem testid={testid} customClassName={classNames("toast", customClassName)}>
         {render()}
       </ListItem>
     </ToastItemContext.Provider>
