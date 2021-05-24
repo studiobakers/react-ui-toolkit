@@ -1,40 +1,4 @@
-import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
-
-function formatNumber({providedOptions}: FormatNumberOptions) {
-  const {locale, ...otherOptions} = providedOptions;
-  const options = {
-    style: "decimal",
-    ...otherOptions
-  };
-
-  let numberFormatter: {
-    format: (x: number | bigint) => string;
-  };
-
-  try {
-    numberFormatter = new Intl.NumberFormat(
-      locale || [navigator.language, "en-GB"],
-      options
-    );
-    // NumberFormat or navigator is not supported, just use toLocaleString for formatting
-  } catch (error) {
-    numberFormatter = {
-      format(x: number | bigint) {
-        return x.toLocaleString(locale);
-      }
-    };
-  }
-
-  return (value: number) => {
-    let formattedValue = "";
-
-    if (!Object.is(value, NaN)) {
-      formattedValue = numberFormatter.format(value);
-    }
-
-    return formattedValue;
-  };
-}
+import {ParseNumberOptions} from "./numberTypes";
 
 /**
  * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
@@ -59,14 +23,16 @@ function parseNumber(
     .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
 
-  if (options.maximumFractionDigits > 0) {
-    const decimalPart = parsedNumber.split(".")[1];
+  if (typeof options.maximumFractionDigits === "number") {
+    const [integerPart, decimalPart] = parsedNumber.split(".");
 
-    if (decimalPart && decimalPart.length === options.maximumFractionDigits + 1) {
+    if (options.maximumFractionDigits === 0) {
+      parsedNumber = integerPart;
+    } else if (decimalPart && decimalPart.length === options.maximumFractionDigits + 1) {
       return parsedNumber.slice(0, parsedNumber.length - 1);
     }
   } else {
-    parsedNumber = String(parseInt(parsedNumber));
+    parsedNumber = String(parsedNumber);
   }
 
   return parsedNumber;
@@ -78,6 +44,20 @@ function getDigit(digitMap: Map<string, number>) {
 
     return typeof digit === "number" ? String(digit) : "";
   };
+}
+
+function mapDigitsToLocalVersion(
+  {locale = navigator.language}: {locale?: string},
+  digits: string
+) {
+  return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
+}
+
+function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {
+  const numerals = getLocaleNumerals(locale);
+  const digitMap = new Map(numerals.map((d, i) => [i, d]));
+
+  return (digit: string) => digitMap.get(parseInt(digit));
 }
 
 function getNumberSeparators(locale = navigator.language) {
@@ -99,4 +79,4 @@ function getLocaleNumerals(locale = navigator.language) {
   return numerals;
 }
 
-export {formatNumber, parseNumber, getDigit, getNumberSeparators};
+export {parseNumber, getDigit, getNumberSeparators, mapDigitsToLocalVersion};
