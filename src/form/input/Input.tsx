@@ -6,7 +6,8 @@ import classNames from "classnames";
 import {
   getNumberSeparators,
   parseNumber,
-  mapDigitsToLocalVersion
+  mapDigitsToLocalVersion,
+  formatNumber
 } from "../../core/utils/number/numberUtils";
 
 export type InputTypes =
@@ -106,17 +107,22 @@ function Input(props: InputProps) {
 
   if (isNumberInput && typeof value === "string" && shouldFormatToLocaleString) {
     const [integerPart, decimalPart] = String(value).split(".");
+    const numberFormatter = formatNumber({
+      providedOptions: {
+        maximumFractionDigits,
+        locale
+      }
+    });
 
     // IF there is a decimal part or the value ends with ".",
     // make sure we add the decimal separator and map each digit on the decimal part to localized versions.
     // We shouldn't use parseInt or parseFloat with numberFormat util here because that removes zeros on the decimal part and disallows users to write something like: 10.01 or 10.102
     if (value.match(/\.$/)?.length || decimalPart) {
-      finalValue = `${mapDigitsToLocalVersion(
-        {locale},
-        integerPart
+      finalValue = `${numberFormatter(
+        parseInt(integerPart)
       )}${decimalSeparatorForLocale}${mapDigitsToLocalVersion({locale}, decimalPart)}`;
     } else if (integerPart) {
-      finalValue = mapDigitsToLocalVersion({locale}, integerPart);
+      finalValue = numberFormatter(parseInt(integerPart));
     }
   }
 
@@ -166,7 +172,8 @@ function Input(props: InputProps) {
         );
         let finalEventValue = formattedNewValue ? String(formattedNewValue) : "";
 
-        // IF the parsed number is a valid and there is a decimal separator, we need to save the number as it is so that decimal part doesn't disappear
+        // IF the parsed number is a valid and there is a decimal separator,
+        // we need to save the number as it is so that decimal part doesn't disappear
         if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
           finalEventValue = String(formattedNewValue);
         } else if (isFormattedNewValueNotAValidNumber) {

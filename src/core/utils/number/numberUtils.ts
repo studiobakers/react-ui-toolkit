@@ -1,4 +1,39 @@
-import {ParseNumberOptions} from "./numberTypes";
+import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
+
+function formatNumber({providedOptions}: FormatNumberOptions) {
+  const {locale, ...otherOptions} = providedOptions;
+  const options = {
+    style: "decimal",
+    ...otherOptions
+  };
+
+  let numberFormatter: {
+    format: (x: number | bigint) => string;
+  };
+
+  try {
+    numberFormatter = new Intl.NumberFormat(
+      locale || [navigator.language, "en-GB"],
+      options
+    );
+  } catch (error) {
+    numberFormatter = {
+      format(x: number | bigint) {
+        return x.toLocaleString(locale);
+      }
+    };
+  }
+
+  return (value: number) => {
+    let formattedValue = "";
+
+    if (!Object.is(value, NaN)) {
+      formattedValue = numberFormatter.format(value);
+    }
+
+    return formattedValue;
+  };
+}
 
 /**
  * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
@@ -19,6 +54,7 @@ function parseNumber(
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
   const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
   let parsedNumber = value
+    .replace(" ", "")
     .replace(new RegExp(`[${THOUSANDTHS_SEPARATOR}]`, "g"), "")
     .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
@@ -79,4 +115,10 @@ function getLocaleNumerals(locale = navigator.language) {
   return numerals;
 }
 
-export {parseNumber, getDigit, getNumberSeparators, mapDigitsToLocalVersion};
+export {
+  formatNumber,
+  parseNumber,
+  getDigit,
+  getNumberSeparators,
+  mapDigitsToLocalVersion
+};
