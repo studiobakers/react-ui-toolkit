@@ -7,7 +7,8 @@ import {
   getNumberSeparators,
   parseNumber,
   mapDigitsToLocalVersion,
-  formatNumber
+  formatNumber,
+  removeLeadingZeros
 } from "../../core/utils/number/numberUtils";
 
 export type InputTypes =
@@ -167,9 +168,9 @@ function Input(props: InputProps) {
 
       if (newValue) {
         const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
-        const isFormattedNewValueNotAValidNumber = Number.isNaN(
-          Number(formattedNewValue)
-        );
+        // Number("-") returns NaN. Should allow minus sign as first character.
+        const isFormattedNewValueNotAValidNumber =
+          newValue !== "-" && Number.isNaN(Number(formattedNewValue));
         let finalEventValue = formattedNewValue ? String(formattedNewValue) : "";
 
         // IF the parsed number is a valid and there is a decimal separator,
@@ -178,6 +179,12 @@ function Input(props: InputProps) {
           finalEventValue = String(formattedNewValue);
         } else if (isFormattedNewValueNotAValidNumber) {
           finalEventValue = value as string;
+        }
+
+        // IF there is shouldFormatToLocaleString or maximumFractionDigits props,
+        // value can't have leading zeros. Like 0,000,123 or 010.50
+        if (shouldFormatToLocaleString || maximumFractionDigits > 0) {
+          finalEventValue = removeLeadingZeros(finalEventValue);
         }
 
         event.currentTarget.value = finalEventValue;

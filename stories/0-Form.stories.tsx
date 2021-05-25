@@ -209,7 +209,7 @@ storiesOf("Form", module)
       <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"ID or Passport Number – maxFractionDigits={0}"}>
+            <FormField label={"ID or Passport Number – maxFractionDigits={0} - Can have leading zeros"}>
               <Input
                 name={"id-number"}
                 type={"number"}

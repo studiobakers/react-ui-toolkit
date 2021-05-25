@@ -115,10 +115,29 @@ function getLocaleNumerals(locale = navigator.language) {
   return numerals;
 }
 
+function removeLeadingZeros(value: string) {
+  const decimalPart = value.split(".")[1];
+  let integerPart = value.split(".")[0];
+  let finalValue;
+
+  if (integerPart.length !== String(parseInt(integerPart)).length) {
+    integerPart = String(parseInt(integerPart));
+  }
+
+  if (value.match(/\.$/)?.length || decimalPart) {
+    finalValue = `${integerPart}.${decimalPart}`;
+  } else {
+    finalValue = integerPart;
+  }
+
+  return finalValue;
+}
+
 export {
   formatNumber,
   parseNumber,
   getDigit,
   getNumberSeparators,
-  mapDigitsToLocalVersion
+  mapDigitsToLocalVersion,
+  removeLeadingZeros
 };
