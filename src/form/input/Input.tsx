@@ -8,7 +8,8 @@ import {
   parseNumber,
   mapDigitsToLocalVersion,
   formatNumber,
-  removeLeadingZeros
+  removeLeadingZeros,
+  getNegativeZero
 } from "../../core/utils/number/numberUtils";
 
 export type InputTypes =
@@ -107,6 +108,7 @@ function Input(props: InputProps) {
   }
 
   if (isNumberInput && typeof value === "string" && shouldFormatToLocaleString) {
+    const {MINUS_SIGN} = getNumberSeparators(locale);
     const [integerPart, decimalPart] = String(value).split(".");
     const numberFormatter = formatNumber({
       providedOptions: {
@@ -123,7 +125,13 @@ function Input(props: InputProps) {
         parseInt(integerPart)
       )}${decimalSeparatorForLocale}${mapDigitsToLocalVersion({locale}, decimalPart)}`;
     } else if (integerPart) {
-      finalValue = numberFormatter(parseInt(integerPart));
+      const {LOCALE_NEGATIVE_ZERO} = getNegativeZero(locale);
+
+      if (integerPart !== MINUS_SIGN && integerPart !== LOCALE_NEGATIVE_ZERO) {
+        finalValue = numberFormatter(parseInt(integerPart));
+      } else {
+        finalValue = `${MINUS_SIGN}${mapDigitsToLocalVersion({locale}, integerPart)}`;
+      }
     }
   }
 
@@ -170,7 +178,8 @@ function Input(props: InputProps) {
         const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
         // Number("-") returns NaN. Should allow minus sign as first character.
         const isFormattedNewValueNotAValidNumber =
-          newValue !== "-" && Number.isNaN(Number(formattedNewValue));
+          (newValue !== "-" && Number.isNaN(Number(formattedNewValue))) ||
+          formattedNewValue === "";
         let finalEventValue = formattedNewValue ? String(formattedNewValue) : "";
 
         // IF the parsed number is a valid and there is a decimal separator,
@@ -178,13 +187,23 @@ function Input(props: InputProps) {
         if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
           finalEventValue = String(formattedNewValue);
         } else if (isFormattedNewValueNotAValidNumber) {
-          finalEventValue = value as string;
+          finalEventValue = value as string | "";
         }
 
-        // IF there is shouldFormatToLocaleString or maximumFractionDigits props,
-        // value can't have leading zeros. Like 0,000,123 or 010.50
-        if (shouldFormatToLocaleString || maximumFractionDigits > 0) {
-          finalEventValue = removeLeadingZeros(finalEventValue);
+        // IF there is one of shouldFormatToLocaleString maximumFractionDigits props or the value is negative,
+        // value can't have leading zeros. Like 0,000,123 or 010.50 or -00
+        if (
+          !isFormattedNewValueNotAValidNumber &&
+          (shouldFormatToLocaleString ||
+            maximumFractionDigits > 0 ||
+            finalEventValue.includes("-"))
+        ) {
+          finalEventValue = removeLeadingZeros(locale, finalEventValue);
+        }
+
+        // IF input have not maximumFractionDigits prop, value can not be negative zero
+        if (maximumFractionDigits === 0 && finalEventValue === "-0") {
+          finalEventValue = value as string;
         }
 
         event.currentTarget.value = finalEventValue;

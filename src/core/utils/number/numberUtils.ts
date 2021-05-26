@@ -98,11 +98,12 @@ function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}
 
 function getNumberSeparators(locale = navigator.language) {
   // eslint-disable-next-line no-magic-numbers
-  const parts = new Intl.NumberFormat(locale).formatToParts(12345.6);
+  const parts = new Intl.NumberFormat(locale).formatToParts(-12345.6);
   const THOUSANDTHS_SEPARATOR = parts.find((d) => d.type === "group")!.value;
   const DECIMAL_NUMBER_SEPARATOR = parts.find((d) => d.type === "decimal")!.value;
+  const MINUS_SIGN = parts.find((d) => d.type === "minusSign")!.value;
 
-  return {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR};
+  return {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR, MINUS_SIGN};
 }
 
 function getLocaleNumerals(locale = navigator.language) {
@@ -115,12 +116,46 @@ function getLocaleNumerals(locale = navigator.language) {
   return numerals;
 }
 
-function removeLeadingZeros(value: string) {
+// Locale and keyboard languange may not be the same setting. Should check with both of these.
+function getNegativeZero(locale = navigator.language) {
+  const LOCALE_ZERO = getLocaleNumerals(locale)[0];
+  const LOCALE_MINUS_SIGN = getNumberSeparators(locale).MINUS_SIGN;
+
+  return {
+    LOCALE_NEGATIVE_ZERO: `${LOCALE_MINUS_SIGN}${LOCALE_ZERO}`,
+    LOCALE_NEGATIVE_DOUBLE_ZERO: `${LOCALE_MINUS_SIGN}${LOCALE_ZERO}${LOCALE_ZERO}`,
+    DEFAULT_NEGATIVE_ZERO: "-0",
+    DEFAULT_NEGATIVE_DOUBLE_ZERO: "-00"
+  };
+}
+
+function removeLeadingZeros(locale = navigator.language, value: string) {
+  const {
+    LOCALE_NEGATIVE_ZERO,
+    LOCALE_NEGATIVE_DOUBLE_ZERO,
+    DEFAULT_NEGATIVE_ZERO,
+    DEFAULT_NEGATIVE_DOUBLE_ZERO
+  } = getNegativeZero(locale);
+  const LOCALE_MINUS_SIGN = getNumberSeparators(locale).MINUS_SIGN;
   const decimalPart = value.split(".")[1];
   let integerPart = value.split(".")[0];
   let finalValue;
 
-  if (integerPart.length !== String(parseInt(integerPart)).length) {
+  // -00 is not a valid number but -0 can have decimal numbers like -0.25
+  if (
+    integerPart === LOCALE_NEGATIVE_DOUBLE_ZERO ||
+    integerPart === DEFAULT_NEGATIVE_DOUBLE_ZERO
+  ) {
+    integerPart = DEFAULT_NEGATIVE_ZERO;
+  }
+
+  // parseInt returns absolute value for minus sign, 0, -0
+  if (
+    integerPart.length !== String(parseInt(integerPart)).length &&
+    integerPart !== LOCALE_MINUS_SIGN &&
+    integerPart !== LOCALE_NEGATIVE_ZERO &&
+    integerPart !== DEFAULT_NEGATIVE_ZERO
+  ) {
     integerPart = String(parseInt(integerPart));
   }
 
@@ -138,6 +173,7 @@ export {
   parseNumber,
   getDigit,
   getNumberSeparators,
+  getNegativeZero,
   mapDigitsToLocalVersion,
   removeLeadingZeros
 };
