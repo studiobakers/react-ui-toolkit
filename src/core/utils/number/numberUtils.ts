@@ -1,7 +1,7 @@
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
-function formatNumber({providedOptions}: FormatNumberOptions) {
-  const {locale, ...otherOptions} = providedOptions;
+function formatNumber(formatNumberOptions: FormatNumberOptions) {
+  const {locale, ...otherOptions} = formatNumberOptions;
   const options = {
     style: "decimal",
     ...otherOptions
@@ -116,7 +116,9 @@ function getLocaleNumerals(locale = navigator.language) {
   return numerals;
 }
 
-// Locale and keyboard languange may not be the same setting. Should check with both of these.
+/**
+ * @returns Scientific and locale presentations of "-0" and "-00" values
+ */
 function getNegativeZero(locale = navigator.language) {
   const LOCALE_ZERO = getLocaleNumerals(locale)[0];
   const LOCALE_MINUS_SIGN = getNumberSeparators(locale).MINUS_SIGN;

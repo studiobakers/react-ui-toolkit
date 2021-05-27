@@ -82,9 +82,13 @@ function Input(props: InputProps) {
     maximumFractionDigits = 0
   } = localizationOptions;
   const [
-    {DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale},
+    {DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale, MINUS_SIGN: minusSignForLocale},
     setNumberSeparatorsForLocale
   ] = useState(() => getNumberSeparators(locale));
+  const [
+    {LOCALE_NEGATIVE_ZERO: negativeZeroForLocale},
+    setNegativeZeroForLocale
+  ] = useState(() => getNegativeZero(locale));
   const isNumberInput = type === "number";
   const inputContainerClassName = classNames(
     "input-container",
@@ -108,13 +112,10 @@ function Input(props: InputProps) {
   }
 
   if (isNumberInput && typeof value === "string" && shouldFormatToLocaleString) {
-    const {MINUS_SIGN} = getNumberSeparators(locale);
     const [integerPart, decimalPart] = String(value).split(".");
     const numberFormatter = formatNumber({
-      providedOptions: {
-        maximumFractionDigits,
-        locale
-      }
+      maximumFractionDigits,
+      locale
     });
 
     // IF there is a decimal part or the value ends with ".",
@@ -125,18 +126,20 @@ function Input(props: InputProps) {
         parseInt(integerPart)
       )}${decimalSeparatorForLocale}${mapDigitsToLocalVersion({locale}, decimalPart)}`;
     } else if (integerPart) {
-      const {LOCALE_NEGATIVE_ZERO} = getNegativeZero(locale);
-
-      if (integerPart !== MINUS_SIGN && integerPart !== LOCALE_NEGATIVE_ZERO) {
+      if (integerPart !== minusSignForLocale && integerPart !== negativeZeroForLocale) {
         finalValue = numberFormatter(parseInt(integerPart));
       } else {
-        finalValue = `${MINUS_SIGN}${mapDigitsToLocalVersion({locale}, integerPart)}`;
+        finalValue = `${minusSignForLocale}${mapDigitsToLocalVersion(
+          {locale},
+          integerPart
+        )}`;
       }
     }
   }
 
   useEffect(() => {
     setNumberSeparatorsForLocale(getNumberSeparators(locale));
+    setNegativeZeroForLocale(getNegativeZero(locale));
   }, [locale]);
 
   return (
@@ -190,7 +193,7 @@ function Input(props: InputProps) {
           finalEventValue = value as string | "";
         }
 
-        // IF there is one of shouldFormatToLocaleString maximumFractionDigits props or the value is negative,
+        // IF 'shouldFormatToLocaleString' or 'maximumFractionDigits' are defined or the value is negative,
         // value can't have leading zeros. Like 0,000,123 or 010.50 or -00
         if (
           !isFormattedNewValueNotAValidNumber &&
@@ -201,7 +204,7 @@ function Input(props: InputProps) {
           finalEventValue = removeLeadingZeros(locale, finalEventValue);
         }
 
-        // IF input have not maximumFractionDigits prop, value can not be negative zero
+        // IF maximumFractionDigits is set as 0, value can not be negative zero
         if (maximumFractionDigits === 0 && finalEventValue === "-0") {
           finalEventValue = value as string;
         }
