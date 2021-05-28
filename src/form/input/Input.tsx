@@ -209,6 +209,34 @@ function Input(props: InputProps) {
           finalEventValue = value as string;
         }
 
+        // IF shouldFormatToLocaleString is defined, caret position should calculate according to thoudsandths separator count
+        if (shouldFormatToLocaleString) {
+          const numberFormatter = formatNumber({
+            maximumFractionDigits,
+            locale: "en"
+          });
+          const thousandthsSeparatorCount =
+            numberFormatter(parseFloat(finalEventValue)).match(/,/g)?.length || 0;
+          const prevValueThousandthsSeparatorCount =
+            numberFormatter(parseFloat(value as string)).match(/,/g)?.length || 0;
+          const element = event.currentTarget;
+          let caret = event.currentTarget.selectionStart || 0;
+
+          if (prevValueThousandthsSeparatorCount === thousandthsSeparatorCount + 1) {
+            caret -= 1;
+          } else if (
+            prevValueThousandthsSeparatorCount ===
+            thousandthsSeparatorCount - 1
+          ) {
+            caret += 1;
+          }
+
+          window.requestAnimationFrame(() => {
+            element.selectionStart = caret;
+            element.selectionEnd = caret;
+          });
+        }
+
         event.currentTarget.value = finalEventValue;
       }
     }

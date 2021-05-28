@@ -307,6 +307,33 @@ storiesOf("Form", module)
           </Fragment>
         )}
       </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"tr"}'
+              }>
+              <Input
+                name={"world-population"}
+                type={"number"}
+                localizationOptions={{
+                  maximumFractionDigits: 4,
+                  shouldFormatToLocaleString: true,
+                  locale: "tr"
+                }}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
     </Fragment>
   ))
   .add("Color Input", () => (
