@@ -17,6 +17,7 @@ export interface ButtonProps {
   onFocus?: React.ReactEventHandler<HTMLButtonElement>;
   onBlur?: React.ReactEventHandler<HTMLButtonElement>;
   id?: string;
+  ref?: React.RefObject<HTMLButtonElement>;
   lang?: string;
   type?: "button" | "submit" | "reset";
   shouldDisplaySpinner?: boolean;
@@ -29,10 +30,18 @@ export interface ButtonProps {
   tabIndex?: number;
 }
 
+const RefButtonComponent = React.forwardRef<HTMLButtonElement, Record<string, any>>(
+  // eslint-disable-next-line prefer-arrow-callback
+  function RefButton(props, ref) {
+    return <button ref={ref} {...props} />;
+  }
+);
+
 function Button({
   testid,
   type = "button",
   id,
+  ref,
   lang,
   onClick,
   children,
@@ -65,7 +74,8 @@ function Button({
   );
 
   return (
-    <button
+    <RefButtonComponent
+      ref={ref}
       id={id}
       data-testid={testid}
       tabIndex={tabIndex}
@@ -85,7 +95,7 @@ function Button({
       {children}
 
       {shouldDisplaySpinner && spinnerContent}
-    </button>
+    </RefButtonComponent>
   );
 
   function handleClick(event: React.SyntheticEvent<HTMLButtonElement>) {
