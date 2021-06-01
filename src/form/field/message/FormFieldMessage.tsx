@@ -3,7 +3,7 @@ import "./_form-field-message.scss";
 import React from "react";
 import classNames from "classnames";
 
-interface FormFieldMessageProps {
+export interface FormFieldMessageProps {
   className?: string;
   type: "error" | "warning" | "helper";
   message?: string;
