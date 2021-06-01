@@ -17,12 +17,6 @@ export type ButtonProps = Omit<
   shouldPreventDefault?: boolean;
   shouldStopPropagation?: boolean;
   shouldFocus?: boolean;
-  onClick?: React.ReactEventHandler<HTMLButtonElement>;
-  onMouseOver?: React.ReactEventHandler<HTMLButtonElement>;
-  onMouseDown?: React.ReactEventHandler<HTMLButtonElement>;
-  onMouseUp?: React.ReactEventHandler<HTMLButtonElement>;
-  onFocus?: React.ReactEventHandler<HTMLButtonElement>;
-  onBlur?: React.ReactEventHandler<HTMLButtonElement>;
   ref?: React.RefObject<HTMLButtonElement>;
   shouldDisplaySpinner?: boolean;
   ariaLabel?: string;
@@ -45,11 +39,6 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
       shouldDisplaySpinner,
       ariaLabel,
       isDisabled,
-      onMouseOver,
-      onMouseDown,
-      onMouseUp,
-      onFocus,
-      onBlur,
       ...rest
     } = props;
     const isButtonDisabled = Boolean(isDisabled || shouldDisplaySpinner);
@@ -73,11 +62,6 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={shouldFocus}
         onClick={handleClick}
-        onMouseOver={handleMouseOver}
-        onMouseDown={onMouseDown}
-        onMouseUp={onMouseUp}
-        onFocus={handleFocus}
-        onBlur={onBlur}
         disabled={isButtonDisabled}
         aria-label={ariaLabel}
         {...rest}>
@@ -87,7 +71,7 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
       </button>
     );
 
-    function handleClick(event: React.SyntheticEvent<HTMLButtonElement>) {
+    function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
       if (onClick) {
         if (shouldPreventDefault) {
           event.preventDefault();
@@ -100,18 +84,6 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
         if (!isButtonDisabled) {
           onClick(event);
         }
-      }
-    }
-
-    function handleMouseOver(event: React.SyntheticEvent<HTMLButtonElement>) {
-      if (onMouseOver) {
-        onMouseOver(event);
-      }
-    }
-
-    function handleFocus(event: React.SyntheticEvent<HTMLButtonElement>) {
-      if (onFocus) {
-        onFocus(event);
       }
     }
   }
