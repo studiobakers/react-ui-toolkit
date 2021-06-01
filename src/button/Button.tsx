@@ -8,7 +8,7 @@ import "./_button.scss";
 
 export type ButtonProps = Omit<
   React.ButtonHTMLAttributes<HTMLButtonElement>,
-  "disabled"
+  "disabled" | "className"
 > & {
   children: React.ReactNode;
   testid?: string;
