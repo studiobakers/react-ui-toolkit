@@ -10,6 +10,7 @@ export type FileUploadButtonProps = Omit<
   children: React.ReactNode;
   customClassName?: string;
   customLabelClassName?: string;
+  containerRef?: React.RefObject<HTMLDivElement>;
   onFileSelect?: (
     files: React.SyntheticEvent<HTMLInputElement>["currentTarget"]["files"]
   ) => void;
@@ -20,11 +21,13 @@ function FileUploadButton({
   children,
   customClassName,
   customLabelClassName,
+  containerRef,
   ...fileInputProps
 }: FileUploadButtonProps) {
   return (
     <FileInput
       {...fileInputProps}
+      ref={containerRef}
       customClassName={classNames("file-upload-button", customClassName)}
       customLabelClassName={classNames(
         "file-upload-button__label",

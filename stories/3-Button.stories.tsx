@@ -6,10 +6,15 @@ import FileUploadButton from "../src/button/file-upload/FileUploadButton";
 import StoryFragment from "./utils/StoryFragment";
 import StateProvider from "./utils/StateProvider";
 import SpinnerStorySample from "./utils/constants/spinner/SpinnerStorySample";
-import {useRef} from "@storybook/addons";
+import {useEffect, useRef} from "@storybook/addons";
 
 storiesOf("Button", module).add("Button States", () => {
   const buttonRef = useRef<HTMLButtonElement | null>(null);
+  const fileUploadButtonRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    console.log("FileUploadButton: ", fileUploadButtonRef.current);
+  }, []);
 
   return (
     <StoryFragment>
@@ -121,6 +126,22 @@ storiesOf("Button", module).add("Button States", () => {
         isPending={true}
         customSpinner={<SpinnerStorySample />}>
         {"Upload your photos - isPending - customSpinner"}
+      </FileUploadButton>
+
+      <br />
+
+      <FileUploadButton
+        containerRef={fileUploadButtonRef}
+        onFileSelect={(files) =>
+          alert(
+            Array.from(files)
+              .map((file) => file.name)
+              .join(", ")
+          )
+        }
+        name={"photos"}
+        htmlFor={"photos"}>
+        {"Get FileUploadButton Ref"}
       </FileUploadButton>
     </StoryFragment>
   );
