@@ -43,7 +43,8 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
     } = props;
     const isButtonDisabled = Boolean(isDisabled || shouldDisplaySpinner);
     const containerClassName = classNames("button", customClassName, {
-      "button--is-inactive": isButtonDisabled
+      "button--is-inactive": isButtonDisabled,
+      "button--is-pending": shouldDisplaySpinner
     });
     const spinnerContent = customSpinner || (
       <div className={"button__spinner-container"}>
