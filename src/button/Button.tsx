@@ -19,7 +19,6 @@ export type ButtonProps = Omit<
   shouldFocus?: boolean;
   ref?: React.RefObject<HTMLButtonElement>;
   shouldDisplaySpinner?: boolean;
-  ariaLabel?: string;
   customClassName?: string;
 };
 
@@ -37,7 +36,6 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
       shouldStopPropagation = true,
       shouldFocus,
       shouldDisplaySpinner,
-      ariaLabel,
       isDisabled,
       ...rest
     } = props;
@@ -65,7 +63,6 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
         autoFocus={shouldFocus}
         onClick={handleClick}
         disabled={isButtonDisabled}
-        aria-label={ariaLabel}
         {...rest}>
         {children}
 
