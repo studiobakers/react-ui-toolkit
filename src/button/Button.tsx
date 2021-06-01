@@ -23,13 +23,10 @@ export type ButtonProps = Omit<
   onMouseUp?: React.ReactEventHandler<HTMLButtonElement>;
   onFocus?: React.ReactEventHandler<HTMLButtonElement>;
   onBlur?: React.ReactEventHandler<HTMLButtonElement>;
-  id?: string;
   ref?: React.RefObject<HTMLButtonElement>;
-  lang?: string;
   shouldDisplaySpinner?: boolean;
   ariaLabel?: string;
   customClassName?: string;
-  tabIndex?: number;
 };
 
 const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
@@ -38,9 +35,6 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
     const {
       testid,
       type = "button",
-      id,
-      ref,
-      lang,
       onClick,
       children,
       customSpinner,
@@ -56,7 +50,7 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
       onMouseUp,
       onFocus,
       onBlur,
-      tabIndex
+      ...rest
     } = props;
     const isButtonDisabled = Boolean(isDisabled || shouldDisplaySpinner);
     const containerClassName = classNames("button", customClassName, {
@@ -73,13 +67,9 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
 
     return (
       <button
-        ref={ref}
-        id={id}
         data-testid={testid}
-        tabIndex={tabIndex}
         className={containerClassName}
         type={type}
-        lang={lang}
         // eslint-disable-next-line jsx-a11y/no-autofocus
         autoFocus={shouldFocus}
         onClick={handleClick}
@@ -89,7 +79,8 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
         onFocus={handleFocus}
         onBlur={onBlur}
         disabled={isButtonDisabled}
-        aria-label={ariaLabel}>
+        aria-label={ariaLabel}
+        {...rest}>
         {children}
 
         {shouldDisplaySpinner && spinnerContent}
