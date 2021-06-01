@@ -25,7 +25,7 @@ export type ButtonProps = Omit<
 
 const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
   // eslint-disable-next-line prefer-arrow-callback
-  function ButtonComponent(props: ButtonProps) {
+  function ButtonComponent(props: ButtonProps, ref) {
     const {
       testid,
       type = "button",
@@ -56,6 +56,7 @@ const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
 
     return (
       <button
+        ref={ref}
         data-testid={testid}
         className={containerClassName}
         type={type}
