@@ -6,7 +6,10 @@ import Spinner from "../spinner/Spinner";
 // SCSS import is moved here to be able to override spinner styles without nesting
 import "./_button.scss";
 
-export type ButtonProps = Omit<React.ButtonHTMLAttributes<HTMLButtonElement>, "disabled"> & {
+export type ButtonProps = Omit<
+  React.ButtonHTMLAttributes<HTMLButtonElement>,
+  "disabled"
+> & {
   children: React.ReactNode;
   testid?: string;
   customSpinner?: React.ReactNode;
