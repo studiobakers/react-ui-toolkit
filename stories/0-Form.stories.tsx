@@ -209,7 +209,10 @@ storiesOf("Form", module)
       <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"ID or Passport Number – maxFractionDigits={0}"}>
+            <FormField
+              label={
+                "ID or Passport Number – maxFractionDigits={0} - Can have leading zeros"
+              }>
               <Input
                 name={"id-number"}
                 type={"number"}
@@ -294,6 +297,33 @@ storiesOf("Form", module)
                   maximumFractionDigits: 4,
                   shouldFormatToLocaleString: true,
                   locale: "zh-Hans-CN-u-nu-hanidec"
+                }}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"tr"}'
+              }>
+              <Input
+                name={"world-population"}
+                type={"number"}
+                localizationOptions={{
+                  maximumFractionDigits: 4,
+                  shouldFormatToLocaleString: true,
+                  locale: "tr"
                 }}
                 onChange={(e) => setState(e.currentTarget.value)}
                 value={state}

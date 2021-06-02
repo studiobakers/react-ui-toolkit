@@ -10,39 +10,46 @@ export type FileUploadButtonProps = Omit<
   children: React.ReactNode;
   customClassName?: string;
   customLabelClassName?: string;
+  ref?: React.RefObject<HTMLLabelElement>;
   onFileSelect?: (
     files: React.SyntheticEvent<HTMLInputElement>["currentTarget"]["files"]
   ) => void;
 };
 
-function FileUploadButton({
-  onFileSelect,
-  children,
-  customClassName,
-  customLabelClassName,
-  ...fileInputProps
-}: FileUploadButtonProps) {
-  return (
-    <FileInput
-      {...fileInputProps}
-      customClassName={classNames("file-upload-button", customClassName)}
-      customLabelClassName={classNames(
-        "file-upload-button__label",
-        "button",
-        customLabelClassName
-      )}
-      onChange={handleFileSelect}>
-      {children}
-    </FileInput>
-  );
+const FileUploadButton = React.forwardRef<HTMLLabelElement, Record<string, any>>(
+  // eslint-disable-next-line prefer-arrow-callback
+  function FileUploadButtonComponent(props: FileUploadButtonProps, ref) {
+    const {
+      onFileSelect,
+      children,
+      customClassName,
+      customLabelClassName,
+      ...fileInputProps
+    } = props;
 
-  function handleFileSelect(event: React.SyntheticEvent<HTMLInputElement>) {
-    const {files} = event.currentTarget;
+    return (
+      <FileInput
+        {...fileInputProps}
+        ref={ref}
+        customClassName={classNames("file-upload-button", customClassName)}
+        customLabelClassName={classNames(
+          "file-upload-button__label",
+          "button",
+          customLabelClassName
+        )}
+        onChange={handleFileSelect}>
+        {children}
+      </FileInput>
+    );
 
-    if (onFileSelect && files?.length) {
-      onFileSelect(files);
+    function handleFileSelect(event: React.SyntheticEvent<HTMLInputElement>) {
+      const {files} = event.currentTarget;
+
+      if (onFileSelect && files?.length) {
+        onFileSelect(files);
+      }
     }
   }
-}
+);
 
 export default FileUploadButton;
