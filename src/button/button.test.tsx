@@ -71,7 +71,7 @@ describe("<Button />", () => {
     expect(getByTestId("button")).not.toContainElement(customSpinner);
   });
 
-  it("should not call click event when button is disabled", () => {
+  it("should not run click event handler while button is disabled", () => {
     const handleClick = jest.fn();
 
     const {rerender, getByTestId} = render(
@@ -87,22 +87,22 @@ describe("<Button />", () => {
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  it("should call events correctly", () => {
+  it("should run click event handler correctly", () => {
     const handleClick = jest.fn();
-    const handleMouseOver = jest.fn();
-    const handleFocus = jest.fn();
-    const handleMouseUp = jest.fn();
-    const handleMouseDown = jest.fn();
-    const handleBlur = jest.fn();
 
-    const {rerender, getByTestId} = render(
+    const {getByTestId} = render(
       <Button onClick={handleClick} {...defaultButtonProps} />
     );
 
     fireEvent.click(getByTestId("button"));
     expect(handleClick).toHaveBeenCalledTimes(1);
+  });
 
-    rerender(
+  it("should run mouseOver event handler correctly", () => {
+    const handleMouseOver = jest.fn();
+    const handleFocus = jest.fn();
+
+    const {getByTestId} = render(
       <Button
         onFocus={handleFocus}
         onMouseOver={handleMouseOver}
@@ -112,27 +112,45 @@ describe("<Button />", () => {
 
     fireEvent.mouseOver(getByTestId("button"));
     expect(handleMouseOver).toHaveBeenCalledTimes(1);
+  });
 
-    rerender(<Button onMouseDown={handleMouseDown} {...defaultButtonProps} />);
+  it("should run focus event handler correctly", () => {
+    const handleFocus = jest.fn();
 
-    fireEvent.mouseDown(getByTestId("button"));
-    expect(handleMouseDown).toHaveBeenCalledTimes(1);
-
-    rerender(<Button onFocus={handleFocus} {...defaultButtonProps} />);
+    const {getByTestId} = render(
+      <Button onFocus={handleFocus} {...defaultButtonProps} />
+    );
 
     fireEvent.focus(getByTestId("button"));
     expect(handleFocus).toHaveBeenCalledTimes(1);
+  });
 
-    rerender(<Button onFocus={handleFocus} shouldFocus={true} {...defaultButtonProps} />);
+  it("should run mouseUp event handler correctly", () => {
+    const handleMouseUp = jest.fn();
 
-    expect(handleFocus).toHaveBeenCalledTimes(1);
-
-    rerender(<Button onMouseUp={handleMouseUp} {...defaultButtonProps} />);
+    const {getByTestId} = render(
+      <Button onMouseUp={handleMouseUp} {...defaultButtonProps} />
+    );
 
     fireEvent.mouseUp(getByTestId("button"));
     expect(handleMouseUp).toHaveBeenCalledTimes(1);
+  });
 
-    rerender(<Button onBlur={handleBlur} {...defaultButtonProps} />);
+  it("should run mouseDown event handler correctly", () => {
+    const handleMouseDown = jest.fn();
+
+    const {getByTestId} = render(
+      <Button onMouseDown={handleMouseDown} {...defaultButtonProps} />
+    );
+
+    fireEvent.mouseDown(getByTestId("button"));
+    expect(handleMouseDown).toHaveBeenCalledTimes(1);
+  });
+
+  it("should run blur event handler correctly", () => {
+    const handleBlur = jest.fn();
+
+    const {getByTestId} = render(<Button onBlur={handleBlur} {...defaultButtonProps} />);
 
     fireEvent.blur(getByTestId("button"));
     expect(handleBlur).toHaveBeenCalledTimes(1);
