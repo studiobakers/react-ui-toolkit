@@ -31,16 +31,40 @@ describe("<TextArea />", () => {
     await testA11y(container, {rules: {label: {enabled: false}}});
   });
 
-  it("keyboard events should work correctly", () => {
+  it("onShiftEnter prop should work correctly", () => {
     const handleShiftEnter = jest.fn();
     const handleJustEnterPressed = jest.fn();
-    const handleKeyDown = jest.fn();
-    const handleKeyUp = jest.fn();
 
     const {getByTestId} = render(
       <Textarea
-        onKeyUp={handleKeyUp}
-        onKeyDown={handleKeyDown}
+        onJustEnterPressed={handleJustEnterPressed}
+        onShiftEnter={handleShiftEnter}
+        {...defaultTextAreaProps}
+      />
+    );
+    const textArea = getByTestId("text-area");
+
+    fireEvent.keyDown(textArea, {
+      key: "Shift",
+      keyCode: 16,
+      code: "ShiftLeft"
+    });
+    fireEvent.keyDown(textArea, {
+      key: "Enter",
+      code: "Enter",
+      keyCode: 13
+    });
+
+    expect(handleShiftEnter).toHaveBeenCalledTimes(1);
+    expect(handleJustEnterPressed).not.toHaveBeenCalled();
+  });
+
+  it("onJustEnterPressed prop should work correctly", () => {
+    const handleShiftEnter = jest.fn();
+    const handleJustEnterPressed = jest.fn();
+
+    const {getByTestId} = render(
+      <Textarea
         onJustEnterPressed={handleJustEnterPressed}
         onShiftEnter={handleShiftEnter}
         {...defaultTextAreaProps}
@@ -66,27 +90,6 @@ describe("<TextArea />", () => {
 
     expect(handleShiftEnter).not.toHaveBeenCalled();
     expect(handleJustEnterPressed).toHaveBeenCalledTimes(1);
-    // eslint-disable-next-line no-magic-numbers
-    expect(handleKeyDown).toHaveBeenCalledTimes(2);
-    expect(handleKeyUp).toHaveBeenCalledTimes(1);
-
-    jest.clearAllMocks();
-
-    fireEvent.keyDown(textArea, {
-      key: "Shift",
-      keyCode: 16,
-      code: "ShiftLeft"
-    });
-    fireEvent.keyDown(textArea, {
-      key: "Enter",
-      code: "Enter",
-      keyCode: 13
-    });
-
-    expect(handleShiftEnter).toHaveBeenCalledTimes(1);
-    expect(handleJustEnterPressed).not.toHaveBeenCalled();
-    // eslint-disable-next-line no-magic-numbers
-    expect(handleKeyDown).toHaveBeenCalledTimes(2);
   });
 
   it("should have proper class name", () => {
