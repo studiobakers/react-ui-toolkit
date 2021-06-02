@@ -8,141 +8,144 @@ import StateProvider from "./utils/StateProvider";
 import SpinnerStorySample from "./utils/constants/spinner/SpinnerStorySample";
 import {useEffect, useRef} from "@storybook/addons";
 
-storiesOf("Button", module).add("Button States", () => {
-  const buttonRef = useRef<HTMLButtonElement | null>(null);
-  const fileUploadButtonRef = useRef<HTMLDivElement | null>(null);
+storiesOf("Button", module)
+  .add("Button States", () => {
+    const buttonRef = useRef<HTMLButtonElement | null>(null);
 
-  useEffect(() => {
-    console.log("FileUploadButton: ", fileUploadButtonRef.current);
-  }, []);
+    return (
+      <StoryFragment>
+        <Button type={"button"} onClick={(e) => alert("Thank You!")}>
+          {"Click Me"}
+        </Button>
 
-  return (
-    <StoryFragment>
-      <Button type={"button"} onClick={(e) => alert("Thank You!")}>
-        {"Click Me"}
-      </Button>
+        <br />
 
-      <br />
+        <Button type={"button"} onClick={(e) => alert("Thank You!")} isDisabled={true}>
+          {"Click Me - isDisabled"}
+        </Button>
 
-      <Button type={"button"} onClick={(e) => alert("Thank You!")} isDisabled={true}>
-        {"Click Me - isDisabled"}
-      </Button>
+        <br />
 
-      <br />
+        <StateProvider initialState={false}>
+          {(state, setState) => (
+            <Button
+              type={"button"}
+              onClick={() => setState(true)}
+              shouldDisplaySpinner={state}>
+              {"Click Me - shouldDisplaySpinner"}
+            </Button>
+          )}
+        </StateProvider>
 
-      <StateProvider initialState={false}>
-        {(state, setState) => (
-          <Button
-            type={"button"}
-            onClick={() => setState(true)}
-            shouldDisplaySpinner={state}>
-            {"Click Me - shouldDisplaySpinner"}
-          </Button>
-        )}
-      </StateProvider>
+        <br />
 
-      <br />
+        <Button
+          type={"button"}
+          onClick={(e) => alert("Thank You!")}
+          shouldDisplaySpinner={true}
+          customSpinner={<SpinnerStorySample />}>
+          {"Click Me - shouldDisplaySpinner - customSpinner"}
+        </Button>
 
-      <Button
-        type={"button"}
-        onClick={(e) => alert("Thank You!")}
-        shouldDisplaySpinner={true}
-        customSpinner={<SpinnerStorySample />}>
-        {"Click Me - shouldDisplaySpinner - customSpinner"}
-      </Button>
+        <br />
 
-      <br />
+        <Button
+          ref={buttonRef}
+          type={"button"}
+          onClick={() =>
+            alert(`Button width: ${buttonRef.current.getBoundingClientRect().width}`)
+          }>
+          {"Get Button Width"}
+        </Button>
+      </StoryFragment>
+    );
+  })
+  .add("Upload Button States", () => {
+    const fileUploadButtonRef = useRef<HTMLLabelElement | null>(null);
 
-      <Button
-        ref={buttonRef}
-        type={"button"}
-        onClick={() =>
-          alert(`Button width: ${buttonRef.current.getBoundingClientRect().width}`)
-        }>
-        {"Get Button Width"}
-      </Button>
+    useEffect(() => {
+      console.log("FileUploadButton: ", fileUploadButtonRef.current);
+    }, []);
 
-      <br />
-      <hr />
-      <br />
+    return (
+      <StoryFragment>
+        <FileUploadButton
+          onFileSelect={(files: FileList) =>
+            alert(
+              Array.from(files)
+                .map((file) => file.name)
+                .join(", ")
+            )
+          }
+          name={"photos"}
+          htmlFor={"photos"}>
+          {"Upload your photos"}
+        </FileUploadButton>
 
-      <FileUploadButton
-        onFileSelect={(files) =>
-          alert(
-            Array.from(files)
-              .map((file) => file.name)
-              .join(", ")
-          )
-        }
-        name={"photos"}
-        htmlFor={"photos"}>
-        {"Upload your photos"}
-      </FileUploadButton>
+        <br />
 
-      <br />
+        <FileUploadButton
+          onFileSelect={(files: FileList) =>
+            alert(
+              Array.from(files)
+                .map((file) => file.name)
+                .join(", ")
+            )
+          }
+          name={"second-photos"}
+          htmlFor={"second-photos"}
+          isDisabled={true}>
+          {"Upload your photos - isDisabled"}
+        </FileUploadButton>
 
-      <FileUploadButton
-        onFileSelect={(files) =>
-          alert(
-            Array.from(files)
-              .map((file) => file.name)
-              .join(", ")
-          )
-        }
-        name={"second-photos"}
-        htmlFor={"second-photos"}
-        isDisabled={true}>
-        {"Upload your photos - isDisabled"}
-      </FileUploadButton>
+        <br />
 
-      <br />
+        <FileUploadButton
+          onFileSelect={(files: FileList) =>
+            alert(
+              Array.from(files)
+                .map((file) => file.name)
+                .join(", ")
+            )
+          }
+          name={"second-photos"}
+          htmlFor={"second-photos"}
+          isPending={true}>
+          {"Upload your photos - isPending"}
+        </FileUploadButton>
 
-      <FileUploadButton
-        onFileSelect={(files) =>
-          alert(
-            Array.from(files)
-              .map((file) => file.name)
-              .join(", ")
-          )
-        }
-        name={"second-photos"}
-        htmlFor={"second-photos"}
-        isPending={true}>
-        {"Upload your photos - isPending"}
-      </FileUploadButton>
+        <br />
 
-      <br />
+        <FileUploadButton
+          onFileSelect={(files: FileList) =>
+            alert(
+              Array.from(files)
+                .map((file) => file.name)
+                .join(", ")
+            )
+          }
+          name={"second-photos"}
+          htmlFor={"second-photos"}
+          isPending={true}
+          customSpinner={<SpinnerStorySample />}>
+          {"Upload your photos - isPending - customSpinner"}
+        </FileUploadButton>
 
-      <FileUploadButton
-        onFileSelect={(files) =>
-          alert(
-            Array.from(files)
-              .map((file) => file.name)
-              .join(", ")
-          )
-        }
-        name={"second-photos"}
-        htmlFor={"second-photos"}
-        isPending={true}
-        customSpinner={<SpinnerStorySample />}>
-        {"Upload your photos - isPending - customSpinner"}
-      </FileUploadButton>
+        <br />
 
-      <br />
-
-      <FileUploadButton
-        containerRef={fileUploadButtonRef}
-        onFileSelect={(files) =>
-          alert(
-            Array.from(files)
-              .map((file) => file.name)
-              .join(", ")
-          )
-        }
-        name={"photos"}
-        htmlFor={"photos"}>
-        {"Get FileUploadButton Ref"}
-      </FileUploadButton>
-    </StoryFragment>
-  );
-});
+        <FileUploadButton
+          ref={fileUploadButtonRef}
+          onFileSelect={(files: FileList) =>
+            alert(
+              Array.from(files)
+                .map((file) => file.name)
+                .join(", ")
+            )
+          }
+          name={"photos"}
+          htmlFor={"photos"}>
+          {"Get FileUploadButton Ref"}
+        </FileUploadButton>
+      </StoryFragment>
+    );
+  });

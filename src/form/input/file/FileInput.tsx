@@ -18,10 +18,10 @@ export interface FileInputProps {
   customClassName?: string;
   customLabelClassName?: string;
   acceptedFileTypes?: string;
-  ref?: React.RefObject<HTMLDivElement>;
+  ref?: React.RefObject<HTMLLabelElement>;
 }
 
-const FileInput = React.forwardRef<HTMLDivElement, Record<string, any>>(
+const FileInput = React.forwardRef<HTMLLabelElement, Record<string, any>>(
   // eslint-disable-next-line prefer-arrow-callback
   function FileInputComponent(props: FileInputProps, ref) {
     const {
@@ -47,7 +47,7 @@ const FileInput = React.forwardRef<HTMLDivElement, Record<string, any>>(
     );
 
     return (
-      <div ref={ref} className={containerClassName}>
+      <div className={containerClassName}>
         <input
           data-testid={testid}
           type={"file"}
@@ -61,6 +61,7 @@ const FileInput = React.forwardRef<HTMLDivElement, Record<string, any>>(
         />
 
         <label
+          ref={ref}
           htmlFor={htmlFor}
           className={labelClassName}
           data-testid={`${testid}.label`}>
