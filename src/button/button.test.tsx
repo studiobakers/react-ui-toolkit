@@ -74,14 +74,20 @@ describe("<Button />", () => {
   it("should not run click event handler while button is disabled", () => {
     const handleClick = jest.fn();
 
-    const {rerender, getByTestId} = render(
-      <Button onClick={handleClick} shouldDisplaySpinner={true} {...defaultButtonProps} />
+    const {getByTestId} = render(
+      <Button onClick={handleClick} isDisabled={true} {...defaultButtonProps} />
     );
 
     fireEvent.click(getByTestId("button"));
     expect(handleClick).not.toHaveBeenCalled();
+  });
 
-    rerender(<Button onClick={handleClick} isDisabled={true} {...defaultButtonProps} />);
+  it("should not run click event handler while shouldDisplaySpinner is true", () => {
+    const handleClick = jest.fn();
+
+    const {getByTestId} = render(
+      <Button onClick={handleClick} shouldDisplaySpinner={true} {...defaultButtonProps} />
+    );
 
     fireEvent.click(getByTestId("button"));
     expect(handleClick).not.toHaveBeenCalled();
