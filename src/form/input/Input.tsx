@@ -9,7 +9,8 @@ import {
   mapDigitsToLocalVersion,
   formatNumber,
   removeLeadingZeros,
-  getNegativeZero
+  getNegativeZero,
+  getThousandthSeparatorCount
 } from "../../core/utils/number/numberUtils";
 
 export type InputTypes =
@@ -82,13 +83,16 @@ function Input(props: InputProps) {
     maximumFractionDigits = 0
   } = localizationOptions;
   const [
-    {DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale, MINUS_SIGN: minusSignForLocale},
+    {
+      DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
+      MINUS_SIGN: minusSignForLocale,
+      LOCALE_NEGATIVE_ZERO: negativeZeroForLocale
+    },
     setNumberSeparatorsForLocale
-  ] = useState(() => getNumberSeparators(locale));
-  const [
-    {LOCALE_NEGATIVE_ZERO: negativeZeroForLocale},
-    setNegativeZeroForLocale
-  ] = useState(() => getNegativeZero(locale));
+  ] = useState(() => ({
+    ...getNumberSeparators(locale),
+    ...getNegativeZero(locale)
+  }));
   const isNumberInput = type === "number";
   const inputContainerClassName = classNames(
     "input-container",
@@ -138,8 +142,10 @@ function Input(props: InputProps) {
   }
 
   useEffect(() => {
-    setNumberSeparatorsForLocale(getNumberSeparators(locale));
-    setNegativeZeroForLocale(getNegativeZero(locale));
+    setNumberSeparatorsForLocale({
+      ...getNumberSeparators(locale),
+      ...getNegativeZero(locale)
+    });
   }, [locale]);
 
   return (
@@ -181,16 +187,17 @@ function Input(props: InputProps) {
         const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
         // Number("-") returns NaN. Should allow minus sign as first character.
         const isFormattedNewValueNotAValidNumber =
-          (newValue !== "-" && Number.isNaN(Number(formattedNewValue))) ||
-          formattedNewValue === "";
+          formattedNewValue === "" ||
+          (newValue !== "-" && Number.isNaN(Number(formattedNewValue)));
         let finalEventValue = formattedNewValue ? String(formattedNewValue) : "";
 
-        // IF the parsed number is a valid and there is a decimal separator,
+        // IF the parsed number is valid and there is a decimal separator,
         // we need to save the number as it is so that decimal part doesn't disappear
         if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
           finalEventValue = String(formattedNewValue);
         } else if (isFormattedNewValueNotAValidNumber) {
-          finalEventValue = value as string | "";
+          // IF the parsed number is not valid, we revert back to the valid value
+          finalEventValue = value as string;
         }
 
         // IF 'shouldFormatToLocaleString' or 'maximumFractionDigits' are defined or the value is negative,
@@ -211,14 +218,10 @@ function Input(props: InputProps) {
 
         // IF shouldFormatToLocaleString is defined, caret position should calculate according to thoudsandths separator count
         if (shouldFormatToLocaleString) {
-          const numberFormatter = formatNumber({
-            maximumFractionDigits,
-            locale: "en"
-          });
-          const thousandthsSeparatorCount =
-            numberFormatter(parseFloat(finalEventValue)).match(/,/g)?.length || 0;
-          const prevValueThousandthsSeparatorCount =
-            numberFormatter(parseFloat(value as string)).match(/,/g)?.length || 0;
+          const thousandthsSeparatorCount = getThousandthSeparatorCount(finalEventValue);
+          const prevValueThousandthsSeparatorCount = getThousandthSeparatorCount(
+            value as string
+          );
           const element = event.currentTarget;
           let caret = event.currentTarget.selectionStart || 0;
 

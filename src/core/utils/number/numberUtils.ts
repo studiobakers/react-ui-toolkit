@@ -170,6 +170,10 @@ function removeLeadingZeros(locale = navigator.language, value: string) {
   return finalValue;
 }
 
+function getThousandthSeparatorCount(value: string) {
+  return formatNumber({locale: "en"})(parseFloat(value)).match(/,/g)?.length || 0;
+}
+
 export {
   formatNumber,
   parseNumber,
@@ -177,5 +181,6 @@ export {
   getNumberSeparators,
   getNegativeZero,
   mapDigitsToLocalVersion,
-  removeLeadingZeros
+  removeLeadingZeros,
+  getThousandthSeparatorCount
 };
