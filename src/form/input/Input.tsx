@@ -6,7 +6,11 @@ import classNames from "classnames";
 import {
   getNumberSeparators,
   parseNumber,
-  mapDigitsToLocalVersion
+  mapDigitsToLocalVersion,
+  formatNumber,
+  removeLeadingZeros,
+  getNegativeZero,
+  getThousandthSeparatorCount
 } from "../../core/utils/number/numberUtils";
 
 export type InputTypes =
@@ -79,9 +83,16 @@ function Input(props: InputProps) {
     maximumFractionDigits = 0
   } = localizationOptions;
   const [
-    {DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale},
+    {
+      DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
+      MINUS_SIGN: minusSignForLocale,
+      LOCALE_NEGATIVE_ZERO: negativeZeroForLocale
+    },
     setNumberSeparatorsForLocale
-  ] = useState(() => getNumberSeparators(locale));
+  ] = useState(() => ({
+    ...getNumberSeparators(locale),
+    ...getNegativeZero(locale)
+  }));
   const isNumberInput = type === "number";
   const inputContainerClassName = classNames(
     "input-container",
@@ -106,22 +117,35 @@ function Input(props: InputProps) {
 
   if (isNumberInput && typeof value === "string" && shouldFormatToLocaleString) {
     const [integerPart, decimalPart] = String(value).split(".");
+    const numberFormatter = formatNumber({
+      maximumFractionDigits,
+      locale
+    });
 
     // IF there is a decimal part or the value ends with ".",
     // make sure we add the decimal separator and map each digit on the decimal part to localized versions.
     // We shouldn't use parseInt or parseFloat with numberFormat util here because that removes zeros on the decimal part and disallows users to write something like: 10.01 or 10.102
     if (value.match(/\.$/)?.length || decimalPart) {
-      finalValue = `${mapDigitsToLocalVersion(
-        {locale},
-        integerPart
+      finalValue = `${numberFormatter(
+        parseInt(integerPart)
       )}${decimalSeparatorForLocale}${mapDigitsToLocalVersion({locale}, decimalPart)}`;
     } else if (integerPart) {
-      finalValue = mapDigitsToLocalVersion({locale}, integerPart);
+      if (integerPart !== minusSignForLocale && integerPart !== negativeZeroForLocale) {
+        finalValue = numberFormatter(parseInt(integerPart));
+      } else {
+        finalValue = `${minusSignForLocale}${mapDigitsToLocalVersion(
+          {locale},
+          integerPart
+        )}`;
+      }
     }
   }
 
   useEffect(() => {
-    setNumberSeparatorsForLocale(getNumberSeparators(locale));
+    setNumberSeparatorsForLocale({
+      ...getNumberSeparators(locale),
+      ...getNegativeZero(locale)
+    });
   }, [locale]);
 
   return (
@@ -161,16 +185,59 @@ function Input(props: InputProps) {
 
       if (newValue) {
         const formattedNewValue = parseNumber({locale, maximumFractionDigits}, newValue);
-        const isFormattedNewValueNotAValidNumber = Number.isNaN(
-          Number(formattedNewValue)
-        );
+        // Number("-") returns NaN. Should allow minus sign as first character.
+        const isFormattedNewValueNotAValidNumber =
+          formattedNewValue === "" ||
+          (newValue !== "-" && Number.isNaN(Number(formattedNewValue)));
         let finalEventValue = formattedNewValue ? String(formattedNewValue) : "";
 
-        // IF the parsed number is a valid and there is a decimal separator, we need to save the number as it is so that decimal part doesn't disappear
+        // IF the parsed number is valid and there is a decimal separator,
+        // we need to save the number as it is so that decimal part doesn't disappear
         if (!isFormattedNewValueNotAValidNumber && formattedNewValue.match(/./)?.length) {
           finalEventValue = String(formattedNewValue);
         } else if (isFormattedNewValueNotAValidNumber) {
+          // IF the parsed number is not valid, we revert back to the valid value
           finalEventValue = value as string;
+        }
+
+        // IF 'shouldFormatToLocaleString' or 'maximumFractionDigits' are defined or the value is negative,
+        // value can't have leading zeros. Like 0,000,123 or 010.50 or -00
+        if (
+          !isFormattedNewValueNotAValidNumber &&
+          (shouldFormatToLocaleString ||
+            maximumFractionDigits > 0 ||
+            finalEventValue.includes("-"))
+        ) {
+          finalEventValue = removeLeadingZeros(locale, finalEventValue);
+        }
+
+        // IF maximumFractionDigits is set as 0, value can not be negative zero
+        if (maximumFractionDigits === 0 && finalEventValue === "-0") {
+          finalEventValue = value as string;
+        }
+
+        // IF shouldFormatToLocaleString is defined, caret position should calculate according to thoudsandths separator count
+        if (shouldFormatToLocaleString) {
+          const thousandthsSeparatorCount = getThousandthSeparatorCount(finalEventValue);
+          const prevValueThousandthsSeparatorCount = getThousandthSeparatorCount(
+            value as string
+          );
+          const element = event.currentTarget;
+          let caret = event.currentTarget.selectionStart || 0;
+
+          if (prevValueThousandthsSeparatorCount === thousandthsSeparatorCount + 1) {
+            caret -= 1;
+          } else if (
+            prevValueThousandthsSeparatorCount ===
+            thousandthsSeparatorCount - 1
+          ) {
+            caret += 1;
+          }
+
+          window.requestAnimationFrame(() => {
+            element.selectionStart = caret;
+            element.selectionEnd = caret;
+          });
         }
 
         event.currentTarget.value = finalEventValue;
