@@ -12,6 +12,7 @@ export interface ProgressBarProps {
   };
   children?: React.ReactNode;
   customClassName?: string;
+  testid?: string;
 }
 
 function ProgressBar(props: ProgressBarProps) {
@@ -19,7 +20,8 @@ function ProgressBar(props: ProgressBarProps) {
     percentage,
     style: {trackColor = "blue", backgroundColor = "gray", completedColor = "green"},
     children,
-    customClassName
+    customClassName,
+    testid
   } = props;
   const progressBarClassName = classNames("progress-bar", customClassName);
 
@@ -28,7 +30,8 @@ function ProgressBar(props: ProgressBarProps) {
       className={progressBarClassName}
       style={{
         backgroundColor
-      }}>
+      }}
+      data-testid={testid}>
       <div
         className={"progress-bar__track"}
         style={{
@@ -36,6 +39,7 @@ function ProgressBar(props: ProgressBarProps) {
           // eslint-disable-next-line no-magic-numbers
           backgroundColor: percentage === 100 ? completedColor : trackColor
         }}
+        data-testid={`${testid}.track`}
       />
 
       {children && <div className={"progress-bar__content"}>{children}</div>}
