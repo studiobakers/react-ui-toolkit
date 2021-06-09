@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import classNames from "classnames";
 
 import Input, {InputTypes} from "../Input";
-import useDebounce from "../../../core/utils/hooks/debounce";
+import useDebounce from "../../../core/utils/hooks/useDebounce";
 
 export interface TypeaheadInputProps {
   onQueryChange: (value: string) => void;

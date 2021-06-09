@@ -24,7 +24,7 @@ import {
 } from "./util/dropdownConstants";
 import Spinner from "../spinner/Spinner";
 import {SINGLE_ALPHANUMERIC_CHARACTER_REGEX} from "../core/utils/string/stringConstants";
-import useOnClickOutside from "../core/utils/hooks/onClickOutside";
+import useOnClickOutside from "../core/utils/hooks/useOnClickOutside";
 
 // This import is moved to come after other imports so that we can avoid nesting to override some of the styles that comes from other components, such as `Button`.
 import "./_dropdown.scss";
@@ -185,7 +185,7 @@ function Dropdown<OptionIdShape extends string>({
     dropdownHeader = <Fragment>{headerWithoutButton}</Fragment>;
   }
 
-  useOnClickOutside(dropdownRef, closeDropdown);
+  useOnClickOutside(dropdownRef.current, closeDropdown);
 
   useEffect(() => {
     if (isMenuOpen) {
