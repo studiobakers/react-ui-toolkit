@@ -89,8 +89,8 @@ describe("<FileInput />", () => {
     );
   });
 
-  it("disabled property should works correctly", () => {
-    const {rerender, getByTestId} = render(
+  it("should add disabled attribute to file input and file-input__label--is-disabled class to file input label when isDisabled is true", () => {
+    const {getByTestId} = render(
       <FileInput isDisabled={true} {...defaultFileInputProps} />
     );
 
@@ -99,8 +99,12 @@ describe("<FileInput />", () => {
     expect(getByTestId(`${defaultFileInputProps.testid}.label`)).toHaveClass(
       "file-input__label--is-disabled"
     );
+  });
 
-    rerender(<FileInput isPending={true} {...defaultFileInputProps} />);
+  it("should add disabled attribute to file input and file-input__label--is-disabled class to file input label when isPending is true", () => {
+    const {getByTestId} = render(
+      <FileInput isPending={true} {...defaultFileInputProps} />
+    );
 
     expect(getByTestId(defaultFileInputProps.testid!)).toHaveAttribute("disabled");
     expect(getByTestId(defaultFileInputProps.testid!)).toBeDisabled();

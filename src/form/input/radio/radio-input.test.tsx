@@ -46,7 +46,7 @@ describe("<RadioInput />", () => {
     );
   });
 
-  it("isSelected property should works correctly", () => {
+  it("should add checked attribute and radio-input-label--is-selected class when isSelected is true", () => {
     const {getByTestId, rerender} = render(<RadioInput {...defaultRadioInputProps} />);
 
     const radioInput = document.getElementsByClassName("radio-input")[0];
@@ -61,7 +61,7 @@ describe("<RadioInput />", () => {
     );
   });
 
-  it("should call onSelect prop correctly", () => {
+  it("should run onSelect event handler correctly", () => {
     render(<RadioInput {...defaultRadioInputProps} />);
 
     const radioInput = document.getElementsByTagName("input")[0];
@@ -72,7 +72,7 @@ describe("<RadioInput />", () => {
     expect(defaultRadioInputProps.onSelect).toHaveBeenCalledTimes(1);
   });
 
-  it("disabled property should works correctly", () => {
+  it("should add disabled attribute and radio-input-label--is-disabled class when isDisabled is true", () => {
     const {getByTestId} = render(
       <RadioInput isDisabled={true} {...defaultRadioInputProps} />
     );

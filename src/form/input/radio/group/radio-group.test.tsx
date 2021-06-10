@@ -66,7 +66,7 @@ describe("<RadioGroup />", () => {
     }
   });
 
-  it("selectedItem prop should works correctly", () => {
+  it("should add checked attribute to selectedItem", () => {
     const {rerender, getByDisplayValue} = render(
       <RadioGroup {...defaultRadioGroupProps} />
     );

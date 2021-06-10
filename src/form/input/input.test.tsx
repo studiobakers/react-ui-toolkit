@@ -33,7 +33,7 @@ describe("<Input />", () => {
   //     await testA11y(container);
   //   });
 
-  it("should call onChange prop correctly", () => {
+  it("should run onChange event handler correctly", () => {
     render(<Input {...defaultInputProps} />);
 
     const input = document.getElementsByTagName("input")[0];
@@ -71,7 +71,7 @@ describe("<Input />", () => {
     expect(getByTestId(defaultInputProps.testid!)).toContainElement(rightIcon);
   });
 
-  it("isDisabled property should works correctly", () => {
+  it("should add disabled attribute and input--is-disabled class when isDisabled is true", () => {
     render(<Input isDisabled={true} {...defaultInputProps} />);
 
     const input = document.getElementsByTagName("input")[0];
@@ -81,7 +81,7 @@ describe("<Input />", () => {
     expect(input).toHaveClass("input--is-disabled");
   });
 
-  it("hasError property should works correctly", () => {
+  it("should add input--has-error class when hasError is true", () => {
     render(<Input hasError={true} {...defaultInputProps} />);
 
     const input = document.getElementsByTagName("input")[0];
