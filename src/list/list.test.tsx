@@ -25,7 +25,7 @@ describe("<List />", () => {
     render(<List {...defaultListProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<List {...defaultListProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -40,12 +40,14 @@ describe("<List />", () => {
   it("should render children correctly", () => {
     const {getByTestId} = render(<List {...defaultListProps} />);
 
-    expect(getByTestId("list").children).toHaveLength(listItems.length);
+    expect(getByTestId(defaultListProps.testid!).children).toHaveLength(listItems.length);
 
     for (let index = 0; index < listItems.length; index++) {
       const listItemContent = getByTestId(`list.item-${index}`);
 
-      expect(getByTestId("list").children[index]).toEqual(listItemContent);
+      expect(getByTestId(defaultListProps.testid!).children[index]).toEqual(
+        listItemContent
+      );
     }
   });
 
@@ -60,7 +62,9 @@ describe("<List />", () => {
       />
     );
 
-    expect(getByTestId("list")).toContainElement(getByTestId("list.placeholder"));
+    expect(getByTestId(defaultListProps.testid!)).toContainElement(
+      getByTestId("list.placeholder")
+    );
   });
 
   it("should render empty state correctly", () => {
@@ -74,7 +78,9 @@ describe("<List />", () => {
       />
     );
 
-    expect(getByTestId("list")).toContainElement(getByTestId("list.empty-state"));
+    expect(getByTestId(defaultListProps.testid!)).toContainElement(
+      getByTestId("list.empty-state")
+    );
   });
 
   it("should render placeholder if both shouldDisplayPlaceholder and shouldDisplayEmptyState is true", () => {
@@ -96,7 +102,15 @@ describe("<List />", () => {
       />
     );
 
-    expect(getByTestId("list")).toContainElement(getByTestId("list.placeholder"));
+    expect(getByTestId(defaultListProps.testid!)).toContainElement(
+      getByTestId("list.placeholder")
+    );
     expect(screen.queryByText("Not found.")).not.toBeInTheDocument();
+  });
+
+  it("should handle empty items correctly", () => {
+    const {getByTestId} = render(<List {...defaultListProps} items={[]} />);
+
+    expect(getByTestId(defaultListProps.testid!).children).toHaveLength(0);
   });
 });

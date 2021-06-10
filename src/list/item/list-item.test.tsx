@@ -18,7 +18,7 @@ describe("<ListItem />", () => {
     render(<ListItem {...defaultListItemProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<ListItem {...defaultListItemProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -33,7 +33,9 @@ describe("<ListItem />", () => {
   it("should render children correctly", () => {
     const {getByTestId} = render(<ListItem {...defaultListItemProps} />);
 
-    expect(getByTestId("list-item")).toContainElement(getByTestId("list-item.content"));
+    expect(getByTestId(defaultListItemProps.testid!)).toContainElement(
+      getByTestId("list-item.content")
+    );
   });
 
   it("clickableListItemProps should work correctly", () => {
@@ -48,7 +50,7 @@ describe("<ListItem />", () => {
 
     fireEvent.click(listItemButton);
 
-    expect(getByTestId("list-item")).toContainElement(listItemButton);
+    expect(getByTestId(defaultListItemProps.testid!)).toContainElement(listItemButton);
     expect(listItemButton).toHaveAttribute("tabIndex", "2");
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
