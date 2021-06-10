@@ -12,16 +12,3 @@ exports[`<ListItem /> should match snapshot 1`] = `
   </p>
 </li>
 `;
-
-exports[`<ListItem /> should matches snapshot 1`] = `
-<li
-  className="list-item"
-  data-testid="list-item"
->
-  <p
-    data-testid="list-item.content"
-  >
-    Test
-  </p>
-</li>
-`;

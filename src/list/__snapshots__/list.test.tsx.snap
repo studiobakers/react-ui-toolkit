@@ -23,27 +23,3 @@ exports[`<List /> should match snapshot 1`] = `
   </li>
 </ul>
 `;
-
-exports[`<List /> should matches snapshot 1`] = `
-<ul
-  className="list"
-  data-testid="list"
->
-  <li
-    className="list-item"
-    data-testid="list.item-0"
-  >
-    <span>
-      Hipo
-    </span>
-  </li>
-  <li
-    className="list-item"
-    data-testid="list.item-1"
-  >
-    <span>
-      Labs
-    </span>
-  </li>
-</ul>
-`;
