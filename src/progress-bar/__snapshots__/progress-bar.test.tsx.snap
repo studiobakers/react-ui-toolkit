@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<ProgressBar /> should matches snapshot 1`] = `
+exports[`<ProgressBar /> should match snapshot 1`] = `
 <div
   className="progress-bar"
   data-testid="progress-bar"

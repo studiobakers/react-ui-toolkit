@@ -18,7 +18,7 @@ describe("<ProgressBar />", () => {
     render(<ProgressBar {...defaultProgressBarProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<ProgressBar {...defaultProgressBarProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -37,7 +37,7 @@ describe("<ProgressBar />", () => {
       <ProgressBar {...defaultProgressBarProps}>{progressBarContent}</ProgressBar>
     );
 
-    expect(getByTestId("progress-bar")).toContainElement(
+    expect(getByTestId(defaultProgressBarProps.testid!)).toContainElement(
       getByTestId("progress-bar.content")
     );
   });
@@ -45,7 +45,7 @@ describe("<ProgressBar />", () => {
   it("progress bar's background color should be backgroundColor", () => {
     const {getByTestId} = render(<ProgressBar {...defaultProgressBarProps} />);
 
-    expect(getByTestId("progress-bar")).toHaveStyle(
+    expect(getByTestId(defaultProgressBarProps.testid!)).toHaveStyle(
       `background-color: ${defaultProgressBarProps.style.backgroundColor}`
     );
   });
@@ -53,15 +53,15 @@ describe("<ProgressBar />", () => {
   it("the width of the progress bar track should be `percentage` percent", () => {
     const {getByTestId} = render(<ProgressBar {...defaultProgressBarProps} />);
 
-    expect(getByTestId("progress-bar.track")).toHaveStyle(
+    expect(getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
       `width: ${defaultProgressBarProps.percentage}%`
     );
   });
 
-  it("if the percentage is not equal to 100, background color of the progress bar track should be trackColor", () => {
+  it("if the percentage is less than 100, background color of the progress bar track should be trackColor", () => {
     const {getByTestId} = render(<ProgressBar {...defaultProgressBarProps} />);
 
-    expect(getByTestId("progress-bar.track")).toHaveStyle(
+    expect(getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
       `background-color: ${defaultProgressBarProps.style.trackColor}`
     );
   });
@@ -71,7 +71,7 @@ describe("<ProgressBar />", () => {
       <ProgressBar {...defaultProgressBarProps} percentage={100} />
     );
 
-    expect(getByTestId("progress-bar.track")).toHaveStyle(
+    expect(getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
       `background-color: ${defaultProgressBarProps.style.completedColor}`
     );
   });
