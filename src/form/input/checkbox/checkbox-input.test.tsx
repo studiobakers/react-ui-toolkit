@@ -36,7 +36,7 @@ describe("<CheckboxInput />", () => {
     await testA11y(container);
   });
 
-  it("disabled property should works correctly", () => {
+  it("should add disabled attribute and checkbox-input-label--is-disabled class when isDisabled is true", () => {
     const {getByTestId} = render(
       <CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />
     );
@@ -51,7 +51,7 @@ describe("<CheckboxInput />", () => {
     expect(checkboxInput).toBeDisabled();
   });
 
-  it("isSelected property should works correctly", () => {
+  it("should add checked attribute and checkbox-input-label--is-selected class when isSelected is true", () => {
     const {getByTestId, rerender} = render(
       <CheckboxInput {...defaultCheckboxInputProps} />
     );
@@ -68,7 +68,7 @@ describe("<CheckboxInput />", () => {
     );
   });
 
-  it("should call onSelect prop correctly", () => {
+  it("should run onSelect event handler correctly", () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
     const checkboxInput = document.getElementsByClassName("checkbox-input")[0];
