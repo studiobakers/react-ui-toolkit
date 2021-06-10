@@ -38,7 +38,7 @@ describe("<RadioGroup />", () => {
     render(<RadioGroup {...defaultRadioGroupProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<RadioGroup {...defaultRadioGroupProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -53,7 +53,9 @@ describe("<RadioGroup />", () => {
   it("should render items correctly", () => {
     const {getByTestId} = render(<RadioGroup {...defaultRadioGroupProps} />);
 
-    expect(getByTestId("radio-group").childElementCount).toEqual(radioGroupItems.length);
+    expect(getByTestId(defaultRadioGroupProps.testid!).childElementCount).toEqual(
+      radioGroupItems.length
+    );
 
     for (let index = 0; index < radioGroupItems.length; index++) {
       const radioInputContent = getByTestId(`radio-input.content-${index}`);

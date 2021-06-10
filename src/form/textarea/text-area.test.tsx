@@ -19,7 +19,7 @@ describe("<TextArea />", () => {
     render(<Textarea {...defaultTextAreaProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<Textarea {...defaultTextAreaProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -42,7 +42,7 @@ describe("<TextArea />", () => {
         {...defaultTextAreaProps}
       />
     );
-    const textArea = getByTestId("text-area");
+    const textArea = getByTestId(defaultTextAreaProps.testid!);
 
     fireEvent.keyDown(textArea, {
       key: "Shift",
@@ -70,7 +70,7 @@ describe("<TextArea />", () => {
         {...defaultTextAreaProps}
       />
     );
-    const textArea = getByTestId("text-area");
+    const textArea = getByTestId(defaultTextAreaProps.testid!);
 
     fireEvent.keyDown(textArea, {
       key: "Shift",
@@ -104,6 +104,6 @@ describe("<TextArea />", () => {
     );
 
     expect(getByTestId("textarea-container")).toHaveClass("text-area__container");
-    expect(getByTestId("text-area")).toHaveClass("text-area__textarea");
+    expect(getByTestId(defaultTextAreaProps.testid!)).toHaveClass("text-area__textarea");
   });
 });

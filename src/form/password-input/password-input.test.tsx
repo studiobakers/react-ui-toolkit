@@ -44,7 +44,7 @@ describe("<PasswordInput />", () => {
     render(<PasswordInput {...defaultPasswordInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<PasswordInput {...defaultPasswordInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -60,10 +60,12 @@ describe("<PasswordInput />", () => {
     const {getByTestId} = render(<PasswordInput {...defaultPasswordInputProps} />);
 
     const passwordInput = document.getElementsByTagName("input")[0];
-    const iconButton = getByTestId("password-input-password-visibility-icon");
+    const iconButton = getByTestId(
+      `${defaultPasswordInputProps.testid!}-password-visibility-icon`
+    );
 
     expect(passwordInput).toHaveAttribute("type", "password");
-    expect(getByTestId("password-input")).toContainElement(
+    expect(getByTestId(defaultPasswordInputProps.testid!)).toContainElement(
       getByTestId("password-input.reveal")
     );
     expect(iconButton).toHaveAttribute("aria-label", "Show password");
@@ -73,12 +75,14 @@ describe("<PasswordInput />", () => {
     const {getByTestId} = render(<PasswordInput {...defaultPasswordInputProps} />);
 
     const passwordInput = document.getElementsByTagName("input")[0];
-    const iconButton = getByTestId("password-input-password-visibility-icon");
+    const iconButton = getByTestId(
+      `${defaultPasswordInputProps.testid!}-password-visibility-icon`
+    );
 
     fireEvent.click(iconButton);
 
     expect(passwordInput).toHaveAttribute("type", "text");
-    expect(getByTestId("password-input")).toContainElement(
+    expect(getByTestId(defaultPasswordInputProps.testid!)).toContainElement(
       getByTestId("password-input.hide")
     );
     expect(iconButton).toHaveAttribute("aria-label", "Hide password");
@@ -86,7 +90,7 @@ describe("<PasswordInput />", () => {
     fireEvent.click(iconButton);
 
     expect(passwordInput).toHaveAttribute("type", "password");
-    expect(getByTestId("password-input")).toContainElement(
+    expect(getByTestId(defaultPasswordInputProps.testid!)).toContainElement(
       getByTestId("password-input.reveal")
     );
     expect(iconButton).toHaveAttribute("aria-label", "Show password");

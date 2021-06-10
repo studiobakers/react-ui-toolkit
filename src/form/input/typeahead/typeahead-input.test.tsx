@@ -20,7 +20,7 @@ describe("<TypeaheadInput />", () => {
     render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<TypeaheadInput {...defaultTypeaheadInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();

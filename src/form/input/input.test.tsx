@@ -19,7 +19,7 @@ describe("<Input />", () => {
     render(<Input {...defaultInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<Input {...defaultInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -62,13 +62,13 @@ describe("<Input />", () => {
 
     const leftIcon = getByTestId("icon");
 
-    expect(getByTestId("input")).toContainElement(leftIcon);
+    expect(getByTestId(defaultInputProps.testid!)).toContainElement(leftIcon);
 
     rerender(<Input rightIcon={iconContent} {...defaultInputProps} />);
 
     const rightIcon = getByTestId("icon");
 
-    expect(getByTestId("input")).toContainElement(rightIcon);
+    expect(getByTestId(defaultInputProps.testid!)).toContainElement(rightIcon);
   });
 
   it("isDisabled property should works correctly", () => {

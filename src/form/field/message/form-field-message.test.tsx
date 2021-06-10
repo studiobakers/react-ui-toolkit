@@ -18,7 +18,7 @@ describe("<FormFieldMessage />", () => {
     render(<FormFieldMessage {...defaultFormFieldMessageProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<FormFieldMessage {...defaultFormFieldMessageProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -35,10 +35,12 @@ describe("<FormFieldMessage />", () => {
       <FormFieldMessage message={"Test Message"} {...defaultFormFieldMessageProps} />
     );
 
-    expect(getByTestId("form-field-message")).toHaveTextContent("Test Message");
+    expect(getByTestId(defaultFormFieldMessageProps.testid!)).toHaveTextContent(
+      "Test Message"
+    );
   });
 
-  it("should have proper class name", () => {
+  it("should have proper modifier class name for the type prop provided", () => {
     const {rerender, getByTestId} = render(
       <FormFieldMessage {...defaultFormFieldMessageProps} />
     );
@@ -52,7 +54,7 @@ describe("<FormFieldMessage />", () => {
     formFieldMessageTypes.forEach((type) => {
       rerender(<FormFieldMessage {...defaultFormFieldMessageProps} type={type} />);
 
-      expect(getByTestId("form-field-message")).toHaveClass(
+      expect(getByTestId(defaultFormFieldMessageProps.testid!)).toHaveClass(
         `form-field-message--is-${type}`
       );
     });

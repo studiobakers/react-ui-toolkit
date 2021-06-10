@@ -24,7 +24,7 @@ describe("<CheckboxInput />", () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<CheckboxInput {...defaultCheckboxInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -41,7 +41,7 @@ describe("<CheckboxInput />", () => {
       <CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />
     );
 
-    expect(getByTestId("checkbox-input")).toHaveClass(
+    expect(getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
       "checkbox-input-label--is-disabled"
     );
 
@@ -63,7 +63,7 @@ describe("<CheckboxInput />", () => {
     rerender(<CheckboxInput {...defaultCheckboxInputProps} isSelected={true} />);
 
     expect(checkboxInput).toBeChecked();
-    expect(getByTestId("checkbox-input")).toHaveClass(
+    expect(getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
       "checkbox-input-label--is-selected"
     );
   });

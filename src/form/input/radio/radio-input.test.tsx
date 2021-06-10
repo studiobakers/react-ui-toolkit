@@ -24,7 +24,7 @@ describe("<RadioInput />", () => {
     render(<RadioInput {...defaultRadioInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<RadioInput {...defaultRadioInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -41,7 +41,9 @@ describe("<RadioInput />", () => {
 
     const radioInputContent = getByTestId("radio-input.content");
 
-    expect(getByTestId("radio-input")).toContainElement(radioInputContent);
+    expect(getByTestId(defaultRadioInputProps.testid!)).toContainElement(
+      radioInputContent
+    );
   });
 
   it("isSelected property should works correctly", () => {
@@ -54,7 +56,9 @@ describe("<RadioInput />", () => {
     rerender(<RadioInput {...defaultRadioInputProps} isSelected={true} />);
 
     expect(radioInput).toBeChecked();
-    expect(getByTestId("radio-input")).toHaveClass("radio-input-label--is-selected");
+    expect(getByTestId(defaultRadioInputProps.testid!)).toHaveClass(
+      "radio-input-label--is-selected"
+    );
   });
 
   it("should call onSelect prop correctly", () => {
@@ -77,6 +81,8 @@ describe("<RadioInput />", () => {
 
     expect(radioInput).toHaveAttribute("disabled");
     expect(radioInput).toBeDisabled();
-    expect(getByTestId("radio-input")).toHaveClass("radio-input-label--is-disabled");
+    expect(getByTestId(defaultRadioInputProps.testid!)).toHaveClass(
+      "radio-input-label--is-disabled"
+    );
   });
 });

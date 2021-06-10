@@ -22,10 +22,10 @@ describe("<Button />", () => {
   it("should render children correctly", () => {
     const {getByTestId} = render(<Button {...defaultButtonProps} />);
 
-    expect(getByTestId("button")).toHaveTextContent("Test");
+    expect(getByTestId(defaultButtonProps.testid!)).toHaveTextContent("Test");
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<Button {...defaultButtonProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -37,12 +37,12 @@ describe("<Button />", () => {
     await testA11y(container);
   });
 
-  it("disabled property should works correctly", () => {
+  it("should add disabled attribute and button--is-inactive class when isDisabled is true", () => {
     const {getByTestId} = render(<Button isDisabled={true} {...defaultButtonProps} />);
 
-    expect(getByTestId("button")).toHaveAttribute("disabled");
-    expect(getByTestId("button")).toBeDisabled();
-    expect(getByTestId("button")).toHaveClass("button--is-inactive");
+    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("disabled");
+    expect(getByTestId(defaultButtonProps.testid!)).toBeDisabled();
+    expect(getByTestId(defaultButtonProps.testid!)).toHaveClass("button--is-inactive");
   });
 
   it("should display custom spinner correctly", () => {
@@ -58,7 +58,7 @@ describe("<Button />", () => {
 
     const customSpinner = getByTestId("custom-spinner");
 
-    expect(getByTestId("button")).toContainElement(customSpinner);
+    expect(getByTestId(defaultButtonProps.testid!)).toContainElement(customSpinner);
 
     rerender(
       <Button
@@ -68,7 +68,7 @@ describe("<Button />", () => {
       />
     );
 
-    expect(getByTestId("button")).not.toContainElement(customSpinner);
+    expect(getByTestId(defaultButtonProps.testid!)).not.toContainElement(customSpinner);
   });
 
   it("should not run click event handler while button is disabled", () => {
@@ -78,7 +78,7 @@ describe("<Button />", () => {
       <Button onClick={handleClick} isDisabled={true} {...defaultButtonProps} />
     );
 
-    fireEvent.click(getByTestId("button"));
+    fireEvent.click(getByTestId(defaultButtonProps.testid!));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
@@ -89,7 +89,7 @@ describe("<Button />", () => {
       <Button onClick={handleClick} shouldDisplaySpinner={true} {...defaultButtonProps} />
     );
 
-    fireEvent.click(getByTestId("button"));
+    fireEvent.click(getByTestId(defaultButtonProps.testid!));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
@@ -100,7 +100,7 @@ describe("<Button />", () => {
       <Button onClick={handleClick} {...defaultButtonProps} />
     );
 
-    fireEvent.click(getByTestId("button"));
+    fireEvent.click(getByTestId(defaultButtonProps.testid!));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
@@ -116,7 +116,7 @@ describe("<Button />", () => {
       />
     );
 
-    fireEvent.mouseOver(getByTestId("button"));
+    fireEvent.mouseOver(getByTestId(defaultButtonProps.testid!));
     expect(handleMouseOver).toHaveBeenCalledTimes(1);
   });
 
@@ -127,7 +127,7 @@ describe("<Button />", () => {
       <Button onFocus={handleFocus} {...defaultButtonProps} />
     );
 
-    fireEvent.focus(getByTestId("button"));
+    fireEvent.focus(getByTestId(defaultButtonProps.testid!));
     expect(handleFocus).toHaveBeenCalledTimes(1);
   });
 
@@ -138,7 +138,7 @@ describe("<Button />", () => {
       <Button onMouseUp={handleMouseUp} {...defaultButtonProps} />
     );
 
-    fireEvent.mouseUp(getByTestId("button"));
+    fireEvent.mouseUp(getByTestId(defaultButtonProps.testid!));
     expect(handleMouseUp).toHaveBeenCalledTimes(1);
   });
 
@@ -149,7 +149,7 @@ describe("<Button />", () => {
       <Button onMouseDown={handleMouseDown} {...defaultButtonProps} />
     );
 
-    fireEvent.mouseDown(getByTestId("button"));
+    fireEvent.mouseDown(getByTestId(defaultButtonProps.testid!));
     expect(handleMouseDown).toHaveBeenCalledTimes(1);
   });
 
@@ -158,21 +158,21 @@ describe("<Button />", () => {
 
     const {getByTestId} = render(<Button onBlur={handleBlur} {...defaultButtonProps} />);
 
-    fireEvent.blur(getByTestId("button"));
+    fireEvent.blur(getByTestId(defaultButtonProps.testid!));
     expect(handleBlur).toHaveBeenCalledTimes(1);
   });
 
   it("should has the proper type attribute", () => {
     const {getByTestId, rerender} = render(<Button {...defaultButtonProps} />);
 
-    expect(getByTestId("button")).toHaveAttribute("type", "button");
+    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("type", "button");
 
     rerender(<Button type={"submit"} {...defaultButtonProps} />);
 
-    expect(getByTestId("button")).toHaveAttribute("type", "submit");
+    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("type", "submit");
 
     rerender(<Button type={"reset"} {...defaultButtonProps} />);
 
-    expect(getByTestId("button")).toHaveAttribute("type", "reset");
+    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("type", "reset");
   });
 });
