@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -8,8 +8,6 @@ import List, {ListProps} from "./List";
 import ListItem from "./item/ListItem";
 
 describe("<List />", () => {
-  afterEach(cleanup);
-
   const listItems = ["Hipo", "Labs"];
   const defaultListProps: ListProps = {
     testid: "list",
@@ -83,7 +81,7 @@ describe("<List />", () => {
     );
   });
 
-  it("should render placeholder if both shouldDisplayPlaceholder and shouldDisplayEmptyState is true", () => {
+  it("should render placeholder if both shouldDisplayPlaceholder and shouldDisplayEmptyState are true", () => {
     const {getByTestId} = render(
       <List
         emptyStateProps={{

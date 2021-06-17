@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, fireEvent} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import {testA11y} from "../../core/utils/test/testUtils";
 import ListItem, {ListItemProps} from "./ListItem";
 
 describe("<ListItem />", () => {
-  afterEach(cleanup);
-
   const defaultListItemProps: ListItemProps = {
     testid: "list-item",
     children: <p data-testid={"list-item.content"}>{"Test"}</p>
@@ -65,8 +63,6 @@ describe("<ListItem />", () => {
     );
 
     fireEvent.keyPress(getByRole("button"), {
-      key: "Enter",
-      code: "Enter",
       keyCode: 13
     });
 
