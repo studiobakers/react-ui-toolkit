@@ -35,9 +35,10 @@ function ProgressBar(props: ProgressBarProps) {
       <div
         className={"progress-bar__track"}
         style={{
-          width: `${percentage}%`,
           // eslint-disable-next-line no-magic-numbers
-          backgroundColor: percentage === 100 ? completedColor : trackColor
+          width: percentage >= 100 ? "100%" : `${percentage}%`,
+          // eslint-disable-next-line no-magic-numbers
+          backgroundColor: percentage >= 100 ? completedColor : trackColor
         }}
         data-testid={`${testid}.track`}
       />

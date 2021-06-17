@@ -66,13 +66,29 @@ describe("<ProgressBar />", () => {
     );
   });
 
-  it("if the percentage is equal to 100, background color of the progress bar track should be completedColor", () => {
-    const {getByTestId} = render(
+  it("if the percentage is greater or equal to 100, background color of the progress bar track should be completedColor", () => {
+    const {rerender, getByTestId} = render(
       <ProgressBar {...defaultProgressBarProps} percentage={100} />
     );
 
     expect(getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
       `background-color: ${defaultProgressBarProps.style.completedColor}`
+    );
+
+    rerender(<ProgressBar {...defaultProgressBarProps} percentage={120} />);
+
+    expect(getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
+      `background-color: ${defaultProgressBarProps.style.completedColor}`
+    );
+  });
+
+  it("if the percentage is greater or equal to 100,  width of the progress bar track should be 100%", () => {
+    const {getByTestId} = render(
+      <ProgressBar {...defaultProgressBarProps} percentage={120} />
+    );
+
+    expect(getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
+      "width: 100%"
     );
   });
 });
