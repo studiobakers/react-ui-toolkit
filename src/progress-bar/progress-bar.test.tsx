@@ -1,13 +1,11 @@
 import React from "react";
-import {render, cleanup} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 import ProgressBar, {ProgressBarProps} from "./ProgressBar";
 import {testA11y} from "../core/utils/test/testUtils";
 
 describe("<ProgressBar />", () => {
-  afterEach(cleanup);
-
   const defaultProgressBarProps: ProgressBarProps = {
     testid: "progress-bar",
     percentage: 57,
