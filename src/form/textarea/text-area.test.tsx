@@ -43,13 +43,9 @@ describe("<TextArea />", () => {
     const textArea = getByTestId(defaultTextAreaProps.testid!);
 
     fireEvent.keyDown(textArea, {
-      key: "Shift",
-      keyCode: 16,
-      code: "ShiftLeft"
+      keyCode: 16
     });
     fireEvent.keyDown(textArea, {
-      key: "Enter",
-      code: "Enter",
       keyCode: 13
     });
 
@@ -71,18 +67,12 @@ describe("<TextArea />", () => {
     const textArea = getByTestId(defaultTextAreaProps.testid!);
 
     fireEvent.keyDown(textArea, {
-      key: "Shift",
-      keyCode: 16,
-      code: "ShiftLeft"
+      keyCode: 16
     });
     fireEvent.keyUp(textArea, {
-      key: "Shift",
-      keyCode: 16,
-      code: "ShiftLeft"
+      keyCode: 16
     });
     fireEvent.keyDown(textArea, {
-      key: "Enter",
-      code: "Enter",
       keyCode: 13
     });
 
