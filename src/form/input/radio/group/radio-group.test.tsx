@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import RadioGroup, {RadioGroupProps} from "./RadioGroup";
 import {testA11y} from "../../../../core/utils/test/testUtils";
 
 describe("<RadioGroup />", () => {
-  afterEach(cleanup);
-
   const radioGroupItems: RadioGroupProps["items"] = [
     {
       id: "radio-input-1",

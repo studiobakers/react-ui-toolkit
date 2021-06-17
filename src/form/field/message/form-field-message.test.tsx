@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import {testA11y} from "../../../core/utils/test/testUtils";
 import FormFieldMessage, {FormFieldMessageProps} from "./FormFieldMessage";
 
 describe("<FormFieldMessage />", () => {
-  afterEach(cleanup);
-
   const defaultFormFieldMessageProps: FormFieldMessageProps = {
     testid: "form-field-message",
     type: "error"

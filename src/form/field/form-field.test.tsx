@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -8,8 +8,6 @@ import FormField, {FormFieldProps} from "./FormField";
 import Input from "../input/Input";
 
 describe("<FormField />", () => {
-  afterEach(cleanup);
-
   const defaultFormFieldProps: FormFieldProps = {
     testid: "form-field",
     children: <Input onChange={jest.fn} name={"test"} testid={"form-field.input"} />

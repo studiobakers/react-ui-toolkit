@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, fireEvent} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import {testA11y} from "../../../core/utils/test/testUtils";
 import FileInput, {FileInputProps} from "./FileInput";
 
 describe("<FileInput />", () => {
-  afterEach(cleanup);
-
   const defaultFileInputProps: FileInputProps = {
     testid: "file-input",
     name: "file-input",

@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, fireEvent} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import CheckboxInput, {CheckboxInputProps} from "./CheckboxInput";
 import {testA11y} from "../../../core/utils/test/testUtils";
 
 describe("<CheckboxInput />", () => {
-  afterEach(cleanup);
-
   const defaultCheckboxInputProps: CheckboxInputProps = {
     testid: "checkbox-input",
     isSelected: false,

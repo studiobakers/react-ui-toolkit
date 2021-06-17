@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, fireEvent} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -8,8 +8,6 @@ import {testA11y} from "../core/utils/test/testUtils";
 import {ButtonProps} from "..";
 
 describe("<Button />", () => {
-  afterEach(cleanup);
-
   const defaultButtonProps: ButtonProps = {
     testid: "button",
     children: "Test"
