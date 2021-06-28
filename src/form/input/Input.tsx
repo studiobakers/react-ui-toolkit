@@ -97,12 +97,12 @@ function Input(props: InputProps) {
   const inputContainerClassName = classNames(
     "input-container",
     customClassName,
-    `input-container--type-${type}`
+    `input-container--type-${type}`,
+    {
+      "input-container--is-disabled": isDisabled,
+      "input-container--has-error": hasError
+    }
   );
-  const inputClassName = classNames("input", {
-    "input--is-disabled": isDisabled,
-    "input--has-error": hasError
-  });
   let finalValue = value;
 
   if (
@@ -161,7 +161,7 @@ function Input(props: InputProps) {
       )}
 
       <input
-        className={inputClassName}
+        className={"input"}
         type={isNumberInput ? "text" : type}
         autoComplete={autoComplete}
         value={finalValue}
