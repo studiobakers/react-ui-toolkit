@@ -58,7 +58,7 @@ describe("<PasswordInput />", () => {
     render(<PasswordInput {...defaultPasswordInputProps} />);
 
     const passwordInput = screen.getByTestId(defaultPasswordInputProps.testid!);
-    const iconButton = screen.getByRole("button", {name: "Show password"});
+    const iconButton = screen.getByRole("button");
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "password");
     expect(passwordInput).toContainElement(iconButton);

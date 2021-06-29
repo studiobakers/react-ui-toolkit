@@ -6,8 +6,6 @@ exports[`<Button /> should match snapshot 1`] = `
   data-testid="button"
   disabled={false}
   onClick={[Function]}
-  onFocus={[Function]}
-  onMouseOver={[Function]}
   type="button"
 >
   Test
