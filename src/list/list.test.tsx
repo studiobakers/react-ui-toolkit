@@ -36,21 +36,19 @@ describe("<List />", () => {
   });
 
   it("should render children correctly", () => {
-    const {getByTestId} = render(<List {...defaultListProps} />);
+    render(<List {...defaultListProps} />);
 
-    expect(getByTestId(defaultListProps.testid!).children).toHaveLength(listItems.length);
+    expect(screen.getAllByRole("listitem").length).toBe(listItems.length);
 
     for (let index = 0; index < listItems.length; index++) {
-      const listItemContent = getByTestId(`list.item-${index}`);
+      const listItemContent = screen.getByTestId(`list.item-${index}`);
 
-      expect(getByTestId(defaultListProps.testid!).children[index]).toEqual(
-        listItemContent
-      );
+      expect(screen.getAllByRole("listitem")[index]).toEqual(listItemContent);
     }
   });
 
   it("should render placeholder correctly", () => {
-    const {getByTestId} = render(
+    const {container} = render(
       <List
         placeholderProps={{
           shouldDisplayPlaceholder: true,
@@ -60,13 +58,11 @@ describe("<List />", () => {
       />
     );
 
-    expect(getByTestId(defaultListProps.testid!)).toContainElement(
-      getByTestId("list.placeholder")
-    );
+    expect(container).toContainElement(screen.getByText("Loading..."));
   });
 
   it("should render empty state correctly", () => {
-    const {getByTestId} = render(
+    render(
       <List
         emptyStateProps={{
           shouldDisplayEmptyState: true,
@@ -76,13 +72,11 @@ describe("<List />", () => {
       />
     );
 
-    expect(getByTestId(defaultListProps.testid!)).toContainElement(
-      getByTestId("list.empty-state")
-    );
+    expect(screen.getByRole("list")).toContainElement(screen.getByText("Not found."));
   });
 
   it("should render placeholder if both shouldDisplayPlaceholder and shouldDisplayEmptyState are true", () => {
-    const {getByTestId} = render(
+    render(
       <List
         emptyStateProps={{
           shouldDisplayEmptyState: true,
@@ -100,15 +94,13 @@ describe("<List />", () => {
       />
     );
 
-    expect(getByTestId(defaultListProps.testid!)).toContainElement(
-      getByTestId("list.placeholder")
-    );
+    expect(screen.getByRole("list")).toContainElement(screen.getByText("Loading..."));
     expect(screen.queryByText("Not found.")).not.toBeInTheDocument();
   });
 
   it("should handle empty items correctly", () => {
-    const {getByTestId} = render(<List {...defaultListProps} items={[]} />);
+    render(<List {...defaultListProps} items={[]} />);
 
-    expect(getByTestId(defaultListProps.testid!).children).toHaveLength(0);
+    expect(screen.queryAllByRole("listitem").length).toBe(0);
   });
 });

@@ -1,7 +1,8 @@
 import React from "react";
-import {render, fireEvent} from "@testing-library/react";
+import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
+import userEvent from "@testing-library/user-event";
 
 import {testA11y} from "../../core/utils/test/testUtils";
 import ListItem, {ListItemProps} from "./ListItem";
@@ -29,40 +30,41 @@ describe("<ListItem />", () => {
   });
 
   it("should render children correctly", () => {
-    const {getByTestId} = render(<ListItem {...defaultListItemProps} />);
+    render(<ListItem {...defaultListItemProps} />);
 
-    expect(getByTestId(defaultListItemProps.testid!)).toContainElement(
-      getByTestId("list-item.content")
-    );
+    expect(screen.getByRole("listitem")).toContainElement(screen.getByText("Test"));
   });
 
-  it("clickableListItemProps should work correctly", () => {
+  it("Can be clicked", () => {
     const handleClick = jest.fn();
-    const {getByTestId, getByRole} = render(
+
+    render(
       <ListItem
         clickableListItemProps={{onClick: handleClick, tabIndex: 2}}
         {...defaultListItemProps}
       />
     );
-    const listItemButton = getByRole("button");
+    const listItemButton = screen.getByRole("button");
 
-    fireEvent.click(listItemButton);
+    userEvent.click(listItemButton);
 
-    expect(getByTestId(defaultListItemProps.testid!)).toContainElement(listItemButton);
+    expect(screen.getByRole("listitem")).toContainElement(listItemButton);
     expect(listItemButton).toHaveAttribute("tabIndex", "2");
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
   it("should run click event handler when enter key pressed", () => {
     const handleClick = jest.fn();
-    const {getByRole} = render(
+
+    render(
       <ListItem
         clickableListItemProps={{onClick: handleClick, tabIndex: 2}}
         {...defaultListItemProps}
       />
     );
 
-    fireEvent.keyPress(getByRole("button"), {
+    fireEvent.focus(screen.getByRole("button"));
+    fireEvent.keyPress(screen.getByRole("button"), {
       keyCode: 13
     });
 
