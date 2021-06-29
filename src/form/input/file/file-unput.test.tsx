@@ -37,36 +37,6 @@ describe("<FileInput />", () => {
     expect(screen.getByText("Upload File")).toHaveTextContent("Upload File");
   });
 
-  it("should upload file correctly", () => {
-    const file = new File(["hipo"], "hipo.png", {type: "image/png"});
-
-    render(<FileInput {...defaultFileInputProps} />);
-    const fileInput = screen.getByLabelText("Upload File") as HTMLInputElement;
-
-    fireEvent.change(fileInput, {target: {files: [file]}});
-
-    expect(fileInput.files![0]).toEqual(file);
-    expect(defaultFileInputProps.onChange).toHaveBeenCalledTimes(1);
-  });
-
-  it("should upload multiple files correctly", () => {
-    const files = [
-      new File(["hipo"], "hipo.png", {type: "image/png"}),
-      new File(["labs"], "labs.png", {type: "image/png"})
-    ];
-
-    render(<FileInput {...defaultFileInputProps} />);
-
-    const fileInput = screen.getByLabelText("Upload File") as HTMLInputElement;
-
-    fireEvent.change(fileInput, {target: {files}});
-
-    expect(fileInput.files).toHaveLength(files.length);
-    expect(fileInput.files![0]).toStrictEqual(files[0]);
-    expect(fileInput.files![1]).toStrictEqual(files[1]);
-    expect(defaultFileInputProps.onChange).toHaveBeenCalledTimes(files.length);
-  });
-
   it("should display custom spinner correctly", () => {
     const customSpinnerContent = <p data-testid={"custom-spinner"}>{"Loading..."}</p>;
 
