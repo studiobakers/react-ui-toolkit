@@ -4,7 +4,7 @@ import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
 import Input, {InputProps} from "./Input";
-// import {testA11y} from "../../core/utils/test/testUtils";
+import {testA11y} from "../../core/utils/test/testUtils";
 
 describe("<Input />", () => {
   const defaultInputProps: InputProps = {
@@ -23,13 +23,11 @@ describe("<Input />", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  //   it("should pass a11y test", async () => {
-  //     const {container} = render(
-  //       <Input {...defaultInputProps}  />
-  //     );
+  it("should pass a11y test", async () => {
+    const {container} = render(<Input {...defaultInputProps} />);
 
-  //     await testA11y(container);
-  //   });
+    await testA11y(container, {rules: {label: {enabled: false}}});
+  });
 
   it("should run onChange event handler correctly", () => {
     render(<Input {...defaultInputProps} />);
