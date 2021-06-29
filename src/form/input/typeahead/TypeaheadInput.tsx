@@ -4,16 +4,11 @@ import classNames from "classnames";
 import Input, {InputProps, InputTypes} from "../Input";
 import useDebounce from "../../../core/utils/hooks/debounce";
 
-export type TypeaheadInputProps = Omit<
-  InputProps,
-  "onChange" | "type" | "customClassName" | "value"
-> & {
+export type TypeaheadInputProps = Omit<InputProps, "onChange" | "type"> & {
   onQueryChange: (value: string) => void;
   type?: Extract<InputTypes, "text" | "number">;
-  value?: string;
   initialValue?: string;
   queryChangeDebounceTimeout?: number;
-  customClassName?: string;
 };
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 250;
