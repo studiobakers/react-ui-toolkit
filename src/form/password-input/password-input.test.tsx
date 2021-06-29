@@ -1,7 +1,8 @@
 import React from "react";
-import {render, fireEvent, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
+import userEvent from "@testing-library/user-event";
 
 import PasswordInput, {PasswordInputProps} from "../password-input/PasswordInput";
 import {testA11y} from "../../core/utils/test/testUtils";
@@ -71,13 +72,13 @@ describe("<PasswordInput />", () => {
     const passwordInput = screen.getByTestId(defaultPasswordInputProps.testid!);
     const iconButton = screen.getByRole("button");
 
-    fireEvent.click(iconButton);
+    userEvent.click(iconButton);
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "text");
     expect(passwordInput).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Hide password");
 
-    fireEvent.click(iconButton);
+    userEvent.click(iconButton);
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "password");
     expect(passwordInput).toContainElement(iconButton);
