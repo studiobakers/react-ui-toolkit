@@ -1,7 +1,8 @@
 import React from "react";
-import {render, fireEvent, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
+import userEvent from "@testing-library/user-event";
 
 import {testA11y} from "../../../core/utils/test/testUtils";
 import RadioInput, {RadioInputProps} from "./RadioInput";
@@ -64,7 +65,7 @@ describe("<RadioInput />", () => {
       name: "Test"
     }) as HTMLInputElement;
 
-    fireEvent.click(radioInput, {target: {value: "test"}});
+    userEvent.click(radioInput);
 
     expect(radioInput.value).toBe("test");
     expect(defaultRadioInputProps.onSelect).toHaveBeenCalledTimes(1);

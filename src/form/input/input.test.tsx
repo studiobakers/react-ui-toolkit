@@ -1,7 +1,8 @@
 import React from "react";
-import {render, fireEvent, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
+import userEvent from "@testing-library/user-event";
 
 import Input, {InputProps} from "./Input";
 import {testA11y} from "../../core/utils/test/testUtils";
@@ -34,7 +35,7 @@ describe("<Input />", () => {
 
     const input = screen.getByRole("textbox");
 
-    fireEvent.change(input, {target: {value: "test"}});
+    userEvent.type(input, "test");
 
     expect(defaultInputProps.onChange).toHaveBeenCalled();
   });
@@ -44,7 +45,7 @@ describe("<Input />", () => {
 
     const input = screen.getByRole("textbox");
 
-    fireEvent.change(input, {target: {value: "test"}});
+    userEvent.type(input, "test");
 
     expect(input).toHaveValue("test");
   });

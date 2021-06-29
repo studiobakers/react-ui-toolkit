@@ -1,5 +1,6 @@
 import React from "react";
-import {render, fireEvent, screen} from "@testing-library/react";
+import {render, screen, fireEvent} from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -72,7 +73,7 @@ describe("<Button />", () => {
 
     render(<Button onClick={handleClick} isDisabled={true} {...defaultButtonProps} />);
 
-    fireEvent.click(screen.getByRole("button"));
+    userEvent.click(screen.getByRole("button"));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
@@ -83,7 +84,7 @@ describe("<Button />", () => {
       <Button onClick={handleClick} shouldDisplaySpinner={true} {...defaultButtonProps} />
     );
 
-    fireEvent.click(screen.getByRole("button"));
+    userEvent.click(screen.getByRole("button"));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
@@ -92,7 +93,7 @@ describe("<Button />", () => {
 
     render(<Button onClick={handleClick} {...defaultButtonProps} />);
 
-    fireEvent.click(screen.getByRole("button"));
+    userEvent.click(screen.getByRole("button"));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 

@@ -1,7 +1,8 @@
 import React from "react";
-import {render, fireEvent, screen} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
+import userEvent from "@testing-library/user-event";
 
 import CheckboxInput, {CheckboxInputProps} from "./CheckboxInput";
 import {testA11y} from "../../../core/utils/test/testUtils";
@@ -66,7 +67,7 @@ describe("<CheckboxInput />", () => {
 
     const checkboxInput = screen.getByRole("checkbox");
 
-    fireEvent.click(checkboxInput, {target: {checked: true}});
+    userEvent.click(checkboxInput);
 
     expect(defaultCheckboxInputProps.onSelect).toHaveBeenCalledTimes(1);
   });
