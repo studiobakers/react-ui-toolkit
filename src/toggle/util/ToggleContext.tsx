@@ -8,7 +8,7 @@ type ToggleContextValue = {
 
 const ToggleContext = createContext<ToggleContextValue>({
   selectedItems: [] as string[],
-  onToggle: () => {},
+  onToggle: () => undefined,
   canSelectMultiple: false
 });
 
@@ -18,7 +18,7 @@ function useToggle() {
   const toggleContext = useContext(ToggleContext);
 
   if (!toggleContext) {
-    throw new Error("No context found for Toggle");
+    throw new Error("Trying to consume ToggleContext outside of its provider.");
   }
 
   return toggleContext;
