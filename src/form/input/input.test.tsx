@@ -81,18 +81,4 @@ describe("<Input />", () => {
 
     expect(input).toHaveClass("input--has-error");
   });
-
-  it("should format number input correctly", () => {
-    render(
-      <Input maxLength={3} type={"number"} maxFractionDigits={2} {...defaultInputProps} />
-    );
-
-    const input = screen.getByRole("textbox");
-
-    expect(input).toHaveAttribute("type", "text");
-
-    fireEvent.change(input, {target: {value: "1545.5478"}});
-
-    expect(input).toHaveValue("1545.54");
-  });
 });

@@ -53,7 +53,7 @@ function PasswordInput({
           <Button
             testid={`${testid}-password-visibility-icon`}
             customClassName={passwordInputIconClassName}
-            ariaLabel={iconAriaLabel}
+            aria-label={iconAriaLabel}
             onClick={togglePasswordVisibility}
             shouldStopPropagation={false}
             shouldPreventDefault={false}>

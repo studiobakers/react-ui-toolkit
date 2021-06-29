@@ -77,6 +77,7 @@
     "fork-ts-checker-webpack-plugin": "4.1.6",
     "husky": "4.2.5",
     "jest": "26.4.2",
+    "jest-axe": "4.1.0",
     "lint-staged": "10.2.13",
     "node-sass": "4.14.1",
     "prettier": "2.0.5",

@@ -2,7 +2,7 @@
 
 exports[`<TypeaheadInput /> should match snapshot 1`] = `
 <div
-  className="input-container typeahead-input"
+  className="input-container typeahead-input input-container--type-text"
   data-testid="typeahead-input"
 >
   <input
