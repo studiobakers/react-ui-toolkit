@@ -1,5 +1,5 @@
 import React from "react";
-import {render, fireEvent} from "@testing-library/react";
+import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -35,33 +35,28 @@ describe("<CheckboxInput />", () => {
   });
 
   it("should add disabled attribute and checkbox-input-label--is-disabled class when isDisabled is true", () => {
-    const {getByTestId} = render(
-      <CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />
-    );
+    render(<CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />);
 
-    expect(getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
+    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
       "checkbox-input-label--is-disabled"
     );
 
-    const checkboxInput = document.getElementsByClassName("checkbox-input")[0];
+    const checkboxInput = screen.getByRole("checkbox");
 
-    expect(checkboxInput).toHaveAttribute("disabled");
     expect(checkboxInput).toBeDisabled();
   });
 
   it("should add checked attribute and checkbox-input-label--is-selected class when isSelected is true", () => {
-    const {getByTestId, rerender} = render(
-      <CheckboxInput {...defaultCheckboxInputProps} />
-    );
+    const {rerender} = render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
-    const checkboxInput = document.getElementsByClassName("checkbox-input")[0];
+    const checkboxInput = screen.getByRole("checkbox");
 
     expect(checkboxInput).not.toBeChecked();
 
     rerender(<CheckboxInput {...defaultCheckboxInputProps} isSelected={true} />);
 
     expect(checkboxInput).toBeChecked();
-    expect(getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
+    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
       "checkbox-input-label--is-selected"
     );
   });
@@ -69,7 +64,7 @@ describe("<CheckboxInput />", () => {
   it("should run onSelect event handler correctly", () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
-    const checkboxInput = document.getElementsByClassName("checkbox-input")[0];
+    const checkboxInput = screen.getByRole("checkbox");
 
     fireEvent.click(checkboxInput, {target: {checked: true}});
 

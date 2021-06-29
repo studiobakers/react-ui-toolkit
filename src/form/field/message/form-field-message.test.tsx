@@ -1,5 +1,5 @@
 import React from "react";
-import {render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -9,7 +9,8 @@ import FormFieldMessage, {FormFieldMessageProps} from "./FormFieldMessage";
 describe("<FormFieldMessage />", () => {
   const defaultFormFieldMessageProps: FormFieldMessageProps = {
     testid: "form-field-message",
-    type: "error"
+    type: "error",
+    message: "Form Field Message Test"
   };
 
   it("should render correctly", () => {
@@ -29,19 +30,15 @@ describe("<FormFieldMessage />", () => {
   });
 
   it("should render message correctly", () => {
-    const {getByTestId} = render(
-      <FormFieldMessage message={"Test Message"} {...defaultFormFieldMessageProps} />
+    render(
+      <FormFieldMessage {...defaultFormFieldMessageProps} message={"Test Message"} />
     );
 
-    expect(getByTestId(defaultFormFieldMessageProps.testid!)).toHaveTextContent(
-      "Test Message"
-    );
+    expect(screen.getByText("Test Message"));
   });
 
   it("should have proper modifier class name for the type prop provided", () => {
-    const {rerender, getByTestId} = render(
-      <FormFieldMessage {...defaultFormFieldMessageProps} />
-    );
+    const {rerender} = render(<FormFieldMessage {...defaultFormFieldMessageProps} />);
 
     const formFieldMessageTypes: typeof defaultFormFieldMessageProps.type[] = [
       "error",
@@ -52,7 +49,7 @@ describe("<FormFieldMessage />", () => {
     formFieldMessageTypes.forEach((type) => {
       rerender(<FormFieldMessage {...defaultFormFieldMessageProps} type={type} />);
 
-      expect(getByTestId(defaultFormFieldMessageProps.testid!)).toHaveClass(
+      expect(screen.getByText("Form Field Message Test")).toHaveClass(
         `form-field-message--is-${type}`
       );
     });

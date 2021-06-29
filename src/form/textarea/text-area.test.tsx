@@ -1,5 +1,5 @@
 import React from "react";
-import {render, fireEvent} from "@testing-library/react";
+import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -33,14 +33,14 @@ describe("<TextArea />", () => {
     const handleShiftEnter = jest.fn();
     const handleJustEnterPressed = jest.fn();
 
-    const {getByTestId} = render(
+    render(
       <Textarea
         onJustEnterPressed={handleJustEnterPressed}
         onShiftEnter={handleShiftEnter}
         {...defaultTextAreaProps}
       />
     );
-    const textArea = getByTestId(defaultTextAreaProps.testid!);
+    const textArea = screen.getByRole("textbox");
 
     fireEvent.keyDown(textArea, {
       keyCode: 16
@@ -57,14 +57,14 @@ describe("<TextArea />", () => {
     const handleShiftEnter = jest.fn();
     const handleJustEnterPressed = jest.fn();
 
-    const {getByTestId} = render(
+    render(
       <Textarea
         onJustEnterPressed={handleJustEnterPressed}
         onShiftEnter={handleShiftEnter}
         {...defaultTextAreaProps}
       />
     );
-    const textArea = getByTestId(defaultTextAreaProps.testid!);
+    const textArea = screen.getByRole("textbox");
 
     fireEvent.keyDown(textArea, {
       keyCode: 16
@@ -81,7 +81,7 @@ describe("<TextArea />", () => {
   });
 
   it("should have proper class name", () => {
-    const {getByTestId} = render(
+    render(
       <Textarea
         customClassNames={{
           container: "text-area__container",
@@ -91,7 +91,7 @@ describe("<TextArea />", () => {
       />
     );
 
-    expect(getByTestId("textarea-container")).toHaveClass("text-area__container");
-    expect(getByTestId(defaultTextAreaProps.testid!)).toHaveClass("text-area__textarea");
+    expect(screen.getByTestId("textarea-container")).toHaveClass("text-area__container");
+    expect(screen.getByRole("textbox")).toHaveClass("text-area__textarea");
   });
 });

@@ -1,11 +1,10 @@
 import React from "react";
-import {render, fireEvent} from "@testing-library/react";
+import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
-import Button from "./Button";
+import Button, {ButtonProps} from "./Button";
 import {testA11y} from "../core/utils/test/testUtils";
-import {ButtonProps} from "..";
 
 describe("<Button />", () => {
   const defaultButtonProps: ButtonProps = {
@@ -18,9 +17,9 @@ describe("<Button />", () => {
   });
 
   it("should render children correctly", () => {
-    const {getByTestId} = render(<Button {...defaultButtonProps} />);
+    render(<Button {...defaultButtonProps} />);
 
-    expect(getByTestId(defaultButtonProps.testid!)).toHaveTextContent("Test");
+    expect(screen.getByRole("button")).toHaveTextContent("Test");
   });
 
   it("should match snapshot", () => {
@@ -36,17 +35,16 @@ describe("<Button />", () => {
   });
 
   it("should add disabled attribute and button--is-inactive class when isDisabled is true", () => {
-    const {getByTestId} = render(<Button isDisabled={true} {...defaultButtonProps} />);
+    render(<Button isDisabled={true} {...defaultButtonProps} />);
 
-    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("disabled");
-    expect(getByTestId(defaultButtonProps.testid!)).toBeDisabled();
-    expect(getByTestId(defaultButtonProps.testid!)).toHaveClass("button--is-inactive");
+    expect(screen.getByRole("button")).toBeDisabled();
+    expect(screen.getByRole("button")).toHaveClass("button--is-inactive");
   });
 
   it("should display custom spinner correctly", () => {
     const customSpinnerContent = <p data-testid={"custom-spinner"}>{"Loading..."}</p>;
 
-    const {rerender, getByTestId} = render(
+    const {rerender} = render(
       <Button
         shouldDisplaySpinner={true}
         customSpinner={customSpinnerContent}
@@ -54,9 +52,9 @@ describe("<Button />", () => {
       />
     );
 
-    const customSpinner = getByTestId("custom-spinner");
+    const customSpinner = screen.getByText("Loading...");
 
-    expect(getByTestId(defaultButtonProps.testid!)).toContainElement(customSpinner);
+    expect(screen.getByRole("button")).toContainElement(customSpinner);
 
     rerender(
       <Button
@@ -66,39 +64,35 @@ describe("<Button />", () => {
       />
     );
 
-    expect(getByTestId(defaultButtonProps.testid!)).not.toContainElement(customSpinner);
+    expect(screen.getByRole("button")).not.toContainElement(customSpinner);
   });
 
   it("should not run click event handler while button is disabled", () => {
     const handleClick = jest.fn();
 
-    const {getByTestId} = render(
-      <Button onClick={handleClick} isDisabled={true} {...defaultButtonProps} />
-    );
+    render(<Button onClick={handleClick} isDisabled={true} {...defaultButtonProps} />);
 
-    fireEvent.click(getByTestId(defaultButtonProps.testid!));
+    fireEvent.click(screen.getByRole("button"));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
   it("should not run click event handler while shouldDisplaySpinner is true", () => {
     const handleClick = jest.fn();
 
-    const {getByTestId} = render(
+    render(
       <Button onClick={handleClick} shouldDisplaySpinner={true} {...defaultButtonProps} />
     );
 
-    fireEvent.click(getByTestId(defaultButtonProps.testid!));
+    fireEvent.click(screen.getByRole("button"));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
   it("should run click event handler correctly", () => {
     const handleClick = jest.fn();
 
-    const {getByTestId} = render(
-      <Button onClick={handleClick} {...defaultButtonProps} />
-    );
+    render(<Button onClick={handleClick} {...defaultButtonProps} />);
 
-    fireEvent.click(getByTestId(defaultButtonProps.testid!));
+    fireEvent.click(screen.getByRole("button"));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
@@ -106,7 +100,7 @@ describe("<Button />", () => {
     const handleMouseOver = jest.fn();
     const handleFocus = jest.fn();
 
-    const {getByTestId} = render(
+    render(
       <Button
         onFocus={handleFocus}
         onMouseOver={handleMouseOver}
@@ -114,63 +108,57 @@ describe("<Button />", () => {
       />
     );
 
-    fireEvent.mouseOver(getByTestId(defaultButtonProps.testid!));
+    fireEvent.mouseOver(screen.getByRole("button"));
     expect(handleMouseOver).toHaveBeenCalledTimes(1);
   });
 
   it("should run focus event handler correctly", () => {
     const handleFocus = jest.fn();
 
-    const {getByTestId} = render(
-      <Button onFocus={handleFocus} {...defaultButtonProps} />
-    );
+    render(<Button onFocus={handleFocus} {...defaultButtonProps} />);
 
-    fireEvent.focus(getByTestId(defaultButtonProps.testid!));
+    fireEvent.focus(screen.getByRole("button"));
     expect(handleFocus).toHaveBeenCalledTimes(1);
   });
 
   it("should run mouseUp event handler correctly", () => {
     const handleMouseUp = jest.fn();
 
-    const {getByTestId} = render(
-      <Button onMouseUp={handleMouseUp} {...defaultButtonProps} />
-    );
+    render(<Button onMouseUp={handleMouseUp} {...defaultButtonProps} />);
 
-    fireEvent.mouseUp(getByTestId(defaultButtonProps.testid!));
+    fireEvent.mouseUp(screen.getByRole("button"));
     expect(handleMouseUp).toHaveBeenCalledTimes(1);
   });
 
   it("should run mouseDown event handler correctly", () => {
     const handleMouseDown = jest.fn();
 
-    const {getByTestId} = render(
-      <Button onMouseDown={handleMouseDown} {...defaultButtonProps} />
-    );
+    render(<Button onMouseDown={handleMouseDown} {...defaultButtonProps} />);
 
-    fireEvent.mouseDown(getByTestId(defaultButtonProps.testid!));
+    fireEvent.mouseDown(screen.getByRole("button"));
     expect(handleMouseDown).toHaveBeenCalledTimes(1);
   });
 
   it("should run blur event handler correctly", () => {
     const handleBlur = jest.fn();
 
-    const {getByTestId} = render(<Button onBlur={handleBlur} {...defaultButtonProps} />);
+    render(<Button onBlur={handleBlur} {...defaultButtonProps} />);
 
-    fireEvent.blur(getByTestId(defaultButtonProps.testid!));
+    fireEvent.blur(screen.getByRole("button"));
     expect(handleBlur).toHaveBeenCalledTimes(1);
   });
 
   it("should has the proper type attribute", () => {
-    const {getByTestId, rerender} = render(<Button {...defaultButtonProps} />);
+    const {rerender} = render(<Button {...defaultButtonProps} />);
 
-    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("type", "button");
+    expect(screen.getByRole("button")).toHaveAttribute("type", "button");
 
     rerender(<Button type={"submit"} {...defaultButtonProps} />);
 
-    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("type", "submit");
+    expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
 
     rerender(<Button type={"reset"} {...defaultButtonProps} />);
 
-    expect(getByTestId(defaultButtonProps.testid!)).toHaveAttribute("type", "reset");
+    expect(screen.getByRole("button")).toHaveAttribute("type", "reset");
   });
 });

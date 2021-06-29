@@ -1,5 +1,5 @@
 import React from "react";
-import {render, fireEvent} from "@testing-library/react";
+import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -34,7 +34,7 @@ describe("<Input />", () => {
   it("should run onChange event handler correctly", () => {
     render(<Input {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
     fireEvent.change(input, {target: {value: "test"}});
 
@@ -44,37 +44,34 @@ describe("<Input />", () => {
   it("should update value on change", () => {
     render(<Input {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
     fireEvent.change(input, {target: {value: "test"}});
 
-    expect(input.value).toEqual("test");
+    expect(input).toHaveValue("test");
   });
 
   it("should render left and right icons correctly", () => {
     const iconContent = <p data-testid={"icon"}>{"Test"}</p>;
 
-    const {rerender, getByTestId} = render(
-      <Input leftIcon={iconContent} {...defaultInputProps} />
-    );
+    const {rerender} = render(<Input leftIcon={iconContent} {...defaultInputProps} />);
 
-    const leftIcon = getByTestId("icon");
+    const leftIcon = screen.getByText("Test");
 
-    expect(getByTestId(defaultInputProps.testid!)).toContainElement(leftIcon);
+    expect(screen.getByTestId(defaultInputProps.testid!)).toContainElement(leftIcon);
 
     rerender(<Input rightIcon={iconContent} {...defaultInputProps} />);
 
-    const rightIcon = getByTestId("icon");
+    const rightIcon = screen.getByText("Test");
 
-    expect(getByTestId(defaultInputProps.testid!)).toContainElement(rightIcon);
+    expect(screen.getByTestId(defaultInputProps.testid!)).toContainElement(rightIcon);
   });
 
   it("should add disabled attribute and input--is-disabled class when isDisabled is true", () => {
     render(<Input isDisabled={true} {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
-    expect(input).toHaveAttribute("disabled");
     expect(input).toBeDisabled();
     expect(input).toHaveClass("input--is-disabled");
   });
@@ -82,7 +79,7 @@ describe("<Input />", () => {
   it("should add input--has-error class when hasError is true", () => {
     render(<Input hasError={true} {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
     expect(input).toHaveClass("input--has-error");
   });
@@ -92,12 +89,12 @@ describe("<Input />", () => {
       <Input maxLength={3} type={"number"} maxFractionDigits={2} {...defaultInputProps} />
     );
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
     expect(input).toHaveAttribute("type", "text");
 
     fireEvent.change(input, {target: {value: "1545.5478"}});
 
-    expect(input.value).toEqual("1545.54");
+    expect(input).toHaveValue("1545.54");
   });
 });
