@@ -34,6 +34,29 @@ storiesOf("Typeahead", module).add("Typeahead States", () => {
     keyword: ""
   };
 
+  const modelInitialState = {
+    options: [
+      {
+        id: "2005",
+        title: "2005"
+      },
+      {
+        id: "2015",
+        title: "2015"
+      },
+      {
+        id: "2021",
+        title: "2021"
+      }
+    ],
+    thirdOptions: [],
+    selectedOptions: [],
+    secondSelectedOptions: [],
+    thirdSelectedOptions: [],
+    areOptionsFetching: false,
+    keyword: ""
+  };
+
   return (
     <StoryFragment>
       <div style={{maxWidth: "350px"}}>
@@ -156,6 +179,29 @@ storiesOf("Typeahead", module).add("Typeahead States", () => {
                 typeaheadProps={{
                   placeholder: "Select Languages",
                   name: "language-test"
+                }}
+              />
+            </FormField>
+          )}
+        </StateProvider>
+
+        <StateProvider initialState={modelInitialState}>
+          {(state, setState) => (
+            <FormField label={"Select Model Year"}>
+              <TypeaheadSelect
+                dropdownOptions={modelInitialState.options}
+                selectedOptions={state.selectedOptions}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    selectedOptions: [...state.selectedOptions, option]
+                  })
+                }
+                onTagRemove={handleRemoveTag(state, setState)}
+                typeaheadProps={{
+                  placeholder: "Select Model",
+                  name: "model",
+                  type: "number"
                 }}
               />
             </FormField>

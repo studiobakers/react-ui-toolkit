@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<TypeaheadInput /> should matches snapshot 1`] = `
+exports[`<TypeaheadInput /> should match snapshot 1`] = `
 <div
   className="input-container typeahead-input"
   data-testid="typeahead-input"

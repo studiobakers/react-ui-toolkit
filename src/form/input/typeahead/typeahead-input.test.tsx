@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup} from "@testing-library/react";
+import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import {testA11y} from "../../../core/utils/test/testUtils";
 import TypeaheadInput, {TypeaheadInputProps} from "./TypeaheadInput";
 
 describe("<TypeaheadInput />", () => {
-  afterEach(cleanup);
-
   const defaultTypeaheadInputProps: TypeaheadInputProps = {
     testid: "typeahead-input",
     name: "typeahead-input",
@@ -20,7 +18,7 @@ describe("<TypeaheadInput />", () => {
     render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<TypeaheadInput {...defaultTypeaheadInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();

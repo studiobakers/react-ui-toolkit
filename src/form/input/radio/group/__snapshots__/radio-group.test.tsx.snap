@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RadioGroup /> should matches snapshot 1`] = `
+exports[`<RadioGroup /> should match snapshot 1`] = `
 <ul
   className="list radio-group"
   data-testid="radio-group"

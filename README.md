@@ -67,6 +67,6 @@ Or you can run `npm run storybook` to see the components live. Storybook has own
 
 ### Linter
 
-ESLint and Prettier will handle the linting task. You can set a watcher for `npm run prettier:fix` command in your IDE otherwise you need to run prettier manually or right before the production build it'll automatically runs.
+ESLint and Prettier will handle the linting task. You can set a watcher for `npm run prettify` command in your IDE otherwise you need to run prettier manually or right before the production build it'll automatically runs.
 
 The ruleset can be found in [@hipo/eslint-config-base](https://github.com/Hipo/eslint-config-hipo-base), [@hipo/eslint-config-react](https://github.com/Hipo/eslint-config-hipo-base)

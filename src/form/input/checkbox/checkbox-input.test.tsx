@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import CheckboxInput, {CheckboxInputProps} from "./CheckboxInput";
 import {testA11y} from "../../../core/utils/test/testUtils";
 
 describe("<CheckboxInput />", () => {
-  afterEach(cleanup);
-
   const defaultCheckboxInputProps: CheckboxInputProps = {
     testid: "checkbox-input",
     isSelected: false,
@@ -24,7 +22,7 @@ describe("<CheckboxInput />", () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<CheckboxInput {...defaultCheckboxInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -36,42 +34,37 @@ describe("<CheckboxInput />", () => {
     await testA11y(container);
   });
 
-  it("disabled property should works correctly", () => {
-    const {getByTestId} = render(
-      <CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />
-    );
+  it("should add disabled attribute and checkbox-input-label--is-disabled class when isDisabled is true", () => {
+    render(<CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />);
 
-    expect(getByTestId("checkbox-input")).toHaveClass(
+    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
       "checkbox-input-label--is-disabled"
     );
 
-    const checkboxInput = document.getElementsByClassName("checkbox-input")[0];
+    const checkboxInput = screen.getByRole("checkbox");
 
-    expect(checkboxInput).toHaveAttribute("disabled");
     expect(checkboxInput).toBeDisabled();
   });
 
-  it("isSelected property should works correctly", () => {
-    const {getByTestId, rerender} = render(
-      <CheckboxInput {...defaultCheckboxInputProps} />
-    );
+  it("should add checked attribute and checkbox-input-label--is-selected class when isSelected is true", () => {
+    const {rerender} = render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
-    const checkboxInput = document.getElementsByClassName("checkbox-input")[0];
+    const checkboxInput = screen.getByRole("checkbox");
 
     expect(checkboxInput).not.toBeChecked();
 
     rerender(<CheckboxInput {...defaultCheckboxInputProps} isSelected={true} />);
 
     expect(checkboxInput).toBeChecked();
-    expect(getByTestId("checkbox-input")).toHaveClass(
+    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
       "checkbox-input-label--is-selected"
     );
   });
 
-  it("should call onSelect prop correctly", () => {
+  it("should run onSelect event handler correctly", () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
-    const checkboxInput = document.getElementsByClassName("checkbox-input")[0];
+    const checkboxInput = screen.getByRole("checkbox");
 
     fireEvent.click(checkboxInput, {target: {checked: true}});
 

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FormField /> should matches snapshot 1`] = `
+exports[`<FormField /> should match snapshot 1`] = `
 <div
   className="form-field"
   data-testid="form-field"

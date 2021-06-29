@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import PasswordInput, {PasswordInputProps} from "../password-input/PasswordInput
 import {testA11y} from "../../core/utils/test/testUtils";
 
 describe("<PasswordInput />", () => {
-  afterEach(cleanup);
-
   const defaultPasswordInputProps: PasswordInputProps = {
     testid: "password-input",
     name: "password-input",
@@ -44,7 +42,7 @@ describe("<PasswordInput />", () => {
     render(<PasswordInput {...defaultPasswordInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<PasswordInput {...defaultPasswordInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -57,38 +55,32 @@ describe("<PasswordInput />", () => {
   });
 
   it("should hide password initially", () => {
-    const {getByTestId} = render(<PasswordInput {...defaultPasswordInputProps} />);
+    render(<PasswordInput {...defaultPasswordInputProps} />);
 
-    const passwordInput = document.getElementsByTagName("input")[0];
-    const iconButton = getByTestId("password-input-password-visibility-icon");
+    const passwordInput = screen.getByTestId(defaultPasswordInputProps.testid!);
+    const iconButton = screen.getByRole("button", {name: "Show password"});
 
-    expect(passwordInput).toHaveAttribute("type", "password");
-    expect(getByTestId("password-input")).toContainElement(
-      getByTestId("password-input.reveal")
-    );
+    expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "password");
+    expect(passwordInput).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Show password");
   });
 
   it("should toggle password visibility on click icon", () => {
-    const {getByTestId} = render(<PasswordInput {...defaultPasswordInputProps} />);
+    render(<PasswordInput {...defaultPasswordInputProps} />);
 
-    const passwordInput = document.getElementsByTagName("input")[0];
-    const iconButton = getByTestId("password-input-password-visibility-icon");
+    const passwordInput = screen.getByTestId(defaultPasswordInputProps.testid!);
+    const iconButton = screen.getByRole("button");
 
     fireEvent.click(iconButton);
 
-    expect(passwordInput).toHaveAttribute("type", "text");
-    expect(getByTestId("password-input")).toContainElement(
-      getByTestId("password-input.hide")
-    );
+    expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "text");
+    expect(passwordInput).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Hide password");
 
     fireEvent.click(iconButton);
 
-    expect(passwordInput).toHaveAttribute("type", "password");
-    expect(getByTestId("password-input")).toContainElement(
-      getByTestId("password-input.reveal")
-    );
+    expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "password");
+    expect(passwordInput).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Show password");
   });
 });
