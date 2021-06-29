@@ -156,7 +156,8 @@ function removeLeadingZeros(locale = navigator.language, value: string) {
     integerPart.length !== String(parseInt(integerPart)).length &&
     integerPart !== LOCALE_MINUS_SIGN &&
     integerPart !== LOCALE_NEGATIVE_ZERO &&
-    integerPart !== DEFAULT_NEGATIVE_ZERO
+    integerPart !== DEFAULT_NEGATIVE_ZERO &&
+    integerPart !== ""
   ) {
     integerPart = String(parseInt(integerPart));
   }
