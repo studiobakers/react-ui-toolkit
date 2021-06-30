@@ -56,32 +56,30 @@ describe("<PasswordInput />", () => {
   });
 
   it("should hide password initially", () => {
-    render(<PasswordInput {...defaultPasswordInputProps} />);
+    const {container} = render(<PasswordInput {...defaultPasswordInputProps} />);
 
-    const passwordInput = screen.getByTestId(defaultPasswordInputProps.testid!);
     const iconButton = screen.getByRole("button");
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "password");
-    expect(passwordInput).toContainElement(iconButton);
+    expect(container).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Show password");
   });
 
   it("should toggle password visibility on click icon", () => {
-    render(<PasswordInput {...defaultPasswordInputProps} />);
+    const {container} = render(<PasswordInput {...defaultPasswordInputProps} />);
 
-    const passwordInput = screen.getByTestId(defaultPasswordInputProps.testid!);
     const iconButton = screen.getByRole("button");
 
     userEvent.click(iconButton);
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "text");
-    expect(passwordInput).toContainElement(iconButton);
+    expect(container).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Hide password");
 
     userEvent.click(iconButton);
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "password");
-    expect(passwordInput).toContainElement(iconButton);
+    expect(container).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Show password");
   });
 });

@@ -36,11 +36,11 @@ describe("<RadioInput />", () => {
   });
 
   it("should render content correctly", () => {
-    render(<RadioInput {...defaultRadioInputProps} />);
+    const {container} = render(<RadioInput {...defaultRadioInputProps} />);
 
     const radioInputContent = screen.getByText("Test");
 
-    expect(screen.getByText("Test")).toContainElement(radioInputContent);
+    expect(container).toContainElement(radioInputContent);
   });
 
   it("should add checked attribute and radio-input-label--is-selected class when isSelected is true", () => {

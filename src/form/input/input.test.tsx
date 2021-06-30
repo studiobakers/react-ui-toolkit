@@ -53,17 +53,19 @@ describe("<Input />", () => {
   it("should render left and right icons correctly", () => {
     const iconContent = <p data-testid={"icon"}>{"Test"}</p>;
 
-    const {rerender} = render(<Input leftIcon={iconContent} {...defaultInputProps} />);
+    const {rerender, container} = render(
+      <Input leftIcon={iconContent} {...defaultInputProps} />
+    );
 
     const leftIcon = screen.getByText("Test");
 
-    expect(screen.getByTestId(defaultInputProps.testid!)).toContainElement(leftIcon);
+    expect(container).toContainElement(leftIcon);
 
     rerender(<Input rightIcon={iconContent} {...defaultInputProps} />);
 
     const rightIcon = screen.getByText("Test");
 
-    expect(screen.getByTestId(defaultInputProps.testid!)).toContainElement(rightIcon);
+    expect(container).toContainElement(rightIcon);
   });
 
   it("should add disabled attribute and input--is-disabled class when isDisabled is true", () => {

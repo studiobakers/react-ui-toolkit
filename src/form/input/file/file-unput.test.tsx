@@ -40,7 +40,7 @@ describe("<FileInput />", () => {
   it("should display custom spinner correctly", () => {
     const customSpinnerContent = <p data-testid={"custom-spinner"}>{"Loading..."}</p>;
 
-    render(
+    const {container} = render(
       <FileInput
         isPending={true}
         customSpinner={customSpinnerContent}
@@ -50,7 +50,7 @@ describe("<FileInput />", () => {
 
     const customSpinner = screen.getByText("Loading...");
 
-    expect(screen.getByText("Upload File")).toContainElement(customSpinner);
+    expect(container).toContainElement(customSpinner);
   });
 
   it("should add disabled attribute to file input and file-input__label--is-disabled class to file input label when isDisabled is true", () => {

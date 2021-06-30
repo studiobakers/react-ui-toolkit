@@ -30,13 +30,11 @@ describe("<FormField />", () => {
   });
 
   it("should render children correctly", () => {
-    render(<FormField {...defaultFormFieldProps} />);
+    const {container} = render(<FormField {...defaultFormFieldProps} />);
 
     const childrenContent = screen.getByRole("textbox");
 
-    expect(screen.getByTestId(defaultFormFieldProps.testid!)).toContainElement(
-      childrenContent
-    );
+    expect(container).toContainElement(childrenContent);
   });
 
   it("should render label correctly", () => {

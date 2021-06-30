@@ -45,7 +45,7 @@ describe("<Button />", () => {
   it("should display custom spinner correctly", () => {
     const customSpinnerContent = <p data-testid={"custom-spinner"}>{"Loading..."}</p>;
 
-    const {rerender} = render(
+    const {rerender, container} = render(
       <Button
         shouldDisplaySpinner={true}
         customSpinner={customSpinnerContent}
@@ -55,7 +55,7 @@ describe("<Button />", () => {
 
     const customSpinner = screen.getByText("Loading...");
 
-    expect(screen.getByRole("button")).toContainElement(customSpinner);
+    expect(container).toContainElement(customSpinner);
 
     rerender(
       <Button
@@ -65,7 +65,7 @@ describe("<Button />", () => {
       />
     );
 
-    expect(screen.getByRole("button")).not.toContainElement(customSpinner);
+    expect(container).not.toContainElement(customSpinner);
   });
 
   it("should not run click event handler while button is disabled", () => {
