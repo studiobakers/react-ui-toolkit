@@ -30,15 +30,15 @@ describe("<ListItem />", () => {
   });
 
   it("should render children correctly", () => {
-    render(<ListItem {...defaultListItemProps} />);
+    const {container} = render(<ListItem {...defaultListItemProps} />);
 
-    expect(screen.getByRole("listitem")).toContainElement(screen.getByText("Test"));
+    expect(container).toContainElement(screen.getByText("Test"));
   });
 
   it("Can be clicked", () => {
     const handleClick = jest.fn();
 
-    render(
+    const {container} = render(
       <ListItem
         clickableListItemProps={{onClick: handleClick, tabIndex: 2}}
         {...defaultListItemProps}
@@ -48,7 +48,7 @@ describe("<ListItem />", () => {
 
     userEvent.click(listItemButton);
 
-    expect(screen.getByRole("listitem")).toContainElement(listItemButton);
+    expect(container).toContainElement(listItemButton);
     expect(listItemButton).toHaveAttribute("tabIndex", "2");
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
