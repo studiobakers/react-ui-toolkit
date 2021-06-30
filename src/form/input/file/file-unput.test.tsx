@@ -1,15 +1,13 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
 import {testA11y} from "../../../core/utils/test/testUtils";
-import FileInput from "./FileInput";
+import FileInput, {FileInputProps} from "./FileInput";
 
 describe("<FileInput />", () => {
-  afterEach(cleanup);
-
-  const defaultFileInputProps = {
+  const defaultFileInputProps: FileInputProps = {
     testid: "file-input",
     name: "file-input",
     htmlFor: "file-input",
@@ -21,7 +19,7 @@ describe("<FileInput />", () => {
     render(<FileInput {...defaultFileInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<FileInput {...defaultFileInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -34,45 +32,15 @@ describe("<FileInput />", () => {
   });
 
   it("should render children correctly", () => {
-    const {getByTestId} = render(<FileInput {...defaultFileInputProps} />);
-
-    expect(getByTestId("file-input.label")).toHaveTextContent("Upload File");
-  });
-
-  it("should upload file correctly", () => {
-    const file = new File(["hipo"], "hipo.png", {type: "image/png"});
-
-    render(<FileInput {...defaultFileInputProps} />);
-    const fileInput = document.getElementsByTagName("input")[0]!;
-
-    fireEvent.change(fileInput, {target: {files: [file]}});
-
-    expect(fileInput.files![0]).toEqual(file);
-    expect(defaultFileInputProps.onChange).toHaveBeenCalledTimes(1);
-  });
-
-  it("should upload multiple files correctly", () => {
-    const files = [
-      new File(["hipo"], "hipo.png", {type: "image/png"}),
-      new File(["labs"], "labs.png", {type: "image/png"})
-    ];
-
     render(<FileInput {...defaultFileInputProps} />);
 
-    const fileInput = document.getElementsByTagName("input")[0]!;
-
-    fireEvent.change(fileInput, {target: {files}});
-
-    expect(fileInput.files).toHaveLength(files.length);
-    expect(fileInput.files![0]).toStrictEqual(files[0]);
-    expect(fileInput.files![1]).toStrictEqual(files[1]);
-    expect(defaultFileInputProps.onChange).toHaveBeenCalledTimes(files.length);
+    expect(screen.getByText("Upload File")).toHaveTextContent("Upload File");
   });
 
   it("should display custom spinner correctly", () => {
     const customSpinnerContent = <p data-testid={"custom-spinner"}>{"Loading..."}</p>;
 
-    const {getByTestId} = render(
+    const {container} = render(
       <FileInput
         isPending={true}
         customSpinner={customSpinnerContent}
@@ -80,24 +48,22 @@ describe("<FileInput />", () => {
       />
     );
 
-    const customSpinner = getByTestId("custom-spinner");
+    const customSpinner = screen.getByText("Loading...");
 
-    expect(getByTestId("file-input.label")).toContainElement(customSpinner);
+    expect(container).toContainElement(customSpinner);
   });
 
-  it("disabled property should works correctly", () => {
-    const {rerender, getByTestId} = render(
-      <FileInput isDisabled={true} {...defaultFileInputProps} />
-    );
+  it("should add disabled attribute to file input and file-input__label--is-disabled class to file input label when isDisabled is true", () => {
+    render(<FileInput isDisabled={true} {...defaultFileInputProps} />);
 
-    expect(getByTestId("file-input")).toHaveAttribute("disabled");
-    expect(getByTestId("file-input")).toBeDisabled();
-    expect(getByTestId("file-input.label")).toHaveClass("file-input__label--is-disabled");
+    expect(screen.getByLabelText("Upload File")).toBeDisabled();
+    expect(screen.getByText("Upload File")).toHaveClass("file-input__label--is-disabled");
+  });
 
-    rerender(<FileInput isPending={true} {...defaultFileInputProps} />);
+  it("should add disabled attribute to file input and file-input__label--is-disabled class to file input label when isPending is true", () => {
+    render(<FileInput isPending={true} {...defaultFileInputProps} />);
 
-    expect(getByTestId("file-input")).toHaveAttribute("disabled");
-    expect(getByTestId("file-input")).toBeDisabled();
-    expect(getByTestId("file-input.label")).toHaveClass("file-input__label--is-disabled");
+    expect(screen.getByLabelText("Upload File")).toBeDisabled();
+    expect(screen.getByText("Upload File")).toHaveClass("file-input__label--is-disabled");
   });
 });

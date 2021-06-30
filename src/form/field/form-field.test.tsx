@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -8,8 +8,6 @@ import FormField, {FormFieldProps} from "./FormField";
 import Input from "../input/Input";
 
 describe("<FormField />", () => {
-  afterEach(cleanup);
-
   const defaultFormFieldProps: FormFieldProps = {
     testid: "form-field",
     children: <Input onChange={jest.fn} name={"test"} testid={"form-field.input"} />
@@ -19,7 +17,7 @@ describe("<FormField />", () => {
     render(<FormField {...defaultFormFieldProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<FormField {...defaultFormFieldProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -32,15 +30,15 @@ describe("<FormField />", () => {
   });
 
   it("should render children correctly", () => {
-    const {getByTestId} = render(<FormField {...defaultFormFieldProps} />);
+    const {container} = render(<FormField {...defaultFormFieldProps} />);
 
-    const childrenContent = getByTestId("form-field.input");
+    const childrenContent = screen.getByRole("textbox");
 
-    expect(getByTestId("form-field")).toContainElement(childrenContent);
+    expect(container).toContainElement(childrenContent);
   });
 
   it("should render label correctly", () => {
-    const {getByTestId} = render(
+    render(
       <FormField
         label={"Test"}
         labelledBy={"form-field.labelled-by"}
@@ -49,48 +47,53 @@ describe("<FormField />", () => {
       />
     );
 
+    // eslint-disable-next-line testing-library/no-node-access
     const formFieldLabel = document.getElementsByTagName("label")[0];
 
-    expect(getByTestId("form-field")).toHaveTextContent("Test");
+    expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent("Test");
     expect(formFieldLabel).toHaveAttribute("id", "form-field.labelled-by");
     expect(formFieldLabel).toHaveAttribute("for", "form-field.input");
   });
 
-  it("errorMessages prop should work correctly", () => {
+  it("should handle errorMessages correctly", () => {
     const formFieldErrorMessages = ["Test Error 1", "Test Error 2"];
-    const {getByTestId} = render(
+
+    render(
       <FormField errorMessages={formFieldErrorMessages} {...defaultFormFieldProps} />
     );
 
-    expect(getByTestId("form-field")).toHaveClass("form-field--has-error");
-
-    expect(getByTestId("form-field")).toHaveTextContent("Test Error 1");
-    expect(getByTestId("form-field")).toHaveTextContent("Test Error 2");
-
-    expect(getByTestId("form-field.error-messages").children).toHaveLength(
-      formFieldErrorMessages.length
+    expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveClass(
+      "form-field--has-error"
     );
+
+    formFieldErrorMessages.forEach((errorMessage) => {
+      expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent(
+        errorMessage
+      );
+    });
   });
 
-  it("helperMessages prop should work correctly", () => {
+  it("should handle helperMessages correctly", () => {
     const formFieldHelperMessages = ["Test Helper 1", "Test Helper 2"];
-    const {getByTestId} = render(
+
+    render(
       <FormField helperMessages={formFieldHelperMessages} {...defaultFormFieldProps} />
     );
 
-    expect(getByTestId("form-field")).toHaveTextContent("Test Helper 1");
-    expect(getByTestId("form-field")).toHaveTextContent("Test Helper 2");
+    formFieldHelperMessages.forEach((helperMessage) => {
+      expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent(
+        helperMessage
+      );
+    });
 
-    expect(getByTestId("form-field.helper-messages").children).toHaveLength(
-      formFieldHelperMessages.length
-    );
+    expect(screen.getAllByRole("listitem")).toHaveLength(formFieldHelperMessages.length);
   });
 
   it("should not render helper messages if error messages exists", () => {
     const formFieldErrorMessages = ["Test Error 1", "Test Error 2"];
     const formFieldHelperMessages = ["Test Helper 1", "Test Helper 2"];
 
-    const {getByTestId} = render(
+    render(
       <FormField
         helperMessages={formFieldHelperMessages}
         errorMessages={formFieldErrorMessages}
@@ -98,18 +101,25 @@ describe("<FormField />", () => {
       />
     );
 
-    expect(getByTestId("form-field")).toHaveClass("form-field--has-error");
-
-    expect(getByTestId("form-field")).toHaveTextContent("Test Error 1");
-    expect(getByTestId("form-field")).toHaveTextContent("Test Error 2");
-
-    expect(getByTestId("form-field")).not.toHaveTextContent("Test Helper 1");
-    expect(getByTestId("form-field")).not.toHaveTextContent("Test Helper 2");
-
-    expect(getByTestId("form-field.error-messages").children).toHaveLength(
-      formFieldErrorMessages.length
+    expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveClass(
+      "form-field--has-error"
     );
 
+    formFieldErrorMessages.forEach((errorMessage) => {
+      expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent(
+        errorMessage
+      );
+    });
+
+    formFieldHelperMessages.forEach((helperMessage) => {
+      expect(screen.getByTestId(defaultFormFieldProps.testid!)).not.toHaveTextContent(
+        helperMessage
+      );
+    });
+
+    expect(screen.getAllByRole("listitem")).toHaveLength(formFieldErrorMessages.length);
+
+    // eslint-disable-next-line testing-library/no-node-access
     const helperMessagesContent = document.getElementsByClassName(
       "form-field__helper-message-list"
     )[0];

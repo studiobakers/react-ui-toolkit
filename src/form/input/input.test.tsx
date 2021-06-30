@@ -1,14 +1,13 @@
 import React from "react";
-import {render, cleanup, fireEvent} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
+import userEvent from "@testing-library/user-event";
 
 import Input, {InputProps} from "./Input";
-// import {testA11y} from "../../core/utils/test/testUtils";
+import {testA11y} from "../../core/utils/test/testUtils";
 
 describe("<Input />", () => {
-  afterEach(cleanup);
-
   const defaultInputProps: InputProps = {
     testid: "input",
     name: "input",
@@ -19,26 +18,24 @@ describe("<Input />", () => {
     render(<Input {...defaultInputProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<Input {...defaultInputProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
   });
 
-  //   it("should pass a11y test", async () => {
-  //     const {container} = render(
-  //       <Input {...defaultInputProps}  />
-  //     );
+  it("should pass a11y test", async () => {
+    const {container} = render(<Input {...defaultInputProps} />);
 
-  //     await testA11y(container);
-  //   });
+    await testA11y(container, {rules: {label: {enabled: false}}});
+  });
 
-  it("should call onChange prop correctly", () => {
+  it("should run onChange event handler correctly", () => {
     render(<Input {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
-    fireEvent.change(input, {target: {value: "test"}});
+    userEvent.type(input, "test");
 
     expect(defaultInputProps.onChange).toHaveBeenCalled();
   });
@@ -46,60 +43,45 @@ describe("<Input />", () => {
   it("should update value on change", () => {
     render(<Input {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
-    fireEvent.change(input, {target: {value: "test"}});
+    userEvent.type(input, "test");
 
-    expect(input.value).toEqual("test");
+    expect(input).toHaveValue("test");
   });
 
   it("should render left and right icons correctly", () => {
     const iconContent = <p data-testid={"icon"}>{"Test"}</p>;
 
-    const {rerender, getByTestId} = render(
+    const {rerender, container} = render(
       <Input leftIcon={iconContent} {...defaultInputProps} />
     );
 
-    const leftIcon = getByTestId("icon");
+    const leftIcon = screen.getByText("Test");
 
-    expect(getByTestId("input")).toContainElement(leftIcon);
+    expect(container).toContainElement(leftIcon);
 
     rerender(<Input rightIcon={iconContent} {...defaultInputProps} />);
 
-    const rightIcon = getByTestId("icon");
+    const rightIcon = screen.getByText("Test");
 
-    expect(getByTestId("input")).toContainElement(rightIcon);
+    expect(container).toContainElement(rightIcon);
   });
 
-  it("isDisabled property should works correctly", () => {
+  it("should add disabled attribute and input--is-disabled class when isDisabled is true", () => {
     render(<Input isDisabled={true} {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
-    expect(input).toHaveAttribute("disabled");
     expect(input).toBeDisabled();
     expect(input).toHaveClass("input--is-disabled");
   });
 
-  it("hasError property should works correctly", () => {
+  it("should add input--has-error class when hasError is true", () => {
     render(<Input hasError={true} {...defaultInputProps} />);
 
-    const input = document.getElementsByTagName("input")[0];
+    const input = screen.getByRole("textbox");
 
     expect(input).toHaveClass("input--has-error");
-  });
-
-  it("should format number input correctly", () => {
-    render(
-      <Input maxLength={3} type={"number"} maxFractionDigits={2} {...defaultInputProps} />
-    );
-
-    const input = document.getElementsByTagName("input")[0];
-
-    expect(input).toHaveAttribute("type", "text");
-
-    fireEvent.change(input, {target: {value: "1545.5478"}});
-
-    expect(input.value).toEqual("1545.54");
   });
 });

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FormField /> should matches snapshot 1`] = `
+exports[`<FormField /> should match snapshot 1`] = `
 <div
   className="form-field"
   data-testid="form-field"
@@ -9,7 +9,7 @@ exports[`<FormField /> should matches snapshot 1`] = `
     className="form-field__label"
   >
     <div
-      className="input-container"
+      className="input-container input-container--type-text"
       data-testid="form-field.input"
     >
       <input

@@ -1,5 +1,5 @@
 import React from "react";
-import {render, cleanup} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
@@ -7,8 +7,6 @@ import RadioGroup, {RadioGroupProps} from "./RadioGroup";
 import {testA11y} from "../../../../core/utils/test/testUtils";
 
 describe("<RadioGroup />", () => {
-  afterEach(cleanup);
-
   const radioGroupItems: RadioGroupProps["items"] = [
     {
       id: "radio-input-1",
@@ -38,7 +36,7 @@ describe("<RadioGroup />", () => {
     render(<RadioGroup {...defaultRadioGroupProps} />);
   });
 
-  it("should matches snapshot", () => {
+  it("should match snapshot", () => {
     const tree = create(<RadioGroup {...defaultRadioGroupProps} />).toJSON();
 
     expect(tree).toMatchSnapshot();
@@ -51,27 +49,25 @@ describe("<RadioGroup />", () => {
   });
 
   it("should render items correctly", () => {
-    const {getByTestId} = render(<RadioGroup {...defaultRadioGroupProps} />);
+    render(<RadioGroup {...defaultRadioGroupProps} />);
 
-    expect(getByTestId("radio-group").childElementCount).toEqual(radioGroupItems.length);
+    expect(screen.getAllByRole("listitem").length).toEqual(radioGroupItems.length);
 
     for (let index = 0; index < radioGroupItems.length; index++) {
-      const radioInputContent = getByTestId(`radio-input.content-${index}`);
+      const radioInputContent = screen.getByTestId(`radio-input.content-${index}`);
 
-      expect(
-        getByTestId(`${defaultRadioGroupProps.testid}.item-${index}`)
-      ).toContainElement(radioInputContent);
+      expect(screen.getByTestId(`radio-group.item-${index}`)).toContainElement(
+        radioInputContent
+      );
     }
   });
 
-  it("selectedItem prop should works correctly", () => {
-    const {rerender, getByDisplayValue} = render(
-      <RadioGroup {...defaultRadioGroupProps} />
-    );
+  it("should add checked attribute to selectedItem", () => {
+    const {rerender} = render(<RadioGroup {...defaultRadioGroupProps} />);
 
     for (let index = 0; index < radioGroupItems.length; index++) {
       expect(
-        getByDisplayValue(radioGroupItems[index].inputProps.value)
+        screen.getByDisplayValue(radioGroupItems[index].inputProps.value)
       ).not.toBeChecked();
     }
 
@@ -79,6 +75,6 @@ describe("<RadioGroup />", () => {
       <RadioGroup {...defaultRadioGroupProps} selectedItem={radioGroupItems[1]} />
     );
 
-    expect(getByDisplayValue(radioGroupItems[1].inputProps.value)).toBeChecked();
+    expect(screen.getByDisplayValue(radioGroupItems[1].inputProps.value)).toBeChecked();
   });
 });

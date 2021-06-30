@@ -4,21 +4,26 @@ import React from "react";
 import classNames from "classnames";
 
 export interface FormFieldMessageProps {
-  className?: string;
   type: "error" | "warning" | "helper";
+  customClassName?: string;
   message?: string;
   testid?: string;
 }
 
-function FormFieldMessage({className, type, message, testid}: FormFieldMessageProps) {
-  const messageRowClassName = classNames(
-    "form-field-message",
-    className,
-    `form-field-message--is-${type}`
-  );
-
+function FormFieldMessage({
+  customClassName,
+  type,
+  message,
+  testid
+}: FormFieldMessageProps) {
   return (
-    <p data-testid={testid} className={messageRowClassName}>
+    <p
+      data-testid={testid}
+      className={classNames(
+        "form-field-message",
+        customClassName,
+        `form-field-message--is-${type}`
+      )}>
       {message}
     </p>
   );

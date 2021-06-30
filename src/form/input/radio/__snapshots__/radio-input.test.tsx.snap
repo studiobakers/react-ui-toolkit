@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<RadioInput /> should matches snapshot 1`] = `
+exports[`<RadioInput /> should match snapshot 1`] = `
 <label
   className="radio-input-label"
   data-testid="radio-input"

@@ -1,8 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<FormFieldMessage /> should matches snapshot 1`] = `
+exports[`<FormFieldMessage /> should match snapshot 1`] = `
 <p
   className="form-field-message form-field-message--is-error"
   data-testid="form-field-message"
-/>
+>
+  Form Field Message Test
+</p>
 `;

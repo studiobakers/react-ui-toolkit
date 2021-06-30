@@ -138,12 +138,12 @@ storiesOf("Form", module)
 
   .add("Number Input", () => (
     <Fragment>
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"Price – maxFractionDigits={2}"}>
+            <FormField label={"Price – maximumFractionDigits={2}"}>
               <Input
-                maxFractionDigits={2}
+                localizationOptions={{maximumFractionDigits: 2}}
                 name={"price"}
                 type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
@@ -152,13 +152,21 @@ storiesOf("Form", module)
               />
             </FormField>
 
+            <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
             <br />
 
             <FormField
               label={"Price - Has Error"}
               errorMessages={["Please enter a valid price"]}>
               <Input
-                maxFractionDigits={2}
+                localizationOptions={{maximumFractionDigits: 2}}
                 name={"price"}
                 type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
@@ -167,18 +175,22 @@ storiesOf("Form", module)
                 hasError={true}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>
 
       <br />
+      <hr />
+      <br />
 
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"Price (BTC) – maxFractionDigits={8}"}>
+            <FormField label={"Price (BTC) – maximumFractionDigits={8}"}>
               <Input
-                maxFractionDigits={8}
+                localizationOptions={{maximumFractionDigits: 8}}
                 name={"price"}
                 type={"number"}
                 onChange={(e) => setState(e.currentTarget.value)}
@@ -186,16 +198,21 @@ storiesOf("Form", module)
                 placeholder={"Min. ₿ 0.00000001"}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>
 
       <br />
 
-      <StateProvider initialState={null}>
+      <StateProvider initialState={""}>
         {(state, setState) => (
           <Fragment>
-            <FormField label={"ID or Passport Number – maxFractionDigits={0}"}>
+            <FormField
+              label={
+                "ID or Passport Number – maxFractionDigits={0} - Can have leading zeros"
+              }>
               <Input
                 name={"id-number"}
                 type={"number"}
@@ -203,6 +220,117 @@ storiesOf("Form", module)
                 value={state}
               />
             </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+      <hr />
+      <br />
+
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                "Wallet ($) – maximumFractionDigits={2} - shouldFormatToLocaleString={true}"
+              }>
+              <Input
+                name={"wallet"}
+                localizationOptions={{
+                  maximumFractionDigits: 2,
+                  shouldFormatToLocaleString: true
+                }}
+                type={"number"}
+                placeholder={"$ 1,000"}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                "World Population – maximumFractionDigits={0} - shouldFormatToLocaleString={true}"
+              }>
+              <Input
+                name={"world-population"}
+                type={"number"}
+                placeholder={"7,794,798,739"}
+                localizationOptions={{shouldFormatToLocaleString: true}}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+      <hr />
+      <br />
+
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"zh-Hans-CN-u-nu-hanidec"}'
+              }>
+              <Input
+                name={"world-population"}
+                type={"number"}
+                localizationOptions={{
+                  maximumFractionDigits: 4,
+                  shouldFormatToLocaleString: true,
+                  locale: "zh-Hans-CN-u-nu-hanidec"
+                }}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
+          </Fragment>
+        )}
+      </StateProvider>
+
+      <br />
+
+      <StateProvider initialState={""}>
+        {(state, setState) => (
+          <Fragment>
+            <FormField
+              label={
+                'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"tr"}'
+              }>
+              <Input
+                name={"world-population"}
+                type={"number"}
+                localizationOptions={{
+                  maximumFractionDigits: 4,
+                  shouldFormatToLocaleString: true,
+                  locale: "tr"
+                }}
+                onChange={(e) => setState(e.currentTarget.value)}
+                value={state}
+              />
+            </FormField>
+
+            <p>{`event.currentTarget.value: ${state}`}</p>
           </Fragment>
         )}
       </StateProvider>

@@ -1,8 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Input /> should matches snapshot 1`] = `
+exports[`<Input /> should match snapshot 1`] = `
 <div
-  className="input-container"
+  className="input-container input-container--type-text"
   data-testid="input"
 >
   <input

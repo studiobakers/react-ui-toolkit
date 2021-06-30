@@ -1,13 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Button /> should matches snapshot 1`] = `
+exports[`<Button /> should match snapshot 1`] = `
 <button
   className="button"
   data-testid="button"
   disabled={false}
   onClick={[Function]}
-  onFocus={[Function]}
-  onMouseOver={[Function]}
   type="button"
 >
   Test
