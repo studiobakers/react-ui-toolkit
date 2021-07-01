@@ -2,8 +2,12 @@
 
 exports[`<ProgressBar /> should match snapshot 1`] = `
 <div
+  aria-valuemax={100}
+  aria-valuemin={0}
+  aria-valuenow={57}
   className="progress-bar"
   data-testid="progress-bar"
+  role="progressbar"
   style={
     Object {
       "backgroundColor": "blue",
