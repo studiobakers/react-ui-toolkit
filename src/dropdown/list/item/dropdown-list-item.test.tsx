@@ -34,26 +34,16 @@ describe("<DropdownListItem />", () => {
   });
 
   it("should have proper class name", () => {
-    const {rerender} = render(<DropdownListItem {...defaultDropdownListItemProps} />);
-
-    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--is-selected");
-
-    rerender(
-      <DropdownListItem
-        {...defaultDropdownListItemProps}
-        focusedOption={{id: "1", title: "test"}}
-      />
-    );
-
-    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--is-focused");
-
-    rerender(
+    const {rerender} = render(
       <DropdownListItem
         {...defaultDropdownListItemProps}
         canSelectAlreadySelected={true}
+        focusedOption={{...defaultDropdownListItemProps.option}}
       />
     );
 
+    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--is-selected");
+    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--is-focused");
     expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--can-be-selected");
 
     rerender(
