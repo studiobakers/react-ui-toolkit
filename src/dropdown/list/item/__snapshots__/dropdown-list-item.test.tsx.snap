@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<DropdownListItem /> should match snapshot 1`] = `
+<li
+  aria-selected={true}
+  className="dropdown-list-item dropdown-list-item--is-selected"
+  data-testid="dropdown-list-item"
+  id="1"
+  onClick={[Function]}
+  onFocus={[Function]}
+  onKeyDown={[Function]}
+  onMouseEnter={[Function]}
+  role="option"
+>
+  <div
+    className="dropdown-list-item__icon"
+  />
+  <div
+    className="dropdown-list-item__content"
+  >
+    <p
+      className="dropdown-list-item__title"
+      data-testid="dropdown-list-item.title"
+    >
+      test
+    </p>
+  </div>
+</li>
+`;
