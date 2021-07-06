@@ -9,7 +9,7 @@ import SpinnerStorySample from "./utils/constants/spinner/SpinnerStorySample";
 import {useEffect, useRef} from "@storybook/addons";
 
 storiesOf("Button", module)
-  .add("Button States", () => {
+  .add("Button", () => {
     const buttonRef = useRef<HTMLButtonElement | null>(null);
 
     return (

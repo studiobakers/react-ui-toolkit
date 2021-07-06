@@ -12,7 +12,7 @@ import Textarea from "../src/form/textarea/Textarea";
 import StoryFragment from "./utils/StoryFragment";
 
 storiesOf("Form", module)
-  .add("Input States", () => (
+  .add("Input", () => (
     <Fragment>
       <Input
         name={"fullName"}
@@ -345,7 +345,7 @@ storiesOf("Form", module)
       />
     </FormField>
   ))
-  .add("Checkbox States", () => {
+  .add("Checkbox", () => {
     const initialState = {
       rememberMe: true,
       termsAndConditions: false,
@@ -405,7 +405,7 @@ storiesOf("Form", module)
       </StateProvider>
     );
   })
-  .add("Radio States", () => {
+  .add("Radio Input", () => {
     const initialState = {
       firstInput: {
         choices: [
