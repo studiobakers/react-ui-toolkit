@@ -10,6 +10,11 @@ export interface ProgressBarProps {
     backgroundColor?: string;
     completedColor?: string;
   };
+  ariaLabelledBy?: string;
+  ariaLabel?: string;
+  ariaValueText?: string;
+  ariaDescribedBy?: string;
+  title?: string;
   children?: React.ReactNode;
   customClassName?: string;
   testid?: string;
@@ -19,6 +24,11 @@ function ProgressBar(props: ProgressBarProps) {
   const {
     percentage,
     style: {trackColor = "blue", backgroundColor = "gray", completedColor = "green"},
+    ariaLabelledBy,
+    ariaLabel,
+    title,
+    ariaValueText,
+    ariaDescribedBy,
     children,
     customClassName,
     testid
@@ -37,6 +47,11 @@ function ProgressBar(props: ProgressBarProps) {
       aria-valuenow={parsedPercentage}
       aria-valuemin={0}
       aria-valuemax={100}
+      aria-labelledby={ariaLabelledBy}
+      aria-label={ariaLabel}
+      title={title}
+      aria-valuetext={ariaValueText}
+      aria-describedby={ariaDescribedBy}
       data-testid={testid}>
       <div
         className={"progress-bar__track"}

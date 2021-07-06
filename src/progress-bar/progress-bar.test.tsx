@@ -4,13 +4,14 @@ import "@testing-library/jest-dom";
 import {create} from "react-test-renderer";
 
 import ProgressBar, {ProgressBarProps} from "./ProgressBar";
-// import {testA11y} from "../core/utils/test/testUtils";
+import {testA11y} from "../core/utils/test/testUtils";
 
 describe("<ProgressBar />", () => {
   const defaultProgressBarProps: ProgressBarProps = {
     testid: "progress-bar",
     percentage: 57,
-    style: {backgroundColor: "blue", completedColor: "yellow", trackColor: "orange"}
+    style: {backgroundColor: "blue", completedColor: "yellow", trackColor: "orange"},
+    ariaLabel: "Progress bar"
   };
 
   it("should render correctly", () => {
@@ -23,11 +24,11 @@ describe("<ProgressBar />", () => {
     expect(tree).toMatchSnapshot();
   });
 
-  // it("should pass a11y test", async () => {
-  //   const {container} = render(<ProgressBar {...defaultProgressBarProps} />);
+  it("should pass a11y test", async () => {
+    const {container} = render(<ProgressBar {...defaultProgressBarProps} />);
 
-  //   await testA11y(container);
-  // });
+    await testA11y(container);
+  });
 
   it("should render children correctly", () => {
     const progressBarContent = <span data-testid={"progress-bar.content"}>{"Test"}</span>;
