@@ -60,7 +60,7 @@ storiesOf("Button", module)
       </StoryFragment>
     );
   })
-  .add("Upload Button States", () => {
+  .add("Upload Button", () => {
     const fileUploadButtonRef = useRef<HTMLLabelElement | null>(null);
 
     useEffect(() => {
