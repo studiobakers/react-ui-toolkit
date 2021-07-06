@@ -11,13 +11,22 @@ const tabItems: TabItem[] = [
   {
     id: "following",
     content: "Following"
+  },
+  {
+    id: "disabled-tab",
+    content: "Disabled",
+    isDisabled: true
   }
 ];
 
 storiesOf("Tab", module).add("Tab", () => (
   <Fragment>
     <Tab items={tabItems}>
-      {[<div key={0}>{"Home"}</div>, <div key={1}>{"Following"}</div>]}
+      {[
+        <div key={0}>{"Home"}</div>,
+        <div key={1}>{"Following"}</div>,
+        <div key={2}>{"Disabled"}</div>
+      ]}
     </Tab>
   </Fragment>
 ));

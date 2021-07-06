@@ -1,5 +1,6 @@
 .tab-header-item {
   --active-color: 50, 50, 211;
+  --disabled-color: 150, 150, 150;
 
   &:not(:first-of-type) {
     margin-left: 48px;
@@ -20,6 +21,20 @@
   .list-item__click-wrapper {
     &:focus {
       color: rgba(var(--active-color), 1);
+    }
+  }
+}
+
+.tab-header-item--is-disabled {
+  color: rgba(var(--disabled-color), 1);
+
+  .list-item__click-wrapper {
+    &:hover {
+      cursor: not-allowed;
+    }
+
+    &:focus {
+      color: rgba(var(--disabled-color), 1);
     }
   }
 }

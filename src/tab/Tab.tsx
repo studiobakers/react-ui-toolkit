@@ -10,6 +10,7 @@ export type TabItem = {
   id: string;
   content: React.ReactNode;
   icon?: React.ReactNode;
+  isDisabled?: boolean;
 };
 
 export interface TabProps {
