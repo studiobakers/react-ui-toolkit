@@ -31,33 +31,37 @@ storiesOf("Form", module)
     </Fragment>
   ))
   .add("FormFieldWithInput", () => (
-    <FormField labelledBy={"Full Name"} label={"Full Name"}>
-      <Input
-        name={"fullName"}
-        placeholder={"Write your name"}
-        onChange={(e) => console.log(e.currentTarget.value)}
-      />
-    </FormField>
-  ))
-  .add("FormFieldWithInput.HasHelperMessage", () => (
-    <FormField
-      labelledBy={"Full Name"}
-      label={"Full Name"}
-      helperMessages={["You can include your middle name"]}>
-      <Input name="fullName" onChange={(e) => console.log(e.currentTarget.value)} />
-    </FormField>
-  ))
-  .add("FormFieldWithInput.HasErrorMessage", () => (
-    <FormField
-      labelledBy={"Full Name"}
-      label={"Full Name"}
-      errorMessages={["Please enter a full name"]}>
-      <Input
-        name={"fullName"}
-        hasError={true}
-        onChange={(e) => console.log(e.currentTarget.value)}
-      />
-    </FormField>
+    <StoryFragment>
+      <FormField labelledBy={"Full Name"} label={"Full Name"}>
+        <Input
+          name={"fullName"}
+          placeholder={"Write your name"}
+          onChange={(e) => console.log(e.currentTarget.value)}
+        />
+      </FormField>
+
+      <br />
+
+      <FormField
+        labelledBy={"Full Name"}
+        label={"Full Name"}
+        helperMessages={["You can include your middle name"]}>
+        <Input name="fullName" onChange={(e) => console.log(e.currentTarget.value)} />
+      </FormField>
+
+      <br />
+
+      <FormField
+        labelledBy={"Full Name"}
+        label={"Full Name"}
+        errorMessages={["Please enter a full name"]}>
+        <Input
+          name={"fullName"}
+          hasError={true}
+          onChange={(e) => console.log(e.currentTarget.value)}
+        />
+      </FormField>
+    </StoryFragment>
   ))
   .add("Textarea States", () => (
     <StoryFragment>
