@@ -16,7 +16,11 @@ const tabItems: TabItem[] = [
 
 storiesOf("Tab", module).add("Tab", () => (
   <Fragment>
-    <Tab items={tabItems}>
+    <Tab
+      items={tabItems}
+      onTabChange={(index) => {
+        console.log("tab changed to index: ", index);
+      }}>
       {[<div key={0}>{"Home"}</div>, <div key={1}>{"Following"}</div>]}
     </Tab>
   </Fragment>

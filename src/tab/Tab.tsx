@@ -18,6 +18,7 @@ export interface TabProps {
   testid?: string;
   initialActiveTabIndex?: number;
   customClassName?: string;
+  onTabChange?: (index: number) => void;
 }
 
 function Tab({
@@ -25,7 +26,8 @@ function Tab({
   items,
   initialActiveTabIndex = 0,
   children,
-  customClassName
+  customClassName,
+  onTabChange
 }: TabProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
@@ -50,6 +52,8 @@ function Tab({
 
   function handleChangeActiveTab(index: number) {
     setActiveTabIndex(index);
+
+    if (onTabChange) onTabChange(index);
   }
 }
 
