@@ -1,7 +1,7 @@
 @import "../../../ui/reference/util/truncate";
 @import "../../../ui/reference/animation";
 
-.dropdown-list-item {
+.dropdown-list__item {
   display: flex;
   align-items: center;
 
@@ -14,7 +14,7 @@
   transition: background-color $animation-duration $animation-function;
 }
 
-.dropdown-list-item--can-be-selected {
+.dropdown-list__item--can-be-selected {
   cursor: pointer;
 
   &:focus,
@@ -23,38 +23,38 @@
   }
 }
 
-.dropdown-list-item--is-focused {
+.dropdown-list__item--is-focused {
   background-color: darken(white, 5%);
 }
 
-.dropdown-list-item--is-selected {
+.dropdown-list__item--is-selected {
   background-color: var(--dropdown-selected-item-bg);
 }
 
-.dropdown-list-item--is-disabled {
+.dropdown-list__item--is-disabled {
   opacity: 0.7;
 
   &:hover,
-  &.dropdown-list-item--is-focused {
+  &.dropdown-list__item--is-focused {
     background-color: white;
   }
 }
 
-.dropdown-list-item__content {
+.dropdown-list__item__content {
   display: flex;
   align-items: center;
 
   min-width: 0;
 }
 
-.dropdown-list-item__title {
+.dropdown-list__item__title {
   @include truncate-line();
 
   font-size: 14px;
   line-height: 22px;
 }
 
-.dropdown-list-item__subtitle {
+.dropdown-list__item__subtitle {
   @include truncate-line();
 
   margin-left: 8px;

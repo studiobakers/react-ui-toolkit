@@ -77,7 +77,7 @@ function DropdownList<OptionIdShape extends string>({
       {options.length ? (
         options.map(renderDropdownListItem)
       ) : (
-        <li className={"dropdown-list-item dropdown-list__empty-message-item"}>
+        <li className={"dropdown-list__item dropdown-list__item__empty-message"}>
           <p
             data-testid={`${testid}.empty-message`}
             className={"dropdown-list__empty-message"}>

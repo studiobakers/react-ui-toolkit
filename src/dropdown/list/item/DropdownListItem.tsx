@@ -1,4 +1,4 @@
-import "./_dropdown-list-item.scss";
+import "./_dropdown-list__item.scss";
 
 import React, {Fragment} from "react";
 import classNames from "classnames";
@@ -55,13 +55,13 @@ function DropdownListItem<OptionIdShape extends string>({
   const isSelected = Boolean(selectedOption && optionId === selectedOption.id);
   const canItemBeClicked =
     !option.isDisabled && (!isSelected || canSelectAlreadySelected);
-  const containerClassName = classNames("dropdown-list-item", customClassName, {
-    "dropdown-list-item--is-selected": isSelected,
-    "dropdown-list-item--is-focused": Boolean(
+  const containerClassName = classNames("dropdown-list__item", customClassName, {
+    "dropdown-list__item--is-selected": isSelected,
+    "dropdown-list__item--is-focused": Boolean(
       focusedOption && optionId === focusedOption.id
     ),
-    "dropdown-list-item--can-be-selected": canItemBeClicked,
-    "dropdown-list-item--is-disabled": option.isDisabled
+    "dropdown-list__item--can-be-selected": canItemBeClicked,
+    "dropdown-list__item--is-disabled": option.isDisabled
   });
 
   return (
@@ -80,17 +80,17 @@ function DropdownListItem<OptionIdShape extends string>({
       aria-selected={isSelected}>
       {CustomContent || (
         <Fragment>
-          <div className={"dropdown-list-item__icon"}>{icon}</div>
+          <div className={"dropdown-list__item__icon"}>{icon}</div>
 
-          <div className={"dropdown-list-item__content"}>
-            <p data-testid={`${testid}.title`} className={"dropdown-list-item__title"}>
+          <div className={"dropdown-list__item__content"}>
+            <p data-testid={`${testid}.title`} className={"dropdown-list__item__title"}>
               {title}
             </p>
 
             {subtitle && (
               <p
                 data-testid={`${testid}.subtitle`}
-                className={"dropdown-list-item__subtitle"}>
+                className={"dropdown-list__item__subtitle"}>
                 {subtitle}
               </p>
             )}
