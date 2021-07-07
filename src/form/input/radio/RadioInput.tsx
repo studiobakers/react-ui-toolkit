@@ -35,9 +35,9 @@ function RadioInput({testid, item, onSelect, isSelected, isDisabled}: RadioInput
     customClassName,
     content
   } = item;
-  const containerClassName = classNames("radio-input-label", customClassName, {
-    "radio-input-label--is-selected": isSelected,
-    "radio-input-label--is-disabled": isDisabled
+  const containerClassName = classNames("radio-input__label", customClassName, {
+    "radio-input__label--is-selected": isSelected,
+    "radio-input__label--is-disabled": isDisabled
   });
 
   return (
@@ -53,7 +53,7 @@ function RadioInput({testid, item, onSelect, isSelected, isDisabled}: RadioInput
         disabled={isDisabled}
       />
 
-      <span className={"radio-input-label__icon"} />
+      <span className={"radio-input__label__icon"} />
 
       {content}
     </label>

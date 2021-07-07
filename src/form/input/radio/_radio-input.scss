@@ -1,6 +1,6 @@
 @import "../../../ui/reference/animation";
 
-.radio-input-label {
+.radio-input__label {
   --radio-border-color: darkgrey;
   --radio-focus-icon-color: black;
 
@@ -19,14 +19,14 @@
   font-size: 16px;
 }
 
-.radio-input-label--is-selected {
-  .radio-input-label__icon {
+.radio-input__label--is-selected {
+  .radio-input__label__icon {
     background-color: var(--radio-focus-icon-color);
     border-color: transparent;
   }
 }
 
-.radio-input-label--is-disabled {
+.radio-input__label--is-disabled {
   opacity: 0.5;
 
   cursor: not-allowed;
@@ -43,13 +43,13 @@
   cursor: pointer;
 
   &:focus {
-    & ~ .radio-input-label__icon {
+    & ~ .radio-input__label__icon {
       background-color: var(--radio-focus-icon-color);
     }
   }
 
   &:checked {
-    & ~ .radio-input-label__icon:after {
+    & ~ .radio-input__label__icon:after {
       display: block;
 
       background-color: white;
@@ -57,7 +57,7 @@
   }
 }
 
-.radio-input-label__icon {
+.radio-input__label__icon {
   position: relative;
 
   display: block;
