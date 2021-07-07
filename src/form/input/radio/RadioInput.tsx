@@ -3,7 +3,7 @@ import "./_radio-input.scss";
 import React from "react";
 import classNames from "classnames";
 
-export interface RadioInputItem<Id = string, Context = any> {
+export interface RadioInputItem<Id, Context> {
   id: Id;
   content: React.ReactNode;
   inputProps: {
@@ -16,20 +16,26 @@ export interface RadioInputItem<Id = string, Context = any> {
   customClassName?: string;
 }
 
-export type RadioInputSelectHandler<Id = string, Context = any> = (
+export type RadioInputSelectHandler<Id, Context> = (
   item: RadioInputItem<Id, Context>,
   event?: React.SyntheticEvent<HTMLInputElement>
 ) => void;
 
-export interface RadioInputProps {
-  item: RadioInputItem;
-  onSelect: RadioInputSelectHandler;
+export interface RadioInputProps<Id, Context> {
+  item: RadioInputItem<Id, Context>;
+  onSelect: RadioInputSelectHandler<Id, Context>;
   isSelected: boolean;
   testid?: string;
   isDisabled?: boolean;
 }
 
-function RadioInput({testid, item, onSelect, isSelected, isDisabled}: RadioInputProps) {
+function RadioInput<Id = string, Context = any>({
+  testid,
+  item,
+  onSelect,
+  isSelected,
+  isDisabled
+}: RadioInputProps<Id, Context>) {
   const {
     inputProps: {name, value, htmlFor},
     customClassName,
