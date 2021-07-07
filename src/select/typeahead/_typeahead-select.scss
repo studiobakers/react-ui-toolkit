@@ -14,7 +14,6 @@
   left: -8px;
 
   display: flex;
-  flex-wrap: wrap;
 
   margin: 0;
   padding: 15px 15px 0;
@@ -50,4 +49,9 @@
   .typeahead-select__tag-list {
     width: 100%;
   }
+}
+
+.typeahead-select__input {
+  width: unset;
+  flex: auto;
 }
