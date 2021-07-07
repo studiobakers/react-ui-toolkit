@@ -16,6 +16,7 @@ interface ToastContextProviderProps {
   children: React.ReactNode;
   customRootId?: string;
   autoCloseToasts?: boolean;
+  limit?: number;
 }
 
 /**
@@ -26,11 +27,13 @@ interface ToastContextProviderProps {
 function ToastContextProvider({
   children,
   customRootId,
-  autoCloseToasts = true
+  autoCloseToasts = true,
+  limit
 }: ToastContextProviderProps) {
   const [state, dispatch] = useReducer(toastReducer, {
     ...initialToastState,
-    autoCloseToasts
+    autoCloseToasts,
+    limit
   });
 
   return (

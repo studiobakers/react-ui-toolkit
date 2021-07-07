@@ -22,7 +22,7 @@ function useToastContext() {
  * @returns {function} ToastContext's state reducer's dispatch function
  */
 function useToaster() {
-  const dispatch = useToastContext()[1];
+  const [{limit}, dispatch] = useToastContext();
 
   return {
     /**
@@ -38,12 +38,13 @@ function useToaster() {
           toastData: {
             ...toastData,
             id: toastId
-          }
+          },
+          limit
         });
 
         return toastId;
       },
-      [dispatch]
+      [dispatch, limit]
     ),
     /**
      * Hide a Toast with a given id

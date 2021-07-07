@@ -23,6 +23,12 @@ function ToastComponent() {
       <ToastContextProvider autoCloseToasts={false}>
         <ToastExamples />
       </ToastContextProvider>
+
+      <p>{"ToastProvider with limit={3}"}</p>
+
+      <ToastContextProvider limit={3}>
+        <ToastExamples />
+      </ToastContextProvider>
     </StoryFragment>
   );
 }
