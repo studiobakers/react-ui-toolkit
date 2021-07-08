@@ -24,6 +24,7 @@ export interface TypeaheadInputProps {
   role?: string;
   children?: React.ReactNode;
   inputContainerRef?: React.RefObject<HTMLDivElement>;
+  inputRef?: React.RefObject<HTMLInputElement>;
 }
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 250;
@@ -47,7 +48,8 @@ function TypeaheadInput(props: TypeaheadInputProps) {
     initialValue = "",
     value,
     queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
-    inputContainerRef
+    inputContainerRef,
+    inputRef
   } = props;
 
   const [inputValue, setInputValue] = useDebounce(
@@ -65,6 +67,7 @@ function TypeaheadInput(props: TypeaheadInputProps) {
   return (
     <Input
       inputContainerRef={inputContainerRef}
+      inputRef={inputRef}
       customClassName={classNames("typeahead-input", customClassName)}
       id={id}
       testid={testid}

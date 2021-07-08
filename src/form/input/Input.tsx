@@ -56,6 +56,7 @@ export type InputProps = Omit<
     locale?: string;
     maximumFractionDigits?: number;
   };
+  inputRef?: React.RefObject<HTMLInputElement>;
 };
 
 /* eslint-disable complexity */
@@ -75,6 +76,7 @@ function Input(props: InputProps) {
     autoCorrect = "off",
     inputContainerRef,
     onChange,
+    inputRef,
     ...rest
   } = props;
   const {
@@ -161,6 +163,7 @@ function Input(props: InputProps) {
       )}
 
       <input
+        ref={inputRef}
         className={inputClassName}
         type={isNumberInput ? "text" : type}
         autoComplete={autoComplete}
