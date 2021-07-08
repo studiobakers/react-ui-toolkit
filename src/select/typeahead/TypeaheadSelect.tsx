@@ -113,13 +113,38 @@ function TypeaheadSelect({
 
   const dropdownHeader = (
     <div className={"typeahead-select__header"}>
-      {shouldDisplaySelectedOptions && Boolean(tags.length) && (
+      {
         <List
           testid={`${testid}.tags`}
-          items={tags}
-          customClassName={"typeahead-select__tag-list"}>
+          items={shouldDisplaySelectedOptions ? tags : []}
+          customClassName={"typeahead-select__header-list"}
+          extra={
+            !shouldDisplayOnlyTags && (
+              <TypeaheadInput
+                testid={`${testid}.search`}
+                customClassName={"typeahead-select__input"}
+                inputContainerRef={typeaheadInputRef}
+                id={typeaheadProps.id}
+                name={typeaheadProps.name}
+                type={typeaheadProps.type}
+                placeholder={typeaheadProps.placeholder}
+                value={inputValue}
+                onQueryChange={handleKeywordChange}
+                onKeyDown={handleKeyDown}
+                rightIcon={
+                  areOptionsFetching ? (
+                    spinnerContent
+                  ) : (
+                    <CaretDownIcon aria-hidden={true} />
+                  )
+                }
+                onFocus={handleTypeaheadInputFocus}
+                isDisabled={isDisabled}
+              />
+            )
+          }>
           {(tag, tagTestId) => (
-            <ListItem customClassName={"typeahead-select__tag-list__item"}>
+            <ListItem customClassName={"typeahead-select__header-list__item"}>
               <Tag
                 testid={tagTestId}
                 onRemove={handleRemove}
@@ -129,27 +154,7 @@ function TypeaheadSelect({
             </ListItem>
           )}
         </List>
-      )}
-
-      {!shouldDisplayOnlyTags && (
-        <TypeaheadInput
-          testid={`${testid}.search`}
-          customClassName={"typeahead-select__input"}
-          inputContainerRef={typeaheadInputRef}
-          id={typeaheadProps.id}
-          name={typeaheadProps.name}
-          type={typeaheadProps.type}
-          placeholder={typeaheadProps.placeholder}
-          value={inputValue}
-          onQueryChange={handleKeywordChange}
-          onKeyDown={handleKeyDown}
-          rightIcon={
-            areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
-          }
-          onFocus={handleTypeaheadInputFocus}
-          isDisabled={isDisabled}
-        />
-      )}
+      }
     </div>
   );
 
