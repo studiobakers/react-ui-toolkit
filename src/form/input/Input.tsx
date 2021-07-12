@@ -49,7 +49,6 @@ export type InputProps = Omit<
   isDisabled?: boolean;
   hasError?: boolean;
   customClassName?: string;
-  inputContainerRef?: React.RefObject<HTMLDivElement>;
   onChange: React.ReactEventHandler<HTMLInputElement>;
   localizationOptions?: {
     shouldFormatToLocaleString?: boolean;
@@ -74,7 +73,6 @@ function Input(props: InputProps) {
     role,
     autoComplete = "off",
     autoCorrect = "off",
-    inputContainerRef,
     onChange,
     inputRef,
     ...rest
@@ -151,11 +149,7 @@ function Input(props: InputProps) {
   }, [locale]);
 
   return (
-    <div
-      ref={inputContainerRef}
-      role={role}
-      className={inputContainerClassName}
-      data-testid={testid}>
+    <div role={role} className={inputContainerClassName} data-testid={testid}>
       {leftIcon && (
         <span className={"input-container__icon input-container__left-icon"}>
           {leftIcon}
