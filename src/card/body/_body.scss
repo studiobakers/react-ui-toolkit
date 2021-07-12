@@ -1,0 +1,7 @@
+.card__body {
+  --card-body-padding: 16px;
+
+  flex: 1 1 auto;
+
+  padding: var(--card-body-padding);
+}

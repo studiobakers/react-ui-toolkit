@@ -1,0 +1,17 @@
+.card__header {
+  --card-header-bg: rgba(247, 247, 247, 1);
+  --card-header-padding: 12px 16px;
+
+  display: flex;
+
+  flex: 1 1 auto;
+
+  padding: var(--card-header-padding);
+
+  background-color: var(--card-header-bg);
+  border-bottom: 1px solid var(--default-border-color);
+
+  &--clickable {
+    cursor: pointer;
+  }
+}
