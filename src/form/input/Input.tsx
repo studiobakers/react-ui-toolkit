@@ -59,7 +59,7 @@ export type InputProps = Omit<
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   /* eslint-disable complexity */
-  (props: InputProps, ref) => {
+  (props, ref) => {
     const {
       testid,
       value,
