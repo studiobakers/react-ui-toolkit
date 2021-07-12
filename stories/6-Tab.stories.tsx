@@ -23,9 +23,9 @@ storiesOf("Tab", module).add("Tab", () => (
   <Fragment>
     <Tab items={tabItems}>
       {[
-        <div key={0}>{"Home"}</div>,
-        <div key={1}>{"Following"}</div>,
-        <div key={2}>{"Disabled"}</div>
+        <div key={0}>{"Content of the Home tab"}</div>,
+        <div key={1}>{"Content of the Following tab"}</div>,
+        <div key={2}>{"Content of the Disabled tab"}</div>
       ]}
     </Tab>
   </Fragment>
