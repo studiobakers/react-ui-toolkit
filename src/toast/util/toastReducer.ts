@@ -18,10 +18,10 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
         toastData
       ];
 
-      if (limit)
-        if (toastStack.length > limit)
-          // pop first toast if stack exceeds limit
-          toastStack.shift();
+      if (limit && toastStack.length > limit) {
+        // pop first toast if stack exceeds limit
+        toastStack.shift();
+      }
 
       newState = {
         ...state,
