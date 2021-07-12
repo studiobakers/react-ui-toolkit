@@ -7,7 +7,7 @@ import RadioInput, {RadioInputItem, RadioInputSelectHandler} from "../RadioInput
 import List from "../../../../list/List";
 import ListItem from "../../../../list/item/ListItem";
 
-export interface RadioGroupProps<Id, Context> {
+export interface RadioGroupProps<Id = string, Context = any> {
   items: RadioInputItem<Id, Context>[];
   selectedItem: null | RadioInputItem<Id, Context>;
   onSelect: RadioInputSelectHandler<Id, Context>;
