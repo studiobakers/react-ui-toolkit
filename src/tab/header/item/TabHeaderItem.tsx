@@ -30,7 +30,9 @@ function TabHeaderItem({testid, tab, onClick, index, isActive}: TabHeaderItemPro
   );
 
   function handleClick() {
-    if (tab.isDisabled) return;
+    if (tab.isDisabled) {
+      return;
+    }
     onClick(index);
   }
 }
