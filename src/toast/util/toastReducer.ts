@@ -11,7 +11,9 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
 
   switch (action.type) {
     case "DISPLAY": {
-      const {toastData, limit} = action;
+      const {toastData} = action;
+
+      const {limit} = state;
 
       const toastStack = [
         ...state.toastStack.filter(not(isSameToast(toastData.id))),

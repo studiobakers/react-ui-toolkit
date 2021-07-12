@@ -10,7 +10,6 @@ export type ToastAction =
   | {
       type: "DISPLAY";
       toastData: Omit<ToastData, "id"> & {id: string};
-      limit?: number;
     }
   | {type: "HIDE"; toastId: string}
   | {type: "HIDE_ALL"}
