@@ -28,7 +28,7 @@ export interface TypeaheadInputProps {
 const DEFAULT_DEBOUNCE_TIMEOUT = 250;
 
 const TypeaheadInput = React.forwardRef<HTMLInputElement, TypeaheadInputProps>(
-  (props: TypeaheadInputProps, ref) => {
+  (props, ref) => {
     const {
       testid,
       placeholder,
