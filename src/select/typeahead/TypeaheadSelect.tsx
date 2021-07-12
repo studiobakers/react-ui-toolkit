@@ -134,9 +134,9 @@ function TypeaheadSelect({
 
       {!shouldDisplayOnlyTags && (
         <TypeaheadInput
+          ref={typeaheadInputRef}
           testid={`${testid}.search`}
           customClassName={"typeahead-select__input"}
-          inputRef={typeaheadInputRef}
           id={typeaheadProps.id}
           name={typeaheadProps.name}
           type={typeaheadProps.type}
