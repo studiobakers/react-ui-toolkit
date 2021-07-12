@@ -23,7 +23,6 @@ export interface TypeaheadInputProps {
   rightIcon?: React.ReactNode;
   role?: string;
   children?: React.ReactNode;
-  inputContainerRef?: React.RefObject<HTMLDivElement>;
   inputRef?: React.RefObject<HTMLInputElement>;
 }
 
@@ -48,7 +47,6 @@ function TypeaheadInput(props: TypeaheadInputProps) {
     initialValue = "",
     value,
     queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
-    inputContainerRef,
     inputRef
   } = props;
 
@@ -66,7 +64,6 @@ function TypeaheadInput(props: TypeaheadInputProps) {
 
   return (
     <Input
-      inputContainerRef={inputContainerRef}
       inputRef={inputRef}
       customClassName={classNames("typeahead-input", customClassName)}
       id={id}

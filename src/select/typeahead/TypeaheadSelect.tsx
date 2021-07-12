@@ -64,7 +64,6 @@ function TypeaheadSelect({
   initialKeyword = "",
   controlledKeyword
 }: TypeaheadSelectProps) {
-  const typeaheadInputContainerRef = useRef<HTMLDivElement | null>(null);
   const typeaheadInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isMenuOpen, setMenuVisibility] = useState(false);
@@ -137,7 +136,6 @@ function TypeaheadSelect({
         <TypeaheadInput
           testid={`${testid}.search`}
           customClassName={"typeahead-select__input"}
-          inputContainerRef={typeaheadInputContainerRef}
           inputRef={typeaheadInputRef}
           id={typeaheadProps.id}
           name={typeaheadProps.name}
