@@ -1,4 +1,4 @@
-import React, {createContext, useReducer} from "react";
+import React, {createContext, useReducer, useEffect} from "react";
 
 import ToastStack from "./stack/ToastStack";
 import {initialToastState} from "./util/toastConstants";
@@ -35,6 +35,16 @@ function ToastContextProvider({
     autoCloseToasts,
     limit
   });
+
+  useEffect(() => {
+    if (limit) {
+      dispatch({type: "SET_LIMIT", limit});
+    }
+  }, [limit]);
+
+  useEffect(() => {
+    dispatch({type: "SET_AUTO_CLOSE", autoCloseToasts});
+  }, [autoCloseToasts]);
 
   return (
     <ToastContext.Provider value={[state, dispatch]}>

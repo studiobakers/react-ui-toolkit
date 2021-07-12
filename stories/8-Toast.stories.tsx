@@ -3,6 +3,11 @@ import "./utils/constants/toast/_toast.scss";
 import {storiesOf} from "@storybook/react";
 import React from "react";
 
+import StateProvider from "./utils/StateProvider";
+
+import FormField from "../src/form/field/FormField";
+import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
+import Input from "../src/form/input/Input";
 import Button from "../src/button/Button";
 import {useToaster} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
@@ -179,4 +184,42 @@ function ToastExamples() {
   );
 }
 
-storiesOf("Toast", module).add("Toast Message", () => <ToastComponent />);
+storiesOf("Toast", module)
+  .add("Toast Message", () => <ToastComponent />)
+  .add("Toast with dynamic props", () => (
+    <StateProvider initialState={{limit: 3, autoCloseToasts: false}}>
+      {(state, setState) => (
+        <StoryFragment>
+          <FormField label={"Toast limit"}>
+            <Input
+              localizationOptions={{maximumFractionDigits: 0}}
+              name={"price"}
+              type={"number"}
+              onChange={(e) => setState({...state, limit: e.currentTarget.value})}
+              value={state.limit}
+              placeholder={"3"}
+            />
+          </FormField>
+
+          <CheckboxInput
+            onSelect={() => setState({...state, autoCloseToasts: !state.autoCloseToasts})}
+            isSelected={state.autoCloseToasts}
+            item={{
+              id: "autoCloseToasts",
+              content: "autoCloseToasts",
+              inputProps: {
+                name: "termsAndConditions",
+                htmlFor: "termsAndConditions",
+                value: "yes"
+              }
+            }}
+          />
+          <ToastContextProvider
+            limit={state.limit}
+            autoCloseToasts={state.autoCloseToasts}>
+            <ToastExamples />
+          </ToastContextProvider>
+        </StoryFragment>
+      )}
+    </StateProvider>
+  ));
