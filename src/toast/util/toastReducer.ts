@@ -13,14 +13,14 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
     case "DISPLAY": {
       const {toastData} = action;
       const {limit} = state;
-      const toastStack = [
+      let toastStack = [
         ...state.toastStack.filter(not(isSameToast(toastData.id))),
         toastData
       ];
 
       if (limit && toastStack.length > limit) {
-        // pop first toast if stack exceeds limit
-        toastStack.shift();
+        // prune the toasts exceeding the limit
+        toastStack = toastStack.slice(toastStack.length - limit);
       }
 
       newState = {
@@ -67,7 +67,9 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
     case "SET_LIMIT": {
       const {limit} = action;
       // prune the toasts exceeding the limit
-      const toastStack = state.toastStack.slice(0, limit);
+      const toastStack = state.toastStack.slice(
+        Math.max(0, state.toastStack.length - limit)
+      );
 
       newState = {
         ...state,
