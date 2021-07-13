@@ -1,10 +1,9 @@
-import React, {Fragment, useState} from "react";
+import React from "react";
 import {storiesOf} from "@storybook/react";
 
 import Card from "../src/card/Card";
 import CollapsibleCard from "../src/card/collapsible/CollapsibleCard";
 storiesOf("Card", module).add("Card", () => {
-  const [isOpen, setIsOpen] = useState(true);
   return (
     <div style={{width: "300px"}}>
       <Card>
