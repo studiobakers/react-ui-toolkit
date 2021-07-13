@@ -1,13 +1,9 @@
-.card__content--collapsed {
-  height: 0;
-}
-
-.card__content--expanded {
-  height: auto;
-}
-
 .card__content {
   overflow: hidden;
 
   transition: height 0.5s ease;
+}
+
+.card__content--collapsed {
+  visibility: hidden;
 }
