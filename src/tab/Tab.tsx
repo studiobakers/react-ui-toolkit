@@ -53,7 +53,9 @@ function Tab({
   function handleChangeActiveTab(index: number) {
     setActiveTabIndex(index);
 
-    if (onTabChange) onTabChange(index);
+    if (onTabChange) {
+      onTabChange(index);
+    }
   }
 }
 
