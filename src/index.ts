@@ -44,7 +44,6 @@ import Tab, {TabItem as TabComponentItem, TabProps as TabComponentProps} from ".
 import Textarea, {
   TextareaProps as TextareaComponentProps
 } from "./form/textarea/Textarea";
-import Avatar, {AvatarProps as AvatarComponentProps} from "./avatar/Avatar";
 import {Toggle, ToggleProps as ToggleComponentProps} from "./toggle/Toggle";
 import Switch, {SwitchProps as SwitchComponentProps} from "./switch/Switch";
 import Countdown from "./countdown/Countdown";
@@ -69,7 +68,6 @@ export {
   TypeaheadInput,
   TypeaheadSelect,
   Dropdown,
-  Avatar,
   List,
   ListItem,
   Button,
@@ -130,7 +128,6 @@ export type FileUploadButtonProps = FileUploadButtonComponentProps;
 export type SpinnerProps = SpinnerComponentProps;
 export type TabItem = TabComponentItem;
 export type TabProps = TabComponentProps;
-export type AvatarProps = AvatarComponentProps;
 export type ProgressBarProps = ProgressBarComponentProps;
 export type TextareaProps = TextareaComponentProps;
 export type ToggleProps = ToggleComponentProps;
