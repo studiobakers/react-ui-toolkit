@@ -97,12 +97,18 @@ export type InputProps = InputComponentProps;
 export type FileInputProps = FileInputComponentProps;
 export type PasswordInputProps = PasswordInputComponentProps;
 export type CheckboxInputProps = CheckboxInputComponentProps;
-export type RadioInputProps = RadioInputComponentProps;
+export type RadioInputProps<Id = string, Context = any> = RadioInputComponentProps<
+  Id,
+  Context
+>;
 export type RadioInputItem<Id = string, Context = any> = RadioInputComponentItem<
   Id,
   Context
 >;
-export type RadioGroupProps = RadioGroupComponentProps;
+export type RadioGroupProps<Id = string, Context = any> = RadioGroupComponentProps<
+  Id,
+  Context
+>;
 export type TypeaheadInputProps = TypeaheadInputComponentProps;
 export type TypeaheadSelectProps = TypeaheadSelectComponentProps;
 export type DropdownProps<OptionIdShape> = DropdownComponentProps<OptionIdShape>;
