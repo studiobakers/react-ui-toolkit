@@ -3,8 +3,8 @@ import "./_card.scss";
 import React from "react";
 import classNames from "classnames";
 
-import Header from "./header/Header";
-import Body from "./body/Body";
+import CardHeader from "./header/CardHeader";
+import CardBody from "./body/CardBody";
 
 export interface CardProps {
   children: React.ReactNode;
@@ -15,7 +15,7 @@ function Card({children, customClassName}: CardProps) {
   return <div className={classNames("card", customClassName)}>{children}</div>;
 }
 
-Card.Header = Header;
-Card.Body = Body;
+Card.Header = CardHeader;
+Card.Body = CardBody;
 
 export default Card;

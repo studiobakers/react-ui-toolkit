@@ -1,15 +1,15 @@
-import "./_body.scss";
+import "./_card-body.scss";
 
 import React from "react";
 import classNames from "classnames";
 
-export interface BodyProps {
+export interface CardBodyProps {
   children: React.ReactNode;
   customClassName?: string;
 }
 
-function Body({children, customClassName}: BodyProps) {
+function CardBody({children, customClassName}: CardBodyProps) {
   return <div className={classNames("card__body", customClassName)}>{children}</div>;
 }
 
-export default Body;
+export default CardBody;

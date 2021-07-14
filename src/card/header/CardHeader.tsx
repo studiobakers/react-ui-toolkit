@@ -1,15 +1,15 @@
-import "./_header.scss";
+import "./_card-header.scss";
 
 import React from "react";
 import classNames from "classnames";
 
-export interface BodyProps {
+export interface CardHeaderProps {
   children?: React.ReactNode;
   customClassName?: string;
   onClick?: (event?: React.MouseEvent) => void;
 }
 
-function Header({children, customClassName, onClick}: BodyProps) {
+function CardHeader({children, customClassName, onClick}: CardHeaderProps) {
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     switch (event.key) {
       case "Enter":
@@ -37,4 +37,4 @@ function Header({children, customClassName, onClick}: BodyProps) {
   return <div className={classNames("card__header", customClassName)}>{children}</div>;
 }
 
-export default Header;
+export default CardHeader;
