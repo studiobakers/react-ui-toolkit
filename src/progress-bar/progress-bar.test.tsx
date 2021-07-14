@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import ProgressBar, {ProgressBarProps} from "./ProgressBar";
 import {testA11y} from "../core/utils/test/testUtils";
@@ -16,12 +15,6 @@ describe("<ProgressBar />", () => {
 
   it("should render correctly", () => {
     render(<ProgressBar {...defaultProgressBarProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<ProgressBar {...defaultProgressBarProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {
