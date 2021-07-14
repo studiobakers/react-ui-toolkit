@@ -1,4 +1,4 @@
-import "./_collapsibleCard.scss";
+import "./_collapsible-card.scss";
 
 import React, {useState, useRef, useEffect} from "react";
 import classNames from "classnames";
@@ -19,7 +19,6 @@ function CollapsibleCard({
   onChange
 }: CollapsibleCardProps) {
   const [isOpen, setIsOpen] = useState(initialIsOpen);
-  const [isAnimating, setIsAnimating] = useState(false);
   const [height, setHeight] = useState<number | undefined>(initialIsOpen ? undefined : 0);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -33,24 +32,14 @@ function CollapsibleCard({
 
   useEffect(() => {
     setHeight(isOpen ? ref.current?.getBoundingClientRect().height : 0);
-    setIsAnimating(true);
-
-    const animationTime = 500;
-    const timeoutID = window.setTimeout(() => {
-      setIsAnimating(false);
-    }, animationTime);
-
-    return () => window.clearTimeout(timeoutID);
   }, [isOpen]);
+
   return (
     <Card>
       <Card.Header onClick={handleClick}>{header}</Card.Header>
       <div
         aria-expanded={isOpen}
-        className={classNames(
-          "card__content",
-          !isAnimating && !isOpen ? "card__content--collapsed" : ""
-        )}
+        className={classNames("card__content", {"card__content--collapsed": !isOpen})}
         style={{height}}>
         <div ref={ref}>{children}</div>
       </div>

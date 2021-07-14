@@ -1,7 +1,9 @@
 .card__content {
   overflow: hidden;
 
-  transition: height 0.5s ease;
+  visibility: visible;
+
+  transition: height 0.5s ease, visibility 0.5s ease;
 }
 
 .card__content--collapsed {
