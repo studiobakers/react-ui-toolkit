@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import {testA11y} from "../core/utils/test/testUtils";
 import List, {ListProps} from "./List";
@@ -21,12 +20,6 @@ describe("<List />", () => {
 
   it("should render correctly", () => {
     render(<List {...defaultListProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<List {...defaultListProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {
