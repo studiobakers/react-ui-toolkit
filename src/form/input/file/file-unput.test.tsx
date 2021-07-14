@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import {testA11y} from "../../../core/utils/test/testUtils";
 import FileInput, {FileInputProps} from "./FileInput";
@@ -17,12 +16,6 @@ describe("<FileInput />", () => {
 
   it("should render correctly", () => {
     render(<FileInput {...defaultFileInputProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<FileInput {...defaultFileInputProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {

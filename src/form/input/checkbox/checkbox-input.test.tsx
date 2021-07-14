@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 import userEvent from "@testing-library/user-event";
 
 import CheckboxInput, {CheckboxInputProps} from "./CheckboxInput";
@@ -21,12 +20,6 @@ describe("<CheckboxInput />", () => {
 
   it("should render correctly", () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<CheckboxInput {...defaultCheckboxInputProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {

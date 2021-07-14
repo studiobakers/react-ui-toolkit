@@ -1,7 +1,6 @@
 import React from "react";
 import {render, fireEvent, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import {testA11y} from "../../core/utils/test/testUtils";
 import Textarea, {TextareaProps} from "./Textarea";
@@ -15,12 +14,6 @@ describe("<TextArea />", () => {
 
   it("should render correctly", () => {
     render(<Textarea {...defaultTextAreaProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<Textarea {...defaultTextAreaProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {

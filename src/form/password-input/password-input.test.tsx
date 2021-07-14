@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 import userEvent from "@testing-library/user-event";
 
 import PasswordInput, {PasswordInputProps} from "../password-input/PasswordInput";
@@ -41,12 +40,6 @@ describe("<PasswordInput />", () => {
 
   it("should render correctly", () => {
     render(<PasswordInput {...defaultPasswordInputProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<PasswordInput {...defaultPasswordInputProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {

@@ -2,7 +2,6 @@ import React from "react";
 import {render, screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import Button, {ButtonProps} from "./Button";
 import {testA11y} from "../core/utils/test/testUtils";
@@ -21,12 +20,6 @@ describe("<Button />", () => {
     render(<Button {...defaultButtonProps} />);
 
     expect(screen.getByRole("button")).toHaveTextContent("Test");
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<Button {...defaultButtonProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {

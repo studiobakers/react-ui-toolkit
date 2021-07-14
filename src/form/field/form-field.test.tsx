@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import {testA11y} from "../../core/utils/test/testUtils";
 import FormField, {FormFieldProps} from "./FormField";
@@ -15,12 +14,6 @@ describe("<FormField />", () => {
 
   it("should render correctly", () => {
     render(<FormField {...defaultFormFieldProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<FormField {...defaultFormFieldProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {

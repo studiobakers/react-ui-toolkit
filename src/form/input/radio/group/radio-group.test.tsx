@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import RadioGroup, {RadioGroupProps} from "./RadioGroup";
 import {testA11y} from "../../../../core/utils/test/testUtils";
@@ -34,12 +33,6 @@ describe("<RadioGroup />", () => {
 
   it("should render correctly", () => {
     render(<RadioGroup {...defaultRadioGroupProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<RadioGroup {...defaultRadioGroupProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {
