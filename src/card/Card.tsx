@@ -7,7 +7,7 @@ import Header from "./header/Header";
 import Body from "./body/Body";
 
 export interface CardProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   customClassName?: string;
 }
 

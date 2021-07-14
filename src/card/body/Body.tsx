@@ -4,7 +4,7 @@ import React from "react";
 import classNames from "classnames";
 
 export interface BodyProps {
-  children?: React.ReactNode;
+  children: React.ReactNode;
   customClassName?: string;
 }
 
