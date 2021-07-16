@@ -8,24 +8,6 @@
   border-radius: var(--small-border-radius);
 }
 
-.typeahead-select__header-list {
-  position: relative;
-  top: -8px;
-  left: -8px;
-
-  display: flex;
-  flex-wrap: wrap;
-
-  width: 100%;
-
-  margin: 0;
-  padding: 15px 15px 0;
-}
-
-.typeahead-select__header-list__item {
-  margin: 8px 0 0 8px;
-}
-
 .typeahead-select--can-select-multiple {
   .input {
     height: auto;
@@ -45,12 +27,6 @@
   .typeahead-select__input {
     position: relative;
     z-index: 1;
-  }
-}
-
-.typeahead-select.dropdown--is-disabled {
-  .typeahead-select__header-list {
-    width: 100%;
   }
 }
 
