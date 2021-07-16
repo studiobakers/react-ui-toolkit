@@ -18,7 +18,6 @@ export interface ListProps<Item = any> {
     shouldDisplayEmptyState: boolean;
     emptyState: React.ReactNode;
   };
-  extra?: React.ReactNode;
 }
 
 function List<Item extends any>({
@@ -29,8 +28,7 @@ function List<Item extends any>({
   role,
   listItemKeyGenerator,
   placeholderProps,
-  emptyStateProps,
-  extra
+  emptyStateProps
 }: ListProps<Item>) {
   const listClassName = classNames("list", customClassName);
 
@@ -58,8 +56,6 @@ function List<Item extends any>({
       {!placeholderProps?.shouldDisplayPlaceholder &&
         emptyStateProps?.shouldDisplayEmptyState &&
         emptyStateProps.emptyState}
-
-      <Fragment>{extra}</Fragment>
     </ul>
   );
 }
