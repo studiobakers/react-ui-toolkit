@@ -17,7 +17,6 @@ export type ButtonProps = Omit<
   shouldPreventDefault?: boolean;
   shouldStopPropagation?: boolean;
   shouldFocus?: boolean;
-  ref?: React.RefObject<HTMLButtonElement>;
   shouldDisplaySpinner?: boolean;
   customClassName?: string;
 };
