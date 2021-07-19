@@ -35,7 +35,7 @@ export interface DropdownProps<OptionIdShape> {
   options: DropdownOption<OptionIdShape>[];
   selectedOption: DropdownSelectedOption<OptionIdShape>;
   onSelect: DropdownOptionSelectHandler<OptionIdShape>;
-  role: "listbox" | "menu" | "combobox";
+  role: "listbox" | "menu";
   testid?: string;
   header?: React.ReactNode;
   placeholder?: string;
