@@ -22,9 +22,9 @@ export type ButtonProps = Omit<
   customClassName?: string;
 };
 
-const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   // eslint-disable-next-line prefer-arrow-callback
-  function ButtonComponent(props: ButtonProps, ref) {
+  function ButtonComponent(props, ref) {
     const {
       testid,
       type = "button",
