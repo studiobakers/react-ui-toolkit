@@ -26,7 +26,7 @@ describe("<DropdownListItem />", () => {
     await testA11y(container, {rules: {"aria-required-parent": {enabled: false}}});
   });
 
-  it("should have proper class name", () => {
+  it("should have proper modifier class name", () => {
     const {rerender} = render(
       <DropdownListItem
         {...defaultDropdownListItemProps}
