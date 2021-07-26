@@ -22,7 +22,6 @@ function Accordion(props: AccordionProps) {
   );
 }
 
-Accordion.Body = () => <div />;
 Accordion.Item = AccordionItem;
 
 export default Accordion;
