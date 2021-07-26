@@ -16,7 +16,7 @@ import {filterOptionsByKeyword} from "./util/typeaheadSelectUtils";
 import {filterOutItemsByKey} from "../../core/utils/array/arrayUtils";
 import Spinner from "../../spinner/Spinner";
 import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
-import TypeaheadList from "./list/typeaheadList";
+import TypeaheadSelectHeader from "./header/TypeaheadSelectHeader";
 
 export interface TypeaheadSelectProps {
   selectedOptions: DropdownOption[];
@@ -112,7 +112,7 @@ function TypeaheadSelect({
 
   const dropdownHeader = (
     <div className={"typeahead-select__header"}>
-      <TypeaheadList
+      <TypeaheadSelectHeader
         tags={shouldDisplaySelectedOptions ? tags : []}
         handleTagRemove={handleRemove}
         input={

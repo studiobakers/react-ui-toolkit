@@ -1,4 +1,4 @@
-import "./_typeahead-list.scss";
+import "./_typeahead-select-header.scss";
 
 import React, {Fragment} from "react";
 import classNames from "classnames";
@@ -6,19 +6,19 @@ import classNames from "classnames";
 import ListItem from "../../../list/item/ListItem";
 import Tag, {TagShape} from "../../../tag/Tag";
 
-export interface TypeaheadListProps {
+export interface TypeaheadSelectHeaderProps {
   tags: TagShape[];
   handleTagRemove: (tag: TagShape) => void;
   customClassName?: string;
   input?: React.ReactNode;
 }
 
-function TypeaheadList({
+function TypeaheadSelectHeader({
   tags,
   customClassName,
   handleTagRemove,
   input
-}: TypeaheadListProps) {
+}: TypeaheadSelectHeaderProps) {
   const listClassName = classNames("typeahead-select__header-list", customClassName);
 
   return (
@@ -40,4 +40,4 @@ function TypeaheadList({
   );
 }
 
-export default TypeaheadList;
+export default TypeaheadSelectHeader;
