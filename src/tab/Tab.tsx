@@ -1,6 +1,6 @@
 import "./_tab.scss";
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import classNames from "classnames";
 
 import TabHeaderItem from "./header/item/TabHeaderItem";
@@ -16,7 +16,7 @@ export interface TabProps {
   items: TabItem[];
   children: React.ReactNode[];
   testid?: string;
-  initialActiveTabIndex?: number;
+  selectedItem?: number;
   customClassName?: string;
   onTabChange?: (index: number) => void;
 }
@@ -24,13 +24,17 @@ export interface TabProps {
 function Tab({
   testid,
   items,
-  initialActiveTabIndex = 0,
+  selectedItem = 0,
   children,
   customClassName,
   onTabChange
 }: TabProps) {
-  const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
+  const [activeTabIndex, setActiveTabIndex] = useState(selectedItem);
   const tabClassName = classNames("tab", customClassName);
+
+  useEffect(() => {
+    setActiveTabIndex(selectedItem);
+  }, [selectedItem]);
 
   return (
     <div className={tabClassName}>
@@ -51,11 +55,10 @@ function Tab({
   );
 
   function handleChangeActiveTab(index: number) {
-    setActiveTabIndex(index);
-
-    if (onTabChange) {
+    if (onTabChange && index !== activeTabIndex) {
       onTabChange(index);
     }
+    setActiveTabIndex(index);
   }
 }
 
