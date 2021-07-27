@@ -36,7 +36,7 @@ describe("<RadioInput />", () => {
     expect(container).toContainElement(radioInputContent);
   });
 
-  it("should add checked attribute and radio-input-label--is-selected class when isSelected is true", () => {
+  it("should add checked attribute when isSelected is true", () => {
     const {rerender} = render(<RadioInput {...defaultRadioInputProps} />);
 
     const radioInput = screen.getByRole("radio", {name: "Test"});
@@ -46,9 +46,6 @@ describe("<RadioInput />", () => {
     rerender(<RadioInput {...defaultRadioInputProps} isSelected={true} />);
 
     expect(radioInput).toBeChecked();
-    expect(screen.getByTestId(defaultRadioInputProps.testid!)).toHaveClass(
-      "radio-input-label--is-selected"
-    );
   });
 
   it("should run onSelect event handler correctly", () => {
@@ -64,14 +61,11 @@ describe("<RadioInput />", () => {
     expect(defaultRadioInputProps.onSelect).toHaveBeenCalledTimes(1);
   });
 
-  it("should add disabled attribute and radio-input-label--is-disabled class when isDisabled is true", () => {
+  it("should add disabled attribute when isDisabled is true", () => {
     render(<RadioInput isDisabled={true} {...defaultRadioInputProps} />);
 
     const radioInput = screen.getByRole("radio", {name: "Test"});
 
     expect(radioInput).toBeDisabled();
-    expect(screen.getByTestId(defaultRadioInputProps.testid!)).toHaveClass(
-      "radio-input-label--is-disabled"
-    );
   });
 });

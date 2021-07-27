@@ -28,11 +28,10 @@ describe("<Button />", () => {
     await testA11y(container);
   });
 
-  it("should add disabled attribute and button--is-inactive class when isDisabled is true", () => {
+  it("should add disabled attribute when isDisabled is true", () => {
     render(<Button isDisabled={true} {...defaultButtonProps} />);
 
     expect(screen.getByRole("button")).toBeDisabled();
-    expect(screen.getByRole("button")).toHaveClass("button--is-inactive");
   });
 
   it("should display custom spinner correctly", () => {

@@ -46,17 +46,15 @@ describe("<FileInput />", () => {
     expect(container).toContainElement(customSpinner);
   });
 
-  it("should add disabled attribute to file input and file-input__label--is-disabled class to file input label when isDisabled is true", () => {
+  it("should add disabled attribute to file input when isDisabled is true", () => {
     render(<FileInput isDisabled={true} {...defaultFileInputProps} />);
 
     expect(screen.getByLabelText("Upload File")).toBeDisabled();
-    expect(screen.getByText("Upload File")).toHaveClass("file-input__label--is-disabled");
   });
 
-  it("should add disabled attribute to file input and file-input__label--is-disabled class to file input label when isPending is true", () => {
+  it("should add disabled attribute to file input when isPending is true", () => {
     render(<FileInput isPending={true} {...defaultFileInputProps} />);
 
     expect(screen.getByLabelText("Upload File")).toBeDisabled();
-    expect(screen.getByText("Upload File")).toHaveClass("file-input__label--is-disabled");
   });
 });

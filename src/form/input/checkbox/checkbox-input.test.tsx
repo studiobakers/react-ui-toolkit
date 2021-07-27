@@ -28,19 +28,13 @@ describe("<CheckboxInput />", () => {
     await testA11y(container);
   });
 
-  it("should add disabled attribute and checkbox-input-label--is-disabled class when isDisabled is true", () => {
+  it("should add disabled attribute when isDisabled is true", () => {
     render(<CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />);
 
-    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
-      "checkbox-input-label--is-disabled"
-    );
-
-    const checkboxInput = screen.getByRole("checkbox");
-
-    expect(checkboxInput).toBeDisabled();
+    expect(screen.getByRole("checkbox")).toBeDisabled();
   });
 
-  it("should add checked attribute and checkbox-input-label--is-selected class when isSelected is true", () => {
+  it("should add checked attribute when isSelected is true", () => {
     const {rerender} = render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
     const checkboxInput = screen.getByRole("checkbox");
@@ -50,9 +44,6 @@ describe("<CheckboxInput />", () => {
     rerender(<CheckboxInput {...defaultCheckboxInputProps} isSelected={true} />);
 
     expect(checkboxInput).toBeChecked();
-    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
-      "checkbox-input-label--is-selected"
-    );
   });
 
   it("should run onSelect event handler correctly", () => {

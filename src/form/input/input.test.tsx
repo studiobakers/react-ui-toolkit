@@ -67,14 +67,5 @@ describe("<Input />", () => {
     const input = screen.getByRole("textbox");
 
     expect(input).toBeDisabled();
-    expect(input).toHaveClass("input--is-disabled");
-  });
-
-  it("should add input--has-error class when hasError is true", () => {
-    render(<Input hasError={true} {...defaultInputProps} />);
-
-    const input = screen.getByRole("textbox");
-
-    expect(input).toHaveClass("input--has-error");
   });
 });
