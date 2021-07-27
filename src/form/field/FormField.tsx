@@ -39,9 +39,8 @@ function FormField(props: FormFieldProps) {
     <div className={formFieldClassName} data-testid={testid}>
       <label id={labelledBy} htmlFor={labelFor} className={"form-field__label"}>
         {Boolean(label) && <span className={"form-field__title"}>{label}</span>}
-
-        {children}
       </label>
+      {children}
 
       {hasErrorMessage && (
         <List
