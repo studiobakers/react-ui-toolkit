@@ -34,11 +34,12 @@ function AccordionItem({accordionId, header, children}: AccordionProps) {
         onKeyPress={handleKeyPress}
         tabIndex={0}
         className={"accordion__header"}>
-        <CaretDownIcon
+        <span
           className={classNames("accordion__header-icon", {
             "accordion__header-icon--open": isOpen
-          })}
-        />
+          })}>
+          <CaretDownIcon />
+        </span>
         {header}
       </div>
       <div
