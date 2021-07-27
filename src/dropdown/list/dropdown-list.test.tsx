@@ -37,16 +37,6 @@ describe("<DropdownList />", () => {
     });
   });
 
-  it("should add dropdown-list--is-visible class name while isVisible is true", () => {
-    const {rerender} = render(<DropdownList {...defaultDropdownListProps} />);
-
-    expect(screen.getByRole("listbox")).toHaveClass("dropdown-list--is-visible");
-
-    rerender(<DropdownList {...defaultDropdownListProps} isVisible={false} />);
-
-    expect(screen.getByRole("listbox")).not.toHaveClass("dropdown-list--is-visible");
-  });
-
   it("should render noOptionsMessage if options are empty", () => {
     render(
       <DropdownList
