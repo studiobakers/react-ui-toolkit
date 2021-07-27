@@ -36,3 +36,18 @@
 
   padding: var(--accordion-content-padding);
 }
+
+.accordion__header-icon {
+  display: inline-block;
+
+  vertical-align: middle;
+
+  margin-right: 6px;
+
+  transform: rotateZ(0deg);
+  transition: transform 0.5s ease;
+
+  &--open {
+    transform: rotateZ(180deg);
+  }
+}

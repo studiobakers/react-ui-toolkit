@@ -1,3 +1,5 @@
+import CaretDownIcon from "../../ui/icons/caret-down.svg";
+
 import classNames from "classnames";
 import React, {useState, useRef, useEffect} from "react";
 
@@ -32,7 +34,11 @@ function AccordionItem({accordionId, header, children}: AccordionProps) {
         onKeyPress={handleKeyPress}
         tabIndex={0}
         className={"accordion__header"}>
-        {isOpen ? "- " : "+ "}
+        <CaretDownIcon
+          className={classNames("accordion__header-icon", {
+            "accordion__header-icon--open": isOpen
+          })}
+        />
         {header}
       </div>
       <div
