@@ -35,6 +35,7 @@ import {
 } from "./dropdown/list/item/DropdownListItem";
 import List, {ListProps as ListComponentProps} from "./list/List";
 import ListItem from "./list/item/ListItem";
+import DescriptionTerm from "./list/description-term/DescriptionTerm";
 import Button, {ButtonProps as ButtonComponentProps} from "./button/Button";
 import FileUploadButton, {
   FileUploadButtonProps as FileUploadButtonComponentProps
@@ -70,6 +71,7 @@ export {
   Dropdown,
   List,
   ListItem,
+  DescriptionTerm,
   Button,
   FileUploadButton,
   Spinner,
