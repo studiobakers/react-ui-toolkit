@@ -22,14 +22,6 @@ function CollapsibleCard({
   const [height, setHeight] = useState<number | undefined>(initialIsOpen ? undefined : 0);
   const ref = useRef<HTMLDivElement>(null);
 
-  function handleClick(event: React.MouseEvent) {
-    event.preventDefault();
-    if (onChange) {
-      onChange(isOpen ? "close" : "open");
-    }
-    setIsOpen(!isOpen);
-  }
-
   useEffect(() => {
     setHeight(isOpen ? ref.current?.getBoundingClientRect().height : 0);
   }, [isOpen]);
@@ -45,6 +37,14 @@ function CollapsibleCard({
       </div>
     </Card>
   );
+
+  function handleClick(event: React.MouseEvent) {
+    event.preventDefault();
+    if (onChange) {
+      onChange(isOpen ? "close" : "open");
+    }
+    setIsOpen(!isOpen);
+  }
 }
 
 export default CollapsibleCard;
