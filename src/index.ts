@@ -56,6 +56,9 @@ import {CountdownProps as CountdownComponentProps} from "../src/countdown/util/c
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
 import {useToastContext, useToaster} from "./toast/util/toastHooks";
 import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
+import Card, {CardProps as CardComponentProps} from "../src/card/Card";
+import {CardHeaderProps as CardHeaderComponentProps} from "./card/header/CardHeader";
+import {CardBodyProps as CardBodyComponentProps} from "./card/body/CardBody";
 
 export {
   // Components
@@ -82,6 +85,7 @@ export {
   Toggle,
   Switch,
   Toast,
+  Card,
   // Hooks
   useToastContext,
   useToaster,
@@ -131,3 +135,6 @@ export type ToggleProps = ToggleComponentProps;
 export type SwitchProps = SwitchComponentProps;
 export type CountdownProps = CountdownComponentProps;
 export type ToastProps = ToastComponentProps;
+export type CardProps = CardComponentProps;
+export type CardHeaderProps = CardHeaderComponentProps;
+export type CardBodyProps = CardBodyComponentProps;
