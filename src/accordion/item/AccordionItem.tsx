@@ -7,12 +7,12 @@ import "./_accordion-item.scss";
 
 import {useAccordionContext, useAccordion} from "../util/accordionHooks";
 
-export interface AccordionProps {
+export interface AccordionItemProps {
   accordionId: string;
   header: string;
   children: React.ReactNode;
 }
-function AccordionItem({accordionId, header, children}: AccordionProps) {
+function AccordionItem({accordionId, header, children}: AccordionItemProps) {
   const [state] = useAccordionContext();
   const accordion = useAccordion();
 

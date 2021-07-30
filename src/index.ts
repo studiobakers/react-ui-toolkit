@@ -55,6 +55,10 @@ import {CountdownProps as CountdownComponentProps} from "../src/countdown/util/c
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
 import {useToastContext, useToaster} from "./toast/util/toastHooks";
 import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
+import Accordion, {
+  AccordionProps as AccordionComponentProps
+} from "./accordion/Accordion";
+import {AccordionItemProps as AccordionItemComponentProps} from "./accordion/item/AccordionItem";
 
 export {
   // Components
@@ -80,6 +84,7 @@ export {
   Toggle,
   Switch,
   Toast,
+  Accordion,
   // Hooks
   useToastContext,
   useToaster,
@@ -134,3 +139,5 @@ export type ToggleProps = ToggleComponentProps;
 export type SwitchProps = SwitchComponentProps;
 export type CountdownProps = CountdownComponentProps;
 export type ToastProps = ToastComponentProps;
+export type AccordionProps = AccordionComponentProps;
+export type AccordionItemProps = AccordionItemComponentProps;
