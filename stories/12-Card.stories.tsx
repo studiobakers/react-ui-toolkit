@@ -3,6 +3,8 @@ import {storiesOf} from "@storybook/react";
 
 import Card from "../src/card/Card";
 import CollapsibleCard from "../src/card/collapsible/CollapsibleCard";
+import StateProvider from "./utils/StateProvider";
+
 storiesOf("Card", module).add("Card", () => {
   return (
     <div style={{width: "300px"}}>
@@ -21,18 +23,21 @@ storiesOf("Card", module).add("Card", () => {
       </Card>
 
       <br />
-
-      <CollapsibleCard
-        initialIsOpen={true}
-        header={"Collapsible card header"}
-        onChange={(state) => {
-          console.log(state);
-        }}>
-        <Card.Body>
-          <h4 style={{marginTop: "0"}}>Title</h4>
-          <p>Description of the collapsible card.</p>
-        </Card.Body>
-      </CollapsibleCard>
+      <StateProvider initialState={true}>
+        {(state, setState) => (
+          <CollapsibleCard
+            isOpen={state}
+            header={"Collapsible card header"}
+            onClick={() => {
+              setState(!state);
+            }}>
+            <Card.Body>
+              <h4 style={{marginTop: "0"}}>Title</h4>
+              <p>Description of the collapsible card.</p>
+            </Card.Body>
+          </CollapsibleCard>
+        )}
+      </StateProvider>
     </div>
   );
 });

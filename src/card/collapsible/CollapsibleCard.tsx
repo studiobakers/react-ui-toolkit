@@ -7,19 +7,13 @@ import Card from "../Card";
 
 export interface CollapsibleCardProps {
   header: React.ReactNode;
-  initialIsOpen?: boolean;
-  children?: React.ReactNode;
-  onChange?: (state: "open" | "close") => void;
+  isOpen: boolean;
+  children: React.ReactNode;
+  onClick: () => void;
 }
 
-function CollapsibleCard({
-  header,
-  initialIsOpen = false,
-  children,
-  onChange
-}: CollapsibleCardProps) {
-  const [isOpen, setIsOpen] = useState(initialIsOpen);
-  const [height, setHeight] = useState<number | undefined>(initialIsOpen ? undefined : 0);
+function CollapsibleCard({header, isOpen, children, onClick}: CollapsibleCardProps) {
+  const [height, setHeight] = useState<number | undefined>(isOpen ? undefined : 0);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -38,12 +32,10 @@ function CollapsibleCard({
     </Card>
   );
 
-  function handleClick(event: React.MouseEvent) {
-    event.preventDefault();
-    if (onChange) {
-      onChange(isOpen ? "close" : "open");
+  function handleClick() {
+    if (onClick) {
+      onClick(isOpen ? "close" : "open");
     }
-    setIsOpen(!isOpen);
   }
 }
 
