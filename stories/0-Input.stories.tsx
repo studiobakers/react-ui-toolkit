@@ -24,12 +24,12 @@ storiesOf("Input", module)
       />
     </Fragment>
   ))
-  .add("FormField with Input", () => (
+  .add("Input with FormField", () => (
     <StoryFragment>
       <FormField labelledBy={"Full Name"} label={"Full Name"}>
         <Input
           name={"fullName"}
-          placeholder={"FormField with Input"}
+          placeholder={"Input with FormField"}
           onChange={(e) => console.log(e.currentTarget.value)}
         />
       </FormField>
@@ -42,7 +42,7 @@ storiesOf("Input", module)
         helperMessages={["You can include your middle name"]}>
         <Input
           name="fullName"
-          placeholder={"FormField with Input hasHelperMessage"}
+          placeholder={"Input hasHelperMessage with FormField"}
           onChange={(e) => console.log(e.currentTarget.value)}
         />
       </FormField>
@@ -55,7 +55,7 @@ storiesOf("Input", module)
         errorMessages={["Please enter a full name"]}>
         <Input
           name={"fullName"}
-          placeholder={"FormField with Input errorMessage"}
+          placeholder={"Input errorMessage with FormField"}
           hasError={true}
           onChange={(e) => console.log(e.currentTarget.value)}
         />
