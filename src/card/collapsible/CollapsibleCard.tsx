@@ -39,7 +39,7 @@ function CollapsibleCard({
       <Card.Header onClick={handleClick}>{header}</Card.Header>
       <div
         aria-expanded={isOpen}
-        className={classNames("card__content", {"card__content--collapsed": !isOpen})}
+        className={classNames("card__content", {"card__content--is-collapsed": !isOpen})}
         style={{height}}>
         <div ref={ref}>{children}</div>
       </div>
