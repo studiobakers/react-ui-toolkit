@@ -18,7 +18,7 @@ function CardHeader({children, customClassName, onClick}: CardHeaderProps) {
       onKeyDown={handleKeyDown}
       role={"button"}
       tabIndex={0}
-      className={classNames("card__header card__header--clickable", customClassName)}>
+      className={classNames("card__header card__header--is-clickable", customClassName)}>
       {children}
     </div>
   ) : (
