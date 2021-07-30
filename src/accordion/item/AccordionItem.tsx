@@ -22,7 +22,6 @@ function AccordionItem({accordionId, header, children}: AccordionItemProps) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    console.log(ref.current?.getBoundingClientRect().height);
     setHeight(isOpen ? ref.current?.getBoundingClientRect().height : 0);
   }, [isOpen]);
 
@@ -36,16 +35,17 @@ function AccordionItem({accordionId, header, children}: AccordionItemProps) {
         className={"accordion__header"}>
         <span
           className={classNames("accordion__header-icon", {
-            "accordion__header-icon--open": isOpen
+            "accordion__header-icon--is-open": isOpen
           })}>
           <CaretDownIcon />
         </span>
         {header}
       </div>
+
       <div
         aria-expanded={isOpen}
         className={classNames("accordion__content-wrap", {
-          "accordion__content-wrap--collapsed": !isOpen
+          "accordion__content-wrap--is-collapsed": !isOpen
         })}
         style={{height}}>
         <div ref={ref} className={"accordion__content"}>

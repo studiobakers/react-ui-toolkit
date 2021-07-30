@@ -27,7 +27,7 @@
   transition: height 0.5s ease, visibility 0.5s ease;
 }
 
-.accordion__content-wrap--collapsed {
+.accordion__content-wrap--is-collapsed {
   visibility: hidden;
 }
 
@@ -47,7 +47,7 @@
   transform: rotateZ(0deg);
   transition: transform 0.5s ease;
 
-  &--open {
+  &--is-open {
     transform: rotateZ(180deg);
   }
 }
