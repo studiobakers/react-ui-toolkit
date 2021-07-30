@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import {storiesOf} from "@storybook/react";
 
 import Tab, {TabItem} from "../src/tab/Tab";
+import Button from "../src/button/Button";
 import StateProvider from "./utils/StateProvider";
 
 const tabItems: TabItem[] = [
@@ -31,14 +32,16 @@ storiesOf("Tab", module).add("Tab", () => (
       {(state, setState) => (
         <div>
           <p>Controlled Tab</p>
-          <button
-            onClick={() => setState(Math.max(0, (state - 1) % 2))}
-            disabled={state === 0}>
-            Previous Tab
-          </button>
-          <button onClick={() => setState((state + 1) % 2)} disabled={state === 1}>
-            Next Tab
-          </button>
+          <div style={{display: "flex"}}>
+            <Button
+              onClick={() => setState(Math.max(0, (state - 1) % 2))}
+              isDisabled={state === 0}>
+              Previous Tab
+            </Button>
+            <Button onClick={() => setState((state + 1) % 2)} isDisabled={state === 1}>
+              Next Tab
+            </Button>
+          </div>
           <Tab
             items={tabItems}
             activeTabIndex={state}
