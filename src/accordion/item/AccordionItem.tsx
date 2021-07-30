@@ -6,6 +6,7 @@ import React, {useState, useRef, useEffect} from "react";
 import "./_accordion-item.scss";
 
 import {useAccordionContext, useAccordion} from "../util/accordionHooks";
+import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
 
 export interface AccordionItemProps {
   accordionId: string;
@@ -60,7 +61,7 @@ function AccordionItem({accordionId, header, children}: AccordionItemProps) {
   }
 
   function handleKeyPress(e: React.KeyboardEvent<HTMLDivElement>) {
-    if (e.key === "Enter") {
+    if (e.key === KEYBOARD_EVENT_KEY.ENTER) {
       handleClick();
     }
   }
