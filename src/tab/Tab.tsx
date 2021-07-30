@@ -16,7 +16,7 @@ export interface TabProps {
   items: TabItem[];
   children: React.ReactNode[];
   testid?: string;
-  selectedItem?: number;
+  activeTabIndex?: number;
   customClassName?: string;
   onTabChange?: (index: number) => void;
 }
@@ -24,17 +24,17 @@ export interface TabProps {
 function Tab({
   testid,
   items,
-  selectedItem = 0,
+  activeTabIndex: activeTabIndexFromProps = 0,
   children,
   customClassName,
   onTabChange
 }: TabProps) {
-  const [activeTabIndex, setActiveTabIndex] = useState(selectedItem);
+  const [activeTabIndex, setActiveTabIndex] = useState(activeTabIndexFromProps);
   const tabClassName = classNames("tab", customClassName);
 
   useEffect(() => {
-    setActiveTabIndex(selectedItem);
-  }, [selectedItem]);
+    setActiveTabIndex(activeTabIndexFromProps);
+  }, [activeTabIndexFromProps]);
 
   return (
     <div className={tabClassName}>

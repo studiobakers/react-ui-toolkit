@@ -41,7 +41,7 @@ storiesOf("Tab", module).add("Tab", () => (
           </button>
           <Tab
             items={tabItems}
-            selectedItem={state}
+            activeTabIndex={state}
             onTabChange={(index) => {
               console.log("tab changed to index: ", index);
               setState(index);
