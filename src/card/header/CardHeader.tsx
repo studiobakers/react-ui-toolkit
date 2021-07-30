@@ -3,6 +3,8 @@ import "./_card-header.scss";
 import React from "react";
 import classNames from "classnames";
 
+import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
+
 export interface CardHeaderProps {
   children: React.ReactNode;
   customClassName?: string;
@@ -25,8 +27,8 @@ function CardHeader({children, customClassName, onClick}: CardHeaderProps) {
 
   function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
     switch (event.key) {
-      case "Enter":
-      case "Space":
+      case KEYBOARD_EVENT_KEY.ENTER:
+      case KEYBOARD_EVENT_KEY.SPACE:
         if (onClick) {
           onClick();
         }
