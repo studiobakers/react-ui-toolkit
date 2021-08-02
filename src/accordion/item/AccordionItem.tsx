@@ -1,9 +1,9 @@
+import "./_accordion-item.scss";
+
 import CaretDownIcon from "../../ui/icons/caret-down.svg";
 
-import classNames from "classnames";
 import React, {useState, useRef, useEffect} from "react";
-
-import "./_accordion-item.scss";
+import classNames from "classnames";
 
 import {useAccordionContext, useAccordion} from "../util/accordionHooks";
 import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";

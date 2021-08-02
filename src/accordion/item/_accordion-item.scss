@@ -1,10 +1,8 @@
 .accordion__item {
-  border: 1px solid var(--default-border-color);
-  border-bottom: none;
-  border-radius: var(--small-border-radius);
+  border-bottom: 1px solid var(--default-border-color);
 
   &:last-child {
-    border-bottom: 1px solid var(--default-border-color);
+    border-bottom: none;
   }
 }
 

@@ -1,23 +1,34 @@
+import "./_accordion.scss";
+
 import React from "react";
+import classNames from "classnames";
 
 import AccordionItem from "./item/AccordionItem";
 import {AccordionContextProvider} from "./AccordionProvider";
+
 export type AccordionProps = {
   allowMultipleExpanded?: boolean;
   allowZeroExpanded?: boolean;
   defaultExpanded?: string[];
+  customClassName?: string;
   children: React.ReactNode;
 };
 
 function Accordion(props: AccordionProps) {
-  const {allowMultipleExpanded, allowZeroExpanded, defaultExpanded, children} = props;
+  const {
+    allowMultipleExpanded,
+    allowZeroExpanded,
+    defaultExpanded,
+    customClassName,
+    children
+  } = props;
 
   return (
     <AccordionContextProvider
       allowMultipleExpanded={allowMultipleExpanded}
       allowZeroExpanded={allowZeroExpanded}
       defaultExpanded={defaultExpanded}>
-      <div>{children}</div>
+      <div className={classNames("accordion", customClassName)}>{children}</div>
     </AccordionContextProvider>
   );
 }
