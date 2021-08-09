@@ -20,10 +20,26 @@ function AccordionItem({accordionId, header, children}: AccordionItemProps) {
   const isOpen = state.items[accordionId];
 
   const [height, setHeight] = useState<number | undefined>(isOpen ? undefined : 0);
-  const ref = useRef<HTMLDivElement>(null);
+  const childrenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setHeight(isOpen ? ref.current?.getBoundingClientRect().height : 0);
+    setHeight(isOpen ? childrenRef.current?.getBoundingClientRect().height : 0);
+
+    return observeContentHeight();
+
+    function observeContentHeight() {
+      const resizeObserver = new ResizeObserver(() => {
+        setHeight(childrenRef.current?.getBoundingClientRect().height);
+      });
+
+      if (!isOpen || !childrenRef.current) {
+        return undefined;
+      }
+      resizeObserver.observe(childrenRef.current);
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
   }, [isOpen]);
 
   return (
@@ -49,7 +65,7 @@ function AccordionItem({accordionId, header, children}: AccordionItemProps) {
           "accordion__content-wrap--is-collapsed": !isOpen
         })}
         style={{height}}>
-        <div ref={ref} className={"accordion__content"}>
+        <div ref={childrenRef} className={"accordion__content"}>
           {children}
         </div>
       </div>

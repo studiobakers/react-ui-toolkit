@@ -15,19 +15,10 @@ export type AccordionProps = {
 };
 
 function Accordion(props: AccordionProps) {
-  const {
-    allowMultipleExpanded,
-    allowZeroExpanded,
-    defaultExpanded,
-    customClassName,
-    children
-  } = props;
+  const {children, customClassName, ...rest} = props;
 
   return (
-    <AccordionContextProvider
-      allowMultipleExpanded={allowMultipleExpanded}
-      allowZeroExpanded={allowZeroExpanded}
-      defaultExpanded={defaultExpanded}>
+    <AccordionContextProvider {...rest}>
       <div className={classNames("accordion", customClassName)}>{children}</div>
     </AccordionContextProvider>
   );
