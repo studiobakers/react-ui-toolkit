@@ -34,6 +34,7 @@ function CardHeader({children, customClassName, onClick}: CardHeaderProps) {
         }
         break;
       default:
+        break;
     }
   }
 }

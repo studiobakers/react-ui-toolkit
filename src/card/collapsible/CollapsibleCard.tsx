@@ -14,27 +14,44 @@ export interface CollapsibleCardProps {
 
 function CollapsibleCard({header, isOpen, children, onClick}: CollapsibleCardProps) {
   const [height, setHeight] = useState<number | undefined>(isOpen ? undefined : 0);
-  const ref = useRef<HTMLDivElement>(null);
+  const childrenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setHeight(isOpen ? ref.current?.getBoundingClientRect().height : 0);
+    setHeight(isOpen ? childrenRef.current?.getBoundingClientRect().height : 0);
+
+    return observeContentHeight();
+
+    function observeContentHeight() {
+      const resizeObserver = new ResizeObserver(() => {
+        setHeight(childrenRef.current?.getBoundingClientRect().height);
+      });
+
+      if (!isOpen || !childrenRef.current) {
+        return undefined;
+      }
+      resizeObserver.observe(childrenRef.current);
+      return () => {
+        resizeObserver.disconnect();
+      };
+    }
   }, [isOpen]);
 
   return (
     <Card>
       <Card.Header onClick={handleClick}>{header}</Card.Header>
+
       <div
         aria-expanded={isOpen}
         className={classNames("card__content", {"card__content--is-collapsed": !isOpen})}
         style={{height}}>
-        <div ref={ref}>{children}</div>
+        <div ref={childrenRef}>{children}</div>
       </div>
     </Card>
   );
 
   function handleClick() {
     if (onClick) {
-      onClick(isOpen ? "close" : "open");
+      onClick();
     }
   }
 }
