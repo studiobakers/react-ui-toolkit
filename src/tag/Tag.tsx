@@ -1,12 +1,9 @@
+import "./_tag.scss";
+
 import CloseIcon from "../ui/icons/close.svg";
 
 import React from "react";
 import classNames from "classnames";
-
-import Button from "../button/Button";
-
-// SCSS import is moved here to override Button styles without nesting
-import "./_tag.scss";
 
 export interface TagShape<Context = any> {
   id: string;
@@ -27,11 +24,13 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
   });
 
   return (
-    <Button
-      testid={testid}
-      customClassName={containerClassName}
-      onClick={handleRemove}
-      shouldStopPropagation={true}>
+    <div
+      role={"button"}
+      tabIndex={0}
+      data-testid={testid}
+      onKeyDown={handleKeyPress}
+      className={containerClassName}
+      onClick={handleRemove}>
       <div className={"tag__body"}>{tag.content}</div>
 
       {onRemove && (
@@ -41,12 +40,25 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
           aria-hidden={true}
         />
       )}
-    </Button>
+    </div>
   );
 
   function handleRemove() {
     if (onRemove) {
       onRemove(tag);
+    }
+  }
+
+  function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+    event.stopPropagation();
+    switch (event.key) {
+      case "Enter":
+      case "Del":
+      case "Backspace":
+        handleRemove();
+        break;
+      default:
+        break;
     }
   }
 }
