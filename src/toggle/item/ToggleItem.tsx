@@ -28,12 +28,38 @@ function ToggleItem({
     "toggle-item--is-disabled": isDisabled
   });
 
+  if (canSelectMultiple) {
+    return (
+      <ListItem
+        testid={testid}
+        customClassName={toggleItemClassName}
+        clickableListItemProps={isDisabled ? undefined : {onClick: handleToggle}}>
+        <label className={"toggle-item__label"}>
+          <input
+            type={"checkbox"}
+            className={"toggle-checkbox-input"}
+            checked={isSelected}
+            disabled={isDisabled}
+          />
+          {children}
+        </label>
+      </ListItem>
+    );
+  }
   return (
     <ListItem
       testid={testid}
       customClassName={toggleItemClassName}
       clickableListItemProps={isDisabled ? undefined : {onClick: handleToggle}}>
-      {children}
+      <label className={"toggle-item__label"}>
+        <input
+          type={"radio"}
+          className={"toggle-radio-input"}
+          checked={isSelected}
+          disabled={isDisabled}
+        />
+        {children}
+      </label>
     </ListItem>
   );
 
