@@ -37,7 +37,7 @@ function ToastContextProvider({
   });
 
   useEffect(() => {
-    if (limit) {
+    if (limit !== undefined) {
       dispatch({type: "SET_LIMIT", limit});
     }
   }, [limit]);

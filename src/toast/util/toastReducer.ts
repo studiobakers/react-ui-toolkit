@@ -18,7 +18,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
         toastData
       ];
 
-      if (limit && toastStack.length > limit) {
+      if (limit !== undefined && toastStack.length > limit) {
         // prune the toasts exceeding the limit
         toastStack = toastStack.slice(toastStack.length - limit);
       }
@@ -69,7 +69,7 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
 
       let toastStack = [...state.toastStack];
 
-      if (limit && toastStack.length > limit) {
+      if (limit !== undefined && toastStack.length > limit) {
         // prune the toasts exceeding the limit
         toastStack = toastStack.slice(toastStack.length - limit);
       }
