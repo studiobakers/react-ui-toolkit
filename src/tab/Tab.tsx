@@ -1,6 +1,6 @@
 import "./_tab.scss";
 
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import classNames from "classnames";
 
 import TabHeaderItem from "./header/item/TabHeaderItem";
@@ -12,29 +12,41 @@ export type TabItem = {
   icon?: React.ReactNode;
 };
 
-export interface TabProps {
+interface UncontrolledTabProps {
   items: TabItem[];
   children: React.ReactNode[];
   testid?: string;
-  activeTabIndex?: number;
+  initialActiveTabIndex?: number;
   customClassName?: string;
-  onTabChange?: (index: number) => void;
 }
+
+// if one of the controlled tab props are present
+// other controlled tab prop is required
+// and initialActiveTabIndex should be undefined
+type ControlledTabProps =
+  | {
+      activeTabIndex: number;
+      onTabChange: (index: number) => void;
+      initialActiveTabIndex?: never;
+    }
+  | {
+      activeTabIndex?: never;
+      onTabChange?: never;
+    };
+
+export type TabProps = ControlledTabProps & UncontrolledTabProps;
 
 function Tab({
   testid,
   items,
-  activeTabIndex: activeTabIndexFromProps = 0,
+  initialActiveTabIndex = 0,
+  activeTabIndex: activeTabIndexFromProps,
   children,
   customClassName,
   onTabChange
 }: TabProps) {
-  const [activeTabIndex, setActiveTabIndex] = useState(activeTabIndexFromProps);
+  const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
-
-  useEffect(() => {
-    setActiveTabIndex(activeTabIndexFromProps);
-  }, [activeTabIndexFromProps]);
 
   return (
     <div className={tabClassName}>
@@ -44,7 +56,11 @@ function Tab({
             testid={itemTestId}
             onClick={handleChangeActiveTab}
             tab={item}
-            isActive={activeTabIndex === index}
+            isActive={
+              activeTabIndexFromProps
+                ? activeTabIndexFromProps === index
+                : activeTabIndex === index
+            }
             index={index!}
           />
         )}
@@ -55,10 +71,12 @@ function Tab({
   );
 
   function handleChangeActiveTab(index: number) {
-    if (onTabChange && index !== activeTabIndex) {
+    if (onTabChange && index !== activeTabIndexFromProps) {
       onTabChange(index);
     }
-    setActiveTabIndex(index);
+    if (activeTabIndexFromProps === undefined) {
+      setActiveTabIndex(index);
+    }
   }
 }
 
