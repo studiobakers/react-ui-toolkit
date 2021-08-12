@@ -34,8 +34,6 @@ describe("<Switch />", () => {
   it("should not run onToggle event handler when isDisabled is true", () => {
     render(<Switch {...defaultSwitchProps} isDisabled={true} />);
 
-    jest.clearAllMocks();
-
     userEvent.click(screen.getByRole("switch"));
 
     expect(defaultSwitchProps.onToggle).not.toHaveBeenCalled();
@@ -46,6 +44,7 @@ describe("<Switch />", () => {
 
     expect(screen.getByRole("switch")).toBeDisabled();
   });
+
   it("should add aria-readonly attribute when isDisabled is true", () => {
     render(<Switch {...defaultSwitchProps} isDisabled={true} />);
 
