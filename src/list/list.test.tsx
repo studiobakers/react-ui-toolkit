@@ -11,8 +11,9 @@ describe("<List />", () => {
   const defaultListProps: ListProps = {
     testid: "list",
     items: listItems,
+    role: "list",
     children: (item, testId, index) => (
-      <ListItem key={`list-item-${index}`} testid={testId}>
+      <ListItem role={"listitem"} key={`list-item-${index}`} testid={testId}>
         <span>{item}</span>
       </ListItem>
     )
@@ -34,9 +35,9 @@ describe("<List />", () => {
     expect(screen.getAllByRole("listitem").length).toBe(listItems.length);
 
     for (let index = 0; index < listItems.length; index++) {
-      const listItemContent = screen.getByTestId(`list.item-${index}`);
+      const listItemContent = screen.getAllByRole("listitem")[index];
 
-      expect(screen.getAllByRole("listitem")[index]).toEqual(listItemContent);
+      expect(screen.getByRole("list").children[index]).toEqual(listItemContent);
     }
 
     rerender(<List {...defaultListProps} items={[]} />);
