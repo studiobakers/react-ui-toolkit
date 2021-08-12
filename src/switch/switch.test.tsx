@@ -42,7 +42,7 @@ describe("<Switch />", () => {
   it("should add disabled attribute when isDisabled is true", () => {
     const {rerender} = render(<Switch {...defaultSwitchProps} isDisabled={false} />);
 
-    expect(screen.getByRole("switch")).not.toBeDisabled();
+    expect(screen.getByRole("switch")).toBeEnabled();
 
     rerender(<Switch {...defaultSwitchProps} isDisabled={true} />);
 
