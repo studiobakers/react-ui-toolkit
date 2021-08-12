@@ -8,7 +8,7 @@ import Switch, {SwitchProps} from "./Switch";
 
 describe("<Switch />", () => {
   const defaultSwitchProps: SwitchProps = {
-    isToggledOn: true,
+    isToggledOn: false,
     onToggle: jest.fn(),
     testid: "switch"
   };
@@ -40,19 +40,31 @@ describe("<Switch />", () => {
   });
 
   it("should add disabled attribute when isDisabled is true", () => {
-    render(<Switch {...defaultSwitchProps} isDisabled={true} />);
+    const {rerender} = render(<Switch {...defaultSwitchProps} isDisabled={false} />);
+
+    expect(screen.getByRole("switch")).not.toBeDisabled();
+
+    rerender(<Switch {...defaultSwitchProps} isDisabled={true} />);
 
     expect(screen.getByRole("switch")).toBeDisabled();
   });
 
   it("should add aria-readonly attribute when isDisabled is true", () => {
-    render(<Switch {...defaultSwitchProps} isDisabled={true} />);
+    const {rerender} = render(<Switch {...defaultSwitchProps} isDisabled={false} />);
 
-    expect(screen.getByRole("switch")).toHaveAttribute("aria-readonly");
+    expect(screen.getByRole("switch")).toHaveAttribute("aria-readonly", "false");
+
+    rerender(<Switch {...defaultSwitchProps} isDisabled={true} />);
+
+    expect(screen.getByRole("switch")).toHaveAttribute("aria-readonly", "true");
   });
 
   it("should add checked attribute when isToggledOn is true", () => {
-    render(<Switch {...defaultSwitchProps} />);
+    const {rerender} = render(<Switch {...defaultSwitchProps} />);
+
+    expect(screen.getByRole("switch")).not.toBeChecked();
+
+    rerender(<Switch {...defaultSwitchProps} isToggledOn={true} />);
 
     expect(screen.getByRole("switch")).toBeChecked();
   });
