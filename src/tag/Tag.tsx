@@ -5,6 +5,8 @@ import CloseIcon from "../ui/icons/close.svg";
 import React from "react";
 import classNames from "classnames";
 
+import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboard/keyboardEventConstants";
+
 export interface TagShape<Context = any> {
   id: string;
   content: React.ReactNode;
@@ -52,9 +54,8 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
   function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
     event.stopPropagation();
     switch (event.key) {
-      case "Enter":
-      case "Del":
-      case "Backspace":
+      case KEYBOARD_EVENT_KEY.ENTER:
+      case KEYBOARD_EVENT_KEY.BACKSPACE:
         handleRemove();
         break;
       default:
