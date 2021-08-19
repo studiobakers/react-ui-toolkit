@@ -33,92 +33,42 @@ function List<Item extends any>({
   type = "unordered"
 }: ListProps<Item>) {
   const listClassName = classNames("list", customClassName);
+  let ListTypeElement: keyof JSX.IntrinsicElements;
 
-  switch (type) {
-    case "unordered":
-      return (
-        <ul className={listClassName} role={role}>
-          {items.map((item: Item, index: number) => {
-            const listItemTestId = `${testid}.item-${index}`;
-            let key = listItemTestId;
-
-            // @ts-ignore
-            if (item && typeof item === "object" && item.id) {
-              // @ts-ignore
-              key = item.id;
-            }
-
-            if (listItemKeyGenerator) {
-              key = listItemKeyGenerator(item, listItemTestId);
-            }
-
-            return <Fragment key={key}>{children(item, listItemTestId, index)}</Fragment>;
-          })}
-
-          {placeholderProps?.shouldDisplayPlaceholder && placeholderProps.placeholder}
-
-          {!placeholderProps?.shouldDisplayPlaceholder &&
-            emptyStateProps?.shouldDisplayEmptyState &&
-            emptyStateProps.emptyState}
-        </ul>
-      );
-    case "ordered":
-      return (
-        <ol className={listClassName} role={role}>
-          {items.map((item: Item, index: number) => {
-            const listItemTestId = `${testid}.item-${index}`;
-            let key = listItemTestId;
-
-            // @ts-ignore
-            if (item && typeof item === "object" && item.id) {
-              // @ts-ignore
-              key = item.id;
-            }
-
-            if (listItemKeyGenerator) {
-              key = listItemKeyGenerator(item, listItemTestId);
-            }
-
-            return <Fragment key={key}>{children(item, listItemTestId, index)}</Fragment>;
-          })}
-
-          {placeholderProps?.shouldDisplayPlaceholder && placeholderProps.placeholder}
-
-          {!placeholderProps?.shouldDisplayPlaceholder &&
-            emptyStateProps?.shouldDisplayEmptyState &&
-            emptyStateProps.emptyState}
-        </ol>
-      );
-    case "description":
-      return (
-        <dl className={listClassName} role={role}>
-          {items.map((item: Item, index: number) => {
-            const listItemTestId = `${testid}.item-${index}`;
-            let key = listItemTestId;
-
-            // @ts-ignore
-            if (item && typeof item === "object" && item.id) {
-              // @ts-ignore
-              key = item.id;
-            }
-
-            if (listItemKeyGenerator) {
-              key = listItemKeyGenerator(item, listItemTestId);
-            }
-
-            return <Fragment key={key}>{children(item, listItemTestId, index)}</Fragment>;
-          })}
-
-          {placeholderProps?.shouldDisplayPlaceholder && placeholderProps.placeholder}
-
-          {!placeholderProps?.shouldDisplayPlaceholder &&
-            emptyStateProps?.shouldDisplayEmptyState &&
-            emptyStateProps.emptyState}
-        </dl>
-      );
-    default:
-      return null;
+  if (type === "ordered") {
+    ListTypeElement = "ol";
+  } else if (type === "description") {
+    ListTypeElement = "dl";
+  } else {
+    ListTypeElement = "ul";
   }
+
+  return (
+    <ListTypeElement className={listClassName} role={role}>
+      {items.map((item: Item, index: number) => {
+        const listItemTestId = `${testid}.item-${index}`;
+        let key = listItemTestId;
+
+        // @ts-ignore
+        if (item && typeof item === "object" && item.id) {
+          // @ts-ignore
+          key = item.id;
+        }
+
+        if (listItemKeyGenerator) {
+          key = listItemKeyGenerator(item, listItemTestId);
+        }
+
+        return <Fragment key={key}>{children(item, listItemTestId, index)}</Fragment>;
+      })}
+
+      {placeholderProps?.shouldDisplayPlaceholder && placeholderProps.placeholder}
+
+      {!placeholderProps?.shouldDisplayPlaceholder &&
+        emptyStateProps?.shouldDisplayEmptyState &&
+        emptyStateProps.emptyState}
+    </ListTypeElement>
+  );
 }
 
 export default List;
