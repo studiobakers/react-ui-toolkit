@@ -53,11 +53,13 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
 
   function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
     event.stopPropagation();
+
     switch (event.key) {
       case KEYBOARD_EVENT_KEY.ENTER:
       case KEYBOARD_EVENT_KEY.BACKSPACE:
         handleRemove();
         break;
+
       default:
         break;
     }
