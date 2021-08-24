@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 export interface ProgressBarProps {
   percentage: number;
-  style: {
+  style?: {
     trackColor?: string;
     backgroundColor?: string;
     completedColor?: string;
@@ -17,11 +17,12 @@ export interface ProgressBarProps {
 function ProgressBar(props: ProgressBarProps) {
   const {
     percentage,
-    style: {trackColor = "blue", backgroundColor = "gray", completedColor = "green"},
+    style = {trackColor: "blue", backgroundColor: "gray", completedColor: "green"},
     children,
     customClassName
   } = props;
   const progressBarClassName = classNames("progress-bar", customClassName);
+  const {trackColor, backgroundColor, completedColor} = style;
 
   return (
     <div
