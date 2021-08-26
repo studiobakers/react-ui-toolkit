@@ -86,10 +86,7 @@ function mapDigitsToLocalVersion(
   {locale = navigator.language}: {locale?: string},
   digits: string
 ) {
-  return digits
-    .split("")
-    .map(mapDigitToLocalVersion({locale}))
-    .join("");
+  return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
 }
 
 function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {
