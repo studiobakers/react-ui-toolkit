@@ -10,7 +10,7 @@
     "test:watch": "npm t -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 6006",
     "storybook:build": "./node_modules/.bin/build-storybook",
-    "type-check": "echo \"type-checking...\" && tsc --noEmit",
+    "type-check": "echo \"type-checking...\" && ./node_modules/.bin/tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
     "eslint:fix": "./node_modules/.bin/eslint --fix --ext .jsx,.js,.tsx,.ts src/",
@@ -19,7 +19,8 @@
     "prettify": "./node_modules/.bin/prettier --config ./.prettierrc.js --write \"src/**/*.{ts,tsx}\" \"stories/**/*.{ts,tsx}\"",
     "lint:fix": "npm run stylelint:fix && npm run eslint:fix",
     "lint": "npm run stylelint && npm run eslint",
-    "check-package-updates": "npx npm-check-updates"
+    "check-package-updates": "npx npm-check-updates",
+    "prepare": "husky install"
   },
   "jest": {
     "preset": "ts-jest",
@@ -29,11 +30,6 @@
     "ui",
     "react"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettify && lint-staged && npm run type-check"
-    }
-  },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "eslint"
@@ -68,12 +64,12 @@
     "css-loader": "5.2.4",
     "eslint": "7.26.0",
     "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.23.2",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-react": "7.23.2",
     "eslint-plugin-react-hooks": "4.2.0",
-    "eslint-plugin-import": "2.23.2",
     "fork-ts-checker-webpack-plugin": "4.1.6",
-    "husky": "4.2.5",
+    "husky": "7.0.0",
     "jest": "26.4.2",
     "lint-staged": "10.2.13",
     "node-sass": "4.14.1",
