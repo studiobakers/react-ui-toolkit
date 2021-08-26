@@ -5,7 +5,7 @@ import classNames from "classnames";
 
 import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
 
-interface ListItemProps {
+export interface ListItemProps {
   children?: React.ReactNode;
   testid?: string;
   customClassName?: string;

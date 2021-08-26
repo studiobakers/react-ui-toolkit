@@ -34,7 +34,7 @@ import {
   DropdownSelectedOption as DropdownSelectedComponentOption
 } from "./dropdown/list/item/DropdownListItem";
 import List, {ListProps as ListComponentProps} from "./list/List";
-import ListItem from "./list/item/ListItem";
+import ListItem, {ListItemProps as ListItemComponentProps} from "./list/item/ListItem";
 import Button, {ButtonProps as ButtonComponentProps} from "./button/Button";
 import FileUploadButton, {
   FileUploadButtonProps as FileUploadButtonComponentProps
@@ -130,4 +130,5 @@ export type TextareaProps = TextareaComponentProps;
 export type ToggleProps = ToggleComponentProps;
 export type SwitchProps = SwitchComponentProps;
 export type CountdownProps = CountdownComponentProps;
+export type ListItemProps = ListItemComponentProps;
 export type ToastProps = ToastComponentProps;
