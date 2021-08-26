@@ -15,14 +15,10 @@ export interface ProgressBarProps {
 }
 
 function ProgressBar(props: ProgressBarProps) {
-  const {
-    percentage,
-    style = {trackColor: "blue", backgroundColor: "gray", completedColor: "green"},
-    children,
-    customClassName
-  } = props;
+  const {percentage, style, children, customClassName} = props;
   const progressBarClassName = classNames("progress-bar", customClassName);
-  const {trackColor, backgroundColor, completedColor} = style;
+  const {trackColor = "blue", backgroundColor = "gray", completedColor = "green"} =
+    style || {};
 
   return (
     <div
