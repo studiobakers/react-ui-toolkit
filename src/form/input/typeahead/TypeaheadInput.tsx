@@ -1,19 +1,12 @@
 import React, {useEffect} from "react";
 import classNames from "classnames";
 
-import Input, {InputTypes} from "../Input";
-import useDebounce from "../../../core/utils/hooks/debounce";
+import Input, {InputProps, InputTypes} from "../Input";
+import useDebounce from "../../../core/utils/hooks/useDebounce";
 
-export interface TypeaheadInputProps {
+export type TypeaheadInputProps = Omit<InputProps, "onChange" | "type"> & {
   onQueryChange: (value: string) => void;
-  name: string;
-  placeholder: string;
   type?: Extract<InputTypes, "text" | "number">;
-  value?: string;
-  testid?: string;
-  customClassName?: string;
-  id?: string;
-  isDisabled?: boolean;
   initialValue?: string;
   queryChangeDebounceTimeout?: number;
   onFocus?: React.ReactEventHandler<HTMLInputElement>;
@@ -23,7 +16,7 @@ export interface TypeaheadInputProps {
   rightIcon?: React.ReactNode;
   role?: string;
   children?: React.ReactNode;
-}
+};
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 250;
 

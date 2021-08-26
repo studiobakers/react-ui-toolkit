@@ -177,7 +177,7 @@ function TypeaheadSelect({
     setMenuVisibility(true);
   }
 
-  function handleTypeaheadInputFocus(event: React.SyntheticEvent<HTMLInputElement>) {
+  function handleTypeaheadInputFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (canOpenDropdownMenu && !isDisabled) {
       openDropdownMenu();
     }

@@ -99,8 +99,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       `input-container--type-${type}`
     );
     const inputClassName = classNames("input", {
-      "input--is-disabled": isDisabled,
-      "input--has-error": hasError
+      "input-container--is-disabled": isDisabled,
+      "input-container--has-error": hasError
     });
     let finalValue = value;
 

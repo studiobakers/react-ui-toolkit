@@ -33,7 +33,15 @@ function ToggleItem({
       testid={testid}
       customClassName={toggleItemClassName}
       clickableListItemProps={isDisabled ? undefined : {onClick: handleToggle}}>
-      {children}
+      <label className={"toggle-item__label"}>
+        <input
+          type={canSelectMultiple ? "checkbox" : "radio"}
+          className={"toggle-input"}
+          checked={isSelected}
+          disabled={isDisabled}
+        />
+        {children}
+      </label>
     </ListItem>
   );
 
