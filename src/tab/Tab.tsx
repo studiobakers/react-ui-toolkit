@@ -27,11 +27,11 @@ type ControlledTabProps =
   | {
       activeTabIndex: number;
       onTabChange: (index: number) => void;
-      initialActiveTabIndex?: never;
+      initialActiveTabIndex?: number;
     }
   | {
-      activeTabIndex?: never;
-      onTabChange?: never;
+      activeTabIndex?: number;
+      onTabChange?: (index: number) => void;
     };
 
 export type TabProps = ControlledTabProps & UncontrolledTabProps;
@@ -57,9 +57,9 @@ function Tab({
             onClick={handleChangeActiveTab}
             tab={item}
             isActive={
-              activeTabIndexFromProps
-                ? activeTabIndexFromProps === index
-                : activeTabIndex === index
+              typeof activeTabIndexFromProps === "undefined"
+                ? activeTabIndex === index
+                : activeTabIndexFromProps === index
             }
             index={index!}
           />
@@ -74,6 +74,7 @@ function Tab({
     if (onTabChange && index !== activeTabIndexFromProps) {
       onTabChange(index);
     }
+
     if (activeTabIndexFromProps === undefined) {
       setActiveTabIndex(index);
     }
