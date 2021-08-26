@@ -9,42 +9,76 @@ export type TypeaheadInputProps = Omit<InputProps, "onChange" | "type"> & {
   type?: Extract<InputTypes, "text" | "number">;
   initialValue?: string;
   queryChangeDebounceTimeout?: number;
+  onFocus?: React.ReactEventHandler<HTMLInputElement>;
+  onBlur?: React.ReactEventHandler<HTMLInputElement>;
+  onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
+  role?: string;
+  children?: React.ReactNode;
 };
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 250;
 
-function TypeaheadInput({
-  onQueryChange,
-  value,
-  initialValue = "",
-  queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
-  customClassName,
-  ...otherProps
-}: TypeaheadInputProps) {
-  const [inputValue, setInputValue] = useDebounce(
-    onQueryChange,
-    initialValue,
-    queryChangeDebounceTimeout
-  );
+const TypeaheadInput = React.forwardRef<HTMLInputElement, TypeaheadInputProps>(
+  (props, ref) => {
+    const {
+      testid,
+      placeholder,
+      name,
+      type = "text",
+      customClassName,
+      onFocus,
+      onBlur,
+      id,
+      role,
+      onKeyDown,
+      onQueryChange,
+      isDisabled = false,
+      leftIcon,
+      rightIcon,
+      initialValue = "",
+      value,
+      queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT
+    } = props;
 
-  useEffect(() => {
-    if (typeof value === "string") {
-      setInputValue(value);
+    const [inputValue, setInputValue] = useDebounce(
+      onQueryChange,
+      initialValue,
+      queryChangeDebounceTimeout
+    );
+
+    useEffect(() => {
+      if (typeof value === "string") {
+        setInputValue(value);
+      }
+    }, [value, setInputValue]);
+
+    return (
+      <Input
+        ref={ref}
+        customClassName={classNames("typeahead-input", customClassName)}
+        id={id}
+        testid={testid}
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        onChange={handleInputChange}
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onKeyDown={onKeyDown}
+        value={inputValue}
+        isDisabled={isDisabled}
+        leftIcon={leftIcon}
+        rightIcon={rightIcon}
+        role={role}
+      />
+    );
+
+    function handleInputChange(event: React.SyntheticEvent<HTMLInputElement>) {
+      setInputValue(event.currentTarget.value);
     }
-  }, [value, setInputValue]);
-
-  return (
-    <Input
-      value={inputValue}
-      customClassName={classNames("typeahead-input", customClassName)}
-      onChange={handleInputChange}
-      {...otherProps}
-    />
-  );
-
-  function handleInputChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    setInputValue(event.currentTarget.value);
   }
-}
+);
 
 export default TypeaheadInput;
