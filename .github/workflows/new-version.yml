@@ -2,7 +2,7 @@ name: "New Version Actions"
 
 on:
   push:
-    branches: # only trigger when a commit was pushed to master
+    branches: # only trigger when a commit was pushed to main
       - main
 
 jobs:
