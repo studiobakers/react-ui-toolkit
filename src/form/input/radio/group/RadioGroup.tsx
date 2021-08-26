@@ -3,27 +3,27 @@ import "./_radio-group.scss";
 import React from "react";
 import classNames from "classnames";
 
-import RadioInput, {RadioInputItem, RadioInputProps} from "../RadioInput";
+import RadioInput, {RadioInputItem, RadioInputSelectHandler} from "../RadioInput";
 import List from "../../../../list/List";
 import ListItem from "../../../../list/item/ListItem";
 
-export interface RadioGroupProps {
-  items: RadioInputItem[];
-  selectedItem: null | RadioInputItem;
-  onSelect: RadioInputProps["onSelect"];
+export interface RadioGroupProps<Id = string, Context = any> {
+  items: RadioInputItem<Id, Context>[];
+  selectedItem: null | RadioInputItem<Id, Context>;
+  onSelect: RadioInputSelectHandler<Id, Context>;
   customClassName?: string;
   isDisabled?: boolean;
   testid?: string;
 }
 
-function RadioGroup({
+function RadioGroup<Id = string, Context = any>({
   items,
   testid,
   onSelect,
   selectedItem,
   customClassName,
   isDisabled
-}: RadioGroupProps) {
+}: RadioGroupProps<Id, Context>) {
   return (
     <List
       testid={testid}

@@ -86,7 +86,10 @@ function mapDigitsToLocalVersion(
   {locale = navigator.language}: {locale?: string},
   digits: string
 ) {
-  return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
+  return digits
+    .split("")
+    .map(mapDigitToLocalVersion({locale}))
+    .join("");
 }
 
 function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {
@@ -153,6 +156,7 @@ function removeLeadingZeros(locale = navigator.language, value: string) {
 
   // parseInt returns absolute value for minus sign, 0, -0
   if (
+    integerPart &&
     integerPart.length !== String(parseInt(integerPart)).length &&
     integerPart !== LOCALE_MINUS_SIGN &&
     integerPart !== LOCALE_NEGATIVE_ZERO &&
