@@ -8,7 +8,7 @@ import StoryFragment from "./utils/StoryFragment";
 import {initialState} from "./utils/constants/dropdown/dropdownStoryOptionConstants";
 
 storiesOf("Dropdown", module)
-  .add("Dropdown States", () => (
+  .add("Dropdown", () => (
     <StateProvider initialState={initialState.basic}>
       {(state, setState) => (
         <div className={"dropdown-story-container"}>

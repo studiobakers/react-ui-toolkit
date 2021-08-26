@@ -5,7 +5,7 @@ import Switch from "../src/switch/Switch";
 import StateProvider from "./utils/StateProvider";
 import StoryFragment from "./utils/StoryFragment";
 
-storiesOf("Switch", module).add("Switch States", () => {
+storiesOf("Switch", module).add("Switch", () => {
   const initialState = {
     isSwitchOn: true,
     isDisabled: false
