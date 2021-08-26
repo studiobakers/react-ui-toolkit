@@ -27,9 +27,12 @@ function Switch({
       <input
         className={"switch__controller"}
         type={"checkbox"}
-        checked={isDisabled ? false : isToggledOn}
+        checked={isToggledOn}
         disabled={isDisabled}
-        onChange={isDisabled ? undefined : onToggle}
+        onChange={onToggle}
+        role={"switch"}
+        aria-checked={isToggledOn}
+        aria-readonly={isDisabled}
       />
 
       <span className={"switch__slider"} />
