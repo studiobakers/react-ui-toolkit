@@ -7,20 +7,32 @@ import Card from "../Card";
 
 export interface CollapsibleCardProps {
   header: React.ReactNode;
-  isOpen: boolean;
+  isOpen?: boolean;
+  initialIsOpen?: boolean;
   children: React.ReactNode;
-  onToggle: () => void;
+  onToggle?: () => void;
 }
 
-function CollapsibleCard({header, isOpen, children, onToggle}: CollapsibleCardProps) {
-  const [height, setHeight] = useState<number | undefined>(isOpen ? undefined : 0);
+function CollapsibleCard({
+  header,
+  isOpen: isOpenFromProps,
+  initialIsOpen = false,
+  children,
+  onToggle
+}: CollapsibleCardProps) {
+  const [isOpen, setIsOpen] = useState(initialIsOpen);
+  const [height, setHeight] = useState<number | undefined>(
+    isOpenFromProps || isOpen ? undefined : 0
+  );
   const childrenRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    setHeight(isOpen ? childrenRef.current?.getBoundingClientRect().height : 0);
+    setHeight(
+      isOpenFromProps || isOpen ? childrenRef.current?.getBoundingClientRect().height : 0
+    );
     let resizeObserver: ResizeObserver;
 
-    if (isOpen && childrenRef.current) {
+    if ((isOpenFromProps || isOpen) && childrenRef.current) {
       resizeObserver = new ResizeObserver(() => {
         setHeight(childrenRef.current?.getBoundingClientRect().height);
       });
@@ -32,15 +44,17 @@ function CollapsibleCard({header, isOpen, children, onToggle}: CollapsibleCardPr
         resizeObserver.disconnect();
       }
     };
-  }, [isOpen]);
+  }, [isOpen, isOpenFromProps]);
 
   return (
     <Card>
       <Card.Header onClick={handleClick}>{header}</Card.Header>
 
       <div
-        aria-expanded={isOpen}
-        className={classNames("card-content", {"card-content--is-collapsed": !isOpen})}
+        aria-expanded={isOpenFromProps || isOpen}
+        className={classNames("card-content", {
+          "card-content--is-collapsed": !(isOpenFromProps || isOpen)
+        })}
         style={{height}}>
         <div ref={childrenRef}>{children}</div>
       </div>
@@ -48,6 +62,9 @@ function CollapsibleCard({header, isOpen, children, onToggle}: CollapsibleCardPr
   );
 
   function handleClick() {
+    if (isOpenFromProps === undefined) {
+      setIsOpen(!isOpen);
+    }
     if (onToggle) {
       onToggle();
     }

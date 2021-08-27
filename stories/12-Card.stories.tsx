@@ -78,4 +78,15 @@ storiesOf("Card", module)
         )}
       </StateProvider>
     </div>
+  ))
+  .add("Uncontrolled Collapsible Card", () => (
+    <div style={{width: "300px"}}>
+      <CollapsibleCard header={"Collapsible card header"}>
+        <Card.Body>
+          <h4 style={{marginTop: "0"}}>{"Title"}</h4>
+
+          <p>{"Description of the collapsible card."}</p>
+        </Card.Body>
+      </CollapsibleCard>
+    </div>
   ));
