@@ -5,15 +5,9 @@ import Card from "../src/card/Card";
 import CollapsibleCard from "../src/card/collapsible/CollapsibleCard";
 import StateProvider from "./utils/StateProvider";
 
-storiesOf("Card", module).add("Card", () => {
-  return (
+storiesOf("Card", module)
+  .add("Card", () => (
     <div style={{width: "300px"}}>
-      <Card>
-        <Card.Body>{"A simple card with just body."}</Card.Body>
-      </Card>
-
-      <br />
-
       <Card>
         <Card.Header>Card header</Card.Header>
 
@@ -23,15 +17,23 @@ storiesOf("Card", module).add("Card", () => {
           <p>{"Description of card with header and title."}</p>
         </Card.Body>
       </Card>
-
-      <br />
-
+    </div>
+  ))
+  .add("Card with just body", () => (
+    <div style={{width: "300px"}}>
+      <Card>
+        <Card.Body>{"A simple card with just body."}</Card.Body>
+      </Card>
+    </div>
+  ))
+  .add("Collapsible Card", () => (
+    <div style={{width: "300px"}}>
       <StateProvider initialState={true}>
         {(state, setState) => (
           <CollapsibleCard
             isOpen={state}
             header={"Collapsible card header"}
-            onClick={() => {
+            onToggle={() => {
               setState(!state);
             }}>
             <Card.Body>
@@ -42,15 +44,16 @@ storiesOf("Card", module).add("Card", () => {
           </CollapsibleCard>
         )}
       </StateProvider>
-
-      <br />
-
+    </div>
+  ))
+  .add("Collapsible Card with dynamic child", () => (
+    <div style={{width: "300px"}}>
       <StateProvider initialState={[true, false]}>
         {(state, setState) => (
           <CollapsibleCard
             isOpen={state[0]}
             header={"Collapsible card header"}
-            onClick={() => {
+            onToggle={() => {
               setState([!state[0], state[1]]);
             }}>
             <Card.Body>
@@ -61,7 +64,7 @@ storiesOf("Card", module).add("Card", () => {
               <CollapsibleCard
                 isOpen={state[1]}
                 header={"Children Collapsible Card "}
-                onClick={() => {
+                onToggle={() => {
                   setState([state[0], !state[1]]);
                 }}>
                 <Card.Body>
@@ -75,5 +78,4 @@ storiesOf("Card", module).add("Card", () => {
         )}
       </StateProvider>
     </div>
-  );
-});
+  ));

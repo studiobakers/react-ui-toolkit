@@ -9,10 +9,10 @@ export interface CollapsibleCardProps {
   header: React.ReactNode;
   isOpen: boolean;
   children: React.ReactNode;
-  onClick: () => void;
+  onToggle: () => void;
 }
 
-function CollapsibleCard({header, isOpen, children, onClick}: CollapsibleCardProps) {
+function CollapsibleCard({header, isOpen, children, onToggle}: CollapsibleCardProps) {
   const [height, setHeight] = useState<number | undefined>(isOpen ? undefined : 0);
   const childrenRef = useRef<HTMLDivElement>(null);
 
@@ -40,7 +40,7 @@ function CollapsibleCard({header, isOpen, children, onClick}: CollapsibleCardPro
 
       <div
         aria-expanded={isOpen}
-        className={classNames("card__content", {"card__content--is-collapsed": !isOpen})}
+        className={classNames("card-content", {"card-content--is-collapsed": !isOpen})}
         style={{height}}>
         <div ref={childrenRef}>{children}</div>
       </div>
@@ -48,8 +48,8 @@ function CollapsibleCard({header, isOpen, children, onClick}: CollapsibleCardPro
   );
 
   function handleClick() {
-    if (onClick) {
-      onClick();
+    if (onToggle) {
+      onToggle();
     }
   }
 }
