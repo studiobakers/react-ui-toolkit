@@ -1,4 +1,4 @@
-.card__content {
+.card-content {
   overflow: hidden;
 
   visibility: visible;
@@ -6,6 +6,6 @@
   transition: height 0.5s ease, visibility 0.5s ease;
 }
 
-.card__content--is-collapsed {
+.card-content--is-collapsed {
   visibility: hidden;
 }

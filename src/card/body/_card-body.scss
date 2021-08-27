@@ -1,7 +1,5 @@
-.card__body {
-  --card-body-padding: 16px;
-
+.card-body {
   flex: 1 1 auto;
 
-  padding: var(--card-body-padding);
+  padding: 16px;
 }

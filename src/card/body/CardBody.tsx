@@ -9,7 +9,7 @@ export interface CardBodyProps {
 }
 
 function CardBody({children, customClassName}: CardBodyProps) {
-  return <div className={classNames("card__body", customClassName)}>{children}</div>;
+  return <div className={classNames("card-body", customClassName)}>{children}</div>;
 }
 
 export default CardBody;
