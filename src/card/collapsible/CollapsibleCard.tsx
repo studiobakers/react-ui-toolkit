@@ -18,22 +18,20 @@ function CollapsibleCard({header, isOpen, children, onClick}: CollapsibleCardPro
 
   useEffect(() => {
     setHeight(isOpen ? childrenRef.current?.getBoundingClientRect().height : 0);
+    let resizeObserver: ResizeObserver;
 
-    return observeContentHeight();
-
-    function observeContentHeight() {
-      const resizeObserver = new ResizeObserver(() => {
+    if (isOpen && childrenRef.current) {
+      resizeObserver = new ResizeObserver(() => {
         setHeight(childrenRef.current?.getBoundingClientRect().height);
       });
 
-      if (!isOpen || !childrenRef.current) {
-        return undefined;
-      }
       resizeObserver.observe(childrenRef.current);
-      return () => {
-        resizeObserver.disconnect();
-      };
     }
+    return () => {
+      if (resizeObserver) {
+        resizeObserver.disconnect();
+      }
+    };
   }, [isOpen]);
 
   return (
