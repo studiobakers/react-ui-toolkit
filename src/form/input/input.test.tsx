@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 import userEvent from "@testing-library/user-event";
 
 import Input, {InputProps} from "./Input";
@@ -16,12 +15,6 @@ describe("<Input />", () => {
 
   it("should render correctly", () => {
     render(<Input {...defaultInputProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<Input {...defaultInputProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {
@@ -74,14 +67,5 @@ describe("<Input />", () => {
     const input = screen.getByRole("textbox");
 
     expect(input).toBeDisabled();
-    expect(input).toHaveClass("input--is-disabled");
-  });
-
-  it("should add input--has-error class when hasError is true", () => {
-    render(<Input hasError={true} {...defaultInputProps} />);
-
-    const input = screen.getByRole("textbox");
-
-    expect(input).toHaveClass("input--has-error");
   });
 });

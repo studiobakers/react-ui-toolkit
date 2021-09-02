@@ -1,7 +1,6 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 import userEvent from "@testing-library/user-event";
 
 import CheckboxInput, {CheckboxInputProps} from "./CheckboxInput";
@@ -23,31 +22,19 @@ describe("<CheckboxInput />", () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
   });
 
-  it("should match snapshot", () => {
-    const tree = create(<CheckboxInput {...defaultCheckboxInputProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
   it("should pass a11y test", async () => {
     const {container} = render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
     await testA11y(container);
   });
 
-  it("should add disabled attribute and checkbox-input-label--is-disabled class when isDisabled is true", () => {
+  it("should add disabled attribute when isDisabled is true", () => {
     render(<CheckboxInput isDisabled={true} {...defaultCheckboxInputProps} />);
 
-    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
-      "checkbox-input-label--is-disabled"
-    );
-
-    const checkboxInput = screen.getByRole("checkbox");
-
-    expect(checkboxInput).toBeDisabled();
+    expect(screen.getByRole("checkbox")).toBeDisabled();
   });
 
-  it("should add checked attribute and checkbox-input-label--is-selected class when isSelected is true", () => {
+  it("should add checked attribute when isSelected is true", () => {
     const {rerender} = render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
     const checkboxInput = screen.getByRole("checkbox");
@@ -57,9 +44,6 @@ describe("<CheckboxInput />", () => {
     rerender(<CheckboxInput {...defaultCheckboxInputProps} isSelected={true} />);
 
     expect(checkboxInput).toBeChecked();
-    expect(screen.getByTestId(defaultCheckboxInputProps.testid!)).toHaveClass(
-      "checkbox-input-label--is-selected"
-    );
   });
 
   it("should run onSelect event handler correctly", () => {

@@ -1,26 +1,21 @@
 import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import {testA11y} from "../../core/utils/test/testUtils";
 import FormField, {FormFieldProps} from "./FormField";
 import Input from "../input/Input";
 
+type FormFieldTestProps = Omit<FormFieldProps, "id"> & {testid: string};
+
 describe("<FormField />", () => {
-  const defaultFormFieldProps: FormFieldProps = {
+  const defaultFormFieldProps: FormFieldTestProps = {
     testid: "form-field",
     children: <Input onChange={jest.fn} name={"test"} testid={"form-field.input"} />
   };
 
   it("should render correctly", () => {
     render(<FormField {...defaultFormFieldProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<FormField {...defaultFormFieldProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {
@@ -50,7 +45,7 @@ describe("<FormField />", () => {
     // eslint-disable-next-line testing-library/no-node-access
     const formFieldLabel = document.getElementsByTagName("label")[0];
 
-    expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent("Test");
+    expect(screen.getByTestId(defaultFormFieldProps.testid)).toHaveTextContent("Test");
     expect(formFieldLabel).toHaveAttribute("id", "form-field.labelled-by");
     expect(formFieldLabel).toHaveAttribute("for", "form-field.input");
   });
@@ -62,12 +57,12 @@ describe("<FormField />", () => {
       <FormField errorMessages={formFieldErrorMessages} {...defaultFormFieldProps} />
     );
 
-    expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveClass(
+    expect(screen.getByTestId(defaultFormFieldProps.testid)).toHaveClass(
       "form-field--has-error"
     );
 
     formFieldErrorMessages.forEach((errorMessage) => {
-      expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent(
+      expect(screen.getByTestId(defaultFormFieldProps.testid)).toHaveTextContent(
         errorMessage
       );
     });
@@ -81,7 +76,7 @@ describe("<FormField />", () => {
     );
 
     formFieldHelperMessages.forEach((helperMessage) => {
-      expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent(
+      expect(screen.getByTestId(defaultFormFieldProps.testid)).toHaveTextContent(
         helperMessage
       );
     });
@@ -101,18 +96,18 @@ describe("<FormField />", () => {
       />
     );
 
-    expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveClass(
+    expect(screen.getByTestId(defaultFormFieldProps.testid)).toHaveClass(
       "form-field--has-error"
     );
 
     formFieldErrorMessages.forEach((errorMessage) => {
-      expect(screen.getByTestId(defaultFormFieldProps.testid!)).toHaveTextContent(
+      expect(screen.getByTestId(defaultFormFieldProps.testid)).toHaveTextContent(
         errorMessage
       );
     });
 
     formFieldHelperMessages.forEach((helperMessage) => {
-      expect(screen.getByTestId(defaultFormFieldProps.testid!)).not.toHaveTextContent(
+      expect(screen.getByTestId(defaultFormFieldProps.testid)).not.toHaveTextContent(
         helperMessage
       );
     });

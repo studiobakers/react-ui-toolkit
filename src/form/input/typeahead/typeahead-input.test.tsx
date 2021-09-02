@@ -1,7 +1,6 @@
 import React from "react";
 import {render} from "@testing-library/react";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import {testA11y} from "../../../core/utils/test/testUtils";
 import TypeaheadInput, {TypeaheadInputProps} from "./TypeaheadInput";
@@ -16,12 +15,6 @@ describe("<TypeaheadInput />", () => {
 
   it("should render correctly", () => {
     render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
-  });
-
-  it("should match snapshot", () => {
-    const tree = create(<TypeaheadInput {...defaultTypeaheadInputProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
   });
 
   it("should pass a11y test", async () => {

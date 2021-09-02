@@ -2,7 +2,6 @@ import React from "react";
 import {render, screen, fireEvent} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
-import {create} from "react-test-renderer";
 
 import Button, {ButtonProps} from "./Button";
 import {testA11y} from "../core/utils/test/testUtils";
@@ -23,23 +22,16 @@ describe("<Button />", () => {
     expect(screen.getByRole("button")).toHaveTextContent("Test");
   });
 
-  it("should match snapshot", () => {
-    const tree = create(<Button {...defaultButtonProps} />).toJSON();
-
-    expect(tree).toMatchSnapshot();
-  });
-
   it("should pass a11y test", async () => {
     const {container} = render(<Button {...defaultButtonProps} />);
 
     await testA11y(container);
   });
 
-  it("should add disabled attribute and button--is-inactive class when isDisabled is true", () => {
+  it("should add disabled attribute when isDisabled is true", () => {
     render(<Button isDisabled={true} {...defaultButtonProps} />);
 
     expect(screen.getByRole("button")).toBeDisabled();
-    expect(screen.getByRole("button")).toHaveClass("button--is-inactive");
   });
 
   it("should display custom spinner correctly", () => {
