@@ -26,29 +26,6 @@ describe("<DropdownListItem />", () => {
     await testA11y(container, {rules: {"aria-required-parent": {enabled: false}}});
   });
 
-  it("should have proper modifier class name", () => {
-    const {rerender} = render(
-      <DropdownListItem
-        {...defaultDropdownListItemProps}
-        canSelectAlreadySelected={true}
-        focusedOption={{...defaultDropdownListItemProps.option}}
-      />
-    );
-
-    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--is-selected");
-    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--is-focused");
-    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--can-be-selected");
-
-    rerender(
-      <DropdownListItem
-        {...defaultDropdownListItemProps}
-        option={{...defaultDropdownListItemProps.option, isDisabled: true}}
-      />
-    );
-
-    expect(screen.getByRole("option")).toHaveClass("dropdown-list-item--is-disabled");
-  });
-
   it("should render custom content if it exists", () => {
     const {container} = render(
       <DropdownListItem
@@ -142,9 +119,9 @@ describe("<DropdownListItem />", () => {
     });
 
     it("should run focus event handler correctly", () => {
-      const {container} = render(<DropdownListItem {...defaultDropdownListItemProps} />);
+      render(<DropdownListItem {...defaultDropdownListItemProps} />);
 
-      fireEvent.focus(container);
+      fireEvent.focus(screen.getByRole("option"));
 
       expect(defaultDropdownListItemProps.onFocus).toHaveBeenCalledTimes(1);
     });
