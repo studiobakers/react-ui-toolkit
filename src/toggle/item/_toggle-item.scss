@@ -39,4 +39,12 @@
     width: 100%;
     height: 100%;
   }
+
+  &__label {
+    cursor: pointer;
+  }
+}
+
+.toggle-input {
+  display: none;
 }

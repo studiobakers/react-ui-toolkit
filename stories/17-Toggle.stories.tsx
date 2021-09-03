@@ -6,7 +6,7 @@ import {initialState} from "./utils/constants/toggle/toggleStoryOptionConstants"
 import StateProvider from "./utils/StateProvider";
 
 storiesOf("Toggle", module)
-  .add("Toggle States", () => {
+  .add("Toggle", () => {
     return (
       <div style={{width: "500px"}}>
         <span>{"Switch Toggle - 2 Options"}</span>
