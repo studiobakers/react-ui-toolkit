@@ -38,7 +38,7 @@ function limitArrayLengthFromTheEnd<Item extends any>(
   let slicedArray = array;
 
   if (isNonNegativeInteger(limit) && array.length > limit) {
-    slicedArray = array.slice(-limit);
+    slicedArray = array.slice(array.length - limit);
   }
 
   return slicedArray;

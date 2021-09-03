@@ -187,7 +187,7 @@ function ToastExamples() {
 storiesOf("Toast", module)
   .add("Toast Message", () => <ToastComponent />)
   .add("Toast with dynamic props", () => (
-    <StateProvider initialState={{limit: 3, autoCloseToasts: false}}>
+    <StateProvider initialState={{limit: "3", autoCloseToasts: false}}>
       {(state, setState) => (
         <StoryFragment>
           <FormField label={"Toast limit"}>
@@ -215,7 +215,7 @@ storiesOf("Toast", module)
             }}
           />
           <ToastContextProvider
-            limit={state.limit}
+            limit={Boolean(state.limit) && parseInt(state.limit)}
             autoCloseToasts={state.autoCloseToasts}>
             <ToastExamples />
           </ToastContextProvider>
