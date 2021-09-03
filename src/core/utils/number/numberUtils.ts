@@ -174,6 +174,10 @@ function getThousandthSeparatorCount(value: string) {
   return formatNumber({locale: "en"})(parseFloat(value)).match(/,/g)?.length || 0;
 }
 
+function isNonNegativeInteger(x: unknown): x is number {
+  return typeof x === "number" && Number.isFinite(x) && x >= 0;
+}
+
 export {
   formatNumber,
   parseNumber,
@@ -182,5 +186,6 @@ export {
   getNegativeZero,
   mapDigitsToLocalVersion,
   removeLeadingZeros,
-  getThousandthSeparatorCount
+  getThousandthSeparatorCount,
+  isNonNegativeInteger
 };

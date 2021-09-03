@@ -4,6 +4,7 @@ import ToastStack from "./stack/ToastStack";
 import {initialToastState} from "./util/toastConstants";
 import toastReducer from "./util/toastReducer";
 import {ToastAction, ToastContextState} from "./util/toastTypes";
+import {isNonNegativeInteger} from "../core/utils/number/numberUtils";
 
 const ToastContext = createContext<[ToastContextState, React.Dispatch<ToastAction>]>([
   initialToastState,
@@ -37,7 +38,7 @@ function ToastContextProvider({
   });
 
   useEffect(() => {
-    if (limit !== undefined) {
+    if (isNonNegativeInteger(limit)) {
       dispatch({type: "SET_LIMIT", limit});
     }
   }, [limit]);

@@ -1,4 +1,7 @@
-import {updateAtIndex} from "../../core/utils/array/arrayUtils";
+import {
+  limitArrayLengthFromTheEnd,
+  updateAtIndex
+} from "../../core/utils/array/arrayUtils";
 import {not} from "../../core/utils/function/functionUtils";
 import {initialToastState} from "./toastConstants";
 import {ToastAction} from "./toastTypes";
@@ -12,20 +15,14 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
   switch (action.type) {
     case "DISPLAY": {
       const {toastData} = action;
-      const {limit} = state;
-      let toastStack = [
+      const newToastStack = [
         ...state.toastStack.filter(not(isSameToast(toastData.id))),
         toastData
       ];
 
-      if (limit !== undefined && toastStack.length > limit) {
-        // prune the toasts exceeding the limit
-        toastStack = toastStack.slice(toastStack.length - limit);
-      }
-
       newState = {
         ...state,
-        toastStack
+        toastStack: limitArrayLengthFromTheEnd(state.limit, newToastStack)
       };
       break;
     }
@@ -67,17 +64,10 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
     case "SET_LIMIT": {
       const {limit} = action;
 
-      let toastStack = [...state.toastStack];
-
-      if (limit !== undefined && toastStack.length > limit) {
-        // prune the toasts exceeding the limit
-        toastStack = toastStack.slice(toastStack.length - limit);
-      }
-
       newState = {
         ...state,
-        toastStack,
-        limit
+        limit,
+        toastStack: limitArrayLengthFromTheEnd(limit, state.toastStack)
       };
       break;
     }
