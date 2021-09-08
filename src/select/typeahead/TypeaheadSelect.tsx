@@ -111,7 +111,7 @@ function TypeaheadSelect({
   }, [shouldFocusOnInput]);
 
   const dropdownHeader = (
-    <div className={"typeahead-select__header"}>
+    <div className={"typeahead-select__header-container"}>
       <TypeaheadSelectHeader
         tags={shouldDisplaySelectedOptions ? tags : []}
         handleTagRemove={handleRemove}

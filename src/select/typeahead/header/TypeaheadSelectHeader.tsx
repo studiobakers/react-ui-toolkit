@@ -1,6 +1,6 @@
 import "./_typeahead-select-header.scss";
 
-import React, {Fragment} from "react";
+import React from "react";
 import classNames from "classnames";
 
 import ListItem from "../../../list/item/ListItem";
@@ -19,23 +19,21 @@ function TypeaheadSelectHeader({
   handleTagRemove,
   input
 }: TypeaheadSelectHeaderProps) {
-  const listClassName = classNames("typeahead-select__header-list", customClassName);
-
   return (
-    <ul className={listClassName}>
+    <ul className={classNames("typeahead-select-header__tag-list", customClassName)}>
       {tags.map((tag: TagShape) => (
-        <Fragment key={tag.id}>
-          <ListItem customClassName={"typeahead-select__header-list__item"}>
-            <Tag
-              onRemove={handleTagRemove}
-              customClassName={"typeahead-select__tag"}
-              tag={tag}
-            />
-          </ListItem>
-        </Fragment>
+        <ListItem
+          key={tag.id}
+          customClassName={"typeahead-select-header__tag-list__item"}>
+          <Tag
+            onRemove={handleTagRemove}
+            customClassName={"typeahead-select-header__tag-list__item__tag"}
+            tag={tag}
+          />
+        </ListItem>
       ))}
 
-      <Fragment>{input}</Fragment>
+      {input}
     </ul>
   );
 }
