@@ -10,9 +10,10 @@ export type TabItem = {
   id: string;
   content: React.ReactNode;
   icon?: React.ReactNode;
+  isDisabled?: boolean;
 };
 
-export interface TabProps {
+interface UncontrolledTabProps {
   items: TabItem[];
   children: React.ReactNode[];
   testid?: string;
@@ -20,12 +21,30 @@ export interface TabProps {
   customClassName?: string;
 }
 
+// if one of the controlled tab props are present
+// other controlled tab prop is required
+// and initialActiveTabIndex should be undefined
+type ControlledTabProps =
+  | {
+      activeTabIndex: number;
+      onTabChange: (index: number) => void;
+      initialActiveTabIndex?: number;
+    }
+  | {
+      activeTabIndex?: number;
+      onTabChange?: (index: number) => void;
+    };
+
+export type TabProps = ControlledTabProps & UncontrolledTabProps;
+
 function Tab({
   testid,
   items,
   initialActiveTabIndex = 0,
+  activeTabIndex: activeTabIndexFromProps,
   children,
-  customClassName
+  customClassName,
+  onTabChange
 }: TabProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
@@ -38,18 +57,36 @@ function Tab({
             testid={itemTestId}
             onClick={handleChangeActiveTab}
             tab={item}
-            isActive={activeTabIndex === index}
+            isActive={
+              activeTabIndexFromProps === undefined
+                ? activeTabIndex === index
+                : activeTabIndexFromProps === index
+            }
             index={index!}
           />
         )}
       </List>
 
-      <div className={"tab__body"}>{children[activeTabIndex]}</div>
+      <div className={"tab__body"}>
+        {
+          children[
+            activeTabIndexFromProps === undefined
+              ? activeTabIndex
+              : activeTabIndexFromProps
+          ]
+        }
+      </div>
     </div>
   );
 
   function handleChangeActiveTab(index: number) {
-    setActiveTabIndex(index);
+    if (onTabChange && index !== activeTabIndexFromProps) {
+      onTabChange(index);
+    }
+
+    if (activeTabIndexFromProps === undefined) {
+      setActiveTabIndex(index);
+    }
   }
 }
 

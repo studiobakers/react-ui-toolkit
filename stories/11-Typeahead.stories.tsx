@@ -10,7 +10,7 @@ import TypeaheadSelect from "../src/select/typeahead/TypeaheadSelect";
 const simulateAPICall = (timeout = 1000) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
 
-storiesOf("Typeahead", module).add("Typeahead States", () => {
+storiesOf("Typeahead", module).add("Typeahead", () => {
   const initialState = {
     options: [
       {

@@ -1,6 +1,6 @@
 {
   "name": "@hipo/react-ui-toolkit",
-  "version": "1.0.0-alpha.3.2.0",
+  "version": "1.0.0-alpha.4.0.0",
   "description": "React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "test:watch": "npm t -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 6006",
     "storybook:build": "./node_modules/.bin/build-storybook",
-    "type-check": "echo \"type-checking...\" && tsc --noEmit",
+    "type-check": "echo \"type-checking...\" && ./node_modules/.bin/tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
     "eslint:fix": "./node_modules/.bin/eslint --fix --ext .jsx,.js,.tsx,.ts src/",
@@ -19,7 +19,8 @@
     "prettify": "./node_modules/.bin/prettier --config ./.prettierrc.js --write \"src/**/*.{ts,tsx}\" \"stories/**/*.{ts,tsx}\"",
     "lint:fix": "npm run stylelint:fix && npm run eslint:fix",
     "lint": "npm run stylelint && npm run eslint",
-    "check-package-updates": "npx npm-check-updates"
+    "check-package-updates": "npx npm-check-updates",
+    "prepare": "husky install"
   },
   "jest": {
     "preset": "ts-jest",
@@ -29,11 +30,6 @@
     "ui",
     "react"
   ],
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run prettify && lint-staged && npm run type-check"
-    }
-  },
   "lint-staged": {
     "src/**/*.{ts,tsx}": [
       "eslint"
@@ -53,10 +49,10 @@
     "@hipo/eslint-config-react": "2.1.0",
     "@hipo/eslint-config-typescript": "1.0.1",
     "@hipo/stylelint-config-base": "2.2.0",
-    "@storybook/addon-actions": "5.3.19",
-    "@storybook/addon-links": "5.3.19",
-    "@storybook/addons": "5.3.19",
-    "@storybook/react": "5.3.19",
+    "@storybook/addon-actions": "6.3.2",
+    "@storybook/addon-links": "6.3.2",
+    "@storybook/addons": "6.3.2",
+    "@storybook/react": "6.3.2",
     "@types/classnames": "2.3.0",
     "@types/jest": "26.0.23",
     "@types/react": "17.0.5",
@@ -68,12 +64,12 @@
     "css-loader": "5.2.4",
     "eslint": "7.26.0",
     "eslint-config-prettier": "8.3.0",
+    "eslint-plugin-import": "2.23.2",
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-react": "7.23.2",
     "eslint-plugin-react-hooks": "4.2.0",
-    "eslint-plugin-import": "2.23.2",
     "fork-ts-checker-webpack-plugin": "4.1.6",
-    "husky": "4.2.5",
+    "husky": "7.0.0",
     "jest": "26.4.2",
     "lint-staged": "10.2.13",
     "node-sass": "4.14.1",
@@ -95,7 +91,9 @@
     "stylelint-scss": "3.19.0",
     "ts-jest": "26.1.0",
     "ts-loader": "7.0.5",
-    "typescript": "3.9.5"
+    "typescript": "3.9.5",
+    "react": "17.0.2",
+    "react-dom": "17.0.2"
   },
   "dependencies": {
     "classnames": "2.3.1",

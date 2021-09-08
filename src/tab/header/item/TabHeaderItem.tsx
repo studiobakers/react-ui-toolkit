@@ -18,7 +18,8 @@ function TabHeaderItem({testid, tab, onClick, index, isActive}: TabHeaderItemPro
   return (
     <ListItem
       customClassName={classNames("tab-header-item", {
-        "tab-header-item--is-active": isActive
+        "tab-header-item--is-active": isActive,
+        "tab-header-item--is-disabled": tab.isDisabled
       })}
       clickableListItemProps={{onClick: handleClick}}
       testid={testid}>
@@ -29,6 +30,9 @@ function TabHeaderItem({testid, tab, onClick, index, isActive}: TabHeaderItemPro
   );
 
   function handleClick() {
+    if (tab.isDisabled) {
+      return;
+    }
     onClick(index);
   }
 }
