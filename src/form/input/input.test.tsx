@@ -93,7 +93,7 @@ describe('<Input type={"number"} />', () => {
     await testA11y(container, {rules: {label: {enabled: false}}});
   });
 
-  it("should format value to locale string", () => {
+  it("should format value to with 'en-EN' locale", () => {
     render(<Input {...numberInputProps} value={"1234567.89"} />);
 
     const input = screen.getByRole("textbox");
@@ -119,7 +119,7 @@ describe('<Input type={"number"} />', () => {
     expect(input).toHaveValue("1234567.89");
   });
 
-  it("should decimal part length be same with maximumFractionDigits", () => {
+  it("should have at most 2 decimal places", () => {
     render(<Input {...numberInputProps} />);
 
     const input = screen.getByRole("textbox");
@@ -135,6 +135,16 @@ describe('<Input type={"number"} />', () => {
     const input = screen.getByRole("textbox");
 
     userEvent.type(input, "ABC");
+
+    expect(input).toHaveValue(undefined);
+  });
+
+  it("should not allow enter empty string", () => {
+    render(<Input {...numberInputProps} />);
+
+    const input = screen.getByRole("textbox");
+
+    userEvent.type(input, " ");
 
     expect(input).toHaveValue(undefined);
   });
