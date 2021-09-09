@@ -213,7 +213,7 @@ function Input(props: InputProps) {
 
         // IF maximumFractionDigits is set as 0, value can not be negative zero
         if (maximumFractionDigits === 0 && finalEventValue === "-0") {
-          finalEventValue = value as string;
+          finalEventValue = "0";
         }
 
         // IF shouldFormatToLocaleString is defined, caret position should calculate according to thoudsandths separator count

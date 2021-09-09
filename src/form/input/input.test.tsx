@@ -158,6 +158,6 @@ describe('<Input type={"number"} />', () => {
 
     userEvent.type(input, "-0");
 
-    expect(input).toHaveValue(undefined);
+    expect(input).toHaveValue("0");
   });
 });
