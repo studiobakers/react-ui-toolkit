@@ -10,7 +10,7 @@ import TypeaheadSelect from "../src/select/typeahead/TypeaheadSelect";
 const simulateAPICall = (timeout = 1000) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
 
-storiesOf("Typeahead", module).add("Typeahead States", () => {
+storiesOf("Typeahead", module).add("Typeahead", () => {
   const initialState = {
     options: [
       {
@@ -24,6 +24,29 @@ storiesOf("Typeahead", module).add("Typeahead States", () => {
       {
         id: "spanish",
         title: "Spanish"
+      }
+    ],
+    thirdOptions: [],
+    selectedOptions: [],
+    secondSelectedOptions: [],
+    thirdSelectedOptions: [],
+    areOptionsFetching: false,
+    keyword: ""
+  };
+
+  const modelInitialState = {
+    options: [
+      {
+        id: "2005",
+        title: "2005"
+      },
+      {
+        id: "2015",
+        title: "2015"
+      },
+      {
+        id: "2021",
+        title: "2021"
       }
     ],
     thirdOptions: [],
@@ -156,6 +179,29 @@ storiesOf("Typeahead", module).add("Typeahead States", () => {
                 typeaheadProps={{
                   placeholder: "Select Languages",
                   name: "language-test"
+                }}
+              />
+            </FormField>
+          )}
+        </StateProvider>
+
+        <StateProvider initialState={modelInitialState}>
+          {(state, setState) => (
+            <FormField label={"Select Model Year"}>
+              <TypeaheadSelect
+                dropdownOptions={modelInitialState.options}
+                selectedOptions={state.selectedOptions}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    selectedOptions: [...state.selectedOptions, option]
+                  })
+                }
+                onTagRemove={handleRemoveTag(state, setState)}
+                typeaheadProps={{
+                  placeholder: "Select Model",
+                  name: "model",
+                  type: "number"
                 }}
               />
             </FormField>

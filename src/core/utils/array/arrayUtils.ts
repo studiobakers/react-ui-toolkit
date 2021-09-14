@@ -14,4 +14,12 @@ function filterOutItemsByKey<T extends {[x: string]: any}>(
   }, []);
 }
 
-export {filterOutItemsByKey};
+function updateAtIndex<Item>(items: Item[], index: number, newItem: Item): Item[] {
+  const newItems = [...items];
+
+  newItems.splice(index, 1, newItem);
+
+  return newItems;
+}
+
+export {filterOutItemsByKey, updateAtIndex};

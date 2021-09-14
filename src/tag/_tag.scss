@@ -23,6 +23,8 @@
 }
 
 .tag--is-removable {
+  cursor: pointer;
+
   &:hover {
     path {
       stroke: var(--text-color);

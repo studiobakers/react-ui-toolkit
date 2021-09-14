@@ -44,7 +44,6 @@ import Tab, {TabItem as TabComponentItem, TabProps as TabComponentProps} from ".
 import Textarea, {
   TextareaProps as TextareaComponentProps
 } from "./form/textarea/Textarea";
-import Avatar, {AvatarProps as AvatarComponentProps} from "./avatar/Avatar";
 import {Toggle, ToggleProps as ToggleComponentProps} from "./toggle/Toggle";
 import Switch, {SwitchProps as SwitchComponentProps} from "./switch/Switch";
 import Countdown from "./countdown/Countdown";
@@ -63,6 +62,9 @@ import TimeDropdown, {
 import TimeSelect, {
   TimeSelectProps as TimeSelectComponentProps
 } from "./form/time/select/TimeSelect";
+import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
+import {useToastContext, useToaster} from "./toast/util/toastHooks";
+import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
 
 export {
   // Components
@@ -76,7 +78,6 @@ export {
   TypeaheadInput,
   TypeaheadSelect,
   Dropdown,
-  Avatar,
   List,
   ListItem,
   Button,
@@ -91,8 +92,14 @@ export {
   TimeSelect,
   Toggle,
   Switch,
+  Toast,
   // Hooks
-  useCountDownTimer
+  useToastContext,
+  useToaster,
+  useCountDownTimer,
+  // Contexts
+  ToastContext,
+  ToastContextProvider
 };
 
 // Types
@@ -101,12 +108,18 @@ export type InputProps = InputComponentProps;
 export type FileInputProps = FileInputComponentProps;
 export type PasswordInputProps = PasswordInputComponentProps;
 export type CheckboxInputProps = CheckboxInputComponentProps;
-export type RadioInputProps = RadioInputComponentProps;
+export type RadioInputProps<Id = string, Context = any> = RadioInputComponentProps<
+  Id,
+  Context
+>;
 export type RadioInputItem<Id = string, Context = any> = RadioInputComponentItem<
   Id,
   Context
 >;
-export type RadioGroupProps = RadioGroupComponentProps;
+export type RadioGroupProps<Id = string, Context = any> = RadioGroupComponentProps<
+  Id,
+  Context
+>;
 export type TypeaheadInputProps = TypeaheadInputComponentProps;
 export type TypeaheadSelectProps = TypeaheadSelectComponentProps;
 export type DropdownProps<OptionIdShape> = DropdownComponentProps<OptionIdShape>;
@@ -128,7 +141,6 @@ export type FileUploadButtonProps = FileUploadButtonComponentProps;
 export type SpinnerProps = SpinnerComponentProps;
 export type TabItem = TabComponentItem;
 export type TabProps = TabComponentProps;
-export type AvatarProps = AvatarComponentProps;
 export type ProgressBarProps = ProgressBarComponentProps;
 export type TextareaProps = TextareaComponentProps;
 export type ToggleProps = ToggleComponentProps;
@@ -138,3 +150,4 @@ export type TimeInputProps = TimeInputComponentProps;
 export type TimeDropdownProps = TimeDropdownComponentProps;
 export type TimeDropdownOption = TimeDropdownComponentOption;
 export type TimeSelectProps = TimeSelectComponentProps;
+export type ToastProps = ToastComponentProps;

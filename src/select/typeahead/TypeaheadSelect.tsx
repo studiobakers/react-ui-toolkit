@@ -23,8 +23,11 @@ export interface TypeaheadSelectProps {
   selectedOptions: DropdownOption[];
   dropdownOptions: DropdownOption[];
   onSelect: (option: DropdownOption) => void;
+  typeaheadProps: Pick<
+    TypeaheadInputProps,
+    "id" | "placeholder" | "name" | "onFocus" | "type"
+  >;
   testid?: string;
-  typeaheadProps: Pick<TypeaheadInputProps, "id" | "placeholder" | "name" | "onFocus">;
   onKeywordChange?: (value: string) => void;
   initialKeyword?: string;
   controlledKeyword?: string;
@@ -61,7 +64,8 @@ function TypeaheadSelect({
   initialKeyword = "",
   controlledKeyword
 }: TypeaheadSelectProps) {
-  const typeaheadInputRef = useRef<HTMLDivElement | null>(null);
+  const typeaheadInputRef = useRef<HTMLInputElement | null>(null);
+
   const [isMenuOpen, setMenuVisibility] = useState(false);
   const [computedDropdownOptions, setComputedDropdownOptions] = useState(dropdownOptions);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
@@ -130,11 +134,12 @@ function TypeaheadSelect({
 
       {!shouldDisplayOnlyTags && (
         <TypeaheadInput
+          ref={typeaheadInputRef}
           testid={`${testid}.search`}
           customClassName={"typeahead-select__input"}
-          inputContainerRef={typeaheadInputRef}
           id={typeaheadProps.id}
           name={typeaheadProps.name}
+          type={typeaheadProps.type}
           placeholder={typeaheadProps.placeholder}
           value={inputValue}
           onQueryChange={handleKeywordChange}
@@ -172,7 +177,7 @@ function TypeaheadSelect({
     setMenuVisibility(true);
   }
 
-  function handleTypeaheadInputFocus(event: React.SyntheticEvent<HTMLInputElement>) {
+  function handleTypeaheadInputFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (canOpenDropdownMenu && !isDisabled) {
       openDropdownMenu();
     }
@@ -187,6 +192,7 @@ function TypeaheadSelect({
       onSelect(option!);
       setComputedDropdownOptions(dropdownOptions);
       setKeyword("");
+      setShouldFocusOnInput(true);
     }
   }
 

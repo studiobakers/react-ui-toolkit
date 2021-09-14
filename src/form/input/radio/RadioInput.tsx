@@ -21,15 +21,21 @@ export type RadioInputSelectHandler<Id = string, Context = any> = (
   event?: React.SyntheticEvent<HTMLInputElement>
 ) => void;
 
-export interface RadioInputProps {
-  item: RadioInputItem;
-  onSelect: RadioInputSelectHandler;
+export interface RadioInputProps<Id, Context> {
+  item: RadioInputItem<Id, Context>;
+  onSelect: RadioInputSelectHandler<Id, Context>;
   isSelected: boolean;
   testid?: string;
   isDisabled?: boolean;
 }
 
-function RadioInput({testid, item, onSelect, isSelected, isDisabled}: RadioInputProps) {
+function RadioInput<Id = string, Context = any>({
+  testid,
+  item,
+  onSelect,
+  isSelected,
+  isDisabled
+}: RadioInputProps<Id, Context>) {
   const {
     inputProps: {name, value, htmlFor},
     customClassName,
