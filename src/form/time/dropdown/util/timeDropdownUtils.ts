@@ -2,7 +2,6 @@ import parse from "date-fns/parse";
 import addMinutes from "date-fns/addMinutes";
 import formatDate from "date-fns/format";
 import startOfToday from "date-fns/startOfToday";
-import startOfDay from "date-fns/startOfDay";
 
 import {truncateDecimalPart} from "../../../../core/utils/number/numberUtils";
 import {
@@ -12,16 +11,13 @@ import {
   HOUR_IN_MINS
 } from "../../../../core/utils/time/timeConstants";
 import {formatTimeStringTo12hFormatWithMeridiem} from "../../../../core/utils/time/timeUtils";
-import {TimeSelectDropdownOption} from "../../select/TimeSelect";
-import {
-  TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL,
-  TIME_INPUT_DROPDOWN_OPTIONS_FIRST_HOUR_INTERVAL
-} from "./timeDropdownConstants";
+import {TIME_DROPDOWN_OPTION_INTERVALS} from "./timeDropdownConstants";
+import {TimeDropdownOption} from "../TimeDropdown";
 
 function generateTimeDropdownOptionFromStartTimeDate(
   startTimeDate: Date,
   differenceInMinutes: number
-): TimeSelectDropdownOption {
+): TimeDropdownOption {
   const date = addMinutes(startTimeDate, differenceInMinutes);
   const timeString = formatDate(date, DATE_FORMAT.LONG_TIME_FORMAT);
 
@@ -36,17 +32,17 @@ function generateTimeDropdownOptionFromStartTimeDate(
   };
 }
 
-function generateTimeDropdownDates(
+function generateTimeDropdownOptionsFromStartTimeDate(
   startTimeDate: Date,
   {
     arrayLength,
-    interval = TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL,
+    interval = TIME_DROPDOWN_OPTION_INTERVALS.DEFAULT,
     startTimeOffsetInMins = 0
   }: {arrayLength: number; interval?: number; startTimeOffsetInMins?: number}
 ) {
   return new Array(arrayLength)
     .fill(0)
-    .map<TimeSelectDropdownOption>((_item, index) =>
+    .map<TimeDropdownOption>((_item, index) =>
       generateTimeDropdownOptionFromStartTimeDate(
         startTimeDate,
         startTimeOffsetInMins + index * interval
@@ -57,8 +53,8 @@ function generateTimeDropdownDates(
 function generateTimeDropdownOptions(options?: {
   startDate?: Date | null;
   startTime?: string;
-}): TimeSelectDropdownOption[] {
-  let dropdownOptions: TimeSelectDropdownOption[] = [];
+}): TimeDropdownOption[] {
+  let dropdownOptions: TimeDropdownOption[] = [];
   const {startDate, startTime} = options || {};
 
   if (startTime) {
@@ -69,30 +65,30 @@ function generateTimeDropdownOptions(options?: {
     );
 
     // First four options are separated by only 15 mins
-    const firstHourOptions = generateTimeDropdownDates(startTimeDate, {
+    const firstHourOptions = generateTimeDropdownOptionsFromStartTimeDate(startTimeDate, {
       // eslint-disable-next-line no-magic-numbers
-      arrayLength: 4,
-      interval: TIME_INPUT_DROPDOWN_OPTIONS_FIRST_HOUR_INTERVAL
+      arrayLength: Math.floor(HOUR_IN_MINS / TIME_DROPDOWN_OPTION_INTERVALS.FIRST_HOUR),
+      interval: TIME_DROPDOWN_OPTION_INTERVALS.FIRST_HOUR
     })
       // Remove the first item as difference would be 0 mins from the startTimeDate
       .slice(1);
 
     // Remaining options are separated by 30 mins
-    const remainingOptions = generateTimeDropdownDates(startTimeDate, {
+    const remainingOptions = generateTimeDropdownOptionsFromStartTimeDate(startTimeDate, {
       arrayLength:
         // eslint-disable-next-line no-magic-numbers
-        DAY_IN_S / (MINUTE_IN_S * TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL) - 2,
+        DAY_IN_S / (MINUTE_IN_S * TIME_DROPDOWN_OPTION_INTERVALS.DEFAULT) - 2,
       startTimeOffsetInMins: HOUR_IN_MINS
     });
 
     dropdownOptions = [...firstHourOptions, ...remainingOptions];
   } else if (startDate) {
-    dropdownOptions = generateTimeDropdownDates(startOfDay(startDate), {
-      arrayLength: DAY_IN_S / (MINUTE_IN_S * TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL)
+    dropdownOptions = generateTimeDropdownOptionsFromStartTimeDate(startDate, {
+      arrayLength: DAY_IN_S / (MINUTE_IN_S * TIME_DROPDOWN_OPTION_INTERVALS.DEFAULT)
     });
   } else {
-    dropdownOptions = generateTimeDropdownDates(startOfToday(), {
-      arrayLength: DAY_IN_S / (MINUTE_IN_S * TIME_INPUT_DROPDOWN_OPTIONS_DEFAULT_INTERVAL)
+    dropdownOptions = generateTimeDropdownOptionsFromStartTimeDate(startOfToday(), {
+      arrayLength: DAY_IN_S / (MINUTE_IN_S * TIME_DROPDOWN_OPTION_INTERVALS.DEFAULT)
     });
   }
 

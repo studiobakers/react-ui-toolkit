@@ -14,9 +14,10 @@ export type TimeDropdownOption = DropdownOption<
 
 export interface TimeDropdownProps {
   testid: string;
-  startTimeString: string;
   selectedOption: null | TimeDropdownOption;
   onSelect: (option: null | TimeDropdownOption) => void;
+  startDate?: Date;
+  startTimeString?: string;
   customHeader?: React.ReactNode;
   icon?: React.ReactNode;
   hasDeselectOption?: boolean;
@@ -26,6 +27,7 @@ export interface TimeDropdownProps {
 
 function TimeDropdown({
   testid,
+  startDate,
   startTimeString,
   selectedOption,
   customHeader,
@@ -36,12 +38,12 @@ function TimeDropdown({
   customClassName
 }: TimeDropdownProps) {
   const [options, setOptions] = useState<TimeDropdownOption[]>(
-    generateTimeDropdownOptions({startTime: startTimeString})
+    generateTimeDropdownOptions({startTime: startTimeString, startDate})
   );
 
   useEffect(() => {
-    setOptions(generateTimeDropdownOptions({startTime: startTimeString}));
-  }, [startTimeString]);
+    setOptions(generateTimeDropdownOptions({startTime: startTimeString, startDate}));
+  }, [startTimeString, startDate]);
 
   return (
     <Dropdown
