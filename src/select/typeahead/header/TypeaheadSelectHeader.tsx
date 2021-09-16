@@ -33,7 +33,7 @@ function TypeaheadSelectHeader({
         </ListItem>
       ))}
 
-      <li>{input}</li>
+      {input}
     </ul>
   );
 }
