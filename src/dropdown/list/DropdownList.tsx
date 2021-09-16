@@ -10,7 +10,7 @@ import DropdownListItem, {
 } from "./item/DropdownListItem";
 import {computeScrollAmountToMakeChildVisible} from "../../core/utils/dom/domUtils";
 
-interface DropdownListProps<OptionIdShape extends string> {
+export interface DropdownListProps<OptionIdShape extends string> {
   isVisible: boolean;
   options: DropdownOption<OptionIdShape>[];
   selectedOption: DropdownSelectedOption<OptionIdShape>;

@@ -1,3 +1,5 @@
+import {isNonNegativeInteger} from "../number/numberUtils";
+
 function filterOutItemsByKey<T extends {[x: string]: any}>(
   array: T[],
   key: keyof T,
@@ -22,4 +24,24 @@ function updateAtIndex<Item>(items: Item[], index: number, newItem: Item): Item[
   return newItems;
 }
 
-export {filterOutItemsByKey, updateAtIndex};
+/**
+ * Slices an array at an offset from the end so that the new array's length would be `limit` at most.
+ *
+ * @param limit - Limit for the length of that array
+ * @param array - List of items
+ * @returns The same array if array.length <=limit, otherwise returns a new array.
+ */
+function limitArrayLengthFromTheEnd<Item extends any>(
+  limit: undefined | number,
+  array: Item[]
+): Item[] {
+  let slicedArray = array;
+
+  if (isNonNegativeInteger(limit) && array.length > limit) {
+    slicedArray = array.slice(array.length - limit);
+  }
+
+  return slicedArray;
+}
+
+export {filterOutItemsByKey, updateAtIndex, limitArrayLengthFromTheEnd};

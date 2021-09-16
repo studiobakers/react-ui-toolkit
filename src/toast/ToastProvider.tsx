@@ -1,9 +1,10 @@
-import React, {createContext, useReducer} from "react";
+import React, {createContext, useReducer, useEffect} from "react";
 
 import ToastStack from "./stack/ToastStack";
 import {initialToastState} from "./util/toastConstants";
 import toastReducer from "./util/toastReducer";
 import {ToastAction, ToastContextState} from "./util/toastTypes";
+import {isNonNegativeInteger} from "../core/utils/number/numberUtils";
 
 const ToastContext = createContext<[ToastContextState, React.Dispatch<ToastAction>]>([
   initialToastState,
@@ -16,6 +17,7 @@ interface ToastContextProviderProps {
   children: React.ReactNode;
   customRootId?: string;
   autoCloseToasts?: boolean;
+  limit?: number;
 }
 
 /**
@@ -26,12 +28,24 @@ interface ToastContextProviderProps {
 function ToastContextProvider({
   children,
   customRootId,
-  autoCloseToasts = true
+  autoCloseToasts = true,
+  limit
 }: ToastContextProviderProps) {
   const [state, dispatch] = useReducer(toastReducer, {
     ...initialToastState,
-    autoCloseToasts
+    autoCloseToasts,
+    limit
   });
+
+  useEffect(() => {
+    if (isNonNegativeInteger(limit)) {
+      dispatch({type: "SET_LIMIT", limit});
+    }
+  }, [limit]);
+
+  useEffect(() => {
+    dispatch({type: "SET_AUTO_CLOSE", autoCloseToasts});
+  }, [autoCloseToasts]);
 
   return (
     <ToastContext.Provider value={[state, dispatch]}>
