@@ -35,7 +35,7 @@ describe("<ProgressBar />", () => {
     render(<ProgressBar {...defaultProgressBarProps} />);
 
     expect(screen.getByRole("progressbar")).toHaveStyle(
-      `background-color: ${defaultProgressBarProps.style.backgroundColor}`
+      `background-color: ${defaultProgressBarProps.style?.backgroundColor}`
     );
   });
 
@@ -57,7 +57,7 @@ describe("<ProgressBar />", () => {
     render(<ProgressBar {...defaultProgressBarProps} />);
 
     expect(screen.getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
-      `background-color: ${defaultProgressBarProps.style.trackColor}`
+      `background-color: ${defaultProgressBarProps.style?.trackColor}`
     );
   });
 
@@ -67,13 +67,13 @@ describe("<ProgressBar />", () => {
     );
 
     expect(screen.getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
-      `background-color: ${defaultProgressBarProps.style.completedColor}`
+      `background-color: ${defaultProgressBarProps.style?.completedColor}`
     );
 
     rerender(<ProgressBar {...defaultProgressBarProps} percentage={120} />);
 
     expect(screen.getByTestId(`${defaultProgressBarProps.testid!}.track`)).toHaveStyle(
-      `background-color: ${defaultProgressBarProps.style.completedColor}`
+      `background-color: ${defaultProgressBarProps.style?.completedColor}`
     );
   });
 });

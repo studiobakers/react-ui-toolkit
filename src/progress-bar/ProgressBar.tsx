@@ -3,9 +3,11 @@ import "./_progress-bar.scss";
 import React from "react";
 import classNames from "classnames";
 
+const MAX_VALUE = 100;
+
 export interface ProgressBarProps {
   percentage: number;
-  style: {
+  style?: {
     trackColor?: string;
     backgroundColor?: string;
     completedColor?: string;
@@ -22,20 +24,18 @@ export interface ProgressBarProps {
 
 function ProgressBar(props: ProgressBarProps) {
   const {
-    percentage,
-    style: {trackColor = "blue", backgroundColor = "gray", completedColor = "green"},
     ariaLabelledBy,
     ariaLabel,
     title,
     ariaValueText,
     ariaDescribedBy,
-    children,
-    customClassName,
     testid
   } = props;
+  const {percentage, style, children, customClassName} = props;
   const progressBarClassName = classNames("progress-bar", customClassName);
-  // eslint-disable-next-line no-magic-numbers
-  const parsedPercentage = percentage >= 100 ? 100 : percentage;
+  const parsedPercentage = percentage >= MAX_VALUE ? MAX_VALUE : percentage;
+  const {trackColor = "blue", backgroundColor = "gray", completedColor = "green"} =
+    style || {};
 
   return (
     <div
@@ -46,7 +46,7 @@ function ProgressBar(props: ProgressBarProps) {
       role={"progressbar"}
       aria-valuenow={parsedPercentage}
       aria-valuemin={0}
-      aria-valuemax={100}
+      aria-valuemax={MAX_VALUE}
       aria-labelledby={ariaLabelledBy}
       aria-label={ariaLabel}
       title={title}
@@ -57,8 +57,7 @@ function ProgressBar(props: ProgressBarProps) {
         className={"progress-bar__track"}
         style={{
           width: `${parsedPercentage}%`,
-          // eslint-disable-next-line no-magic-numbers
-          backgroundColor: parsedPercentage === 100 ? completedColor : trackColor
+          backgroundColor: parsedPercentage === MAX_VALUE ? completedColor : trackColor
         }}
         data-testid={`${testid}.track`}
       />
