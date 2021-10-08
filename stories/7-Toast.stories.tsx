@@ -23,6 +23,12 @@ function ToastComponent() {
       <ToastContextProvider autoCloseToasts={false}>
         <ToastExamples />
       </ToastContextProvider>
+
+      <p>{"ToastProvider with defaultAutoCloseTimeout={2000}"}</p>
+
+      <ToastContextProvider defaultAutoCloseTimeout={2000}>
+        <ToastExamples />
+      </ToastContextProvider>
     </StoryFragment>
   );
 }
