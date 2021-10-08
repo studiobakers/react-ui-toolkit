@@ -86,10 +86,7 @@ function mapDigitsToLocalVersion(
   {locale = navigator.language}: {locale?: string},
   digits: string
 ) {
-  return digits
-    .split("")
-    .map(mapDigitToLocalVersion({locale}))
-    .join("");
+  return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
 }
 
 function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {
@@ -178,7 +175,7 @@ function getThousandthSeparatorCount(value: string) {
   return formatNumber({locale: "en"})(parseFloat(value)).match(/,/g)?.length || 0;
 }
 
-function isNonNegativeInteger(x: unknown): x is number {
+function isNonNegativeNumber(x: unknown): x is number {
   return typeof x === "number" && Number.isFinite(x) && x >= 0;
 }
 
@@ -191,5 +188,5 @@ export {
   mapDigitsToLocalVersion,
   removeLeadingZeros,
   getThousandthSeparatorCount,
-  isNonNegativeInteger
+  isNonNegativeNumber
 };

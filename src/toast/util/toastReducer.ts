@@ -3,6 +3,7 @@ import {
   updateAtIndex
 } from "../../core/utils/array/arrayUtils";
 import {not} from "../../core/utils/function/functionUtils";
+import {isNonNegativeNumber} from "../../core/utils/number/numberUtils";
 import {initialToastState} from "./toastConstants";
 import {ToastAction} from "./toastTypes";
 import {isSameToast} from "./toastUtils";
@@ -77,6 +78,18 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
         ...state,
         autoCloseToasts: action.autoCloseToasts
       };
+      break;
+    }
+
+    case "SET_DEFAULT_AUTO_CLOSE_TIMEOUT_FOR_ALL_TOASTS": {
+      const {timeout} = action;
+
+      if (isNonNegativeNumber(timeout)) {
+        newState = {
+          ...state,
+          defaultAutoCloseTimeout: timeout
+        };
+      }
       break;
     }
 
