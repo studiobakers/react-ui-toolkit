@@ -21,7 +21,6 @@ function ToastCloseButton({children, testid}: ToastCloseButtonProps) {
   );
 
   function handleClick() {
-    console.log("bs");
     hide(toastId);
   }
 }
