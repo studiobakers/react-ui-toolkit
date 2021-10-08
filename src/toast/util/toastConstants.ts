@@ -8,4 +8,4 @@ const initialToastState: ToastContextState = {
   defaultAutoCloseTimeout: DEFAULT_TOAST_TIMEOUT
 };
 
-export {initialToastState};
+export {DEFAULT_TOAST_TIMEOUT, initialToastState};

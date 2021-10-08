@@ -1,7 +1,7 @@
 import React, {createContext, useReducer, useEffect} from "react";
 
 import ToastStack from "./stack/ToastStack";
-import {initialToastState} from "./util/toastConstants";
+import {DEFAULT_TOAST_TIMEOUT, initialToastState} from "./util/toastConstants";
 import toastReducer from "./util/toastReducer";
 import {ToastAction, ToastContextState} from "./util/toastTypes";
 import {isNonNegativeNumber} from "../core/utils/number/numberUtils";
@@ -31,12 +31,13 @@ function ToastContextProvider({
   customRootId,
   autoCloseToasts = true,
   limit,
-  defaultAutoCloseTimeout
+  defaultAutoCloseTimeout = DEFAULT_TOAST_TIMEOUT
 }: ToastContextProviderProps) {
   const [state, dispatch] = useReducer(toastReducer, {
     ...initialToastState,
     autoCloseToasts,
-    limit
+    limit,
+    defaultAutoCloseTimeout
   });
 
   useEffect(() => {
