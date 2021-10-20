@@ -12,6 +12,8 @@ import {
   getNegativeZero,
   getThousandthSeparatorCount
 } from "../../core/utils/number/numberUtils";
+import {getLocalizationOptions} from "./util/inputUtils";
+import {InputLocalizationOptions} from "./util/inputTypes";
 
 export type InputTypes =
   | "checkbox"
@@ -50,11 +52,7 @@ export type InputProps = Omit<
   hasError?: boolean;
   customClassName?: string;
   onChange: React.ReactEventHandler<HTMLInputElement>;
-  localizationOptions?: {
-    shouldFormatToLocaleString?: boolean;
-    locale?: string;
-    maximumFractionDigits?: number;
-  };
+  localizationOptions?: InputLocalizationOptions;
 };
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -80,7 +78,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       shouldFormatToLocaleString = false,
       locale,
       maximumFractionDigits = 0
-    } = localizationOptions;
+    } = getLocalizationOptions(localizationOptions);
     const [
       {
         DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
