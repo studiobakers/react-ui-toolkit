@@ -1,6 +1,7 @@
 import React from "react";
-import {render} from "@testing-library/react";
+import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
+import userEvent from "@testing-library/user-event";
 
 import {testA11y} from "../../../core/utils/test/testUtils";
 import TypeaheadInput, {TypeaheadInputProps} from "./TypeaheadInput";
@@ -21,5 +22,33 @@ describe("<TypeaheadInput />", () => {
     const {container} = render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
 
     await testA11y(container);
+  });
+
+  it("should update value on change", () => {
+    render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
+
+    const typeahedInput = screen.getByRole("textbox");
+
+    userEvent.type(typeahedInput, "test");
+
+    expect(typeahedInput).toHaveValue("test");
+  });
+
+  it("should render left and right icons correctly", () => {
+    const iconContent = <p data-testid={"icon"}>{"Test"}</p>;
+
+    const {rerender, container} = render(
+      <TypeaheadInput leftIcon={iconContent} {...defaultTypeaheadInputProps} />
+    );
+
+    const leftIcon = screen.getByText("Test");
+
+    expect(container).toContainElement(leftIcon);
+
+    rerender(<TypeaheadInput rightIcon={iconContent} {...defaultTypeaheadInputProps} />);
+
+    const rightIcon = screen.getByText("Test");
+
+    expect(container).toContainElement(rightIcon);
   });
 });
