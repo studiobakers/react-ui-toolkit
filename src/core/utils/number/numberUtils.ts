@@ -1,4 +1,4 @@
-import {isAndroid} from "../device/deviceUtils";
+import {isMobileDevice} from "../device/deviceUtils";
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
 function formatNumber(formatNumberOptions: FormatNumberOptions) {
@@ -46,7 +46,7 @@ function formatNumber(formatNumberOptions: FormatNumberOptions) {
  */
 function parseNumber(options: ParseNumberOptions, value: string) {
   const {
-    locale = isAndroid() ? "en-US" : navigator.language,
+    locale = isMobileDevice() ? "en-US" : navigator.language,
     maximumFractionDigits = 0
   } = options;
   const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);

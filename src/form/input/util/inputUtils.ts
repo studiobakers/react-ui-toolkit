@@ -1,10 +1,10 @@
-import {isAndroid} from "../../../core/utils/device/deviceUtils";
+import {isMobileDevice} from "../../../core/utils/device/deviceUtils";
 import {InputLocalizationOptions} from "./inputTypes";
 
 function getLocalizationOptions(
   localizationOptions: InputLocalizationOptions
 ): InputLocalizationOptions {
-  return isAndroid()
+  return isMobileDevice()
     ? {
         shouldFormatToLocaleString: false,
         locale: undefined,

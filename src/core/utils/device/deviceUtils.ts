@@ -1,7 +1,8 @@
-function isAndroid() {
+function isMobileDevice() {
   const userAgent = navigator.userAgent || navigator.vendor;
+  const devices = [/Android/i, /iPhone/i, /iPad/i];
 
-  return /android/i.test(userAgent);
+  return devices.some((device) => userAgent.match(device));
 }
 
-export {isAndroid};
+export {isMobileDevice};
