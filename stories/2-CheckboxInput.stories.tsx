@@ -30,8 +30,6 @@ storiesOf("Checkbox", module).add("Checkbox", () => {
             }}
           />
 
-          <br />
-
           <CheckboxInput
             onSelect={() =>
               setState({...state, termsAndConditions: !state.termsAndConditions})
@@ -47,8 +45,6 @@ storiesOf("Checkbox", module).add("Checkbox", () => {
               }
             }}
           />
-
-          <br />
 
           <CheckboxInput
             onSelect={() => setState({...state, privacyPolicy: !state.privacyPolicy})}

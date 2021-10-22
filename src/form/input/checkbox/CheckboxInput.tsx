@@ -52,7 +52,7 @@ function CheckboxInput({
         disabled={isDisabled}
       />
 
-      <span className={"checkbox-input-label__icon"}>{isSelected && icon}</span>
+      <span className={"checkbox-input-label__icon"}>{icon}</span>
 
       {content}
     </label>
