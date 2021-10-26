@@ -12,48 +12,8 @@ import {
   getNegativeZero,
   getThousandthSeparatorCount
 } from "../../core/utils/number/numberUtils";
-import {getLocalizationOptions} from "./util/inputUtils";
-import {InputLocalizationOptions} from "./util/inputTypes";
-
-export type InputTypes =
-  | "checkbox"
-  | "button"
-  | "color"
-  | "date"
-  | "datetime-local"
-  | "email"
-  | "file"
-  | "hidden"
-  | "image"
-  | "month"
-  | "number"
-  | "password"
-  | "radio"
-  | "range"
-  | "reset"
-  | "search"
-  | "submit"
-  | "tel"
-  | "text"
-  | "time"
-  | "url"
-  | "week";
-
-export type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "disabled" | "name" | "className"
-> & {
-  name: string;
-  type?: InputTypes;
-  testid?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  isDisabled?: boolean;
-  hasError?: boolean;
-  customClassName?: string;
-  onChange: React.ReactEventHandler<HTMLInputElement>;
-  localizationOptions?: InputLocalizationOptions;
-};
+import {getInputLocalizationOptions, getInputParseNumberOptions} from "./util/inputUtils";
+import {InputProps} from "./util/inputTypes";
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   /* eslint-disable complexity */
@@ -78,7 +38,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       shouldFormatToLocaleString = false,
       locale,
       maximumFractionDigits = 0
-    } = getLocalizationOptions(localizationOptions);
+    } = getInputLocalizationOptions(localizationOptions);
     const [
       {
         DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
@@ -179,7 +139,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         if (newValue) {
           const formattedNewValue = parseNumber(
-            {locale, maximumFractionDigits},
+            getInputParseNumberOptions({locale, maximumFractionDigits}),
             newValue
           );
           // Number("-") returns NaN. Should allow minus sign as first character.

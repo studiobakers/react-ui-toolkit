@@ -1,4 +1,3 @@
-import {isMobileDevice} from "../device/deviceUtils";
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
 function formatNumber(formatNumberOptions: FormatNumberOptions) {
@@ -45,10 +44,7 @@ function formatNumber(formatNumberOptions: FormatNumberOptions) {
  * @returns {string} The value after coercing the given value to a scientific notation.
  */
 function parseNumber(options: ParseNumberOptions, value: string) {
-  const {
-    locale = isMobileDevice() ? "en-US" : navigator.language,
-    maximumFractionDigits = 0
-  } = options;
+  const {locale = navigator.language, maximumFractionDigits = 0} = options;
   const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
   const numerals = getLocaleNumerals(locale);
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
