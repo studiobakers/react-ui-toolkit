@@ -96,12 +96,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputContainerClassName = classNames(
       "input-container",
       customClassName,
-      `input-container--type-${type}`
+      `input-container--type-${type}`,
+      {
+        "input-container--is-disabled": isDisabled,
+        "input-container--has-error": hasError
+      }
     );
-    const inputClassName = classNames("input", {
-      "input-container--is-disabled": isDisabled,
-      "input-container--has-error": hasError
-    });
     let finalValue = value;
 
     if (
@@ -157,7 +157,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         <input
           ref={ref}
-          className={inputClassName}
+          className={"input"}
           type={isNumberInput ? "text" : type}
           autoComplete={autoComplete}
           value={finalValue}
