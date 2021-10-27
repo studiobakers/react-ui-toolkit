@@ -36,21 +36,17 @@ function formatNumber(formatNumberOptions: FormatNumberOptions) {
 }
 
 /**
- * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
+ * Coerces a number to scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
  * @param {object} options - An object includes parse number options
  * @param {string} options.locale - Default locale used is browser locale
  * @param {number} options.maximumFractionDigits - The maximum digit a decimal can have
  * @param {number} value - A number to convert to string
  * @returns {string} The value after coercing the given value to a scientific notation.
  */
-function parseNumber(
-  options: ParseNumberOptions = {locale: navigator.language, maximumFractionDigits: 0},
-  value: string
-) {
-  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(
-    options.locale
-  );
-  const numerals = getLocaleNumerals(options.locale);
+function parseNumber(options: ParseNumberOptions, value: string) {
+  const {locale = navigator.language, maximumFractionDigits = 0} = options;
+  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
+  const numerals = getLocaleNumerals(locale);
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
   const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
   let parsedNumber = value
@@ -59,12 +55,12 @@ function parseNumber(
     .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
 
-  if (typeof options.maximumFractionDigits === "number") {
+  if (typeof maximumFractionDigits === "number") {
     const [integerPart, decimalPart] = parsedNumber.split(".");
 
-    if (options.maximumFractionDigits === 0) {
+    if (maximumFractionDigits === 0) {
       parsedNumber = integerPart;
-    } else if (decimalPart && decimalPart.length === options.maximumFractionDigits + 1) {
+    } else if (decimalPart && decimalPart.length === maximumFractionDigits + 1) {
       return parsedNumber.slice(0, parsedNumber.length - 1);
     }
   } else {
@@ -86,10 +82,7 @@ function mapDigitsToLocalVersion(
   {locale = navigator.language}: {locale?: string},
   digits: string
 ) {
-  return digits
-    .split("")
-    .map(mapDigitToLocalVersion({locale}))
-    .join("");
+  return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
 }
 
 function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {

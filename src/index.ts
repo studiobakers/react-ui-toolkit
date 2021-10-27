@@ -4,7 +4,8 @@ import "./ui/reference/_measurement.scss";
 import FormField, {
   FormFieldProps as FormFieldComponentProps
 } from "./form/field/FormField";
-import Input, {InputProps as InputComponentProps} from "./form/input/Input";
+import Input from "./form/input/Input";
+import {InputProps as InputComponentProps} from "./form/input/util/inputTypes";
 import PasswordInput, {
   PasswordInputProps as PasswordInputComponentProps
 } from "./form/password-input/PasswordInput";
