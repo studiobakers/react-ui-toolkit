@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import classNames from "classnames";
 
-import Input, {InputProps, InputTypes} from "../Input";
+import Input from "../Input";
+import {InputProps, InputTypes} from "../util/inputTypes";
 import useDebounce from "../../../core/utils/hooks/useDebounce";
 
 export type TypeaheadInputProps = Omit<InputProps, "onChange" | "type"> & {
