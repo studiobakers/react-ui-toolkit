@@ -54,6 +54,8 @@ function ToggleItem({
       } else {
         newSelectedItems = [...selectedItems, dataId];
       }
+    } else if (selectedItems.includes(dataId)) {
+      newSelectedItems = [];
     } else {
       newSelectedItems = [dataId];
     }
