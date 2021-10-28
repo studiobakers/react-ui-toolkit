@@ -14,30 +14,6 @@ import StoryFragment from "./utils/StoryFragment";
 import Toast from "../src/toast/Toast";
 import {ToastContextProvider} from "../src/toast/ToastProvider";
 
-function ToastComponent() {
-  return (
-    <StoryFragment>
-      <p>{"ToastProvider with default props"}</p>
-
-      <ToastContextProvider>
-        <ToastExamples />
-      </ToastContextProvider>
-
-      <p>{"ToastProvider with autoCloseToasts={false}"}</p>
-
-      <ToastContextProvider autoCloseToasts={false}>
-        <ToastExamples />
-      </ToastContextProvider>
-
-      <p>{"ToastProvider with limit={3}"}</p>
-
-      <ToastContextProvider limit={3}>
-        <ToastExamples />
-      </ToastContextProvider>
-    </StoryFragment>
-  );
-}
-
 function ToastExamples() {
   const {display, update, hideAll} = useToaster();
 
@@ -185,8 +161,27 @@ function ToastExamples() {
 }
 
 storiesOf("Toast", module)
-  .add("Toast Message", () => <ToastComponent />)
-  .add("Toast with dynamic props", () => (
+  .add("Default props", () => (
+    <ToastContextProvider>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Disable autoCloseToasts for all toasts", () => (
+    <ToastContextProvider autoCloseToasts={false}>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Limit number of toasts to 3", () => (
+    <ToastContextProvider limit={3}>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Set default autoClose timeout to 2000ms for all toasts", () => (
+    <ToastContextProvider defaultAutoCloseTimeout={2000}>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Set ToastProvider props dynamically with a form", () => (
     <StateProvider initialState={{limit: "3", autoCloseToasts: false}}>
       {(state, setState) => (
         <StoryFragment>
@@ -215,7 +210,7 @@ storiesOf("Toast", module)
             }}
           />
           <ToastContextProvider
-            limit={Boolean(state.limit) && parseInt(state.limit)}
+            limit={state.limit ? parseInt(state.limit) : undefined}
             autoCloseToasts={state.autoCloseToasts}>
             <ToastExamples />
           </ToastContextProvider>
