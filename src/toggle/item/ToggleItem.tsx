@@ -32,12 +32,11 @@ function ToggleItem({
     <ListItem testid={testid} customClassName={toggleItemClassName}>
       <label className={"toggle-item__label"}>
         <input
-          type={canSelectMultiple ? "checkbox" : "radio"}
+          type={"checkbox"}
           className={"toggle-input"}
           checked={isSelected}
           disabled={isDisabled}
           onChange={handleToggle}
-          onClick={handleToggle}
         />
         {children}
       </label>
