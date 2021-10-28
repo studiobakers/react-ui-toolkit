@@ -47,12 +47,12 @@ function ToggleItem({
     let newSelectedItems: string[];
 
     if (canSelectMultiple) {
-      if (selectedItems.includes(dataId)) {
+      if (isSelected) {
         newSelectedItems = selectedItems.filter((item) => item !== dataId);
       } else {
         newSelectedItems = [...selectedItems, dataId];
       }
-    } else if (selectedItems.includes(dataId)) {
+    } else if (isSelected) {
       newSelectedItems = [];
     } else {
       newSelectedItems = [dataId];
