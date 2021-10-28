@@ -21,9 +21,9 @@ export interface FileInputProps {
   ref?: React.RefObject<HTMLLabelElement>;
 }
 
-const FileInput = React.forwardRef<HTMLLabelElement, Record<string, any>>(
+const FileInput = React.forwardRef<HTMLLabelElement, FileInputProps>(
   // eslint-disable-next-line prefer-arrow-callback
-  function FileInputComponent(props: FileInputProps, ref) {
+  function FileInputComponent(props, ref) {
     const {
       onChange,
       children,
