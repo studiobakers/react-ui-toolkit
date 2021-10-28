@@ -1,4 +1,4 @@
-import {isNonNegativeInteger} from "../number/numberUtils";
+import {isNonNegativeNumber} from "../number/numberUtils";
 
 function filterOutItemsByKey<T extends {[x: string]: any}>(
   array: T[],
@@ -37,7 +37,7 @@ function limitArrayLengthFromTheEnd<Item extends any>(
 ): Item[] {
   let slicedArray = array;
 
-  if (isNonNegativeInteger(limit) && array.length > limit) {
+  if (isNonNegativeNumber(limit) && array.length > limit) {
     slicedArray = array.slice(array.length - limit);
   }
 
