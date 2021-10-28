@@ -46,14 +46,10 @@ function ToggleItem({
   function handleToggle() {
     let newSelectedItems: string[];
 
-    if (canSelectMultiple) {
-      if (isSelected) {
-        newSelectedItems = selectedItems.filter((item) => item !== dataId);
-      } else {
-        newSelectedItems = [...selectedItems, dataId];
-      }
-    } else if (isSelected) {
-      newSelectedItems = [];
+    if (isSelected) {
+      newSelectedItems = selectedItems.filter((item) => item !== dataId);
+    } else if (canSelectMultiple) {
+      newSelectedItems = [...selectedItems, dataId];
     } else {
       newSelectedItems = [dataId];
     }
