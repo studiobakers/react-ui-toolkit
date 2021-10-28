@@ -22,6 +22,19 @@ storiesOf("Toggle", module)
 
         <br />
 
+        <span>{"Switch Toggle - 2 Options - Force to have 1 selected item"}</span>
+
+        <StateProvider initialState={initialState.switch}>
+          {(state, setState) => (
+            <Toggle selectedItems={state} onToggle={(e) => setState(e)}>
+              <Toggle.Item isDisabled={state[0] === "dark"} dataId={"dark"}>{"Dark"}</Toggle.Item>
+              <Toggle.Item isDisabled={state[0] === "light"} dataId={"light"}>{"Light"}</Toggle.Item>
+            </Toggle>
+          )}
+        </StateProvider>
+
+        <br />
+
         <span>{"Swtich Toggle - Disabled"}</span>
 
         <Toggle selectedItems={[]} onToggle={(e) => console.log(e)} isDisabled={true}>
