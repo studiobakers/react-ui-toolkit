@@ -27,11 +27,11 @@ describe("<TypeaheadInput />", () => {
   it("should update value on change", () => {
     render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
 
-    const typeahedInput = screen.getByRole("textbox");
+    const typeaheadInput = screen.getByRole("textbox");
 
-    userEvent.type(typeahedInput, "test");
+    userEvent.type(typeaheadInput, "test");
 
-    expect(typeahedInput).toHaveValue("test");
+    expect(typeaheadInput).toHaveValue("test");
   });
 
   it("should render left and right icons correctly", () => {
@@ -50,5 +50,17 @@ describe("<TypeaheadInput />", () => {
     const rightIcon = screen.getByText("Test");
 
     expect(container).toContainElement(rightIcon);
+  });
+
+  it("should run onQueryChange when value is changed", () => {
+    const handleQueryChange = jest.fn();
+
+    render(
+      <TypeaheadInput {...defaultTypeaheadInputProps} onQueryChange={handleQueryChange} />
+    );
+
+    handleQueryChange("test");
+
+    expect(handleQueryChange).toHaveBeenCalled();
   });
 });
