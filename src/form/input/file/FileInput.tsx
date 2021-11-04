@@ -19,6 +19,7 @@ export interface FileInputProps {
   customLabelClassName?: string;
   acceptedFileTypes?: string;
   ref?: React.RefObject<HTMLLabelElement>;
+  isMultiple?: boolean;
 }
 
 const FileInput = React.forwardRef<HTMLLabelElement, FileInputProps>(
@@ -35,7 +36,8 @@ const FileInput = React.forwardRef<HTMLLabelElement, FileInputProps>(
       customClassName,
       customLabelClassName,
       isPending,
-      isDisabled
+      isDisabled,
+      isMultiple
     } = props;
     const containerClassName = classNames("file-input__container", customClassName);
     const isInputDisabled = isPending || isDisabled;
@@ -58,6 +60,7 @@ const FileInput = React.forwardRef<HTMLLabelElement, FileInputProps>(
           id={htmlFor}
           disabled={isInputDisabled}
           accept={acceptedFileTypes}
+          multiple={isMultiple}
         />
 
         <label
