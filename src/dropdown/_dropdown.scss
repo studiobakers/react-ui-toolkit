@@ -18,12 +18,6 @@ $dropdown-header-horizontal-padding: 8px;
   }
 }
 
-.dropdown--has-selected-option {
-  svg {
-    display: none;
-  }
-}
-
 .dropdown__header-button {
   /* stylelint-disable color-no-hex */
   --button-bg: #ebebeb;
