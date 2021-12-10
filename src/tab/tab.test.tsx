@@ -1,5 +1,5 @@
 import React from "react";
-import {render, screen} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 
 import {TabItem, TabProps} from "./Tab";
@@ -9,21 +9,21 @@ import {testA11y} from "../core/utils/test/testUtils";
 const tabItems: TabItem[] = [
   {
     id: "tab-item-1",
-    content: <div data-testid={"uncontrolled-tab.content-0"}>{"Tab Item 1"}</div>
+    content: <div data-testid={"uncontrolled-tab.content-0"}>{"Tab Item 0"}</div>
   },
   {
     id: "tab-item-2",
-    content: <div data-testid={"uncontrolled-tab.content-1"}>{"Tab Item 2"}</div>
+    content: <div data-testid={"uncontrolled-tab.content-1"}>{"Tab Item 1"}</div>
   },
   {
     id: "tab-item-3",
-    content: <div data-testid={"uncontrolled-tab.content-2"}>{"Tab Item 3"}</div>,
+    content: <div data-testid={"uncontrolled-tab.content-2"}>{"Tab Item 2"}</div>,
     isDisabled: true
   }
 ];
 
 // For uncontrolled tab component
-describe("<Tab/>", () => {
+describe("<UncontrolledTab/>", () => {
   const defaultUncontrolledTabProps: TabProps = {
     items: tabItems,
     children: [
@@ -51,17 +51,15 @@ describe("<Tab/>", () => {
     await testA11y(container);
   });
 
-  it("should render items correctly", () => {
+  it("should render header items correctly", () => {
     render(<Tab {...defaultUncontrolledTabProps} />);
 
     expect(screen.getAllByRole("listitem").length).toEqual(tabItems.length);
 
     for (let index = 0; index < tabItems.length; index++) {
-      const tabContent = screen.getByTestId(`uncontrolled-tab.content-${index}`);
+      const tabContent = screen.getByText(`Tab Item ${index}`);
 
-      expect(
-        screen.getByTestId(`uncontrolled-tab.header.item-${index}`)
-      ).toContainElement(tabContent);
+      expect(screen.getAllByRole("listitem")[index]).toContainElement(tabContent);
     }
   });
 
@@ -71,7 +69,7 @@ describe("<Tab/>", () => {
 
     for (let index = 0; index < tabItems.length; index++) {
       if (activeTabIndex === index) {
-        expect(screen.getByTestId(`uncontrolled-tab.header.item-${index}`)).toHaveClass(
+        expect(screen.getByDisplayValue(`Tab Item ${index}`)).toHaveClass(
           "tab-header-item--is-active"
         );
       }
@@ -84,14 +82,26 @@ describe("<Tab/>", () => {
 
     for (let index = 0; index < tabItems.length; index++) {
       if (activeTabIndex === index) {
-        expect(screen.getByTestId(`uncontrolled-tab.body`)).toContain(children[index]);
+        expect(screen.getByDisplayValue("Following tab")).toContain(children[index]);
       }
     }
+  });
+
+  it("should add active class after click", () => {
+    render(<Tab {...defaultUncontrolledTabProps} />);
+    const selectedIndex = 0;
+    const selectedItem = screen.getAllByRole("button")[selectedIndex];
+
+    fireEvent.click(selectedItem);
+
+    expect(screen.getAllByRole("listitem")[selectedIndex]).toHaveClass(
+      "tab-header-item--is-active"
+    );
   });
 });
 
 // For controlled tab component
-describe("<Tab/>", () => {
+describe("<ControlledTab/>", () => {
   const defaultControlledTabProps: TabProps = {
     items: tabItems,
     children: [
@@ -106,7 +116,7 @@ describe("<Tab/>", () => {
       </div>
     ],
     testid: "uncontrolled-tab",
-    initialActiveTabIndex: 1,
+    initialActiveTabIndex: 0,
     onTabChange: jest.fn()
   };
 
@@ -118,5 +128,25 @@ describe("<Tab/>", () => {
     const {container} = render(<Tab {...defaultControlledTabProps} />);
 
     await testA11y(container);
+  });
+
+  it("should render active index correctly", () => {
+    render(<Tab {...defaultControlledTabProps} />);
+    const {activeTabIndex, children} = defaultControlledTabProps;
+
+    for (let index = 0; index < tabItems.length; index++) {
+      if (activeTabIndex === index) {
+        expect(screen.getByDisplayValue("Home Tab")).toContain(children[index]);
+      }
+    }
+  });
+
+  it("should onTabChange function is called", () => {
+    render(<Tab {...defaultControlledTabProps} />);
+    const {onTabChange} = defaultControlledTabProps;
+    const item = screen.getAllByRole("button")[0];
+
+    fireEvent.click(item);
+    expect(onTabChange).toHaveBeenCalledTimes(1);
   });
 });
