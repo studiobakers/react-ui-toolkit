@@ -3,7 +3,8 @@ import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 
-import Input, {InputProps} from "./Input";
+import Input from "./Input";
+import {InputProps} from "./util/inputTypes";
 import {testA11y} from "../../core/utils/test/testUtils";
 
 describe("<Input />", () => {

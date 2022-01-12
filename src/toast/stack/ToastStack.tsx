@@ -1,6 +1,6 @@
 import "./_toast-stack.scss";
 
-import React, {useLayoutEffect, useState} from "react";
+import React, {Fragment, useLayoutEffect, useState} from "react";
 import ReactDOM from "react-dom";
 
 import List from "../../list/List";
@@ -24,7 +24,7 @@ function ToastStack({customRootId}: ToastStackProps) {
       const toastRootNode: Element = document.createElement("div");
 
       toastRootNode.setAttribute("id", "toast-root");
-      document.body.insertBefore(toastRootNode, document.body.firstChild);
+      document.body.append(toastRootNode);
 
       setRootNode(toastRootNode);
     }
@@ -33,12 +33,16 @@ function ToastStack({customRootId}: ToastStackProps) {
   return (
     rootNode &&
     ReactDOM.createPortal(
-      <List
-        testid={"ToastStack"}
-        items={state.toastStack}
-        customClassName={"toast-stack"}>
-        {(toast, testid) => <Toast testid={testid} data={toast} />}
-      </List>,
+      state.toastStack.length ? (
+        <List
+          testid={"ToastStack"}
+          items={state.toastStack}
+          customClassName={"toast-stack"}>
+          {(toast, testid) => <Toast testid={testid} data={toast} />}
+        </List>
+      ) : (
+        <Fragment />
+      ),
       rootNode
     )
   );

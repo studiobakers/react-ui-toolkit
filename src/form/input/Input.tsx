@@ -12,50 +12,8 @@ import {
   getNegativeZero,
   getThousandthSeparatorCount
 } from "../../core/utils/number/numberUtils";
-
-export type InputTypes =
-  | "checkbox"
-  | "button"
-  | "color"
-  | "date"
-  | "datetime-local"
-  | "email"
-  | "file"
-  | "hidden"
-  | "image"
-  | "month"
-  | "number"
-  | "password"
-  | "radio"
-  | "range"
-  | "reset"
-  | "search"
-  | "submit"
-  | "tel"
-  | "text"
-  | "time"
-  | "url"
-  | "week";
-
-export type InputProps = Omit<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  "disabled" | "name" | "className"
-> & {
-  name: string;
-  type?: InputTypes;
-  testid?: string;
-  leftIcon?: React.ReactNode;
-  rightIcon?: React.ReactNode;
-  isDisabled?: boolean;
-  hasError?: boolean;
-  customClassName?: string;
-  onChange: React.ReactEventHandler<HTMLInputElement>;
-  localizationOptions?: {
-    shouldFormatToLocaleString?: boolean;
-    locale?: string;
-    maximumFractionDigits?: number;
-  };
-};
+import {getInputLocalizationOptions, getInputParseNumberOptions} from "./util/inputUtils";
+import {InputProps} from "./util/inputTypes";
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   /* eslint-disable complexity */
@@ -80,7 +38,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
       shouldFormatToLocaleString = false,
       locale,
       maximumFractionDigits = 0
-    } = localizationOptions;
+    } = getInputLocalizationOptions(localizationOptions);
     const [
       {
         DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
@@ -96,12 +54,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     const inputContainerClassName = classNames(
       "input-container",
       customClassName,
-      `input-container--type-${type}`
+      `input-container--type-${type}`,
+      {
+        "input-container--is-disabled": isDisabled,
+        "input-container--has-error": hasError
+      }
     );
-    const inputClassName = classNames("input", {
-      "input-container--is-disabled": isDisabled,
-      "input-container--has-error": hasError
-    });
     let finalValue = value;
 
     if (
@@ -157,7 +115,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         <input
           ref={ref}
-          className={inputClassName}
+          className={"input"}
           type={isNumberInput ? "text" : type}
           autoComplete={autoComplete}
           value={finalValue}
@@ -181,7 +139,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
         if (newValue) {
           const formattedNewValue = parseNumber(
-            {locale, maximumFractionDigits},
+            getInputParseNumberOptions({locale, maximumFractionDigits}),
             newValue
           );
           // Number("-") returns NaN. Should allow minus sign as first character.

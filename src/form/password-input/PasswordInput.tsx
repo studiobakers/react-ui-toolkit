@@ -3,7 +3,8 @@ import "./_password-input.scss";
 import React, {useState} from "react";
 import classNames from "classnames";
 
-import Input, {InputProps} from "../input/Input";
+import Input from "../input/Input";
+import {InputProps} from "../input/util/inputTypes";
 import Button from "../../button/Button";
 
 export interface PasswordInputProps extends Omit<InputProps, "leftIcon" | "rightIcon"> {
