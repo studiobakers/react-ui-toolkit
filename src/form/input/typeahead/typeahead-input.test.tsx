@@ -63,4 +63,10 @@ describe("<TypeaheadInput />", () => {
 
     expect(handleQueryChange).toHaveBeenCalled();
   });
+
+  it("should add placeholder correctly", () => {
+    render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
+
+    expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "typeahead input");
+  });
 });
