@@ -1,6 +1,4 @@
 .toast {
-  z-index: 2;
-  
   width: 300px;
   height: 20px;
 
@@ -37,9 +35,8 @@
 }
 
 .toast-close-button {
-  position: relative;
   bottom: 16px;
-  
+
   &.button {
     width: 36px;
 

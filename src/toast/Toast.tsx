@@ -4,7 +4,6 @@ import classNames from "classnames";
 import {useToaster, useToastContext} from "./util/toastHooks";
 import {ToastContextState} from "./util/toastTypes";
 import ListItem from "../list/item/ListItem";
-import {DEFAULT_TOAST_TIMEOUT} from "./util/toastConstants";
 import ToastCloseButton from "./close-button/ToastCloseButton";
 import {ToastItemContext} from "./ToastItemContext";
 
@@ -16,7 +15,12 @@ export interface ToastProps {
 function Toast({testid, data}: ToastProps) {
   const [contextState] = useToastContext();
   const {hide} = useToaster();
-  const {timeout = DEFAULT_TOAST_TIMEOUT, render, customClassName, id: toastId} = data;
+  const {
+    timeout = contextState.defaultAutoCloseTimeout,
+    render,
+    customClassName,
+    id: toastId
+  } = data;
   const autoClose =
     typeof data.autoClose === "boolean" ? data.autoClose : contextState.autoCloseToasts;
 

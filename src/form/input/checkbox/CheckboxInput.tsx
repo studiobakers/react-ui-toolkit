@@ -15,6 +15,7 @@ export interface CheckboxInputProps {
   ) => void;
   isSelected: boolean;
   isDisabled?: boolean;
+  customIcon?: React.ReactNode;
   customClassName?: string;
   testid?: string;
 }
@@ -25,6 +26,7 @@ function CheckboxInput({
   customClassName,
   isSelected,
   isDisabled,
+  customIcon,
   testid
 }: CheckboxInputProps) {
   const {
@@ -35,6 +37,7 @@ function CheckboxInput({
     "checkbox-input-label--is-selected": isSelected,
     "checkbox-input-label--is-disabled": isDisabled
   });
+  const icon = customIcon || <CheckIcon />;
 
   return (
     <label data-testid={testid} htmlFor={htmlFor} className={containerClassName}>
@@ -49,9 +52,7 @@ function CheckboxInput({
         disabled={isDisabled}
       />
 
-      <span className={"checkbox-input-label__icon"}>
-        <CheckIcon />
-      </span>
+      <span className={"checkbox-input-label__icon"}>{icon}</span>
 
       {content}
     </label>
