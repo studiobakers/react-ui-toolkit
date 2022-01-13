@@ -1,11 +1,11 @@
-.countdown {
+.date-timer {
   display: grid;
   grid-template-columns: repeat(auto-fit, 60px);
 
   width: 100%;
 }
 
-.countdown-box {
+.date-timer-box {
   display: flex;
   flex-direction: column;
   align-items: center;
