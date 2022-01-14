@@ -165,13 +165,7 @@ storiesOf("List", module)
           {(user) => (
             <RemovableUserListItem
               user={user}
-              onRemove={() =>
-                setState(
-                  state.filter((item) => {
-                    return item.id !== user.id;
-                  })
-                )
-              }
+              onRemove={() => setState(state.filter((item) => item.id !== user.id))}
             />
           )}
         </List>
