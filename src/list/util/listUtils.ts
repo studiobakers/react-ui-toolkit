@@ -11,7 +11,7 @@ function generateListItemKey<Item = any>({
   listItemTestId: string;
   item: Item;
 }) {
-  let key = uuidv4();
+  let key;
 
   if (listItemKeyGenerator) {
     key = listItemKeyGenerator(item, listItemTestId);
@@ -19,6 +19,8 @@ function generateListItemKey<Item = any>({
   } else if (item && typeof item === "object" && item.id) {
     // @ts-ignore
     key = item.id;
+  } else {
+    key = uuidv4();
   }
 
   return key;
