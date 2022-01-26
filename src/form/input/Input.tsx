@@ -187,19 +187,28 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             const element = event.currentTarget;
             let caret = event.currentTarget.selectionStart || 0;
 
-            if (prevValueThousandthsSeparatorCount === thousandthsSeparatorCount + 1) {
-              caret -= 1;
-            } else if (
-              prevValueThousandthsSeparatorCount ===
-              thousandthsSeparatorCount - 1
+            if (
+              String(value).length === finalEventValue.length + 1 ||
+              String(value).length === finalEventValue.length - 1
             ) {
-              caret += 1;
-            }
+              if (
+                prevValueThousandthsSeparatorCount ===
+                thousandthsSeparatorCount + 1
+                // eslint-disable-next-line no-magic-numbers
+              ) {
+                caret -= 1;
+              } else if (
+                prevValueThousandthsSeparatorCount ===
+                thousandthsSeparatorCount - 1
+              ) {
+                caret += 1;
+              }
 
-            window.requestAnimationFrame(() => {
-              element.selectionStart = caret;
-              element.selectionEnd = caret;
-            });
+              window.requestAnimationFrame(() => {
+                element.selectionStart = caret;
+                element.selectionEnd = caret;
+              });
+            }
           }
 
           event.currentTarget.value = finalEventValue;
