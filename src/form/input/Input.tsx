@@ -191,11 +191,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
               String(value).length === finalEventValue.length + 1 ||
               String(value).length === finalEventValue.length - 1
             ) {
-              if (
-                prevValueThousandthsSeparatorCount ===
-                thousandthsSeparatorCount + 1
-                // eslint-disable-next-line no-magic-numbers
-              ) {
+              if (prevValueThousandthsSeparatorCount === thousandthsSeparatorCount + 1) {
                 caret -= 1;
               } else if (
                 prevValueThousandthsSeparatorCount ===
