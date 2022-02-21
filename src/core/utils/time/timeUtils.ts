@@ -1,3 +1,4 @@
+import {TimerType} from "../../../date-timer/util/dateTimerTypes";
 import {
   DAY_IN_HRS,
   DAY_IN_S,
@@ -7,9 +8,27 @@ import {
 } from "./timeConstants";
 import {RemainingTimeBreakdown} from "./timeTypes";
 
-function calculateRemainingTimeBreakdown(target: Date): RemainingTimeBreakdown {
-  const delta = target.getTime() - new Date().getTime();
-  const deltaInSeconds = delta / SECOND_IN_MS;
+function sortDateRange(initialRange: Date[]): Date[] {
+  const range = [initialRange[0], initialRange[1]];
+
+  return range.sort((left, right) => left.getTime() - right.getTime());
+}
+
+function calculateRemainingTimeBreakdown(
+  range: Date[],
+  intervalCount = 0,
+  timerType = "down" as TimerType
+): RemainingTimeBreakdown {
+  let originDate = new Date();
+  let targetDate = range[0];
+
+  if (range.length > 1 || timerType === "up") {
+    [originDate, targetDate] = sortDateRange([range[0], range[1] || new Date()]);
+  }
+
+  const delta = targetDate.getTime() - originDate.getTime();
+
+  const deltaInSeconds = delta / SECOND_IN_MS - intervalCount;
 
   return {
     delta,
@@ -20,4 +39,4 @@ function calculateRemainingTimeBreakdown(target: Date): RemainingTimeBreakdown {
   };
 }
 
-export {calculateRemainingTimeBreakdown};
+export {sortDateRange, calculateRemainingTimeBreakdown};
