@@ -13,4 +13,8 @@
   &__title {
     margin-top: 8px;
   }
+
+  &__count {
+    font-variant-numeric: tabular-nums;
+  }
 }
