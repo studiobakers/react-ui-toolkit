@@ -7,22 +7,34 @@ import {TimerType} from "../../../date-timer/util/dateTimerTypes";
 
 /**
  * A React Hook that provides a date timer
- * @param {Date[]} range - The target date range we're counting down to
- * @param {number} cadence - The rate of the timer in milliseconds
- * @param {TimerType} timerType - Type of the timer, either "down" or "up"
+ * @param {Date[]} options.range - The target date range we're counting down to
+ * @param {number} options.cadence - The rate of the timer in milliseconds
+ * @param {TimerType} options.timerType - Type of the timer, either "down" or "up"
+ * @param {onEnd} options.onEnd - If provided, runs this callback when the timer ended
  * @returns {object} The RemainingTimeBreakdown object
  */
-function useDateTimer(
-  range: Date[],
+function useDateTimer({
+  range,
   cadence = SECOND_IN_MS,
-  timerType = "down" as TimerType
-): RemainingTimeBreakdown {
-  const cadenceInMs = cadence * SECOND_IN_MS;
+  timerType = "down",
+  onEnd
+}: {
+  range: Date[];
+  cadence?: number;
+  timerType?: TimerType;
+  onEnd?: VoidFunction;
+}): RemainingTimeBreakdown {
   const [counter, setCounter] = useState(0);
   const interval = useRef<NodeJS.Timeout>();
   const [dateTimer, setDateTimer] = useState<RemainingTimeBreakdown>(
     calculateRemainingTimeBreakdown(range, counter, timerType)
   );
+
+  const savedOnEndCallback = useRef<typeof onEnd>();
+
+  useLayoutEffect(() => {
+    savedOnEndCallback.current = onEnd;
+  }, [onEnd]);
 
   useLayoutEffect(() => {
     interval.current = setInterval(() => {
@@ -43,16 +55,20 @@ function useDateTimer(
           seconds: 0
         });
       }
-    }, cadenceInMs);
+    }, cadence);
 
     return () => {
       clearInterval(interval.current!);
     };
-  }, [cadence, cadenceInMs, range, counter, timerType]);
+  }, [cadence, range, counter, timerType]);
 
   useEffect(() => {
     if (dateTimer.delta <= 0) {
       clearInterval(interval.current!);
+
+      if (savedOnEndCallback.current) {
+        savedOnEndCallback.current();
+      }
     }
   }, [dateTimer.delta]);
 

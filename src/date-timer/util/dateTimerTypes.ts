@@ -2,15 +2,12 @@ import {RemainingTimeBreakdown} from "../../core/utils/time/timeTypes";
 
 export type TimerType = "down" | "up";
 
+export type DateTimerItemID = keyof Omit<RemainingTimeBreakdown, "delta">;
+
 export interface DateTimerProps {
   range: Date[];
   testid?: string;
-  titleMap?: {
-    day?: string;
-    hour?: string;
-    minute?: string;
-    second?: string;
-  };
+  titleMap?: Record<DateTimerItemID, undefined | string>;
 
   timerInterval?: number /* in seconds */;
   timerType?: TimerType;
@@ -19,8 +16,6 @@ export interface DateTimerProps {
   onEnd?: () => void;
   customClassName?: string;
 }
-
-export type DateTimerItemID = keyof Omit<RemainingTimeBreakdown, "delta">;
 
 export interface DateTimerItem {
   id: DateTimerItemID;
