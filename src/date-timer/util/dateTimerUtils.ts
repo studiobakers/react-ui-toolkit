@@ -26,7 +26,7 @@ function generateDateTimerItems(
     id: key,
     // eslint-disable-next-line no-magic-numbers
     count: dateTimerData[key].toString().padStart(2, "0"),
-    title: (titleMap ? titleMap[key.replace("s", "")] : undefined) || key
+    title: (titleMap ? titleMap[key] : undefined) || key
   }));
 }
 

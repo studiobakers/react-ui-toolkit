@@ -14,6 +14,18 @@ storiesOf("DateTimer", module).add("DateTimer", () => (
       onEnd={handleDateTimerEnd}
     />
 
+    <DateTimer
+      range={[calculateFutureDate(1, "day"), calculateFutureDate(3, "day")]}
+      titleMap={{
+        days: "d",
+        hours: "h",
+        minutes: "m",
+        seconds: "s"
+      }}
+      alwaysShowSeconds={true}
+      onEnd={handleDateTimerEnd}
+    />
+
     <hr />
 
     <span>{"Since `Jan 10 2022` - timerType=`up`"}</span>
@@ -57,6 +69,14 @@ storiesOf("DateTimer", module).add("DateTimer", () => (
     <span>{"10 Seconds Later"}</span>
 
     <DateTimer range={[calculateFutureDate(10, "second")]} onEnd={handleDateTimerEnd} />
+
+    <span>{"10 Seconds Later with 5s timer interval"}</span>
+
+    <DateTimer
+      range={[calculateFutureDate(10, "second")]}
+      onEnd={handleDateTimerEnd}
+      timerInterval={5}
+    />
   </StoryFragment>
 ));
 
