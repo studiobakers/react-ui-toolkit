@@ -1,4 +1,4 @@
-import {TimerType} from "../../../date-timer/util/dateTimerTypes";
+import {DateTimerProps, TimerType} from "../../../date-timer/util/dateTimerTypes";
 import {
   DAY_IN_HRS,
   DAY_IN_S,
@@ -15,7 +15,7 @@ function sortDateRange(initialRange: Date[]): Date[] {
 }
 
 function calculateRemainingTimeBreakdown(
-  range: Date[],
+  range: DateTimerProps["range"],
   intervalCount = 0,
   timerType = "down" as TimerType
 ): RemainingTimeBreakdown {

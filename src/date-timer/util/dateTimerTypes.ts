@@ -5,7 +5,7 @@ export type TimerType = "down" | "up";
 export type DateTimerItemID = keyof Omit<RemainingTimeBreakdown, "delta">;
 
 export interface DateTimerProps {
-  range: Date[];
+  range: [Date, Date?];
   testid?: string;
   titleMap?: Record<DateTimerItemID, undefined | string>;
 

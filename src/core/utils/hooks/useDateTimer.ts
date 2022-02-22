@@ -3,7 +3,7 @@ import {useEffect, useRef, useState, useLayoutEffect} from "react";
 import {SECOND_IN_MS} from "../time/timeConstants";
 import {RemainingTimeBreakdown} from "../time/timeTypes";
 import {calculateRemainingTimeBreakdown} from "../time/timeUtils";
-import {TimerType} from "../../../date-timer/util/dateTimerTypes";
+import {DateTimerProps, TimerType} from "../../../date-timer/util/dateTimerTypes";
 
 /**
  * A React Hook that provides a date timer
@@ -19,16 +19,17 @@ function useDateTimer({
   timerType = "down",
   onEnd
 }: {
-  range: Date[];
+  range: DateTimerProps["range"];
   cadence?: number;
   timerType?: TimerType;
-  onEnd?: VoidFunction;
+  onEnd?: DateTimerProps["onEnd"];
 }): RemainingTimeBreakdown {
   const [counter, setCounter] = useState(0);
   const interval = useRef<NodeJS.Timeout>();
   const [dateTimer, setDateTimer] = useState<RemainingTimeBreakdown>(
     calculateRemainingTimeBreakdown(range, counter, timerType)
   );
+  const [rangeStart, rangeEnd] = range;
 
   const savedOnEndCallback = useRef<typeof onEnd>();
 
@@ -38,11 +39,15 @@ function useDateTimer({
 
   useLayoutEffect(() => {
     interval.current = setInterval(() => {
-      if (range.length > 1) {
+      if (rangeEnd) {
         setCounter(counter + cadence);
       }
 
-      const data = calculateRemainingTimeBreakdown(range, counter, timerType);
+      const data = calculateRemainingTimeBreakdown(
+        [rangeStart, rangeEnd],
+        counter,
+        timerType
+      );
 
       if (data.delta >= 0) {
         setDateTimer(data);
@@ -60,7 +65,7 @@ function useDateTimer({
     return () => {
       clearInterval(interval.current!);
     };
-  }, [cadence, range, counter, timerType]);
+  }, [cadence, rangeStart, rangeEnd, counter, timerType]);
 
   useEffect(() => {
     if (dateTimer.delta <= 0) {
