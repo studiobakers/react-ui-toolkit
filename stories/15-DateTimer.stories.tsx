@@ -69,6 +69,14 @@ storiesOf("DateTimer", module).add("DateTimer", () => (
     <span>{"10 Seconds Later"}</span>
 
     <DateTimer range={[calculateFutureDate(10, "second")]} onEnd={handleDateTimerEnd} />
+
+    <span>{"10 Seconds Later with 5s timer interval"}</span>
+
+    <DateTimer
+      range={[calculateFutureDate(10, "second")]}
+      onEnd={handleDateTimerEnd}
+      timerInterval={5}
+    />
   </StoryFragment>
 ));
 

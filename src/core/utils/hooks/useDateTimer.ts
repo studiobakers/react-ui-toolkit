@@ -49,9 +49,10 @@ function useDateTimer({
         timerType
       );
 
-      if (data.delta >= 0) {
+      if (data.delta >= SECOND_IN_MS) {
         setDateTimer(data);
       } else {
+        clearInterval(interval.current!);
         setDateTimer({
           delta: 0,
           days: 0,

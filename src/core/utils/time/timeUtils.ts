@@ -19,11 +19,14 @@ function calculateRemainingTimeBreakdown(
   intervalCount = 0,
   timerType = "down" as TimerType
 ): RemainingTimeBreakdown {
-  let originDate = new Date();
-  let targetDate = range[0];
+  let originDate;
+  let targetDate;
 
   if (range.length > 1 || timerType === "up") {
     [originDate, targetDate] = sortDateRange([range[0], range[1] || new Date()]);
+  } else {
+    targetDate = range[0];
+    originDate = new Date();
   }
 
   const delta = targetDate.getTime() - originDate.getTime();
