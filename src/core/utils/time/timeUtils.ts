@@ -28,7 +28,7 @@ function calculateRemainingTimeBreakdown(
 
   const delta = targetDate.getTime() - originDate.getTime();
 
-  const deltaInSeconds = delta / SECOND_IN_MS - intervalCount;
+  const deltaInSeconds = (delta - intervalCount) / SECOND_IN_MS;
 
   return {
     delta,
