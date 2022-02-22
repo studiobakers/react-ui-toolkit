@@ -1,4 +1,4 @@
-import {TimerType} from "../../../date-timer/util/dateTimerTypes";
+import {DateTimerProps, TimerType} from "../../../date-timer/util/dateTimerTypes";
 import {
   DAY_IN_HRS,
   DAY_IN_S,
@@ -15,20 +15,23 @@ function sortDateRange(initialRange: Date[]): Date[] {
 }
 
 function calculateRemainingTimeBreakdown(
-  range: Date[],
+  range: DateTimerProps["range"],
   intervalCount = 0,
   timerType = "down" as TimerType
 ): RemainingTimeBreakdown {
-  let originDate = new Date();
-  let targetDate = range[0];
+  let originDate;
+  let targetDate;
 
   if (range.length > 1 || timerType === "up") {
     [originDate, targetDate] = sortDateRange([range[0], range[1] || new Date()]);
+  } else {
+    targetDate = range[0];
+    originDate = new Date();
   }
 
   const delta = targetDate.getTime() - originDate.getTime();
 
-  const deltaInSeconds = delta / SECOND_IN_MS - intervalCount;
+  const deltaInSeconds = (delta - intervalCount) / SECOND_IN_MS;
 
   return {
     delta,

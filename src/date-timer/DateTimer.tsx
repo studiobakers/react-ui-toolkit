@@ -1,6 +1,6 @@
 import "./_date-timer.scss";
 
-import React, {useEffect, useLayoutEffect, useRef} from "react";
+import React, {useEffect} from "react";
 import classNames from "classnames";
 
 import useDateTimer from "../core/utils/hooks/useDateTimer";
@@ -9,6 +9,7 @@ import ListItem from "../list/item/ListItem";
 import {generateDateTimerItems} from "./util/dateTimerUtils";
 import {DateTimerProps} from "./util/dateTimerTypes";
 import {sortDateRange} from "../core/utils/time/timeUtils";
+import {SECOND_IN_MS} from "../core/utils/time/timeConstants";
 
 function DateTimer({
   testid,
@@ -20,9 +21,13 @@ function DateTimer({
   onEnd,
   customClassName
 }: DateTimerProps) {
-  const dateTimerData = useDateTimer(range, timerInterval, timerType);
+  const dateTimerData = useDateTimer({
+    range,
+    cadence: timerInterval * SECOND_IN_MS,
+    timerType,
+    onEnd
+  });
   const items = generateDateTimerItems({titleMap, alwaysShowSeconds}, dateTimerData);
-  const savedOnEndCallback = useRef<DateTimerProps["onEnd"]>();
 
   // Validate the `range` prop according to the `timerType` prop
   useEffect(() => {
@@ -36,16 +41,6 @@ function DateTimer({
       console.error("`timerType` is `down` but `range` is not in the future", range);
     }
   }, [range, timerType]);
-
-  useLayoutEffect(() => {
-    savedOnEndCallback.current = onEnd;
-  }, [onEnd]);
-
-  useLayoutEffect(() => {
-    if (dateTimerData.delta <= 0 && savedOnEndCallback.current) {
-      savedOnEndCallback.current();
-    }
-  }, [dateTimerData.delta]);
 
   return (
     <List
