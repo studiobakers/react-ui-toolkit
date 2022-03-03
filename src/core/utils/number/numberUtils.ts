@@ -1,6 +1,8 @@
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
-const NAVIGATOR_LANGUAGE = typeof navigator !== "undefined" ? navigator.language : "en-GB";
+const NAVIGATOR_LANGUAGE =
+  // eslint-disable-next-line no-negated-condition
+  typeof navigator !== "undefined" ? navigator.language : "en-GB";
 
 function formatNumber(formatNumberOptions: FormatNumberOptions) {
   const {locale, ...otherOptions} = formatNumberOptions;
