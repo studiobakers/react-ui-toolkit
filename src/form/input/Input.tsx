@@ -188,8 +188,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
             let caret = event.currentTarget.selectionStart || 0;
 
             if (
-              String(value).length === finalEventValue.length + 1 ||
-              String(value).length === finalEventValue.length - 1
+              finalEventValue &&
+              (String(value).length === finalEventValue.length + 1 ||
+                String(value).length === finalEventValue.length - 1)
             ) {
               if (prevValueThousandthsSeparatorCount === thousandthsSeparatorCount + 1) {
                 caret -= 1;
