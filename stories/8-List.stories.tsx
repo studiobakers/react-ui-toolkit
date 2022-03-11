@@ -6,6 +6,7 @@ import ListItem from "../src/list/item/ListItem";
 import DescriptionTerm, {
   DescriptionTermProps
 } from "../src/list/description-term/DescriptionTerm";
+import Button from "../src/button/Button";
 import StateProvider from "./utils/StateProvider";
 
 const users = [
@@ -126,6 +127,20 @@ function ClickableUserListItem({user}) {
   );
 }
 
+function RemovableUserListItem({user, onRemove}) {
+  return (
+    <ListItem>
+      <div style={{display: "flex", gap: "16px", alignItems: "center"}}>
+        {user.name}
+
+        <Button onClick={onRemove}>{"Remove"}</Button>
+      </div>
+
+      {style}
+    </ListItem>
+  );
+}
+
 storiesOf("List", module)
   .add("Has Items", () => (
     <Fragment>
@@ -182,4 +197,18 @@ storiesOf("List", module)
         {(item) => <DescriptionTerm title={item.title} description={item.description} />}
       </List>
     </Fragment>
+  ))
+  .add("Removable Items", () => (
+    <StateProvider initialState={users}>
+      {(state, setState) => (
+        <List items={state}>
+          {(user) => (
+            <RemovableUserListItem
+              user={user}
+              onRemove={() => setState(state.filter((item) => item.id !== user.id))}
+            />
+          )}
+        </List>
+      )}
+    </StateProvider>
   ));
