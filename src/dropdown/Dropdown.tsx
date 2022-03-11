@@ -174,6 +174,7 @@ function Dropdown<OptionIdShape extends string>({
       onMouseUp={handleMouseUp}
       onClick={toggleDropdown}
       tabIndex={-1}
+      // @ts-ignore
       aria-haspopup={role}
       aria-expanded={isMenuOpen}
       shouldFocus={shouldFocusOnHeaderButton}>
