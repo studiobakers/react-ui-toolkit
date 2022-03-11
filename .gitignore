@@ -3,6 +3,7 @@
 node_modules
 dist
 storybook-static
+public
 
 # testing
 coverage
@@ -15,3 +16,4 @@ stats.json
 .DS_Store
 npm-debug.log
 .npm
+.vercel

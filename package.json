@@ -9,7 +9,7 @@
     "test": "./node_modules/.bin/jest",
     "test:watch": "npm t -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 6006",
-    "storybook:build": "./node_modules/.bin/build-storybook",
+    "storybook:build": "./node_modules/.bin/build-storybook -o ./public",
     "type-check": "echo \"type-checking...\" && ./node_modules/.bin/tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
