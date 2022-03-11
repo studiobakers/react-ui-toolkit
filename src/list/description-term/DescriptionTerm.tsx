@@ -3,50 +3,38 @@ import "./_description-term.scss";
 import React from "react";
 import classNames from "classnames";
 
-interface DescriptionTermProps {
-  testid?: string;
+export interface DescriptionTermProps {
   title: string;
   description: React.ReactNode;
-  descriptionFirst?: boolean;
-  customTitleClassName?: string;
-  customDescriptionClassName?: string;
   id?: string;
+  customClassNames?: {container?: string; title?: string; description?: string};
   role?: string;
-  descriptionTermRef?: React.RefObject<HTMLDivElement>;
+  testid?: string;
 }
 
-function DescriptionTerm({
-  id,
-  title,
-  description,
-  descriptionFirst,
-  testid,
-  customTitleClassName,
-  customDescriptionClassName,
-  role,
-  descriptionTermRef
-}: DescriptionTermProps) {
-  const titleComponent = (
-    <dt className={classNames("description-term__title", customTitleClassName)}>
-      {title}
-    </dt>
-  );
-  const descriptionComponent = (
-    <dd
-      className={classNames("description-term__description", customDescriptionClassName)}>
-      {description}
-    </dd>
-  );
-  const [first, second] = descriptionFirst
-    ? [descriptionComponent, titleComponent]
-    : [titleComponent, descriptionComponent];
+const DescriptionTerm = React.forwardRef<HTMLDivElement, DescriptionTermProps>(
+  ({id, title, description, customClassNames, testid, role}, ref) => {
+    const {
+      container: containerClassName,
+      title: titleClassName,
+      description: descriptionClassName
+    } = customClassNames || {};
 
-  return (
-    <div ref={descriptionTermRef} data-testid={testid} id={id} role={role}>
-      {first}
-      {second}
-    </div>
-  );
-}
+    return (
+      <div
+        ref={ref}
+        className={containerClassName}
+        data-testid={testid}
+        id={id}
+        role={role}>
+        <dt className={classNames("description-term__title", titleClassName)}>{title}</dt>
+
+        <dd className={classNames("description-term__description", descriptionClassName)}>
+          {description}
+        </dd>
+      </div>
+    );
+  }
+);
 
 export default DescriptionTerm;

@@ -33,14 +33,20 @@ function List<Item extends any>({
   type = "unordered"
 }: ListProps<Item>) {
   const listClassName = classNames("list", customClassName);
-  let ListTypeElement: keyof JSX.IntrinsicElements;
+  let ListTypeElement: Extract<keyof JSX.IntrinsicElements, "ul" | "ol" | "dl">;
 
-  if (type === "ordered") {
-    ListTypeElement = "ol";
-  } else if (type === "description") {
-    ListTypeElement = "dl";
-  } else {
-    ListTypeElement = "ul";
+  switch (type) {
+    case "ordered":
+      ListTypeElement = "ol";
+      break;
+
+    case "description":
+      ListTypeElement = "dl";
+      break;
+
+    default:
+      ListTypeElement = "ul";
+      break;
   }
 
   return (

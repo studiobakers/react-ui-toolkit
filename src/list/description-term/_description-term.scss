@@ -1,13 +1,9 @@
 .description-term__title {
-  --description-title-weight: 600;
-
-  font-weight: var(--description-title-weight);
+  font-weight: 600;
 }
 
 .description-term__description {
-  --description-padding: 4px 0 8px;
-
   margin: 0;
 
-  padding: var(--description-padding);
+  padding: 4px 0 8px;
 }

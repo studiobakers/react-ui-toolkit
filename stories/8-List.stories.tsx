@@ -3,8 +3,9 @@ import {storiesOf} from "@storybook/react";
 
 import List from "../src/list/List";
 import ListItem from "../src/list/item/ListItem";
-import DescriptionTerm from "../src/list/description-term/DescriptionTerm";
-import {useState} from "@storybook/addons";
+import DescriptionTerm, {
+  DescriptionTermProps
+} from "../src/list/description-term/DescriptionTerm";
 import StateProvider from "./utils/StateProvider";
 
 const users = [
@@ -26,21 +27,21 @@ const users = [
 ];
 const emptyUsers = [];
 
-const terms = [
+const terms: DescriptionTermProps[] = [
   {
-    id: 1,
+    id: "1",
     title: "Apple",
     description:
       "The round fruit of a tree of the rose family, which typically has thin green or red skin and crisp flesh."
   },
   {
-    id: 2,
+    id: "2",
     title: "Orange",
     description:
       "A large round juicy citrus fruit with a tough bright reddish-yellow rind."
   },
   {
-    id: 3,
+    id: "3",
     title: "Lemon",
     description:
       "A pale yellow oval citrus fruit with thick skin and fragrant, acidic juice"
