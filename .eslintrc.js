@@ -2,7 +2,7 @@ const path = require("path");
 
 module.exports = {
   parser: "@typescript-eslint/parser",
-  plugins: ["react", "react-hooks", "@typescript-eslint", "jsx-a11y"],
+  plugins: ["react", "react-hooks", "@typescript-eslint", "jsx-a11y", "testing-library", "jest-dom"],
   env: {
     browser: true,
     jest: true,
@@ -13,6 +13,8 @@ module.exports = {
     "@hipo/eslint-config-react",
     "@hipo/eslint-config-typescript",
     "plugin:jsx-a11y/recommended",
+    "plugin:jest-dom/recommended",
+    "plugin:testing-library/react",
     "plugin:import/typescript",
     "prettier"
   ],
@@ -29,7 +31,7 @@ module.exports = {
   settings: {
     react: {
       // Tells eslint-plugin-react to automatically detect the version of React to use
-      version: "detect" 
+      version: "detect"
     }
   },
   globals: {

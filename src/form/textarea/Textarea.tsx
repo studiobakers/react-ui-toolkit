@@ -59,7 +59,7 @@ function Textarea(props: TextareaProps) {
   const textareaClassName = classNames("textarea", customClassNames?.textarea);
 
   return (
-    <div className={containerClassName}>
+    <div data-testid={"textarea-container"} className={containerClassName}>
       {autoSizeProps ? (
         <TextareaAutosize
           className={textareaClassName}

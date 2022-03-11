@@ -29,23 +29,27 @@ function ToggleItem({
   });
 
   return (
-    <ListItem
-      testid={testid}
-      customClassName={toggleItemClassName}
-      clickableListItemProps={isDisabled ? undefined : {onClick: handleToggle}}>
-      {children}
+    <ListItem testid={testid} customClassName={toggleItemClassName}>
+      <label className={"toggle-item__label"}>
+        <input
+          type={"checkbox"}
+          className={"toggle-input"}
+          checked={isSelected}
+          disabled={isDisabled}
+          onChange={handleToggle}
+        />
+        {children}
+      </label>
     </ListItem>
   );
 
   function handleToggle() {
     let newSelectedItems: string[];
 
-    if (canSelectMultiple) {
-      if (selectedItems.includes(dataId)) {
-        newSelectedItems = selectedItems.filter((item) => item !== dataId);
-      } else {
-        newSelectedItems = [...selectedItems, dataId];
-      }
+    if (isSelected) {
+      newSelectedItems = selectedItems.filter((item) => item !== dataId);
+    } else if (canSelectMultiple) {
+      newSelectedItems = [...selectedItems, dataId];
     } else {
       newSelectedItems = [dataId];
     }

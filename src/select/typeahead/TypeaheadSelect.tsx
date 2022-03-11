@@ -10,14 +10,13 @@ import TypeaheadInput, {
   TypeaheadInputProps
 } from "../../form/input/typeahead/TypeaheadInput";
 import {mapDropdownOptionsToTagShapes} from "../../tag/util/tagUtils";
-import Tag, {TagShape} from "../../tag/Tag";
+import {TagShape} from "../../tag/Tag";
 import Dropdown from "../../dropdown/Dropdown";
 import {filterOptionsByKeyword} from "./util/typeaheadSelectUtils";
 import {filterOutItemsByKey} from "../../core/utils/array/arrayUtils";
 import Spinner from "../../spinner/Spinner";
-import List from "../../list/List";
-import ListItem from "../../list/item/ListItem";
 import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
+import TypeaheadSelectHeader from "./header/TypeaheadSelectHeader";
 
 export interface TypeaheadSelectProps {
   selectedOptions: DropdownOption[];
@@ -64,7 +63,8 @@ function TypeaheadSelect({
   initialKeyword = "",
   controlledKeyword
 }: TypeaheadSelectProps) {
-  const typeaheadInputRef = useRef<HTMLDivElement | null>(null);
+  const typeaheadInputRef = useRef<HTMLInputElement | null>(null);
+
   const [isMenuOpen, setMenuVisibility] = useState(false);
   const [computedDropdownOptions, setComputedDropdownOptions] = useState(dropdownOptions);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
@@ -112,44 +112,31 @@ function TypeaheadSelect({
   }, [shouldFocusOnInput]);
 
   const dropdownHeader = (
-    <div className={"typeahead-select__header"}>
-      {shouldDisplaySelectedOptions && Boolean(tags.length) && (
-        <List
-          testid={`${testid}.tags`}
-          items={tags}
-          customClassName={"typeahead-select__tag-list"}>
-          {(tag, tagTestId) => (
-            <ListItem customClassName={"typeahead-select__tag-list__item"}>
-              <Tag
-                testid={tagTestId}
-                onRemove={handleRemove}
-                customClassName={"typeahead-select__tag"}
-                tag={tag}
-              />
-            </ListItem>
-          )}
-        </List>
-      )}
-
-      {!shouldDisplayOnlyTags && (
-        <TypeaheadInput
-          testid={`${testid}.search`}
-          customClassName={"typeahead-select__input"}
-          inputContainerRef={typeaheadInputRef}
-          id={typeaheadProps.id}
-          name={typeaheadProps.name}
-          type={typeaheadProps.type}
-          placeholder={typeaheadProps.placeholder}
-          value={inputValue}
-          onQueryChange={handleKeywordChange}
-          onKeyDown={handleKeyDown}
-          rightIcon={
-            areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
-          }
-          onFocus={handleTypeaheadInputFocus}
-          isDisabled={isDisabled}
-        />
-      )}
+    <div className={"typeahead-select__header-container"}>
+      <TypeaheadSelectHeader
+        tags={shouldDisplaySelectedOptions ? tags : []}
+        handleTagRemove={handleRemove}
+        input={
+          !shouldDisplayOnlyTags && (
+            <TypeaheadInput
+              testid={`${testid}.search`}
+              customClassName={"typeahead-select__input"}
+              id={typeaheadProps.id}
+              name={typeaheadProps.name}
+              type={typeaheadProps.type}
+              placeholder={typeaheadProps.placeholder}
+              value={inputValue}
+              onQueryChange={handleKeywordChange}
+              onKeyDown={handleKeyDown}
+              rightIcon={
+                areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
+              }
+              onFocus={handleTypeaheadInputFocus}
+              isDisabled={isDisabled}
+            />
+          )
+        }
+      />
     </div>
   );
 
@@ -176,7 +163,7 @@ function TypeaheadSelect({
     setMenuVisibility(true);
   }
 
-  function handleTypeaheadInputFocus(event: React.SyntheticEvent<HTMLInputElement>) {
+  function handleTypeaheadInputFocus(event: React.FocusEvent<HTMLInputElement>) {
     if (canOpenDropdownMenu && !isDisabled) {
       openDropdownMenu();
     }
@@ -191,6 +178,7 @@ function TypeaheadSelect({
       onSelect(option!);
       setComputedDropdownOptions(dropdownOptions);
       setKeyword("");
+      setShouldFocusOnInput(true);
     }
   }
 

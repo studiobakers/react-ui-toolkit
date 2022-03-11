@@ -44,7 +44,7 @@ function List<Item extends any>({
   }
 
   return (
-    <ListTypeElement className={listClassName} role={role}>
+    <ListTypeElement className={listClassName} role={role} data-testid={testid}>
       {items.map((item: Item, index: number) => {
         const listItemTestId = `${testid}.item-${index}`;
         let key = listItemTestId;
