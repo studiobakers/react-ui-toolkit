@@ -67,7 +67,7 @@ function Tab({
         )}
       </List>
 
-      <div className={"tab__body"}>
+      <div className={"tab__body"} data-testid={`${testid}.body`}>
         {
           children[
             activeTabIndexFromProps === undefined

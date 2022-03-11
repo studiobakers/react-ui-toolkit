@@ -3,12 +3,7 @@ import classNames from "classnames";
 
 import FileInput, {FileInputProps} from "../../form/input/file/FileInput";
 
-export type FileUploadButtonProps = Omit<
-  FileInputProps,
-  "children" | "onChange" | "children"
-> & {
-  children: React.ReactNode;
-  customClassName?: string;
+export type FileUploadButtonProps = Omit<FileInputProps, "onChange"> & {
   customLabelClassName?: string;
   ref?: React.RefObject<HTMLLabelElement>;
   onFileSelect?: (
@@ -16,9 +11,9 @@ export type FileUploadButtonProps = Omit<
   ) => void;
 };
 
-const FileUploadButton = React.forwardRef<HTMLLabelElement, Record<string, any>>(
+const FileUploadButton = React.forwardRef<HTMLLabelElement, FileUploadButtonProps>(
   // eslint-disable-next-line prefer-arrow-callback
-  function FileUploadButtonComponent(props: FileUploadButtonProps, ref) {
+  function FileUploadButtonComponent(props, ref) {
     const {
       onFileSelect,
       children,

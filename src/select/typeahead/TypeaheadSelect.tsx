@@ -142,6 +142,7 @@ function TypeaheadSelect({
 
   return (
     <Dropdown
+      testid={testid}
       customClassName={typeaheadSelectClassName}
       headerWithoutButton={dropdownHeader}
       role={"listbox"}

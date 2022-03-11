@@ -133,6 +133,26 @@ function ToastExamples() {
 
       <br />
 
+      <Button
+        type={"button"}
+        onClick={() =>
+          display({
+            render() {
+              return (
+                <div className={"toast toast--success"}>
+                  <div data-testid={"custom-info-toast"}>{"Closes itself in 100ms"}</div>
+                </div>
+              );
+            },
+            timeout: 100,
+            autoClose: true
+          })
+        }>
+        {"Closes itself in 100ms"}
+      </Button>
+
+      <br />
+
       <div className={"toast-button-group"}>
         <Button
           type={"button"}
