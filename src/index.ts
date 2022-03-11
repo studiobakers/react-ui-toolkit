@@ -36,6 +36,9 @@ import {
 } from "./dropdown/list/item/DropdownListItem";
 import List, {ListProps as ListComponentProps} from "./list/List";
 import ListItem, {ListItemProps as ListItemComponentProps} from "./list/item/ListItem";
+import DescriptionTerm, {
+  DescriptionTermProps as DescriptionTermComponentProps
+} from "./list/description-term/DescriptionTerm";
 import Button, {ButtonProps as ButtonComponentProps} from "./button/Button";
 import FileUploadButton, {
   FileUploadButtonProps as FileUploadButtonComponentProps
@@ -71,6 +74,7 @@ export {
   Dropdown,
   List,
   ListItem,
+  DescriptionTerm,
   Button,
   FileUploadButton,
   Spinner,
@@ -125,6 +129,7 @@ export type DropdownSelectedOption<
 > = DropdownSelectedComponentOption<Id, Context>;
 export type ListProps<Item = any> = ListComponentProps<Item>;
 export type ButtonProps = ButtonComponentProps;
+export type DescriptionTermProps = DescriptionTermComponentProps;
 export type FileUploadButtonProps = FileUploadButtonComponentProps;
 export type SpinnerProps = SpinnerComponentProps;
 export type TabItem = TabComponentItem;

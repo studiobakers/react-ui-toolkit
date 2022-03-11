@@ -1,5 +1,9 @@
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
+const NAVIGATOR_LANGUAGE =
+  // eslint-disable-next-line no-negated-condition
+  typeof navigator !== "undefined" ? navigator.language : "en-GB";
+
 function formatNumber(formatNumberOptions: FormatNumberOptions) {
   const {locale, ...otherOptions} = formatNumberOptions;
   const options = {
@@ -13,7 +17,7 @@ function formatNumber(formatNumberOptions: FormatNumberOptions) {
 
   try {
     numberFormatter = new Intl.NumberFormat(
-      locale || [navigator.language, "en-GB"],
+      locale || [NAVIGATOR_LANGUAGE, "en-GB"],
       options
     );
   } catch (error) {
@@ -44,7 +48,7 @@ function formatNumber(formatNumberOptions: FormatNumberOptions) {
  * @returns {string} The value after coercing the given value to a scientific notation.
  */
 function parseNumber(options: ParseNumberOptions, value: string) {
-  const {locale = navigator.language, maximumFractionDigits = 0} = options;
+  const {locale = NAVIGATOR_LANGUAGE, maximumFractionDigits = 0} = options;
   const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
   const numerals = getLocaleNumerals(locale);
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
@@ -79,20 +83,20 @@ function getDigit(digitMap: Map<string, number>) {
 }
 
 function mapDigitsToLocalVersion(
-  {locale = navigator.language}: {locale?: string},
+  {locale = NAVIGATOR_LANGUAGE}: {locale?: string},
   digits: string
 ) {
   return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
 }
 
-function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {
+function mapDigitToLocalVersion({locale = NAVIGATOR_LANGUAGE}: {locale?: string}) {
   const numerals = getLocaleNumerals(locale);
   const digitMap = new Map(numerals.map((d, i) => [i, d]));
 
   return (digit: string) => digitMap.get(parseInt(digit));
 }
 
-function getNumberSeparators(locale = navigator.language) {
+function getNumberSeparators(locale = NAVIGATOR_LANGUAGE) {
   // eslint-disable-next-line no-magic-numbers
   const parts = new Intl.NumberFormat(locale).formatToParts(-12345.6);
   const THOUSANDTHS_SEPARATOR = parts.find((d) => d.type === "group")!.value;
@@ -102,7 +106,7 @@ function getNumberSeparators(locale = navigator.language) {
   return {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR, MINUS_SIGN};
 }
 
-function getLocaleNumerals(locale = navigator.language) {
+function getLocaleNumerals(locale = NAVIGATOR_LANGUAGE) {
   const numerals = new Intl.NumberFormat(locale, {useGrouping: false})
     // eslint-disable-next-line no-magic-numbers
     .format(9876543210)
@@ -115,7 +119,7 @@ function getLocaleNumerals(locale = navigator.language) {
 /**
  * @returns Scientific and locale presentations of "-0" and "-00" values
  */
-function getNegativeZero(locale = navigator.language) {
+function getNegativeZero(locale = NAVIGATOR_LANGUAGE) {
   const LOCALE_ZERO = getLocaleNumerals(locale)[0];
   const LOCALE_MINUS_SIGN = getNumberSeparators(locale).MINUS_SIGN;
 
@@ -127,7 +131,7 @@ function getNegativeZero(locale = navigator.language) {
   };
 }
 
-function removeLeadingZeros(locale = navigator.language, value: string) {
+function removeLeadingZeros(locale = NAVIGATOR_LANGUAGE, value: string) {
   const {
     LOCALE_NEGATIVE_ZERO,
     LOCALE_NEGATIVE_DOUBLE_ZERO,
