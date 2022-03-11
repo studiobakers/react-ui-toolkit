@@ -35,7 +35,7 @@ export interface DropdownProps<OptionIdShape> {
   options: DropdownOption<OptionIdShape>[];
   selectedOption: DropdownSelectedOption<OptionIdShape>;
   onSelect: DropdownOptionSelectHandler<OptionIdShape>;
-  role: "listbox" | "menu";
+  role: "listbox" | "menu" | "combobox";
   testid?: string;
   header?: React.ReactNode;
   placeholder?: string;
@@ -174,6 +174,7 @@ function Dropdown<OptionIdShape extends string>({
       onMouseUp={handleMouseUp}
       onClick={toggleDropdown}
       tabIndex={-1}
+      // @ts-ignore
       aria-haspopup={role}
       aria-expanded={isMenuOpen}
       shouldFocus={shouldFocusOnHeaderButton}>
