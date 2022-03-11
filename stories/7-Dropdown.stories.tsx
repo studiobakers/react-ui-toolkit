@@ -2,6 +2,7 @@ import React, {Fragment} from "react";
 import {storiesOf} from "@storybook/react";
 
 import Dropdown from "../src/dropdown/Dropdown";
+import Select from "../src/select/Select";
 import StateProvider from "./utils/StateProvider";
 import FormField from "../src/form/field/FormField";
 import StoryFragment from "./utils/StoryFragment";
@@ -177,4 +178,39 @@ storiesOf("Dropdown", module)
         />
       </FormField>
     </div>
+  ))
+  .add("Select", () => (
+    <StateProvider initialState={initialState.basic}>
+      {(state, setState) => (
+        <Select
+          role={"listbox"}
+          onSelect={(option) => setState({...state, selectedOption: option})}
+          isMultiSelect={false}
+          value={state.selectedOption}
+          options={state.options}>
+          <Select.Trigger style={{justifyContent: "space-between"}}>
+            <div style={{padding: "15px"}}>
+              {state.selectedOption ? state.selectedOption.title : "Select Item"}
+            </div>
+
+            <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
+          </Select.Trigger>
+          <Select.Content>
+            <Select.Group>
+              <div style={{padding: "10px 0", color: "grey"}}>{"Group 1"}</div>
+              {state.options.slice(0, 2).map((option) => (
+                <Select.Item option={option}>{option.title}</Select.Item>
+              ))}
+            </Select.Group>
+
+            <Select.Group>
+              <div style={{padding: "10px 0", color: "grey"}}>{"Group 1"}</div>
+              {state.options.slice(2, state.options.length).map((option) => (
+                <Select.Item option={option}>{option.title}</Select.Item>
+              ))}
+            </Select.Group>
+          </Select.Content>
+        </Select>
+      )}
+    </StateProvider>
   ));

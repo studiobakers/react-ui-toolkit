@@ -66,6 +66,7 @@ function DropdownList<OptionIdShape extends string>({
   }, [isVisible, focusedOption]);
 
   return (
+    // Use <List /> an <ListItem /> instead of <ul> and <li>
     <ul
       ref={listRef}
       data-testid={testid}

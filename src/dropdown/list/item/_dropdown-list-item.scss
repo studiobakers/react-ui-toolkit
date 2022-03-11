@@ -12,6 +12,10 @@
   cursor: default;
 
   transition: background-color $animation-duration $animation-function;
+
+  &:focus {
+    background-color: aquamarine;
+  }
 }
 
 .dropdown-list-item--can-be-selected {

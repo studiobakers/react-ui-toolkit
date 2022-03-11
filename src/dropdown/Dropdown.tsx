@@ -95,7 +95,8 @@ function Dropdown<OptionIdShape extends string>({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const [computedOptions, setComputedOptions] = useState<DropdownOption[]>([]);
   const defaultMenuOpenHook = useState(false);
-  const [isMenuOpen, setMenuVisibility] = isMenuOpenHook || defaultMenuOpenHook;
+  // const [isMenuOpen, setMenuVisibility] = isMenuOpenHook || defaultMenuOpenHook;
+  const isMenuOpen = true;
   const [isMouseDown, setIsMouseDown] = useState(false);
   const [keyQuery, setKeyQuery] = useState("");
   const [focusedOptionIndex, setFocusedOptionIndex] = useState(
@@ -188,11 +189,13 @@ function Dropdown<OptionIdShape extends string>({
   useOnClickOutside(dropdownRef.current, closeDropdown);
 
   useEffect(() => {
+    //  Buradaki işleme ihtiyacımız var mı?
     if (isMenuOpen) {
       document.documentElement.classList.add("dropdown--is-menu-open");
     } else {
       document.documentElement.classList.remove("dropdown--is-menu-open");
     }
+    //
 
     if (onMenuVisibilityChange) {
       onMenuVisibilityChange(isMenuOpen ? "open" : "closed");

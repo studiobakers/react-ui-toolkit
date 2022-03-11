@@ -1,0 +1,7 @@
+.select-item {
+  outline: none;
+
+  &--is-focused {
+    background-color: aquamarine;
+  }
+}
