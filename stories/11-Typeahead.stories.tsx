@@ -59,7 +59,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
 
   return (
     <StoryFragment>
-      <div style={{maxWidth: "350px"}}>
+      <div style={{maxWidth: "500px"}}>
         <StateProvider initialState={initialState}>
           {(state, setState) => (
             <FormField label={"Select Languages"}>

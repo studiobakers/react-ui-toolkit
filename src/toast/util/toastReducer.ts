@@ -1,5 +1,9 @@
-import {updateAtIndex} from "../../core/utils/array/arrayUtils";
+import {
+  limitArrayLengthFromTheEnd,
+  updateAtIndex
+} from "../../core/utils/array/arrayUtils";
 import {not} from "../../core/utils/function/functionUtils";
+import {isNonNegativeNumber} from "../../core/utils/number/numberUtils";
 import {initialToastState} from "./toastConstants";
 import {ToastAction} from "./toastTypes";
 import {isSameToast} from "./toastUtils";
@@ -12,13 +16,14 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
   switch (action.type) {
     case "DISPLAY": {
       const {toastData} = action;
+      const newToastStack = [
+        ...state.toastStack.filter(not(isSameToast(toastData.id))),
+        toastData
+      ];
 
       newState = {
         ...state,
-        toastStack: [
-          ...state.toastStack.filter(not(isSameToast(toastData.id))),
-          toastData
-        ]
+        toastStack: limitArrayLengthFromTheEnd(state.limit, newToastStack)
       };
       break;
     }
@@ -54,6 +59,37 @@ function toastReducer(state: ToastState, action: ToastAction): ToastState {
         throw new Error("Trying to update a Toast that is already removed");
       }
 
+      break;
+    }
+
+    case "SET_LIMIT": {
+      const {limit} = action;
+
+      newState = {
+        ...state,
+        limit,
+        toastStack: limitArrayLengthFromTheEnd(limit, state.toastStack)
+      };
+      break;
+    }
+
+    case "SET_AUTO_CLOSE": {
+      newState = {
+        ...state,
+        autoCloseToasts: action.autoCloseToasts
+      };
+      break;
+    }
+
+    case "SET_DEFAULT_AUTO_CLOSE_TIMEOUT_FOR_ALL_TOASTS": {
+      const {timeout} = action;
+
+      if (isNonNegativeNumber(timeout)) {
+        newState = {
+          ...state,
+          defaultAutoCloseTimeout: timeout
+        };
+      }
       break;
     }
 

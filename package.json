@@ -1,15 +1,15 @@
 {
   "name": "@hipo/react-ui-toolkit",
-  "version": "1.0.0-alpha.4.0.0",
+  "version": "1.0.0-beta",
   "description": "React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
     "dev": "./node_modules/.bin/rollup -c -w",
     "build": "npm run prettify && ./node_modules/.bin/rollup -c",
-    "test": "jest",
+    "test": "./node_modules/.bin/jest",
     "test:watch": "npm t -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 6006",
-    "storybook:build": "./node_modules/.bin/build-storybook",
+    "storybook:build": "./node_modules/.bin/build-storybook -o ./public",
     "type-check": "echo \"type-checking...\" && ./node_modules/.bin/tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
@@ -21,10 +21,6 @@
     "lint": "npm run stylelint && npm run eslint",
     "check-package-updates": "npx npm-check-updates",
     "prepare": "husky install"
-  },
-  "jest": {
-    "preset": "ts-jest",
-    "testEnvironment": "node"
   },
   "keywords": [
     "ui",
@@ -53,13 +49,19 @@
     "@storybook/addon-links": "6.3.2",
     "@storybook/addons": "6.3.2",
     "@storybook/react": "6.3.2",
+    "@testing-library/jest-dom": "5.12.0",
+    "@testing-library/react": "11.2.6",
+    "@testing-library/user-event": "^13.1.9",
     "@types/classnames": "2.3.0",
     "@types/jest": "26.0.23",
+    "@types/jest-axe": "3.5.1",
     "@types/react": "17.0.5",
     "@types/react-dom": "17.0.4",
     "@types/react-test-renderer": "17.0.1",
+    "@types/uuid": "8.3.4",
     "@typescript-eslint/eslint-plugin": "4.23.0",
     "@typescript-eslint/parser": "4.23.0",
+    "axe-core": "4.2.0",
     "babel-loader": "8.1.0",
     "css-loader": "5.2.4",
     "eslint": "7.26.0",
@@ -68,9 +70,12 @@
     "eslint-plugin-jsx-a11y": "6.4.1",
     "eslint-plugin-react": "7.23.2",
     "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-jest-dom": "3.9.0",
+    "eslint-plugin-testing-library": "4.6.0",
     "fork-ts-checker-webpack-plugin": "4.1.6",
     "husky": "7.0.0",
     "jest": "26.4.2",
+    "jest-axe": "4.1.0",
     "lint-staged": "10.2.13",
     "node-sass": "4.14.1",
     "prettier": "2.0.5",
@@ -98,7 +103,9 @@
   "dependencies": {
     "classnames": "2.3.1",
     "date-fns": "2.21.1",
-    "date-fns-tz": "1.1.4"
+    "date-fns-tz": "1.1.4",
+    "react-textarea-autosize": "8.3.2",
+    "uuid": "8.3.2"
   },
   "peerDependencies": {
     "react": "17.0.2",

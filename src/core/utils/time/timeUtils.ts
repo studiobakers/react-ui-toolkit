@@ -3,6 +3,7 @@ import timezonedFormat from "date-fns-tz/format";
 import formatWithOptions from "date-fns/fp/formatWithOptions";
 import enCA from "date-fns/locale/en-CA";
 
+import {DateTimerProps, TimerType} from "../../../date-timer/util/dateTimerTypes";
 import {
   DATE_FORMAT,
   DAY_IN_HRS,
@@ -15,9 +16,30 @@ import {
 } from "./timeConstants";
 import {FormatDateUtilOptions, RemainingTimeBreakdown} from "./timeTypes";
 
-function calculateRemainingTimeBreakdown(target: Date): RemainingTimeBreakdown {
-  const delta = target.getTime() - new Date().getTime();
-  const deltaInSeconds = delta / SECOND_IN_MS;
+function sortDateRange(initialRange: Date[]): Date[] {
+  const range = [initialRange[0], initialRange[1]];
+
+  return range.sort((left, right) => left.getTime() - right.getTime());
+}
+
+function calculateRemainingTimeBreakdown(
+  range: DateTimerProps["range"],
+  intervalCount = 0,
+  timerType = "down" as TimerType
+): RemainingTimeBreakdown {
+  let originDate;
+  let targetDate;
+
+  if (range.length > 1 || timerType === "up") {
+    [originDate, targetDate] = sortDateRange([range[0], range[1] || new Date()]);
+  } else {
+    targetDate = range[0];
+    originDate = new Date();
+  }
+
+  const delta = targetDate.getTime() - originDate.getTime();
+
+  const deltaInSeconds = (delta - intervalCount) / SECOND_IN_MS;
 
   return {
     delta,
@@ -196,5 +218,6 @@ export {
   compansateForTimezone,
   parseTime,
   getHourMinuteMeridiemFromTimeString,
-  formatTimeStringTo12hFormatWithMeridiem
+  formatTimeStringTo12hFormatWithMeridiem,
+  sortDateRange
 };

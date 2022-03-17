@@ -33,7 +33,8 @@ export default [
       Switch: "src/switch/Switch.tsx",
       Countdown: "src/countdown/Countdown.tsx",
       ProgressBar: "src/progress-bar/ProgressBar.tsx",
-      TimeInput: "src/form/time/TimeInput.tsx"
+      TimeInput: "src/form/time/TimeInput.tsx",
+      DateTimer: "src/date-timer/DateTimer.tsx"
     },
     output: {
       dir: "dist",

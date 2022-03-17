@@ -23,6 +23,9 @@ function truncateDecimalPart(limit: number) {
 function isInteger(x: number): boolean {
   return x % 1 === 0;
 }
+const NAVIGATOR_LANGUAGE =
+  // eslint-disable-next-line no-negated-condition
+  typeof navigator !== "undefined" ? navigator.language : "en-GB";
 
 function formatNumber(formatNumberOptions: FormatNumberOptions) {
   const {locale, ...otherOptions} = formatNumberOptions;
@@ -37,7 +40,7 @@ function formatNumber(formatNumberOptions: FormatNumberOptions) {
 
   try {
     numberFormatter = new Intl.NumberFormat(
-      locale || [navigator.language, "en-GB"],
+      locale || [NAVIGATOR_LANGUAGE, "en-GB"],
       options
     );
   } catch (error) {
@@ -60,21 +63,17 @@ function formatNumber(formatNumberOptions: FormatNumberOptions) {
 }
 
 /**
- * Coerces a number scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
+ * Coerces a number to scientific notation. {@link https://observablehq.com/@mbostock/localized-number-parsing | Reference}
  * @param {object} options - An object includes parse number options
  * @param {string} options.locale - Default locale used is browser locale
  * @param {number} options.maximumFractionDigits - The maximum digit a decimal can have
  * @param {number} value - A number to convert to string
  * @returns {string} The value after coercing the given value to a scientific notation.
  */
-function parseNumber(
-  options: ParseNumberOptions = {locale: navigator.language, maximumFractionDigits: 0},
-  value: string
-) {
-  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(
-    options.locale
-  );
-  const numerals = getLocaleNumerals(options.locale);
+function parseNumber(options: ParseNumberOptions, value: string) {
+  const {locale = NAVIGATOR_LANGUAGE, maximumFractionDigits = 0} = options;
+  const {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR} = getNumberSeparators(locale);
+  const numerals = getLocaleNumerals(locale);
   const numeral = new RegExp(`[${numerals.join("")}]`, "g");
   const digitMapper = getDigit(new Map(numerals.map((d, i) => [d, i])));
   let parsedNumber = value
@@ -83,12 +82,12 @@ function parseNumber(
     .replace(new RegExp(`[${DECIMAL_NUMBER_SEPARATOR}]`), ".")
     .replace(numeral, digitMapper);
 
-  if (typeof options.maximumFractionDigits === "number") {
+  if (typeof maximumFractionDigits === "number") {
     const [integerPart, decimalPart] = parsedNumber.split(".");
 
-    if (options.maximumFractionDigits === 0) {
+    if (maximumFractionDigits === 0) {
       parsedNumber = integerPart;
-    } else if (decimalPart && decimalPart.length === options.maximumFractionDigits + 1) {
+    } else if (decimalPart && decimalPart.length === maximumFractionDigits + 1) {
       return parsedNumber.slice(0, parsedNumber.length - 1);
     }
   } else {
@@ -107,20 +106,20 @@ function getDigit(digitMap: Map<string, number>) {
 }
 
 function mapDigitsToLocalVersion(
-  {locale = navigator.language}: {locale?: string},
+  {locale = NAVIGATOR_LANGUAGE}: {locale?: string},
   digits: string
 ) {
   return digits.split("").map(mapDigitToLocalVersion({locale})).join("");
 }
 
-function mapDigitToLocalVersion({locale = navigator.language}: {locale?: string}) {
+function mapDigitToLocalVersion({locale = NAVIGATOR_LANGUAGE}: {locale?: string}) {
   const numerals = getLocaleNumerals(locale);
   const digitMap = new Map(numerals.map((d, i) => [i, d]));
 
   return (digit: string) => digitMap.get(parseInt(digit));
 }
 
-function getNumberSeparators(locale = navigator.language) {
+function getNumberSeparators(locale = NAVIGATOR_LANGUAGE) {
   // eslint-disable-next-line no-magic-numbers
   const parts = new Intl.NumberFormat(locale).formatToParts(-12345.6);
   const THOUSANDTHS_SEPARATOR = parts.find((d) => d.type === "group")!.value;
@@ -130,7 +129,7 @@ function getNumberSeparators(locale = navigator.language) {
   return {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR, MINUS_SIGN};
 }
 
-function getLocaleNumerals(locale = navigator.language) {
+function getLocaleNumerals(locale = NAVIGATOR_LANGUAGE) {
   const numerals = new Intl.NumberFormat(locale, {useGrouping: false})
     // eslint-disable-next-line no-magic-numbers
     .format(9876543210)
@@ -143,7 +142,7 @@ function getLocaleNumerals(locale = navigator.language) {
 /**
  * @returns Scientific and locale presentations of "-0" and "-00" values
  */
-function getNegativeZero(locale = navigator.language) {
+function getNegativeZero(locale = NAVIGATOR_LANGUAGE) {
   const LOCALE_ZERO = getLocaleNumerals(locale)[0];
   const LOCALE_MINUS_SIGN = getNumberSeparators(locale).MINUS_SIGN;
 
@@ -155,7 +154,7 @@ function getNegativeZero(locale = navigator.language) {
   };
 }
 
-function removeLeadingZeros(locale = navigator.language, value: string) {
+function removeLeadingZeros(locale = NAVIGATOR_LANGUAGE, value: string) {
   const {
     LOCALE_NEGATIVE_ZERO,
     LOCALE_NEGATIVE_DOUBLE_ZERO,
@@ -199,6 +198,10 @@ function getThousandthSeparatorCount(value: string) {
   return formatNumber({locale: "en"})(parseFloat(value)).match(/,/g)?.length || 0;
 }
 
+function isNonNegativeNumber(x: unknown): x is number {
+  return typeof x === "number" && Number.isFinite(x) && x >= 0;
+}
+
 export {
   truncateDecimalPart,
   isInteger,
@@ -209,5 +212,6 @@ export {
   getNegativeZero,
   mapDigitsToLocalVersion,
   removeLeadingZeros,
-  getThousandthSeparatorCount
+  getThousandthSeparatorCount,
+  isNonNegativeNumber
 };

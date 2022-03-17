@@ -19,11 +19,12 @@ export interface FileInputProps {
   customLabelClassName?: string;
   acceptedFileTypes?: string;
   ref?: React.RefObject<HTMLLabelElement>;
+  isMultiple?: boolean;
 }
 
-const FileInput = React.forwardRef<HTMLLabelElement, Record<string, any>>(
+const FileInput = React.forwardRef<HTMLLabelElement, FileInputProps>(
   // eslint-disable-next-line prefer-arrow-callback
-  function FileInputComponent(props: FileInputProps, ref) {
+  function FileInputComponent(props, ref) {
     const {
       onChange,
       children,
@@ -35,7 +36,8 @@ const FileInput = React.forwardRef<HTMLLabelElement, Record<string, any>>(
       customClassName,
       customLabelClassName,
       isPending,
-      isDisabled
+      isDisabled,
+      isMultiple
     } = props;
     const containerClassName = classNames("file-input__container", customClassName);
     const isInputDisabled = isPending || isDisabled;
@@ -58,6 +60,7 @@ const FileInput = React.forwardRef<HTMLLabelElement, Record<string, any>>(
           id={htmlFor}
           disabled={isInputDisabled}
           accept={acceptedFileTypes}
+          multiple={isMultiple}
         />
 
         <label

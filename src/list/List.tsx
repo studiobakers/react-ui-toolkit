@@ -3,6 +3,8 @@ import "./_list.scss";
 import React, {Fragment} from "react";
 import classNames from "classnames";
 
+import {generateListItemKey} from "./util/listUtils";
+
 export interface ListProps<Item = any> {
   items: Item[];
   children: (item: Item, testid: string, index?: number) => JSX.Element;
@@ -18,6 +20,7 @@ export interface ListProps<Item = any> {
     shouldDisplayEmptyState: boolean;
     emptyState: React.ReactNode;
   };
+  type?: "unordered" | "ordered" | "description";
 }
 
 function List<Item extends any>({
@@ -28,27 +31,37 @@ function List<Item extends any>({
   role,
   listItemKeyGenerator,
   placeholderProps,
-  emptyStateProps
+  emptyStateProps,
+  type = "unordered"
 }: ListProps<Item>) {
   const listClassName = classNames("list", customClassName);
+  let ListTypeElement: Extract<keyof JSX.IntrinsicElements, "ul" | "ol" | "dl">;
+
+  switch (type) {
+    case "ordered":
+      ListTypeElement = "ol";
+      break;
+
+    case "description":
+      ListTypeElement = "dl";
+      break;
+
+    default:
+      ListTypeElement = "ul";
+      break;
+  }
 
   return (
-    <ul className={listClassName} role={role}>
+    <ListTypeElement className={listClassName} role={role} data-testid={testid}>
       {items.map((item: Item, index: number) => {
         const listItemTestId = `${testid}.item-${index}`;
-        let key = listItemTestId;
 
-        // @ts-ignore
-        if (item && typeof item === "object" && item.id) {
-          // @ts-ignore
-          key = item.id;
-        }
-
-        if (listItemKeyGenerator) {
-          key = listItemKeyGenerator(item, listItemTestId);
-        }
-
-        return <Fragment key={key}>{children(item, listItemTestId, index)}</Fragment>;
+        return (
+          <Fragment
+            key={generateListItemKey({listItemKeyGenerator, listItemTestId, item})}>
+            {children(item, listItemTestId, index)}
+          </Fragment>
+        );
       })}
 
       {placeholderProps?.shouldDisplayPlaceholder && placeholderProps.placeholder}
@@ -56,7 +69,7 @@ function List<Item extends any>({
       {!placeholderProps?.shouldDisplayPlaceholder &&
         emptyStateProps?.shouldDisplayEmptyState &&
         emptyStateProps.emptyState}
-    </ul>
+    </ListTypeElement>
   );
 }
 

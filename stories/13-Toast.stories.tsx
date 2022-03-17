@@ -3,29 +3,16 @@ import "./utils/constants/toast/_toast.scss";
 import {storiesOf} from "@storybook/react";
 import React from "react";
 
+import StateProvider from "./utils/StateProvider";
+
+import FormField from "../src/form/field/FormField";
+import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
+import Input from "../src/form/input/Input";
 import Button from "../src/button/Button";
 import {useToaster} from "../src/toast/util/toastHooks";
 import StoryFragment from "./utils/StoryFragment";
 import Toast from "../src/toast/Toast";
 import {ToastContextProvider} from "../src/toast/ToastProvider";
-
-function ToastComponent() {
-  return (
-    <StoryFragment>
-      <p>{"ToastProvider with default props"}</p>
-
-      <ToastContextProvider>
-        <ToastExamples />
-      </ToastContextProvider>
-
-      <p>{"ToastProvider with autoCloseToasts={false}"}</p>
-
-      <ToastContextProvider autoCloseToasts={false}>
-        <ToastExamples />
-      </ToastContextProvider>
-    </StoryFragment>
-  );
-}
 
 function ToastExamples() {
   const {display, update, hideAll} = useToaster();
@@ -146,6 +133,26 @@ function ToastExamples() {
 
       <br />
 
+      <Button
+        type={"button"}
+        onClick={() =>
+          display({
+            render() {
+              return (
+                <div className={"toast toast--success"}>
+                  <div data-testid={"custom-info-toast"}>{"Closes itself in 100ms"}</div>
+                </div>
+              );
+            },
+            timeout: 100,
+            autoClose: true
+          })
+        }>
+        {"Closes itself in 100ms"}
+      </Button>
+
+      <br />
+
       <div className={"toast-button-group"}>
         <Button
           type={"button"}
@@ -173,4 +180,61 @@ function ToastExamples() {
   );
 }
 
-storiesOf("Toast", module).add("Toast Message", () => <ToastComponent />);
+storiesOf("Toast", module)
+  .add("Default props", () => (
+    <ToastContextProvider>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Disable autoCloseToasts for all toasts", () => (
+    <ToastContextProvider autoCloseToasts={false}>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Limit number of toasts to 3", () => (
+    <ToastContextProvider limit={3}>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Set default autoClose timeout to 2000ms for all toasts", () => (
+    <ToastContextProvider defaultAutoCloseTimeout={2000}>
+      <ToastExamples />
+    </ToastContextProvider>
+  ))
+  .add("Set ToastProvider props dynamically with a form", () => (
+    <StateProvider initialState={{limit: "3", autoCloseToasts: false}}>
+      {(state, setState) => (
+        <StoryFragment>
+          <FormField label={"Toast limit"}>
+            <Input
+              localizationOptions={{maximumFractionDigits: 0}}
+              name={"price"}
+              type={"number"}
+              onChange={(e) => setState({...state, limit: e.currentTarget.value})}
+              value={state.limit}
+              placeholder={"3"}
+            />
+          </FormField>
+
+          <CheckboxInput
+            onSelect={() => setState({...state, autoCloseToasts: !state.autoCloseToasts})}
+            isSelected={state.autoCloseToasts}
+            item={{
+              id: "autoCloseToasts",
+              content: "autoCloseToasts",
+              inputProps: {
+                name: "termsAndConditions",
+                htmlFor: "termsAndConditions",
+                value: "yes"
+              }
+            }}
+          />
+          <ToastContextProvider
+            limit={state.limit ? parseInt(state.limit) : undefined}
+            autoCloseToasts={state.autoCloseToasts}>
+            <ToastExamples />
+          </ToastContextProvider>
+        </StoryFragment>
+      )}
+    </StateProvider>
+  ));

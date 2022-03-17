@@ -17,9 +17,23 @@ export type ToastAction =
       type: "UPDATE";
       toastId: string;
       toastData: Partial<Omit<ToastData, "id">>;
+    }
+  | {
+      type: "SET_LIMIT";
+      limit: number;
+    }
+  | {
+      type: "SET_AUTO_CLOSE";
+      autoCloseToasts: boolean;
+    }
+  | {
+      type: "SET_DEFAULT_AUTO_CLOSE_TIMEOUT_FOR_ALL_TOASTS";
+      timeout: undefined | number;
     };
 
 export interface ToastContextState {
   toastStack: (Omit<ToastData, "id"> & {id: string})[];
   autoCloseToasts: boolean;
+  defaultAutoCloseTimeout: number;
+  limit?: number;
 }

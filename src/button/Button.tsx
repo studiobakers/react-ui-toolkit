@@ -17,14 +17,13 @@ export type ButtonProps = Omit<
   shouldPreventDefault?: boolean;
   shouldStopPropagation?: boolean;
   shouldFocus?: boolean;
-  ref?: React.RefObject<HTMLButtonElement>;
   shouldDisplaySpinner?: boolean;
   customClassName?: string;
 };
 
-const Button = React.forwardRef<HTMLButtonElement, Record<string, any>>(
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   // eslint-disable-next-line prefer-arrow-callback
-  function ButtonComponent(props: ButtonProps, ref) {
+  function ButtonComponent(props, ref) {
     const {
       testid,
       type = "button",
