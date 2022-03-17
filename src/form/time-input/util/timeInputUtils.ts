@@ -1,5 +1,5 @@
-import {DATE_FORMAT} from "../../../../core/utils/time/timeConstants";
-import {formatDateWithOptions} from "../../../../core/utils/time/timeUtils";
+import {DATE_FORMAT} from "../../../core/utils/time/timeConstants";
+import {formatDateWithOptions} from "../../../core/utils/time/timeUtils";
 
 function getTimeInputValue(
   value: {controlled: string; uncontrolled: string},

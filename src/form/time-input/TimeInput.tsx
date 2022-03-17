@@ -1,9 +1,9 @@
 import React, {useState} from "react";
 import classNames from "classnames";
 
-import Input from "../../input/Input";
-import {DATE_FORMAT} from "../../../core/utils/time/timeConstants";
-import {formatDateWithOptions, parseTime} from "../../../core/utils/time/timeUtils";
+import Input from "../input/Input";
+import {DATE_FORMAT} from "../../core/utils/time/timeConstants";
+import {formatDateWithOptions, parseTime} from "../../core/utils/time/timeUtils";
 import {getTimeInputValue} from "./util/timeInputUtils";
 
 export interface TimeInputProps {

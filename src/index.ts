@@ -57,14 +57,7 @@ import ProgressBar, {
 } from "./progress-bar/ProgressBar";
 import TimeInput, {
   TimeInputProps as TimeInputComponentProps
-} from "./form/time/input/TimeInput";
-import TimeDropdown, {
-  TimeDropdownProps as TimeDropdownComponentProps,
-  TimeDropdownOption as TimeDropdownComponentOption
-} from "./form/time/dropdown/TimeDropdown";
-import TimeSelect, {
-  TimeSelectProps as TimeSelectComponentProps
-} from "./form/time/select/TimeSelect";
+} from "./form/time-input/TimeInput";
 import {DateTimerProps as DateTimerComponentProps} from "./date-timer/util/dateTimerTypes";
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
 import {useToastContext, useToaster} from "./toast/util/toastHooks";
@@ -93,8 +86,6 @@ export {
   ProgressBar,
   Textarea,
   TimeInput,
-  TimeDropdown,
-  TimeSelect,
   Toggle,
   Switch,
   Toast,
@@ -152,9 +143,6 @@ export type TextareaProps = TextareaComponentProps;
 export type ToggleProps = ToggleComponentProps;
 export type SwitchProps = SwitchComponentProps;
 export type TimeInputProps = TimeInputComponentProps;
-export type TimeDropdownProps = TimeDropdownComponentProps;
-export type TimeDropdownOption = TimeDropdownComponentOption;
-export type TimeSelectProps = TimeSelectComponentProps;
 export type DateTimerProps = DateTimerComponentProps;
 export type ListItemProps = ListItemComponentProps;
 export type ToastProps = ToastComponentProps;
