@@ -1,16 +1,15 @@
-import React, {useState} from "react";
+import React from "react";
 import classNames from "classnames";
 
 import Input from "../input/Input";
 import {DATE_FORMAT} from "../../core/utils/time/timeConstants";
 import {formatDateWithOptions, parseTime} from "../../core/utils/time/timeUtils";
-import {getTimeInputValue} from "./util/timeInputUtils";
 
 export interface TimeInputProps {
   testid: string;
   onChange: (timeString: string) => void;
+  value: string;
   initialDateTime?: Date | null;
-  value?: string;
   isDisabled?: boolean;
   placeholder?: string;
   name?: string;
@@ -27,7 +26,7 @@ const timeFormatter = formatDateWithOptions({
 function TimeInput({
   testid,
   initialDateTime,
-  value = initialDateTime ? timeFormatter(initialDateTime) : "",
+  value,
   onChange,
   isDisabled = false,
   placeholder = "03:30 PM",
@@ -36,21 +35,13 @@ function TimeInput({
   customClassName,
   hasError
 }: TimeInputProps) {
-  const [uncontrolledValue, setUncontrolledValue] = useState(() =>
-    initialDateTime ? timeFormatter(initialDateTime) : ""
-  );
-  const isControlledValueDefined = typeof value !== "undefined";
-
   return (
     <Input
       type={"text"}
       testid={`${testid}.input`}
       customClassName={classNames("time-input", customClassName)}
       name={name}
-      value={getTimeInputValue(
-        {controlled: value, uncontrolled: uncontrolledValue},
-        initialDateTime
-      )}
+      value={initialDateTime ? timeFormatter(initialDateTime) : value}
       placeholder={placeholder}
       isDisabled={isDisabled}
       onChange={handleChange}
@@ -61,23 +52,13 @@ function TimeInput({
   );
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    const eventValue = event.currentTarget.value;
-
-    onChange(eventValue);
-
-    if (!isControlledValueDefined) {
-      setUncontrolledValue(eventValue);
-    }
+    onChange(event.currentTarget.value);
   }
 
   function handleBlur() {
-    const formattedTimeString = parseTime(value || uncontrolledValue);
+    const formattedTimeString = parseTime(value);
 
     onChange(formattedTimeString);
-
-    if (!isControlledValueDefined) {
-      setUncontrolledValue(formattedTimeString);
-    }
   }
 }
 

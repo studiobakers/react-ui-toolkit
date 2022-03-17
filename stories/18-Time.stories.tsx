@@ -2,19 +2,19 @@ import {storiesOf} from "@storybook/react";
 import React, {Fragment} from "react";
 
 import FormField from "../src/form/field/FormField";
-import TimeInput from "../dist/TimeInput";
 import StateProvider from "./utils/StateProvider";
+import TimeInput from "../src/form/time-input/TimeInput";
 
 storiesOf("Time Input", module).add("Time Input", () => (
   <Fragment>
-    <StateProvider initialState={null}>
+    <StateProvider initialState={{value: ""}}>
       {(state, setState) => (
         <FormField label={"Appointment Time - Controlled"}>
           <TimeInput
             testid={"appointment-time"}
             initialDateTime={new Date()}
-            value={state}
-            onChange={setState}
+            value={state.value}
+            onChange={(e) => setState({value: e})}
           />
         </FormField>
       )}
@@ -22,53 +22,48 @@ storiesOf("Time Input", module).add("Time Input", () => (
 
     <br />
 
-    <FormField label={"Appointment Time - Uncontrolled"}>
-      <TimeInput
-        testid={"appointment-time"}
-        initialDateTime={new Date()}
-        onChange={(timeString) => console.log(timeString)}
-      />
-    </FormField>
-
-    <br />
-
-    <StateProvider initialState={null}>
+    <StateProvider initialState={{value: ""}}>
       {(state, setState) => (
         <FormField label={"Appointment Time - Controlled - without initialDateTime"}>
-          <TimeInput testid={"appointment-time"} value={state} onChange={setState} />
+          <TimeInput
+            testid={"appointment-time"}
+            value={state.value}
+            onChange={(e) => setState({value: e})}
+          />
         </FormField>
       )}
     </StateProvider>
 
     <br />
 
-    <FormField label={"Appointment Time - Uncontrolled - without initialDateTime"}>
-      <TimeInput
-        testid={"appointment-time"}
-        onChange={(timeString) => console.log(timeString)}
-      />
-    </FormField>
+    <StateProvider initialState={{value: ""}}>
+      {(state, setState) => (
+        <FormField
+          label={"Appointment Time - hasError"}
+          errorMessages={["Please enter a valid time"]}>
+          <TimeInput
+            testid={"appointment-time-has-error"}
+            value={state.value}
+            onChange={(e) => setState({value: ""})}
+            hasError={true}
+          />
+        </FormField>
+      )}
+    </StateProvider>
 
     <br />
 
-    <FormField
-      label={"Appointment Time - hasError"}
-      errorMessages={["Please enter a valid time"]}>
-      <TimeInput
-        testid={"appointment-time-has-error"}
-        onChange={(e) => console.log(e)}
-        hasError={true}
-      />
-    </FormField>
-
-    <br />
-
-    <FormField label={"Appointment Time - isDisabled"}>
-      <TimeInput
-        testid={"appointment-time-is-disabled"}
-        isDisabled={true}
-        onChange={(e) => console.log(e)}
-      />
-    </FormField>
+    <StateProvider initialState={{value: ""}}>
+      {(state, setState) => (
+        <FormField label={"Appointment Time - isDisabled"}>
+          <TimeInput
+            testid={"appointment-time-is-disabled"}
+            isDisabled={true}
+            value={state.value}
+            onChange={(e) => setState({value: ""})}
+          />
+        </FormField>
+      )}
+    </StateProvider>
   </Fragment>
 ));
