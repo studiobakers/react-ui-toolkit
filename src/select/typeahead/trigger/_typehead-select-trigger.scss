@@ -1,0 +1,31 @@
+.typeahead-select-trigger {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: 100%;
+
+  padding: 0;
+
+  border: 1px solid var(--default-border-color);
+  border-radius: var(--small-border-radius);
+}
+
+.typeahead-select-trigger__tag-list {
+  list-style-type: none;
+
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+
+  margin: 8px;
+  padding: 0;
+}
+
+.typeahead-select-trigger__tag-list__item {
+  margin: 8px 0 0 8px;
+}

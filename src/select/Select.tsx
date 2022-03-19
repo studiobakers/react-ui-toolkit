@@ -1,124 +1,61 @@
-import classNames from "classnames";
-import React, {useReducer} from "react";
+import "./_select.scss";
 
-import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboard/keyboardEventConstants";
+import React, {useEffect, useReducer} from "react";
+
 import SelectContent from "./content/SelectContent";
 import SelectGroup from "./group/SelectGroup";
 import SelectItem from "./item/SelectItem";
 import SelectTrigger from "./trigger/SelectTrigger";
-import SelectContext, {selectStateReducer} from "./util/context/SelectContext";
+import SelectContext, {
+  initialSelectState,
+  selectStateReducer
+} from "./util/context/SelectContext";
+import useSelectClassName from "./util/hook/useSelectClassName";
+import useSelectKeyDown from "./util/hook/useSelectKeyDown";
 import {SelectProps} from "./util/selectTypes";
+import {generateSelectStateFromProps} from "./util/selectUtils";
 
-function Select<IsMulti extends boolean = false>({
-  children,
-  isDisabled,
-  customClassName,
-  role,
-  hasError,
-  ...contextState
-}: SelectProps<IsMulti>) {
-  const [selectState, dispatchSelectStateAction] = useReducer(selectStateReducer, {
-    ...contextState,
-    isMenuOpen: false,
-    focusedOptionIndex: 0
-  });
+function Select(props: SelectProps) {
   const {
-    value,
-    isMenuOpen,
-    focusedOptionIndex,
-    isMultiSelect,
+    children,
+    role = "menu",
+    customClassName,
+    onSelect,
     options,
-    onSelect
-  } = selectState;
+    value,
+    hasError = false,
+    isDisabled = false,
+    shouldCloseOnSelect = true
+  } = props;
+  const [selectState, dispatchSelectStateAction] = useReducer(
+    selectStateReducer,
+    initialSelectState
+  );
+  const {handleSelectKeyDown} = useSelectKeyDown(selectState, dispatchSelectStateAction);
+  const selectClassName = useSelectClassName(selectState, customClassName);
 
-  const selectClassName = classNames("select", customClassName, {
-    "select--is-disabled": isDisabled,
-    "select--is-multi-select": isMultiSelect,
-    "select--has-selected-option": value,
-    "select--has-error": hasError,
-    "select--is-open": isMenuOpen
-  });
+  useEffect(() => {
+    dispatchSelectStateAction({
+      type: "SET_SELECT_STATE",
+      payload: generateSelectStateFromProps(selectState, {
+        onSelect,
+        options,
+        value,
+        hasError,
+        isDisabled,
+        shouldCloseOnSelect
+      })
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props]);
 
   return (
-    <div className={selectClassName} role={role} onKeyDown={handleKeyDown}>
+    <div className={selectClassName} role={role} onKeyDown={handleSelectKeyDown}>
       <SelectContext.Provider value={{selectState, dispatchSelectStateAction}}>
         {children}
       </SelectContext.Provider>
     </div>
   );
-
-  function handleKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
-    const {key} = event;
-
-    switch (key) {
-      case KEYBOARD_EVENT_KEY.ESCAPE: {
-        if (isMenuOpen) {
-          event.stopPropagation();
-          dispatchSelectStateAction({type: "TOGGLE_MENU_VISIBILITY"});
-        }
-        break;
-      }
-
-      case KEYBOARD_EVENT_KEY.ENTER: {
-        if (isMenuOpen) {
-          event.stopPropagation();
-          event.preventDefault();
-
-          if (!options[focusedOptionIndex]?.isDisabled) {
-            onSelect(options[focusedOptionIndex]);
-          }
-        }
-        break;
-      }
-
-      case KEYBOARD_EVENT_KEY.ARROW_DOWN: {
-        event.stopPropagation();
-        event.preventDefault();
-
-        dispatchSelectStateAction({
-          type: "SET_FOCUSED_OPTION_INDEX",
-          payload: (focusedOptionIndex + 1) % options.length
-        });
-        break;
-      }
-
-      case KEYBOARD_EVENT_KEY.ARROW_UP: {
-        event.stopPropagation();
-        event.preventDefault();
-
-        dispatchSelectStateAction({
-          type: "SET_FOCUSED_OPTION_INDEX",
-          payload: (focusedOptionIndex || options.length) - 1
-        });
-        break;
-      }
-
-      case KEYBOARD_EVENT_KEY.HOME: {
-        event.stopPropagation();
-        event.preventDefault();
-
-        dispatchSelectStateAction({
-          type: "SET_FOCUSED_OPTION_INDEX",
-          payload: 0
-        });
-        break;
-      }
-
-      case KEYBOARD_EVENT_KEY.END: {
-        event.stopPropagation();
-        event.preventDefault();
-
-        dispatchSelectStateAction({
-          type: "SET_FOCUSED_OPTION_INDEX",
-          payload: options.length - 1
-        });
-        break;
-      }
-
-      default:
-        break;
-    }
-  }
 }
 
 Select.Trigger = SelectTrigger;

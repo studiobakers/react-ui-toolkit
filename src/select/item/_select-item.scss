@@ -1,7 +1,20 @@
 .select-item {
+  padding: 8px 16px;
+
   outline: none;
 
-  &--is-focused {
-    background-color: aquamarine;
+  cursor: pointer;
+
+  &--is-focused,
+  &--is-selected,
+  &:hover {
+    color: white;
+
+    /* stylelint-disable-next-line color-no-hex */
+    background-color: #3687ff;
+  }
+
+  &--is-disabled {
+    cursor: not-allowed;
   }
 }

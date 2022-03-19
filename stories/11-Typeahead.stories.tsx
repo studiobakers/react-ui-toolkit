@@ -64,7 +64,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
           {(state, setState) => (
             <FormField label={"Select Languages"}>
               <TypeaheadSelect
-                dropdownOptions={initialState.options}
+                options={initialState.options}
                 selectedOptions={state.selectedOptions}
                 onSelect={(option) =>
                   setState({
@@ -87,7 +87,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
             <FormField label={"Select Languages (Max selectable 2)"}>
               <TypeaheadSelect
                 selectedOptionLimit={2}
-                dropdownOptions={initialState.options}
+                options={initialState.options}
                 selectedOptions={state.secondSelectedOptions}
                 onSelect={(option) =>
                   setState({
@@ -111,7 +111,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
               <TypeaheadSelect
                 selectedOptionLimit={2}
                 isDisabled={true}
-                dropdownOptions={initialState.options}
+                options={initialState.options}
                 selectedOptions={state.secondSelectedOptions}
                 onSelect={(option) =>
                   setState({
@@ -138,7 +138,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
               <TypeaheadSelect
                 shouldFilterOptionsByKeyword={false}
                 areOptionsFetching={state.areOptionsFetching}
-                dropdownOptions={state.thirdOptions}
+                options={state.thirdOptions}
                 selectedOptions={state.thirdSelectedOptions}
                 onSelect={(option) =>
                   setState({
@@ -164,7 +164,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
               <TypeaheadSelect
                 shouldFilterOptionsByKeyword={false}
                 areOptionsFetching={state.areOptionsFetching}
-                dropdownOptions={state.thirdOptions}
+                options={state.thirdOptions}
                 selectedOptions={state.thirdSelectedOptions}
                 onSelect={(option) =>
                   setState({
@@ -189,7 +189,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
           {(state, setState) => (
             <FormField label={"Select Model Year"}>
               <TypeaheadSelect
-                dropdownOptions={modelInitialState.options}
+                options={modelInitialState.options}
                 selectedOptions={state.selectedOptions}
                 onSelect={(option) =>
                   setState({

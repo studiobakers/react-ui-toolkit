@@ -1,21 +1,34 @@
 import {createContext, Dispatch} from "react";
 
-import {initialSelectState} from "../selectConstants";
 import {SelectState, SelectStateAction} from "../selectTypes";
 
-function selectStateReducer<IsMulti extends boolean>(
-  state: SelectState<IsMulti>,
-  action: SelectStateAction
-) {
+const initialSelectState: SelectState = {
+  focusedOptionIndex: 0,
+  isMenuOpen: false,
+  isDisabled: false,
+  hasError: false,
+  value: null,
+  options: [],
+  onSelect: () => undefined,
+  shouldCloseOnSelect: true
+};
+
+function selectStateReducer(state: SelectState, action: SelectStateAction) {
   let newState = state;
 
   switch (action.type) {
     case "TOGGLE_MENU_VISIBILITY":
-      newState = {...state, isMenuOpen: !state.isMenuOpen};
+      if (!state.isDisabled) {
+        newState = {...state, isMenuOpen: !state.isMenuOpen};
+      }
       break;
 
     case "SET_FOCUSED_OPTION_INDEX":
       newState = {...state, focusedOptionIndex: action.payload};
+      break;
+
+    case "SET_SELECT_STATE":
+      newState = {...state, ...action.payload};
       break;
 
     default:
@@ -33,4 +46,4 @@ const SelectContext = createContext({
 SelectContext.displayName = "SelectContext";
 
 export default SelectContext;
-export {selectStateReducer};
+export {selectStateReducer, initialSelectState};

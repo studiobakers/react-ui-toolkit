@@ -1,15 +1,16 @@
 .select-content {
-  width: max-content;
+  min-width: 100%;
 
   margin-top: 15px;
-  padding: 14px 0;
+  padding: 6px 0;
 
   background-color: white;
 
+  /* stylelint-disable-next-line color-no-hex */
   border: 1px solid #dfe3ef;
   border-radius: 6px;
 
-  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 
   visibility: hidden;
 

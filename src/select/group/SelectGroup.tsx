@@ -7,7 +7,10 @@ type SelectGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, "className"> 
 
 function SelectGroup({children, customClassName, ...props}: SelectGroupProps) {
   return (
-    <div className={classNames("select-group", customClassName)} {...props}>
+    <div
+      className={classNames("select-group", customClassName)}
+      role={"group"}
+      {...props}>
       {children}
     </div>
   );

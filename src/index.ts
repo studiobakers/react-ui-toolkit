@@ -28,12 +28,6 @@ import TypeaheadInput, {
 import TypeaheadSelect, {
   TypeaheadSelectProps as TypeaheadSelectComponentProps
 } from "./select/typeahead/TypeaheadSelect";
-import Dropdown, {DropdownProps as DropdownComponentProps} from "./dropdown/Dropdown";
-import {
-  DropdownOption as DropdownComponentOption,
-  DropdownOptionSelectHandler as DropdownOptionSelectComponentHandler,
-  DropdownSelectedOption as DropdownSelectedComponentOption
-} from "./dropdown/list/item/DropdownListItem";
 import List, {ListProps as ListComponentProps} from "./list/List";
 import ListItem, {ListItemProps as ListItemComponentProps} from "./list/item/ListItem";
 import Button, {ButtonProps as ButtonComponentProps} from "./button/Button";
@@ -68,7 +62,6 @@ export {
   RadioGroup,
   TypeaheadInput,
   TypeaheadSelect,
-  Dropdown,
   List,
   ListItem,
   Button,
@@ -110,19 +103,6 @@ export type RadioGroupProps<Id = string, Context = any> = RadioGroupComponentPro
 >;
 export type TypeaheadInputProps = TypeaheadInputComponentProps;
 export type TypeaheadSelectProps = TypeaheadSelectComponentProps;
-export type DropdownProps<OptionIdShape> = DropdownComponentProps<OptionIdShape>;
-export type DropdownOption<Id = string, Context = any> = DropdownComponentOption<
-  Id,
-  Context
->;
-export type DropdownOptionSelectHandler<
-  Id = string,
-  Context = any
-> = DropdownOptionSelectComponentHandler<Id, Context>;
-export type DropdownSelectedOption<
-  Id = string,
-  Context = any
-> = DropdownSelectedComponentOption<Id, Context>;
 export type ListProps<Item = any> = ListComponentProps<Item>;
 export type ButtonProps = ButtonComponentProps;
 export type FileUploadButtonProps = FileUploadButtonComponentProps;

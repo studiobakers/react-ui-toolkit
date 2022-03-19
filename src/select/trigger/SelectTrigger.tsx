@@ -1,17 +1,15 @@
-import "./_select-trigger.scss";
-
 import classNames from "classnames";
 import React from "react";
 
 import Button, {ButtonProps} from "../../button/Button";
 import useSelectContext from "../util/hook/useSelectContext";
 
-type SelectTriggerProps = ButtonProps;
+import "./_select-trigger.scss";
+
+type SelectTriggerProps = Omit<ButtonProps, "onClick">;
 
 function SelectTrigger({customClassName, children, ...otherProps}: SelectTriggerProps) {
-  const {selectState, dispatchSelectStateAction} = useSelectContext();
-
-  console.log(selectState);
+  const {dispatchSelectStateAction} = useSelectContext();
 
   return (
     <Button

@@ -1,16 +1,13 @@
 import {SelectProps, SelectState} from "./selectTypes";
 
-function generateInitialSelectState<IsMulti extends boolean>(
-  props: SelectProps<IsMulti>
-): SelectState<IsMulti> {
+function generateSelectStateFromProps(
+  state: SelectState,
+  props: Omit<SelectProps, "children" | "role">
+): SelectState {
   return {
-    focusedOptionIndex: 0,
-    isMenuOpen: false,
-    onSelect: props.onSelect,
-    options: props.options,
-    value: props.value,
-    isMultiSelect: props.isMultiSelect
+    ...state,
+    ...props
   };
 }
 
-export {generateInitialSelectState};
+export {generateSelectStateFromProps};

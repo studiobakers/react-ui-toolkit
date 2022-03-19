@@ -19,57 +19,32 @@ type OptionSelectHandler<Id = string, Context = any> = (
 type SelectedOption<Id = string, Context = any> = Option<Id, Context> | null | undefined;
 
 type SelectRole = "listbox" | "menu";
-
-// interface SelectState {
-//   options: Option[];
-//   onSelect: (option: Option) => void;
-//   isMultiSelect?: boolean;
-//   isMenuOpen: boolean;
-//   focusedOptionIndex: number;
-//   value: Option;
-//   // isMenuOpenHook?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-// }
-
-// TODO: isMenuOpen hook
-// type SelectProps = Omit<SelectState, "isMenuOpen" | "focusedOptionIndex"> & {
-//   children: React.ReactNode;
-//   role: SelectRole;
-//   areOptionsFetching?: boolean;
-//   customClassName?: string;
-//   isDisabled?: boolean;
-//   hasError?: boolean;
-//   // isMenuOpenHook?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-// };
-
-interface SelectState<IsMulti extends boolean = true> {
-  options: Option[];
-  onSelect: (option: Option) => void;
-  isMultiSelect?: boolean;
-  isMenuOpen: boolean;
-  focusedOptionIndex: number;
-  value: SelectValue<IsMulti>;
-  // isMenuOpenHook?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-}
-
-type SelectProps<IsMulti extends boolean> = {
+interface SelectProps {
   children: React.ReactNode;
   role: SelectRole;
   options: Option[];
-  value: SelectValue<IsMulti>;
-  isMultiSelect: IsMulti;
-  onSelect: (option: Option) => void;
+  value: SelectValue;
+  onSelect: OptionSelectHandler;
   hasError?: boolean;
   customClassName?: string;
   isDisabled?: boolean;
+  shouldCloseOnSelect?: boolean;
+}
+
+type SelectState = Pick<
+  SelectProps,
+  "options" | "hasError" | "isDisabled" | "onSelect" | "shouldCloseOnSelect" | "value"
+> & {
+  isMenuOpen: boolean;
+  focusedOptionIndex: number;
 };
 
-type SelectValue<IsMulti extends boolean> = IsMulti extends true
-  ? Option[]
-  : Option | null;
+type SelectValue = Option | Option[] | null;
 
 type SelectStateAction =
   | {type: "TOGGLE_MENU_VISIBILITY"}
-  | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number};
+  | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number}
+  | {type: "SET_SELECT_STATE"; payload: SelectState};
 
 export type {
   SelectState,
