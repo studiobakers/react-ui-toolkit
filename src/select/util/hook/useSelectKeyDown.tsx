@@ -10,7 +10,7 @@ import {SelectState, SelectStateAction} from "../selectTypes";
  * @returns {Object} - An object that contains select key down handler
  * @example
  * const {handleSelectKeyDown} = useSelectKeyDown(state, dispatch);
- * <Select
+ * <div
  *  onKeyDown={handleSelectKeyDown}
  *  ...
  * />
@@ -38,8 +38,6 @@ function useSelectKeyDown(
           if (isMenuOpen) {
             event.stopPropagation();
             event.preventDefault();
-
-            console.log("test");
 
             if (!options[focusedOptionIndex]?.isDisabled) {
               onSelect(options[focusedOptionIndex]);

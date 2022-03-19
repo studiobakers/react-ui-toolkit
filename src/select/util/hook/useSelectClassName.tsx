@@ -9,7 +9,7 @@ import {SelectState} from "../selectTypes";
  * @returns {string} - Select container className according to the provided state object
  * @example
  * const selectClassName = useSelectClassName(state, customClassName);
- * <Select className={selectClassName} ... />
+ * <div className={selectClassName} ... />
  */
 function useSelectClassName(state: SelectState, customClassName?: string) {
   const {isMenuOpen, value, hasError, isDisabled} = state;
