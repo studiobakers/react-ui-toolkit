@@ -14,13 +14,16 @@ function SelectTrigger({
   onClick,
   ...otherProps
 }: SelectTriggerProps) {
-  const {dispatchSelectStateAction} = useSelectContext();
+  const {
+    selectState: {role},
+    dispatchSelectStateAction
+  } = useSelectContext();
 
   //  TODO: Improve focus handling (automatically focus when menu is closed)
   return (
     <Button
       customClassName={classNames("select-trigger", customClassName)}
-      type={"button"}
+      aria-haspopup={role}
       onClick={handleClick}
       {...otherProps}>
       {children}

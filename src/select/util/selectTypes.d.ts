@@ -33,7 +33,13 @@ interface SelectProps {
 
 type SelectState = Pick<
   SelectProps,
-  "options" | "hasError" | "isDisabled" | "onSelect" | "shouldCloseOnSelect" | "value"
+  | "options"
+  | "hasError"
+  | "isDisabled"
+  | "onSelect"
+  | "shouldCloseOnSelect"
+  | "value"
+  | "role"
 > & {
   isMenuOpen: boolean;
   focusedOptionIndex: number;

@@ -10,7 +10,8 @@ const initialSelectState: SelectState = {
   value: null,
   options: [],
   onSelect: () => undefined,
-  shouldCloseOnSelect: true
+  shouldCloseOnSelect: true,
+  role: "listbox"
 };
 
 function selectStateReducer(state: SelectState, action: SelectStateAction) {

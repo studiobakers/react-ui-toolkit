@@ -43,14 +43,19 @@ function Select(props: SelectProps) {
         value,
         hasError,
         isDisabled,
-        shouldCloseOnSelect
+        shouldCloseOnSelect,
+        role
       })
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props]);
 
   return (
-    <div className={selectClassName} role={role} onKeyDown={handleSelectKeyDown}>
+    <div
+      className={selectClassName}
+      role={role}
+      onKeyDown={handleSelectKeyDown}
+      aria-multiselectable={Array.isArray(value)}>
       <SelectContext.Provider value={{selectState, dispatchSelectStateAction}}>
         {children}
       </SelectContext.Provider>

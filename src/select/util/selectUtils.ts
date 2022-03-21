@@ -2,7 +2,7 @@ import {SelectProps, SelectState} from "./selectTypes";
 
 function generateSelectStateFromProps(
   state: SelectState,
-  props: Omit<SelectProps, "children" | "role">
+  props: Omit<SelectProps, "children">
 ): SelectState {
   return {
     ...state,
