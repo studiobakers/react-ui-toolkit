@@ -15,7 +15,7 @@ function SelectTrigger({
   ...otherProps
 }: SelectTriggerProps) {
   const {
-    selectState: {role},
+    selectState: {role, isMenuOpen},
     dispatchSelectStateAction
   } = useSelectContext();
 
@@ -24,6 +24,7 @@ function SelectTrigger({
     <Button
       customClassName={classNames("select-trigger", customClassName)}
       aria-haspopup={role}
+      aria-expanded={isMenuOpen}
       onClick={handleClick}
       {...otherProps}>
       {children}
