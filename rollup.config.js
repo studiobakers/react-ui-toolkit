@@ -31,7 +31,6 @@ export default [
       Textarea: "src/form/textarea/Textarea.tsx",
       Toggle: "src/toggle/Toggle.tsx",
       Switch: "src/switch/Switch.tsx",
-      Countdown: "src/countdown/Countdown.tsx",
       ProgressBar: "src/progress-bar/ProgressBar.tsx",
       TimeInput: "src/form/time/TimeInput.tsx",
       DateTimer: "src/date-timer/DateTimer.tsx"
