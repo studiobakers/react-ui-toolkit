@@ -139,7 +139,7 @@ function TypeaheadSelect({
   );
 
   return (
-    // Add isMenuOpenHook when we have it
+    // TODO: Add isMenuOpenHook when we have it
     <Select
       role={"listbox"}
       onSelect={handleSelect}

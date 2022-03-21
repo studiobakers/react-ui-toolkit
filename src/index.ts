@@ -50,6 +50,13 @@ import {CountdownProps as CountdownComponentProps} from "../src/countdown/util/c
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
 import {useToastContext, useToaster} from "./toast/util/toastHooks";
 import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
+import Select from "./select/Select";
+import useSelectContext from "./select/util/hook/useSelectContext";
+import {SelectProps as SelectComponentProps} from "./select/util/selectTypes";
+import {SelectGroupProps as SelectGroupComponentProps} from "./select/group/SelectGroup";
+import {SelectTriggerProps as SelectTriggerComponentProps} from "./select/trigger/SelectTrigger";
+import {SelectContentProps as SelectContentComponentProps} from "./select/content/SelectContent";
+import {SelectItemProps as SelectItemComponentProps} from "./select/item/SelectItem";
 
 export {
   // Components
@@ -74,10 +81,12 @@ export {
   Toggle,
   Switch,
   Toast,
+  Select,
   // Hooks
   useToastContext,
   useToaster,
   useCountDownTimer,
+  useSelectContext,
   // Contexts
   ToastContext,
   ToastContextProvider
@@ -116,3 +125,8 @@ export type SwitchProps = SwitchComponentProps;
 export type CountdownProps = CountdownComponentProps;
 export type ListItemProps = ListItemComponentProps;
 export type ToastProps = ToastComponentProps;
+export type SelectProps = SelectComponentProps;
+export type SelectGroupProps = SelectGroupComponentProps;
+export type SelectTriggerProps = SelectTriggerComponentProps;
+export type SelectContentProps = SelectContentComponentProps;
+export type SelectItemProps = SelectItemComponentProps;

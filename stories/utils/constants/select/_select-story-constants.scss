@@ -1,0 +1,47 @@
+.dropdown-header {
+  margin-left: 16px;
+
+  color: black;
+}
+
+.select-story {
+  &__group__title {
+    padding: 8px 16px;
+
+    color: #6c6e76;
+  }
+
+  &__tag-list {
+    display: flex;
+    align-items: center;
+
+    margin: 0;
+
+    &__item {
+      &:not(:last-of-type) {
+        margin-right: 8px;
+      }
+    }
+  }
+}
+
+.coin-dropdown-option-custom-content {
+  display: grid;
+  grid-template-columns: 26px 52px 120px 34px;
+  gap: 18px;
+
+  span {
+    margin-top: 5px;
+  }
+
+  small {
+    margin-top: 7px;
+  }
+}
+
+.dropdown-context-icon {
+  width: 48px;
+  height: 48px;
+
+  margin-right: 16px;
+}

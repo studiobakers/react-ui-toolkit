@@ -6,7 +6,7 @@ import useSelectContext from "../util/hook/useSelectContext";
 
 import "./_select-trigger.scss";
 
-type SelectTriggerProps = Omit<ButtonProps, "type">;
+export type SelectTriggerProps = Omit<ButtonProps, "type">;
 
 function SelectTrigger({
   customClassName,

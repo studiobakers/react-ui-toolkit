@@ -6,7 +6,7 @@ import React, {useRef} from "react";
 import useSelectContext from "../util/hook/useSelectContext";
 import useOnClickOutside from "../../core/utils/hooks/useOnClickOutside";
 
-interface SelectContentProps {
+export interface SelectContentProps {
   children: React.ReactNode;
   customClassName?: string;
 }

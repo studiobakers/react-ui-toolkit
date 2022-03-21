@@ -16,8 +16,6 @@ type OptionSelectHandler<Id = string, Context = any> = (
   event?: React.SyntheticEvent<HTMLLIElement>
 ) => void;
 
-type SelectedOption<Id = string, Context = any> = Option<Id, Context> | null | undefined;
-
 type SelectRole = "listbox" | "menu";
 interface SelectProps {
   children: React.ReactNode;
@@ -57,7 +55,6 @@ export type {
   Option,
   SelectRole,
   OptionSelectHandler,
-  SelectedOption,
   SelectProps,
   SelectStateAction
 };

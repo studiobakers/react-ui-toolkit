@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import React from "react";
 
-type SelectGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, "className"> & {
+export type SelectGroupProps = Omit<React.HTMLAttributes<HTMLDivElement>, "className"> & {
   customClassName?: string;
 };
 

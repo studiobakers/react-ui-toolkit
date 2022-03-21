@@ -6,7 +6,7 @@ import React, {useLayoutEffect, useRef} from "react";
 import useSelectContext from "../util/hook/useSelectContext";
 import {Option} from "../util/selectTypes";
 
-interface SelectItemProps {
+export interface SelectItemProps {
   option: Option;
   children: React.ReactNode;
   customClassName?: string;
@@ -51,7 +51,7 @@ function SelectItem({option, children, customClassName, onKeyDown}: SelectItemPr
   );
 
   function handleClick() {
-    if (!isDisabled && !isSelected) {
+    if (!isDisabled) {
       onSelect(option);
       dispatchSelectStateAction({type: "SET_FOCUSED_OPTION_INDEX", payload: optionIndex});
 
