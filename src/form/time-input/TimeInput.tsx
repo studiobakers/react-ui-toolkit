@@ -4,19 +4,17 @@ import classNames from "classnames";
 import Input from "../input/Input";
 import {DATE_FORMAT} from "../../core/utils/time/timeConstants";
 import {formatDateWithOptions, parseTime} from "../../core/utils/time/timeUtils";
+import {InputProps} from "../input/util/inputTypes";
 
-export interface TimeInputProps {
-  testid: string;
+export type TimeInputProps = Omit<
+  InputProps,
+  "localizationOptions" | "onChange" | "value" | "type" | "name"
+> & {
   onChange: (timeString: string) => void;
   value: string;
   initialDateTime?: Date | null;
-  isDisabled?: boolean;
-  placeholder?: string;
   name?: string;
-  icon?: React.ReactNode;
-  hasError?: boolean;
-  customClassName?: string;
-}
+};
 
 const timeFormatter = formatDateWithOptions({
   format: DATE_FORMAT.LONG_TIME_FORMAT,
@@ -28,12 +26,10 @@ function TimeInput({
   initialDateTime,
   value,
   onChange,
-  isDisabled = false,
   placeholder = "03:30 PM",
-  name = "",
-  icon,
+  name = "TimeInput",
   customClassName,
-  hasError
+  ...rest
 }: TimeInputProps) {
   return (
     <Input
@@ -41,13 +37,11 @@ function TimeInput({
       testid={`${testid}.input`}
       customClassName={classNames("time-input", customClassName)}
       name={name}
-      value={initialDateTime ? timeFormatter(initialDateTime) : value}
+      value={value}
       placeholder={placeholder}
-      isDisabled={isDisabled}
       onChange={handleChange}
       onBlur={handleBlur}
-      hasError={hasError}
-      rightIcon={icon}
+      {...rest}
     />
   );
 
@@ -56,9 +50,13 @@ function TimeInput({
   }
 
   function handleBlur() {
-    const formattedTimeString = parseTime(value);
+    let finalTimeString = parseTime(value);
 
-    onChange(formattedTimeString);
+    if (initialDateTime && value.length < 1) {
+      finalTimeString = timeFormatter(initialDateTime);
+    }
+
+    onChange(finalTimeString);
   }
 }
 
