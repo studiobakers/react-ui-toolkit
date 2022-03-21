@@ -41,7 +41,7 @@ function SelectItem({option, children, customClassName, onKeyDown}: SelectItemPr
       ref={optionRef}
       className={selectItemClassName}
       role={"option"}
-      tabIndex={-1}
+      tabIndex={0}
       aria-selected={isSelected}
       onClick={handleClick}
       onKeyDown={handleSelectKeyDown}
