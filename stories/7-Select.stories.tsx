@@ -98,7 +98,7 @@ storiesOf("Select", module)
   ))
   .add("Select - Multi Select", () => (
     <Fragment>
-      <p>{"Single Select - Basic"}</p>
+      <p>{"Multi Select - Basic"}</p>
 
       <StateProvider initialState={initialState.multiSelect}>
         {(state, setState) => (
@@ -132,7 +132,7 @@ storiesOf("Select", module)
         )}
       </StateProvider>
 
-      <p>{"Single Select - With Tags"}</p>
+      <p>{"Multi Select - With Tags"}</p>
 
       <StateProvider initialState={initialState.multiSelect}>
         {(state, setState) => (
