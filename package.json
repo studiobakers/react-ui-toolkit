@@ -8,7 +8,7 @@
     "build": "npm run prettify && ./node_modules/.bin/rollup -c",
     "test": "./node_modules/.bin/jest",
     "test:watch": "npm t -- --watch",
-    "storybook": "./node_modules/.bin/start-storybook -p 6006 -s",
+    "storybook": "./node_modules/.bin/start-storybook -p 6006",
     "storybook:build": "./node_modules/.bin/build-storybook",
     "type-check": "echo \"type-checking...\" && ./node_modules/.bin/tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
