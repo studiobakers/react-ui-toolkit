@@ -52,7 +52,7 @@ Here is a simple example that shows how to customize `Button` and `Input`
 ### Storybook
 
 - To run Storybook `npm run storybook`
-- To generate Storybook build `npm run build-storybook`
+- To generate Storybook build `npm run storybook:build`
 
 ### Development
 
