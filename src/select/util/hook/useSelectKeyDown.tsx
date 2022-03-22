@@ -22,7 +22,7 @@ function useSelectKeyDown(
   const {isMenuOpen, options, focusedOptionIndex, onSelect, shouldCloseOnSelect} = state;
 
   const handleSelectKeyDown = useCallback(
-    (event: React.KeyboardEvent<HTMLDivElement | HTMLOptionElement>) => {
+    (event: React.KeyboardEvent<HTMLDivElement>) => {
       const {key} = event;
 
       switch (key) {
