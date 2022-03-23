@@ -18,7 +18,7 @@ import {generateSelectStateFromProps} from "./util/selectUtils";
 function Select(props: SelectProps) {
   const {
     children,
-    role = "menu",
+    role = "listbox",
     customClassName,
     onSelect,
     options,

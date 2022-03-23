@@ -22,7 +22,6 @@ function SelectItem({option, children, customClassName, onKeyDown}: SelectItemPr
     ? Boolean(value.find((currentOption) => currentOption.id === option.id))
     : value?.id === option.id;
   const isFocused = focusedOptionIndex === optionIndex;
-
   const selectItemClassName = classNames("select-item", customClassName, {
     "select-item--is-disabled": isDisabled,
     "select-item--is-selected": isSelected,

@@ -17,7 +17,6 @@ function SelectContent({children, customClassName}: SelectContentProps) {
     dispatchSelectStateAction
   } = useSelectContext();
   const selectContentRef = useRef(null);
-
   const selectContentClassName = classNames("select-content", customClassName, {
     "select-content--is-visible": isMenuOpen
   });
