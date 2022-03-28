@@ -111,33 +111,6 @@ function TypeaheadSelect({
     };
   }, [shouldFocusOnInput]);
 
-  const dropdownHeader = (
-    <TypeheadSelectTrigger
-      tags={shouldDisplaySelectedOptions ? tags : []}
-      handleTagRemove={handleRemove}
-      input={
-        !shouldDisplayOnlyTags && (
-          <TypeaheadInput
-            testid={`${testid}.search`}
-            customClassName={"typeahead-select__input"}
-            id={typeaheadProps.id}
-            name={typeaheadProps.name}
-            type={typeaheadProps.type}
-            placeholder={typeaheadProps.placeholder}
-            value={inputValue}
-            onQueryChange={handleKeywordChange}
-            onKeyDown={handleKeyDown}
-            rightIcon={
-              areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
-            }
-            onFocus={handleTypeaheadInputFocus}
-            isDisabled={isDisabled}
-          />
-        )
-      }
-    />
-  );
-
   return (
     // TODO: Add isMenuOpenHook when we have it
     <Select
@@ -148,7 +121,30 @@ function TypeaheadSelect({
       value={selectedOptions}
       isDisabled={isDisabled}
       shouldCloseOnSelect={shouldCloseOnSelect}>
-      {dropdownHeader}
+      <TypeheadSelectTrigger
+        tags={shouldDisplaySelectedOptions ? tags : []}
+        handleTagRemove={handleRemove}
+        input={
+          !shouldDisplayOnlyTags && (
+            <TypeaheadInput
+              testid={`${testid}.search`}
+              customClassName={"typeahead-select__input"}
+              id={typeaheadProps.id}
+              name={typeaheadProps.name}
+              type={typeaheadProps.type}
+              placeholder={typeaheadProps.placeholder}
+              value={inputValue}
+              onQueryChange={handleKeywordChange}
+              onKeyDown={handleKeyDown}
+              rightIcon={
+                areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
+              }
+              onFocus={handleTypeaheadInputFocus}
+              isDisabled={isDisabled}
+            />
+          )
+        }
+      />
 
       <Select.Content>
         {computedDropdownOptions.map((option) => (
