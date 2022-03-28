@@ -2,9 +2,7 @@ function generateRandomString(options?: {radix?: number; substringStartIndex?: n
   // eslint-disable-next-line no-magic-numbers
   const {radix = 36, substringStartIndex = 7} = options || {};
 
-  return Math.random()
-    .toString(radix)
-    .substring(substringStartIndex);
+  return Math.random().toString(radix).substring(substringStartIndex);
 }
 
 export {generateRandomString};

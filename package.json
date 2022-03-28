@@ -1,6 +1,6 @@
 {
   "name": "@hipo/react-ui-toolkit",
-  "version": "1.0.0-alpha.5.1.0",
+  "version": "1.0.0-beta",
   "description": "React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
     "test": "./node_modules/.bin/jest",
     "test:watch": "npm t -- --watch",
     "storybook": "./node_modules/.bin/start-storybook -p 6006",
-    "storybook:build": "./node_modules/.bin/build-storybook",
+    "storybook:build": "./node_modules/.bin/build-storybook -o ./public",
     "type-check": "echo \"type-checking...\" && ./node_modules/.bin/tsc --noEmit",
     "type-check:watch": "npm run type-check -- --watch",
     "eslint": "./node_modules/.bin/eslint --ext .jsx,.js,.tsx,.ts src/",
@@ -58,6 +58,7 @@
     "@types/react": "17.0.5",
     "@types/react-dom": "17.0.4",
     "@types/react-test-renderer": "17.0.1",
+    "@types/uuid": "8.3.4",
     "@typescript-eslint/eslint-plugin": "4.23.0",
     "@typescript-eslint/parser": "4.23.0",
     "axe-core": "4.2.0",
@@ -101,7 +102,8 @@
   },
   "dependencies": {
     "classnames": "2.3.1",
-    "react-textarea-autosize": "8.3.2"
+    "react-textarea-autosize": "8.3.2",
+    "uuid": "8.3.2"
   },
   "peerDependencies": {
     "react": "17.0.2",

@@ -3,7 +3,10 @@ import {storiesOf} from "@storybook/react";
 
 import List from "../src/list/List";
 import ListItem from "../src/list/item/ListItem";
-import {useState} from "@storybook/addons";
+import DescriptionTerm, {
+  DescriptionTermProps
+} from "../src/list/description-term/DescriptionTerm";
+import Button from "../src/button/Button";
 import StateProvider from "./utils/StateProvider";
 
 const users = [
@@ -24,6 +27,27 @@ const users = [
   }
 ];
 const emptyUsers = [];
+
+const terms: DescriptionTermProps[] = [
+  {
+    id: "1",
+    title: "Apple",
+    description:
+      "The round fruit of a tree of the rose family, which typically has thin green or red skin and crisp flesh."
+  },
+  {
+    id: "2",
+    title: "Orange",
+    description:
+      "A large round juicy citrus fruit with a tough bright reddish-yellow rind."
+  },
+  {
+    id: "3",
+    title: "Lemon",
+    description:
+      "A pale yellow oval citrus fruit with thick skin and fragrant, acidic juice"
+  }
+];
 
 const style = (
   <style>
@@ -103,6 +127,20 @@ function ClickableUserListItem({user}) {
   );
 }
 
+function RemovableUserListItem({user, onRemove}) {
+  return (
+    <ListItem>
+      <div style={{display: "flex", gap: "16px", alignItems: "center"}}>
+        {user.name}
+
+        <Button onClick={onRemove}>{"Remove"}</Button>
+      </div>
+
+      {style}
+    </ListItem>
+  );
+}
+
 storiesOf("List", module)
   .add("Has Items", () => (
     <Fragment>
@@ -143,4 +181,34 @@ storiesOf("List", module)
 
       {style}
     </Fragment>
+  ))
+  .add("Ordered List", () => (
+    <Fragment>
+      <List items={users} type={"ordered"}>
+        {(item) => <UserListItem user={item} />}
+      </List>
+
+      {style}
+    </Fragment>
+  ))
+  .add("Description List", () => (
+    <Fragment>
+      <List items={terms} type={"description"}>
+        {(item) => <DescriptionTerm title={item.title} description={item.description} />}
+      </List>
+    </Fragment>
+  ))
+  .add("Removable Items", () => (
+    <StateProvider initialState={users}>
+      {(state, setState) => (
+        <List items={state}>
+          {(user) => (
+            <RemovableUserListItem
+              user={user}
+              onRemove={() => setState(state.filter((item) => item.id !== user.id))}
+            />
+          )}
+        </List>
+      )}
+    </StateProvider>
   ));
