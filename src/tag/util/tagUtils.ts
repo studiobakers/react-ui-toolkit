@@ -1,7 +1,7 @@
-import {DropdownOption} from "./../../dropdown/list/item/DropdownListItem";
+import {Option} from "../../select/util/selectTypes";
 import {TagShape} from "../Tag";
 
-function mapDropdownOptionToTagShape(option: DropdownOption): TagShape<DropdownOption> {
+function mapDropdownOptionToTagShape(option: Option): TagShape<Option> {
   return {
     id: option.id,
     content: option.title,
@@ -9,7 +9,7 @@ function mapDropdownOptionToTagShape(option: DropdownOption): TagShape<DropdownO
   };
 }
 
-function mapDropdownOptionsToTagShapes(options: DropdownOption[]) {
+function mapDropdownOptionsToTagShapes(options: Option[]) {
   return options.map(mapDropdownOptionToTagShape);
 }
 

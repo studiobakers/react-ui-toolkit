@@ -1,54 +1,29 @@
 import "./_select.scss";
 
-import React, {useEffect, useReducer} from "react";
+import React, {useReducer} from "react";
 
 import SelectContent from "./content/SelectContent";
 import SelectGroup from "./group/SelectGroup";
 import SelectItem from "./item/SelectItem";
 import SelectTrigger from "./trigger/SelectTrigger";
 import SelectContext, {
-  initialSelectState,
+  initialSelectOwnState,
   selectStateReducer
 } from "./util/context/SelectContext";
 import useSelectClassName from "./util/hook/useSelectClassName";
 import useSelectKeyDown from "./util/hook/useSelectKeyDown";
 import {SelectProps} from "./util/selectTypes";
-import {generateSelectStateFromProps} from "./util/selectUtils";
+import {generateSelectState} from "./util/selectUtils";
 
 function Select(props: SelectProps) {
-  const {
-    children,
-    role = "listbox",
-    customClassName,
-    onSelect,
-    options,
-    value,
-    hasError = false,
-    isDisabled = false,
-    shouldCloseOnSelect = true
-  } = props;
-  const [selectState, dispatchSelectStateAction] = useReducer(
+  const {children, role = "listbox", customClassName, value} = props;
+  const [selectOwnState, dispatchSelectStateAction] = useReducer(
     selectStateReducer,
-    initialSelectState
+    initialSelectOwnState
   );
+  const selectState = generateSelectState(selectOwnState, props);
   const {handleSelectKeyDown} = useSelectKeyDown(selectState, dispatchSelectStateAction);
   const selectClassName = useSelectClassName(selectState, customClassName);
-
-  useEffect(() => {
-    dispatchSelectStateAction({
-      type: "SET_SELECT_STATE",
-      payload: generateSelectStateFromProps(selectState, {
-        onSelect,
-        options,
-        value,
-        hasError,
-        isDisabled,
-        shouldCloseOnSelect,
-        role
-      })
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [props]);
 
   return (
     <div

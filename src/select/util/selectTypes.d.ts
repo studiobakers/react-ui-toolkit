@@ -38,10 +38,13 @@ type SelectState = Pick<
   | "shouldCloseOnSelect"
   | "value"
   | "role"
-> & {
+> &
+  SelectOwnState;
+
+interface SelectOwnState {
   isMenuOpen: boolean;
   focusedOptionIndex: number;
-};
+}
 
 type SelectValue = Option | Option[] | null;
 
@@ -56,5 +59,6 @@ export type {
   SelectRole,
   OptionSelectHandler,
   SelectProps,
-  SelectStateAction
+  SelectStateAction,
+  SelectOwnState
 };

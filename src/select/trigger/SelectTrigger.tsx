@@ -15,7 +15,7 @@ function SelectTrigger({
   ...otherProps
 }: SelectTriggerProps) {
   const {
-    selectState: {role, isMenuOpen},
+    selectState: {role, isMenuOpen, isDisabled},
     dispatchSelectStateAction
   } = useSelectContext();
 
@@ -32,10 +32,12 @@ function SelectTrigger({
   );
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    dispatchSelectStateAction({type: "TOGGLE_MENU_VISIBILITY"});
+    if (!isDisabled) {
+      dispatchSelectStateAction({type: "TOGGLE_MENU_VISIBILITY"});
 
-    if (onClick) {
-      onClick(event);
+      if (onClick) {
+        onClick(event);
+      }
     }
   }
 }

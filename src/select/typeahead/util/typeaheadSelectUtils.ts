@@ -1,9 +1,6 @@
-import {DropdownOption} from "../../../dropdown/list/item/DropdownListItem";
+import {Option} from "../../util/selectTypes";
 
-function filterOptionsByKeyword(
-  options: DropdownOption[],
-  keyword: string
-): DropdownOption[] {
+function filterOptionsByKeyword(options: Option[], keyword: string): Option[] {
   let filteredOptions = options;
 
   if (keyword) {

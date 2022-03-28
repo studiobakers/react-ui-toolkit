@@ -1,4 +1,5 @@
-import {SelectProps, SelectState} from "./selectTypes";
+import {initialSelectState} from "./context/SelectContext";
+import {SelectOwnState, SelectProps, SelectState} from "./selectTypes";
 
 /**
  * Generates select state from provided props.
@@ -6,14 +7,15 @@ import {SelectProps, SelectState} from "./selectTypes";
  * @param props - The props passed to the select
  * @returns {SelectState} - The new state of the select
  */
-function generateSelectStateFromProps(
-  state: SelectState,
+function generateSelectState(
+  state: SelectOwnState,
   props: Omit<SelectProps, "children">
 ): SelectState {
   return {
-    ...state,
-    ...props
+    ...initialSelectState,
+    ...props,
+    ...state
   };
 }
 
-export {generateSelectStateFromProps};
+export {generateSelectState};
