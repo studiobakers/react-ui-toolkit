@@ -10,10 +10,20 @@ export interface SelectItemProps {
   option: Option;
   children: React.ReactNode;
   customClassName?: string;
-  onKeyDown?: (option: Option, event: React.KeyboardEvent<HTMLDivElement>) => void;
+  onKeyDown?: (
+    option: Option,
+    event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>
+  ) => void;
+  as?: keyof Pick<JSX.IntrinsicElements, "div" | "li">;
 }
 
-function SelectItem({option, children, customClassName, onKeyDown}: SelectItemProps) {
+function SelectItem({
+  option,
+  children,
+  customClassName,
+  onKeyDown,
+  as: WrapperElement = "div"
+}: SelectItemProps) {
   const {selectState, dispatchSelectStateAction} = useSelectContext();
   const {onSelect, value, focusedOptionIndex, options, shouldCloseOnSelect} = selectState;
   const {isDisabled} = option;
@@ -27,7 +37,7 @@ function SelectItem({option, children, customClassName, onKeyDown}: SelectItemPr
     "select-item--is-selected": isSelected,
     "select-item--is-focused": isFocused
   });
-  const optionRef = useRef<HTMLDivElement | null>(null);
+  const optionRef = useRef<(HTMLDivElement | HTMLLIElement) | null>(null);
 
   useLayoutEffect(() => {
     if (isFocused && optionRef.current) {
@@ -36,7 +46,8 @@ function SelectItem({option, children, customClassName, onKeyDown}: SelectItemPr
   }, [isFocused]);
 
   return (
-    <div
+    <WrapperElement
+      // @ts-ignore - we won't use align attribute so we can ignore this error
       ref={optionRef}
       className={selectItemClassName}
       role={"option"}
@@ -48,7 +59,7 @@ function SelectItem({option, children, customClassName, onKeyDown}: SelectItemPr
       onKeyDown={handleSelectKeyDown}
       onFocus={handleFocus}>
       {children}
-    </div>
+    </WrapperElement>
   );
 
   function handleClick() {
@@ -63,7 +74,9 @@ function SelectItem({option, children, customClassName, onKeyDown}: SelectItemPr
     }
   }
 
-  function handleSelectKeyDown(event: React.KeyboardEvent<HTMLDivElement>) {
+  function handleSelectKeyDown(
+    event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>
+  ) {
     if (onKeyDown) {
       onKeyDown(option, event);
     }

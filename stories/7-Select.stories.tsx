@@ -37,6 +37,34 @@ storiesOf("Select", module)
         )}
       </StateProvider>
 
+      <p>{"Single Select - Usage with <List />"}</p>
+      <StateProvider initialState={initialState.basic}>
+        {(state, setState) => (
+          <Select
+            role={"listbox"}
+            onSelect={(option) => setState({...state, selectedOption: option})}
+            value={state.selectedOption}
+            options={state.options}>
+            <Select.Trigger style={{justifyContent: "space-between"}}>
+              <div>
+                {state.selectedOption ? state.selectedOption.title : "Select Item"}
+              </div>
+
+              <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
+            </Select.Trigger>
+            <Select.Content>
+              <List items={state.options}>
+                {(option) => (
+                  <Select.Item option={option} as={"li"}>
+                    {option.title}
+                  </Select.Item>
+                )}
+              </List>
+            </Select.Content>
+          </Select>
+        )}
+      </StateProvider>
+
       <p>{"Single Select - Grouped"}</p>
       <StateProvider initialState={initialState.basic}>
         {(state, setState) => (
