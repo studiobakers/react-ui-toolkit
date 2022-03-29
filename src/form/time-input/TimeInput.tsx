@@ -5,6 +5,7 @@ import Input from "../input/Input";
 import {DATE_FORMAT} from "../../core/utils/time/timeConstants";
 import {formatDateWithOptions, parseTime} from "../../core/utils/time/timeUtils";
 import {InputProps} from "../input/util/inputTypes";
+import useDebounce from "../../core/utils/hooks/useDebounce";
 
 export type TimeInputProps = Omit<
   InputProps,
@@ -21,6 +22,8 @@ const timeFormatter = formatDateWithOptions({
   shouldShiftDateToCompensateForTimezone: false
 });
 
+const DEFAULT_DEBOUNCE_TIMEOUT = 100;
+
 function TimeInput({
   testid,
   initialDateTime,
@@ -31,13 +34,19 @@ function TimeInput({
   customClassName,
   ...rest
 }: TimeInputProps) {
+  const [inputValue, setInputValue] = useDebounce(
+    onChange,
+    initialDateTime ? timeFormatter(initialDateTime) : null,
+    DEFAULT_DEBOUNCE_TIMEOUT
+  );
+
   return (
     <Input
       type={"text"}
       testid={`${testid}.input`}
       customClassName={classNames("time-input", customClassName)}
       name={name}
-      value={value}
+      value={inputValue}
       placeholder={placeholder}
       onChange={handleChange}
       onBlur={handleBlur}
@@ -46,7 +55,7 @@ function TimeInput({
   );
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
-    onChange(event.currentTarget.value);
+    setInputValue(event.currentTarget.value);
   }
 
   function handleBlur() {
@@ -56,7 +65,7 @@ function TimeInput({
       finalTimeString = timeFormatter(initialDateTime);
     }
 
-    onChange(finalTimeString);
+    setInputValue(finalTimeString);
   }
 }
 

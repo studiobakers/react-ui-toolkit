@@ -78,9 +78,9 @@ function formatDateWithOptions(options: FormatDateUtilOptions) {
   return (date: Date): string => {
     let dateToFormat = date;
 
-    if (timeZone && isProvidedDateInUTC) {
-      dateToFormat = utcToZonedTime(date, timeZone);
-    } else if (!timeZone && shouldShiftDateToCompensateForTimezone) {
+    if (timeZone) {
+      if (isProvidedDateInUTC) dateToFormat = utcToZonedTime(date, timeZone);
+    } else if (shouldShiftDateToCompensateForTimezone) {
       dateToFormat = compansateForTimezone(date);
     }
 
