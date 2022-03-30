@@ -20,7 +20,6 @@ type SelectRole = "listbox" | "menu";
 interface SelectProps {
   children: React.ReactNode;
   role: SelectRole;
-  options: Option[];
   value: SelectValue;
   onSelect: OptionSelectHandler;
   hasError?: boolean;
@@ -31,19 +30,14 @@ interface SelectProps {
 
 type SelectState = Pick<
   SelectProps,
-  | "options"
-  | "hasError"
-  | "isDisabled"
-  | "onSelect"
-  | "shouldCloseOnSelect"
-  | "value"
-  | "role"
+  "hasError" | "isDisabled" | "onSelect" | "shouldCloseOnSelect" | "value" | "role"
 > &
   SelectOwnState;
 
 interface SelectOwnState {
   isMenuOpen: boolean;
   focusedOptionIndex: number;
+  options: Option[];
 }
 
 type SelectValue = Option | Option[] | null;
@@ -51,7 +45,7 @@ type SelectValue = Option | Option[] | null;
 type SelectStateAction =
   | {type: "TOGGLE_MENU_VISIBILITY"}
   | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number}
-  | {type: "SET_SELECT_STATE"; payload: SelectState};
+  | {type: "ADD_OPTION"; payload: Option};
 
 export type {
   SelectState,

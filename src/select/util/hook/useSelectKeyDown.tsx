@@ -19,7 +19,7 @@ function useSelectKeyDown(
   state: SelectState,
   dispatch: React.Dispatch<SelectStateAction>
 ) {
-  const {isMenuOpen, options, focusedOptionIndex, onSelect, shouldCloseOnSelect} = state;
+  const {isMenuOpen, focusedOptionIndex, onSelect, shouldCloseOnSelect, options} = state;
 
   const handleSelectKeyDown = useCallback(
     (event: React.KeyboardEvent<HTMLDivElement>) => {
@@ -98,7 +98,7 @@ function useSelectKeyDown(
           break;
       }
     },
-    [dispatch, focusedOptionIndex, isMenuOpen, onSelect, options, shouldCloseOnSelect]
+    [dispatch, focusedOptionIndex, isMenuOpen, options, onSelect, shouldCloseOnSelect]
   );
 
   return {handleSelectKeyDown};

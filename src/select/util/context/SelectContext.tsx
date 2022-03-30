@@ -4,14 +4,14 @@ import {SelectOwnState, SelectState, SelectStateAction} from "../selectTypes";
 
 const initialSelectOwnState: SelectOwnState = {
   focusedOptionIndex: 0,
-  isMenuOpen: false
+  isMenuOpen: false,
+  options: []
 };
 
 const initialSelectState: SelectState = {
   isDisabled: false,
   hasError: false,
   value: null,
-  options: [],
   onSelect: () => undefined,
   shouldCloseOnSelect: true,
   role: "listbox",
@@ -30,8 +30,8 @@ function selectStateReducer(state: SelectOwnState, action: SelectStateAction) {
       newState = {...state, focusedOptionIndex: action.payload};
       break;
 
-    case "SET_SELECT_STATE":
-      newState = {...state, ...action.payload};
+    case "ADD_OPTION":
+      newState = {...state, options: [...state.options, action.payload]};
       break;
 
     default:

@@ -1,7 +1,7 @@
 import "./_select-item.scss";
 
 import classNames from "classnames";
-import React, {useLayoutEffect, useRef} from "react";
+import React, {useEffect, useLayoutEffect, useRef} from "react";
 
 import useSelectContext from "../util/hook/useSelectContext";
 import {Option} from "../util/selectTypes";
@@ -25,7 +25,7 @@ function SelectItem({
   as: WrapperElement = "div"
 }: SelectItemProps) {
   const {selectState, dispatchSelectStateAction} = useSelectContext();
-  const {onSelect, value, focusedOptionIndex, options, shouldCloseOnSelect} = selectState;
+  const {onSelect, value, focusedOptionIndex, shouldCloseOnSelect, options} = selectState;
   const {isDisabled} = option;
   const optionIndex = options.findIndex((opt) => opt.id === option.id);
   const isSelected = Array.isArray(value)
@@ -44,6 +44,11 @@ function SelectItem({
       optionRef.current.focus();
     }
   }, [isFocused]);
+
+  useEffect(() => {
+    dispatchSelectStateAction({type: "ADD_OPTION", payload: option});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <WrapperElement

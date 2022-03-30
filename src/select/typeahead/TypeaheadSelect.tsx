@@ -116,7 +116,6 @@ function TypeaheadSelect({
     <Select
       role={"listbox"}
       onSelect={handleSelect}
-      options={filterOutItemsByKey(computedDropdownOptions, "id", selectedOptions)}
       customClassName={typeaheadSelectClassName}
       value={selectedOptions}
       isDisabled={isDisabled}
@@ -147,11 +146,13 @@ function TypeaheadSelect({
       />
 
       <Select.Content>
-        {computedDropdownOptions.map((option) => (
-          <Select.Item key={option.id} option={option}>
-            {option.title}
-          </Select.Item>
-        ))}
+        {filterOutItemsByKey(computedDropdownOptions, "id", selectedOptions).map(
+          (option) => (
+            <Select.Item key={option.id} option={option}>
+              {option.title}
+            </Select.Item>
+          )
+        )}
         {shouldShowEmptyOptions && !computedDropdownOptions.length && (
           <p
             data-testid={`${testid}.empty-message`}

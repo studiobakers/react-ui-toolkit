@@ -19,8 +19,7 @@ storiesOf("Select", module)
           <Select
             role={"listbox"}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-            options={state.options}>
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -43,8 +42,7 @@ storiesOf("Select", module)
           <Select
             role={"listbox"}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-            options={state.options}>
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -71,8 +69,7 @@ storiesOf("Select", module)
           <Select
             role={"listbox"}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-            options={state.options}>
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -105,8 +102,7 @@ storiesOf("Select", module)
           <Select
             role={"listbox"}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-            options={state.options}>
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -142,8 +138,7 @@ storiesOf("Select", module)
                     : [...state.value, option]
               })
             }
-            value={state.value}
-            options={state.options}>
+            value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.value.length ? `${state.value.length} selected` : "Select Items"}
@@ -176,8 +171,7 @@ storiesOf("Select", module)
                     : [...state.value, option]
               })
             }
-            value={state.value}
-            options={state.options}>
+            value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.value.length ? (
