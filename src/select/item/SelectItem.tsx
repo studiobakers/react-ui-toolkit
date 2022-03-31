@@ -4,16 +4,13 @@ import classNames from "classnames";
 import React, {useEffect, useLayoutEffect, useRef} from "react";
 
 import useSelectContext from "../util/hook/useSelectContext";
-import {Option} from "../util/selectTypes";
+import {Option, SelectItemElement} from "../util/selectTypes";
 
 export interface SelectItemProps {
   option: Option;
   children: React.ReactNode;
   customClassName?: string;
-  onKeyDown?: (
-    option: Option,
-    event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>
-  ) => void;
+  onKeyDown?: (option: Option, event: React.KeyboardEvent<SelectItemElement>) => void;
   as?: keyof Pick<JSX.IntrinsicElements, "div" | "li">;
 }
 
@@ -37,7 +34,7 @@ function SelectItem({
     "select-item--is-selected": isSelected,
     "select-item--is-focused": isFocused
   });
-  const optionRef = useRef<(HTMLDivElement | HTMLLIElement) | null>(null);
+  const optionRef = useRef<SelectItemElement | null>(null);
 
   useLayoutEffect(() => {
     if (isFocused && optionRef.current) {
@@ -79,9 +76,7 @@ function SelectItem({
     }
   }
 
-  function handleSelectKeyDown(
-    event: React.KeyboardEvent<HTMLDivElement | HTMLLIElement>
-  ) {
+  function handleSelectKeyDown(event: React.KeyboardEvent<SelectItemElement>) {
     if (onKeyDown) {
       onKeyDown(option, event);
     }

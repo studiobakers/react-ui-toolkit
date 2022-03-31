@@ -11,9 +11,11 @@ interface Option<Id = string, Context = any> {
   isDisabled?: boolean;
 }
 
+type SelectItemElement = HTMLLIElement | HTMLDivElement;
+
 type OptionSelectHandler<Id = string, Context = any> = (
   option: Option<Id, Context> | null,
-  event?: React.SyntheticEvent<HTMLLIElement>
+  event?: React.SyntheticEvent<SelectItemElement>
 ) => void;
 
 type SelectRole = "listbox" | "menu";
@@ -54,5 +56,6 @@ export type {
   OptionSelectHandler,
   SelectProps,
   SelectStateAction,
-  SelectOwnState
+  SelectOwnState,
+  SelectItemElement
 };
