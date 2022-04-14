@@ -28,6 +28,7 @@ interface SelectProps {
   customClassName?: string;
   isDisabled?: boolean;
   shouldCloseOnSelect?: boolean;
+  isMenuOpen?: boolean;
 }
 
 type SelectState = Pick<

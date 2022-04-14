@@ -7,15 +7,14 @@ import {SelectOwnState, SelectProps, SelectState} from "./selectTypes";
  * @param props - The props passed to the select
  * @returns {SelectState} - The new state of the select
  */
-function generateSelectState(
-  state: SelectOwnState,
-  props: Omit<SelectProps, "children">
-): SelectState {
-  return {
+function generateSelectState(state: SelectOwnState, props: SelectProps): SelectState {
+  const selectState: SelectState = {
     ...initialSelectState,
-    ...props,
-    ...state
+    ...state,
+    ...props
   };
+
+  return selectState;
 }
 
 export {generateSelectState};
