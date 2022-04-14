@@ -34,7 +34,8 @@ function useSelectKeyDown(
           break;
         }
 
-        case KEYBOARD_EVENT_KEY.ENTER: {
+        case KEYBOARD_EVENT_KEY.ENTER:
+        case KEYBOARD_EVENT_KEY.SPACE: {
           if (isMenuOpen) {
             event.stopPropagation();
             event.preventDefault();
