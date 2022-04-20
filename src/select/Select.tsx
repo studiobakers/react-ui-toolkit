@@ -14,6 +14,7 @@ import useSelectClassName from "./util/hook/useSelectClassName";
 import useSelectKeyDown from "./util/hook/useSelectKeyDown";
 import {SelectProps} from "./util/selectTypes";
 import {generateSelectState} from "./util/selectUtils";
+import SelectItemList from "./item-list/SelectItemList";
 
 function Select(props: SelectProps) {
   const {children, role = "listbox", customClassName, value} = props;
@@ -39,6 +40,7 @@ function Select(props: SelectProps) {
 }
 
 Select.Trigger = SelectTrigger;
+Select.ItemList = SelectItemList;
 Select.Item = SelectItem;
 Select.Content = SelectContent;
 Select.Group = SelectGroup;
