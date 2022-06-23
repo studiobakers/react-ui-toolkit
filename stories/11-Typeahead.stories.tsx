@@ -6,6 +6,7 @@ import StoryFragment from "./utils/StoryFragment";
 
 import FormField from "../src/form/field/FormField";
 import TypeaheadSelect from "../src/select/typeahead/TypeaheadSelect";
+import {TypeaheadSelectOption} from "../src/select/util/selectTypes";
 
 const simulateAPICall = (timeout = 1000) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
@@ -27,9 +28,9 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
       }
     ],
     thirdOptions: [],
-    selectedOptions: [],
-    secondSelectedOptions: [],
-    thirdSelectedOptions: [],
+    selectedOptions: [] as TypeaheadSelectOption[],
+    secondSelectedOptions: [] as TypeaheadSelectOption[],
+    thirdSelectedOptions: [] as TypeaheadSelectOption[],
     areOptionsFetching: false,
     keyword: ""
   };
@@ -49,10 +50,10 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
         title: "2021"
       }
     ],
-    thirdOptions: [],
-    selectedOptions: [],
-    secondSelectedOptions: [],
-    thirdSelectedOptions: [],
+    thirdOptions: [] as TypeaheadSelectOption[],
+    selectedOptions: [] as TypeaheadSelectOption[],
+    secondSelectedOptions: [] as TypeaheadSelectOption[],
+    thirdSelectedOptions: [] as TypeaheadSelectOption[],
     areOptionsFetching: false,
     keyword: ""
   };

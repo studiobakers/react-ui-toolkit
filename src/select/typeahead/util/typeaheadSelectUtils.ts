@@ -1,6 +1,9 @@
-import {Option} from "../../util/selectTypes";
+import {TypeaheadSelectOption} from "../../util/selectTypes";
 
-function filterOptionsByKeyword(options: Option[], keyword: string): Option[] {
+function filterOptionsByKeyword<T extends TypeaheadSelectOption = TypeaheadSelectOption>(
+  options: T[],
+  keyword: string
+): T[] {
   let filteredOptions = options;
 
   if (keyword) {

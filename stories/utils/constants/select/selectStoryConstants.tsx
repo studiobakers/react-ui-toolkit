@@ -1,5 +1,4 @@
 import React from "react";
-import {Option} from "../../../../src/select/util/selectTypes";
 
 function CoinDropdownOptionCustomContent({
   id,
@@ -43,7 +42,7 @@ const initialState = {
         isDisabled: true
       }
     ],
-    selectedOption: null
+    selectedOption: null as {id: string; isDisabled?: boolean; title: string} | null
   },
   multiSelect: {
     options: [
@@ -64,8 +63,8 @@ const initialState = {
         title: "French - Disabled",
         isDisabled: true
       }
-    ],
-    value: [] as Option[]
+    ] as {id: string; isDisabled?: boolean; title: string}[],
+    value: [] as {id: string; isDisabled?: boolean; title: string}[]
   },
   withSubtitle: {
     options: [
@@ -85,7 +84,7 @@ const initialState = {
         subtitle: "JavaScript"
       }
     ],
-    selectedOption: null
+    selectedOption: null as {id: string; isDisabled?: boolean; subtitle: string} | null
   },
   withCustomContent: {
     options: [
@@ -128,7 +127,11 @@ const initialState = {
         )
       }
     ],
-    selectedOption: null
+    selectedOption: null as {
+      id: string;
+      title?: string;
+      CustomContent: JSX.Element;
+    } | null
   }
 };
 

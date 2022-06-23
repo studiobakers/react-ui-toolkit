@@ -6,22 +6,28 @@ import classNames from "classnames";
 import TypeaheadInput, {
   TypeaheadInputProps
 } from "../../form/input/typeahead/TypeaheadInput";
-import {mapDropdownOptionsToTagShapes} from "../../tag/util/tagUtils";
+import {mapOptionsToTagShapes} from "../../tag/util/tagUtils";
 import {TagShape} from "../../tag/Tag";
 import {filterOptionsByKeyword} from "./util/typeaheadSelectUtils";
 import {filterOutItemsByKey} from "../../core/utils/array/arrayUtils";
 import Spinner from "../../spinner/Spinner";
 import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
-import {Option} from "../util/selectTypes";
+import {
+  Option,
+  TypeaheadSelectOption,
+  TypeaheadSelectOptionSelectHandler
+} from "../util/selectTypes";
 import Select from "../Select";
 import TypeheadSelectTrigger from "./trigger/TypeheadSelectTrigger";
 
 import "./_typeahead-select.scss";
 
-export interface TypeaheadSelectProps {
-  selectedOptions: Option[];
-  options: Option[];
-  onSelect: (option: Option) => void;
+export interface TypeaheadSelectProps<
+  T extends TypeaheadSelectOption = TypeaheadSelectOption
+> {
+  selectedOptions: T[];
+  options: T[];
+  onSelect: TypeaheadSelectOptionSelectHandler<T>;
   typeaheadProps: Pick<
     TypeaheadInputProps,
     "id" | "placeholder" | "name" | "onFocus" | "type"
@@ -43,7 +49,7 @@ export interface TypeaheadSelectProps {
 }
 
 /* eslint-disable complexity */
-function TypeaheadSelect({
+function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption>({
   testid,
   options,
   selectedOptions,
@@ -62,7 +68,7 @@ function TypeaheadSelect({
   customSpinner,
   initialKeyword = "",
   controlledKeyword
-}: TypeaheadSelectProps) {
+}: TypeaheadSelectProps<T>) {
   const typeaheadInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isMenuOpen, setMenuVisibility] = useState(false);
@@ -71,7 +77,7 @@ function TypeaheadSelect({
   const [keyword, setKeyword] = useState(initialKeyword);
   const inputValue = typeof controlledKeyword === "string" ? controlledKeyword : keyword;
 
-  const tags = mapDropdownOptionsToTagShapes(selectedOptions);
+  const tags = mapOptionsToTagShapes(selectedOptions);
   const shouldDisplayOnlyTags = Boolean(
     selectedOptionLimit && selectedOptions.length >= selectedOptionLimit
   );
@@ -178,7 +184,7 @@ function TypeaheadSelect({
     }
   }
 
-  function handleSelect(option: Option | null) {
+  function handleSelect(option: T) {
     if (!shouldDisplayOnlyTags && !isDisabled) {
       onSelect(option!);
       setComputedDropdownOptions(options);

@@ -4,23 +4,23 @@ import classNames from "classnames";
 import React, {useEffect, useLayoutEffect, useRef} from "react";
 
 import useSelectContext from "../util/hook/useSelectContext";
-import {Option, SelectItemElement} from "../util/selectTypes";
+import {SelectItemElement, Option} from "../util/selectTypes";
 
-export interface SelectItemProps {
-  option: Option;
+export interface SelectItemProps<T extends Option = Option> {
+  option: T;
   children: React.ReactNode;
   customClassName?: string;
-  onKeyDown?: (option: Option, event: React.KeyboardEvent<SelectItemElement>) => void;
+  onKeyDown?: (option: T, event: React.KeyboardEvent<SelectItemElement>) => void;
   as?: keyof Pick<JSX.IntrinsicElements, "div" | "li">;
 }
 
-function SelectItem({
+function SelectItem<T extends Option = Option>({
   option,
   children,
   customClassName,
   onKeyDown,
   as: WrapperElement = "div"
-}: SelectItemProps) {
+}: SelectItemProps<T>) {
   const {selectState, dispatchSelectStateAction} = useSelectContext();
   const {onSelect, value, focusedOptionIndex, shouldCloseOnSelect, options} = selectState;
   const {isDisabled} = option;

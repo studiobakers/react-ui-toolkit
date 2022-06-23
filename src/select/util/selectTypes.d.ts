@@ -1,29 +1,31 @@
 import React from "react";
 
-interface Option<Id = string, Context = any> {
-  id: Id;
-  title: string;
-  customClassName?: string;
-  CustomContent?: JSX.Element;
-  icon?: React.ReactNode;
-  subtitle?: string;
-  context?: Context;
+interface Option {
+  id: string;
   isDisabled?: boolean;
+}
+
+interface TypeaheadSelectOption extends Option {
+  title: string;
 }
 
 type SelectItemElement = HTMLLIElement | HTMLDivElement;
 
-type OptionSelectHandler<Id = string, Context = any> = (
-  option: Option<Id, Context> | null,
+type OptionSelectHandler<T extends Option = Option> = (
+  option: T,
   event?: React.SyntheticEvent<SelectItemElement>
 ) => void;
 
+type TypeaheadSelectOptionSelectHandler<
+  T extends TypeaheadSelectOption = TypeaheadSelectOption
+> = (option: T, event?: React.SyntheticEvent<SelectItemElement>) => void;
+
 type SelectRole = "listbox" | "menu";
-interface SelectProps {
+interface SelectProps<T extends Option = Option> {
   children: React.ReactNode;
   role: SelectRole;
-  value: SelectValue;
-  onSelect: OptionSelectHandler;
+  value: SelectValue<T>;
+  onSelect: OptionSelectHandler<T>;
   hasError?: boolean;
   customClassName?: string;
   isDisabled?: boolean;
@@ -43,12 +45,12 @@ interface SelectOwnState {
   options: Option[];
 }
 
-type SelectValue = Option | Option[] | null;
+type SelectValue<T extends Option> = T | T[] | null;
 
-type SelectStateAction =
+type SelectStateAction<T extends Option = Option> =
   | {type: "TOGGLE_MENU_VISIBILITY"}
   | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number}
-  | {type: "ADD_OPTION"; payload: Option};
+  | {type: "ADD_OPTION"; payload: T};
 
 export type {
   SelectState,
@@ -58,5 +60,7 @@ export type {
   SelectProps,
   SelectStateAction,
   SelectOwnState,
-  SelectItemElement
+  SelectItemElement,
+  TypeaheadSelectOption,
+  TypeaheadSelectOptionSelectHandler
 };

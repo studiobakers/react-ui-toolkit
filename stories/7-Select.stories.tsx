@@ -9,6 +9,7 @@ import {initialState} from "./utils/constants/select/selectStoryConstants";
 import List from "../src/list/List";
 import ListItem from "../src/list/item/ListItem";
 import Tag from "../src/tag/Tag";
+import {handleMultiSelect} from "./utils/selectStoryUtils";
 
 storiesOf("Select", module)
   .add("Select - Single Select", () => (
@@ -78,7 +79,10 @@ storiesOf("Select", module)
               <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
             </Select.Trigger>
             <Select.Content>
-              <Select.ItemList options={state.options} />
+              <Select.ItemList
+                contentRenderer={(option) => option.title}
+                options={state.options}
+              />
             </Select.Content>
           </Select>
         )}
@@ -102,7 +106,7 @@ storiesOf("Select", module)
               <Select.Group>
                 <div className={"select-story__group__title"}>{"Group 1"}</div>
                 {state.options.slice(0, 2).map((option) => (
-                  <Select.Item option={option}>{option.title}</Select.Item>
+                  <Select.Item option={{id: "2", title: ""}}>{option.title}</Select.Item>
                 ))}
               </Select.Group>
 
@@ -150,16 +154,7 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
-            onSelect={(option) =>
-              setState({
-                ...state,
-                value:
-                  state.value.findIndex((optionValue) => optionValue.id === option.id) >
-                  -1
-                    ? state.value.filter((optionValue) => optionValue.id !== option.id)
-                    : [...state.value, option]
-              })
-            }
+            onSelect={(option) => handleMultiSelect(state, setState, option)}
             value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
@@ -183,16 +178,7 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
-            onSelect={(option) =>
-              setState({
-                ...state,
-                value:
-                  state.value.findIndex((optionValue) => optionValue.id === option.id) >
-                  -1
-                    ? state.value.filter((optionValue) => optionValue.id !== option.id)
-                    : [...state.value, option]
-              })
-            }
+            onSelect={(option) => handleMultiSelect(state, setState, option)}
             value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>

@@ -12,11 +12,11 @@ import SelectContext, {
 } from "./util/context/SelectContext";
 import useSelectClassName from "./util/hook/useSelectClassName";
 import useSelectKeyDown from "./util/hook/useSelectKeyDown";
-import {SelectProps} from "./util/selectTypes";
+import {Option, SelectProps} from "./util/selectTypes";
 import {generateSelectState} from "./util/selectUtils";
 import SelectItemList from "./item-list/SelectItemList";
 
-function Select(props: SelectProps) {
+function Select<T extends Option = Option>(props: SelectProps<T>) {
   const {children, role = "listbox", customClassName, value} = props;
   const [selectOwnState, dispatchSelectStateAction] = useReducer(
     selectStateReducer,

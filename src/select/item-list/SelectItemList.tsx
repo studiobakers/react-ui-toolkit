@@ -5,15 +5,20 @@ import {Option} from "../util/selectTypes";
 import List from "../../list/List";
 import Select from "../Select";
 
-export interface SelectItemListProps {
-  options: Option[];
+export interface SelectItemListProps<T extends Option = Option> {
+  options: T[];
   customClassName?: string;
+  contentRenderer: (option: T) => React.ReactNode;
 }
 
 /**
  * @returns a `List` of `Select.Item`s for the given options
  */
-function SelectItemList({options, customClassName}: SelectItemListProps) {
+function SelectItemList<T extends Option = Option>({
+  options,
+  customClassName,
+  contentRenderer
+}: SelectItemListProps<T>) {
   return (
     <List
       items={options}
@@ -24,7 +29,7 @@ function SelectItemList({options, customClassName}: SelectItemListProps) {
           as={"li"}
           option={option}
           customClassName={"select-item-list__item"}>
-          {option.title}
+          {contentRenderer(option)}
         </Select.Item>
       )}
     </List>
