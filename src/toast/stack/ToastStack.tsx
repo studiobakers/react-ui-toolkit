@@ -5,14 +5,14 @@ import ReactDOM from "react-dom";
 
 import List from "../../list/List";
 import Toast from "../Toast";
-import {useToastContext} from "../util/toastHooks";
+import {useToastState} from "../util/toastHooks";
 
 interface ToastStackProps {
   customRootId?: string;
 }
 
 function ToastStack({customRootId}: ToastStackProps) {
-  const [state] = useToastContext();
+  const state = useToastState();
   const [rootNode, setRootNode] = useState<null | Element>(null);
 
   useLayoutEffect(() => {

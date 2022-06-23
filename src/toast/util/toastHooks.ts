@@ -2,27 +2,24 @@ import {useCallback, useContext} from "react";
 
 import {generateRandomString} from "../../core/utils/string/stringUtils";
 import {ToastItemContext} from "../ToastItemContext";
-import {ToastContext} from "../ToastProvider";
-import {ToastData} from "./toastTypes";
+import {ToastDispatchContext, ToastStateContext} from "../ToastProvider";
+import {ToastContextState, ToastData} from "./toastTypes";
 
 /**
- * @returns {Object} Current value of ToastContext
+ * @returns {Object} Current value of ToastContextState
  */
-function useToastContext() {
-  const context = useContext(ToastContext);
+function useToastState(): ToastContextState {
+  const state = useContext(ToastStateContext);
 
-  if (!context) {
+  if (!state) {
     throw new Error("Trying to consume ToastContext outside of its provider.");
   }
 
-  return context;
+  return state;
 }
 
-/**
- * @returns {function} ToastContext's state reducer's dispatch function
- */
 function useToaster() {
-  const dispatch = useToastContext()[1];
+  const dispatch = useContext(ToastDispatchContext);
 
   return {
     /**
@@ -91,4 +88,4 @@ function useToastItemContext() {
   return toastStoryContext;
 }
 
-export {useToastContext, useToaster, useToastItemContext};
+export {useToastState, useToaster, useToastItemContext};
