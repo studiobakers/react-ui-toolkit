@@ -8,11 +8,11 @@ import {ToastContextState, ToastData} from "./toastTypes";
 /**
  * @returns {Object} Current value of ToastContextState
  */
-function useToastState(): ToastContextState {
+function useToastContextState(): ToastContextState {
   const state = useContext(ToastStateContext);
 
   if (!state) {
-    throw new Error("Trying to consume ToastContext outside of its provider.");
+    throw new Error("Trying to consume ToastStateContext outside of its provider.");
   }
 
   return state;
@@ -79,13 +79,13 @@ function useToaster() {
 }
 
 function useToastItemContext() {
-  const toastStoryContext = useContext(ToastItemContext);
+  const toastItemContext = useContext(ToastItemContext);
 
-  if (!toastStoryContext) {
+  if (!toastItemContext) {
     throw new Error("Trying to consume ToastItemContext outside of its provider");
   }
 
-  return toastStoryContext;
+  return toastItemContext;
 }
 
-export {useToastState, useToaster, useToastItemContext};
+export {useToastContextState, useToaster, useToastItemContext};

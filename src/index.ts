@@ -57,7 +57,7 @@ import ProgressBar, {
 } from "./progress-bar/ProgressBar";
 import {DateTimerProps as DateTimerComponentProps} from "./date-timer/util/dateTimerTypes";
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
-import {useToastState, useToaster} from "./toast/util/toastHooks";
+import {useToastContextState, useToaster} from "./toast/util/toastHooks";
 import {
   ToastDispatchContext,
   ToastStateContext,
@@ -90,7 +90,7 @@ export {
   Switch,
   Toast,
   // Hooks
-  useToastState,
+  useToastContextState,
   useToaster,
   useDateTimer,
   // Contexts
