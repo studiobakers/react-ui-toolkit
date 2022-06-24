@@ -21,6 +21,10 @@ function useToastContextState(): ToastContextState {
 function useToaster() {
   const dispatch = useContext(ToastDispatchContext);
 
+  if (!dispatch) {
+    throw new Error("Trying to consume ToastDispatchContext outside of its provider");
+  }
+
   return {
     /**
      * Display a Toast

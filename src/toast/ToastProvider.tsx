@@ -6,8 +6,8 @@ import toastReducer from "./util/toastReducer";
 import {ToastAction, ToastContextState} from "./util/toastTypes";
 import {isNonNegativeNumber} from "../core/utils/number/numberUtils";
 
-const ToastStateContext = createContext<ToastContextState>(initialToastState);
-const ToastDispatchContext = createContext<React.Dispatch<ToastAction>>(() => undefined);
+const ToastStateContext = createContext<null | ToastContextState>(null);
+const ToastDispatchContext = createContext<null | React.Dispatch<ToastAction>>(null);
 
 ToastDispatchContext.displayName = "ToastDispatchContext";
 ToastStateContext.displayName = "ToastStateContext";
