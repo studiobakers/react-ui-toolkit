@@ -23,7 +23,12 @@ function selectStateReducer(state: SelectOwnState, action: SelectStateAction) {
 
   switch (action.type) {
     case "TOGGLE_MENU_VISIBILITY":
-      newState = {...state, isMenuOpen: !state.isMenuOpen};
+      newState = {
+        ...state,
+        isMenuOpen: !state.isMenuOpen,
+        //  Moves focus to select trigger when menu closed and first option when menu opened
+        focusedOptionIndex: state.isMenuOpen ? -1 : 0
+      };
       break;
 
     case "SET_FOCUSED_OPTION_INDEX":

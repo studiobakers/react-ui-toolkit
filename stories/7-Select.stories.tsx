@@ -106,7 +106,7 @@ storiesOf("Select", module)
               <Select.Group>
                 <div className={"select-story__group__title"}>{"Group 1"}</div>
                 {state.options.slice(0, 2).map((option) => (
-                  <Select.Item option={{id: "2", title: ""}}>{option.title}</Select.Item>
+                  <Select.Item option={option}>{option.title}</Select.Item>
                 ))}
               </Select.Group>
 

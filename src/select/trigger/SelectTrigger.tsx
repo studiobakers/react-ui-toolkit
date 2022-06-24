@@ -1,7 +1,8 @@
 import classNames from "classnames";
-import React from "react";
+import React, {useEffect, useRef} from "react";
 
 import Button, {ButtonProps} from "../../button/Button";
+import useCombinedRefs from "../../core/utils/hooks/useCombinedRefs";
 import useSelectContext from "../util/hook/useSelectContext";
 
 import "./_select-trigger.scss";
@@ -15,14 +16,21 @@ const SelectTrigger = React.forwardRef<HTMLButtonElement, SelectTriggerProps>(
     ref?: React.ForwardedRef<HTMLButtonElement>
   ) {
     const {
-      selectState: {role, isMenuOpen, isDisabled},
+      selectState: {role, isMenuOpen, isDisabled, focusedOptionIndex},
       dispatchSelectStateAction
     } = useSelectContext();
+    const innerRef = useRef<HTMLButtonElement | null>(null);
+    const selectTriggerRef = useCombinedRefs(ref || null, innerRef);
 
-    //  TODO: Improve focus handling (automatically focus when menu is closed)
+    useEffect(() => {
+      if (focusedOptionIndex === -1) {
+        selectTriggerRef.current?.focus();
+      }
+    }, [focusedOptionIndex, selectTriggerRef]);
+
     return (
       <Button
-        ref={ref}
+        ref={selectTriggerRef}
         customClassName={classNames("select-trigger", customClassName)}
         aria-haspopup={role}
         aria-expanded={isMenuOpen}

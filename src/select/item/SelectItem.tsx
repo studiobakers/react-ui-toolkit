@@ -87,7 +87,6 @@ const SelectItem = React.forwardRef<SelectItemElement, SelectItemProps>(
 
         if (shouldCloseOnSelect) {
           dispatchSelectStateAction({type: "TOGGLE_MENU_VISIBILITY"});
-          dispatchSelectStateAction({type: "SET_FOCUSED_OPTION_INDEX", payload: 0});
         }
       }
     }
