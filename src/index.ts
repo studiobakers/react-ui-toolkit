@@ -60,8 +60,12 @@ import TimeInput, {
 } from "./form/time-input/TimeInput";
 import {DateTimerProps as DateTimerComponentProps} from "./date-timer/util/dateTimerTypes";
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
-import {useToastContext, useToaster} from "./toast/util/toastHooks";
-import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
+import {useToastContextState, useToaster} from "./toast/util/toastHooks";
+import {
+  ToastDispatchContext,
+  ToastStateContext,
+  ToastContextProvider
+} from "./toast/ToastProvider";
 
 export {
   // Components
@@ -90,11 +94,12 @@ export {
   Switch,
   Toast,
   // Hooks
-  useToastContext,
+  useToastContextState,
   useToaster,
   useDateTimer,
   // Contexts
-  ToastContext,
+  ToastDispatchContext,
+  ToastStateContext,
   ToastContextProvider
 };
 
