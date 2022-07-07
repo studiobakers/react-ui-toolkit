@@ -15,10 +15,10 @@ import useSelectContext from "../util/hook/useSelectContext";
 import {SelectItemElement, Option} from "../util/selectTypes";
 
 export interface SelectItemProps<T extends Option = Option> {
-  option: T;
+  option: T | null;
   children: React.ReactNode;
   customClassName?: string;
-  onKeyDown?: (option: T, event: React.KeyboardEvent<SelectItemElement>) => void;
+  onKeyDown?: (option: T | null, event: React.KeyboardEvent<SelectItemElement>) => void;
   as?: keyof Pick<JSX.IntrinsicElements, "div" | "li">;
 }
 
@@ -34,14 +34,13 @@ function SelectItemComponent<T extends Option = Option>(
 ) {
   const {selectState, dispatchSelectStateAction} = useSelectContext();
   const {onSelect, value, focusedOptionIndex, shouldCloseOnSelect, options} = selectState;
-  const {isDisabled} = option;
-  const optionIndex = options.findIndex((opt) => opt.id === option.id);
+  const optionIndex = options.findIndex((opt) => opt?.id === option?.id);
   const isSelected = Array.isArray(value)
-    ? Boolean(value.find((currentOption) => currentOption.id === option.id))
-    : value?.id === option.id;
+    ? Boolean(value.find((currentOption) => currentOption.id === option?.id))
+    : value?.id === option?.id;
   const isFocused = focusedOptionIndex === optionIndex;
   const selectItemClassName = classNames("select-item", customClassName, {
-    "select-item--is-disabled": isDisabled,
+    "select-item--is-disabled": option?.isDisabled,
     "select-item--is-selected": isSelected,
     "select-item--is-focused": isFocused
   });
@@ -70,8 +69,8 @@ function SelectItemComponent<T extends Option = Option>(
       ref={optionRef}
       className={selectItemClassName}
       role={"option"}
-      id={option.id}
-      tabIndex={isDisabled ? -1 : 0}
+      id={option?.id}
+      tabIndex={option?.isDisabled ? -1 : 0}
       aria-selected={isSelected}
       onClick={handleClick}
       onMouseEnter={handleFocus}
@@ -82,7 +81,7 @@ function SelectItemComponent<T extends Option = Option>(
   );
 
   function handleClick() {
-    if (!isDisabled) {
+    if (!option?.isDisabled) {
       onSelect(option);
       dispatchSelectStateAction({
         type: "SET_FOCUSED_OPTION_INDEX",

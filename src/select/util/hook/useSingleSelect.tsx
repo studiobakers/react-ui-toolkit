@@ -12,7 +12,7 @@ import {Option} from "../selectTypes";
 function useSingleSelect<T extends Option = Option>(initialValue?: T) {
   const [value, setValue] = useState<null | T>(initialValue || null);
 
-  const handleSelect = useCallback((option: T) => {
+  const handleSelect = useCallback((option: T | null) => {
     setValue(option);
   }, []);
 

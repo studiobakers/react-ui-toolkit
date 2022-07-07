@@ -12,7 +12,7 @@ interface TypeaheadSelectOption extends Option {
 type SelectItemElement = HTMLLIElement | HTMLDivElement;
 
 type OptionSelectHandler<T extends Option = Option> = (
-  option: T,
+  option: T | null,
   event?: React.SyntheticEvent<SelectItemElement>
 ) => void;
 
@@ -42,7 +42,7 @@ type SelectState = Pick<
 interface SelectOwnState {
   isMenuOpen: boolean;
   focusedOptionIndex: number;
-  options: Option[];
+  options: (Option | null)[];
 }
 
 type SelectValue<T extends Option> = T | T[] | null;
@@ -50,7 +50,7 @@ type SelectValue<T extends Option> = T | T[] | null;
 type SelectStateAction<T extends Option = Option> =
   | {type: "TOGGLE_MENU_VISIBILITY"}
   | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number}
-  | {type: "ADD_OPTION"; payload: T};
+  | {type: "ADD_OPTION"; payload: T | null};
 
 export type {
   SelectState,
