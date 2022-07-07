@@ -60,6 +60,8 @@ import {SelectGroupProps as SelectGroupComponentProps} from "./select/group/Sele
 import {SelectTriggerProps as SelectTriggerComponentProps} from "./select/trigger/SelectTrigger";
 import {SelectContentProps as SelectContentComponentProps} from "./select/content/SelectContent";
 import {SelectItemProps as SelectItemComponentProps} from "./select/item/SelectItem";
+import useSingleSelect from "./select/util/hook/useSingleSelect";
+import useMultiSelect from "./select/util/hook/useMultiSelect";
 
 export {
   // Components
@@ -90,6 +92,8 @@ export {
   useToastContext,
   useToaster,
   useSelectContext,
+  useSingleSelect,
+  useMultiSelect,
   useDateTimer,
   // Contexts
   ToastContext,
