@@ -18,7 +18,7 @@ type OptionSelectHandler<T extends Option = Option> = (
 
 type TypeaheadSelectOptionSelectHandler<
   T extends TypeaheadSelectOption = TypeaheadSelectOption
-> = (option: T, event?: React.SyntheticEvent<SelectItemElement>) => void;
+> = (option: T | null, event?: React.SyntheticEvent<SelectItemElement>) => void;
 
 type SelectRole = "listbox" | "menu";
 interface SelectProps<T extends Option = Option> {
