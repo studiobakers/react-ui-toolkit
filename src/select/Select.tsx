@@ -1,6 +1,6 @@
 import "./_select.scss";
 
-import React, {useReducer} from "react";
+import React, {ForwardedRef, forwardRef, Ref, useReducer} from "react";
 
 import SelectContent from "./content/SelectContent";
 import SelectGroup from "./group/SelectGroup";
@@ -16,7 +16,10 @@ import {Option, SelectProps} from "./util/selectTypes";
 import {generateSelectState} from "./util/selectUtils";
 import SelectItemList from "./item-list/SelectItemList";
 
-function Select<T extends Option = Option>(props: SelectProps<T>) {
+function SelectComponent<T extends Option = Option>(
+  props: SelectProps<T>,
+  ref?: ForwardedRef<HTMLDivElement>
+) {
   const {children, role = "listbox", customClassName, value} = props;
   const [selectOwnState, dispatchSelectStateAction] = useReducer(
     selectStateReducer,
@@ -28,6 +31,7 @@ function Select<T extends Option = Option>(props: SelectProps<T>) {
 
   return (
     <div
+      ref={ref}
       className={selectClassName}
       role={role}
       onKeyDown={handleSelectKeyDown}
@@ -39,10 +43,20 @@ function Select<T extends Option = Option>(props: SelectProps<T>) {
   );
 }
 
-Select.Trigger = SelectTrigger;
-Select.ItemList = SelectItemList;
-Select.Item = SelectItem;
-Select.Content = SelectContent;
-Select.Group = SelectGroup;
+const Select = Object.assign(forwardRef(SelectComponent), {
+  Content: SelectContent,
+  Group: SelectGroup,
+  Item: SelectItem,
+  Trigger: SelectTrigger,
+  ItemList: SelectItemList
+});
 
-export default Select;
+export default Select as (<T extends Option = Option>(
+  props: SelectProps<T> & {ref?: Ref<HTMLDivElement>}
+) => JSX.Element) & {
+  Content: typeof SelectContent;
+  Group: typeof SelectGroup;
+  Item: typeof SelectItem;
+  Trigger: typeof SelectTrigger;
+  ItemList: typeof SelectItemList;
+};
