@@ -22,7 +22,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -45,7 +45,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -66,7 +66,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -87,7 +87,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -114,7 +114,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -137,7 +137,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -164,7 +164,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -190,7 +190,7 @@ storiesOf("Number Input", module)
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
