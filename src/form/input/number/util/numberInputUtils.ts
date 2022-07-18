@@ -13,12 +13,17 @@ import {
 } from "../../../../core/utils/number/numberUtils";
 import {NumberInputFormatProps} from "./numberInputTypes";
 
-function canNumberInputUseIntlApi() {
-  return !isMobileDevice() || typeof new Intl.NumberFormat() !== "undefined";
+function shouldActiveNumberInputLocalization() {
+  try {
+    // We should only activate it for desktops and if `Intl.NumberFormat` is supported
+    return !isMobileDevice() && Boolean(new Intl.NumberFormat());
+  } catch (error) {
+    return false;
+  }
 }
 
 function getNumberInputFormatProps(formatProps: NumberInputFormatProps) {
-  return canNumberInputUseIntlApi()
+  return shouldActiveNumberInputLocalization()
     ? {
         ...formatProps,
         ...getNumberSeparators(formatProps.locale),
@@ -36,7 +41,7 @@ function getNumberInputFormatProps(formatProps: NumberInputFormatProps) {
 function getNumberInputParseNumberOptions(
   options: ParseNumberOptions
 ): ParseNumberOptions {
-  return canNumberInputUseIntlApi()
+  return shouldActiveNumberInputLocalization()
     ? options
     : {
         ...options,

@@ -8,7 +8,14 @@ import {
 } from "./util/numberInputUtils";
 
 const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props, ref) => {
-  const {formatProps = {}, maximumFractionDigits = 0, value, onChange, ...rest} = props;
+  const {
+    formatProps = {},
+    maximumFractionDigits = 0,
+    value,
+    onChange,
+    inputMode = "decimal",
+    ...rest
+  } = props;
   const finalValue = localizeNumberInputValue({
     value,
     formatProps,
