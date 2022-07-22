@@ -4,6 +4,7 @@ import Input from "../Input";
 import {NumberInputProps} from "./util/numberInputTypes";
 import {
   delocalizeNumberInputValue,
+  getIsValidNumberInputMaxFractionDigits,
   localizeNumberInputValue
 } from "./util/numberInputUtils";
 
@@ -16,21 +17,16 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
     inputMode = "decimal",
     ...rest
   } = props;
+
+  if (!getIsValidNumberInputMaxFractionDigits({maximumFractionDigits})) {
+    throw new Error("maximumFractionDigits should be zero or a positive integer.");
+  }
+
   const finalValue = localizeNumberInputValue({
     value,
     formatProps,
     maximumFractionDigits
   });
-
-  if (
-    !(
-      typeof maximumFractionDigits === "number" &&
-      Number.isInteger(maximumFractionDigits) &&
-      maximumFractionDigits >= 0
-    )
-  ) {
-    throw new Error("maximumFractionDigits should be zero or a positive integer.");
-  }
 
   return (
     <Input ref={ref} type={"text"} onChange={handleChange} value={finalValue} {...rest} />

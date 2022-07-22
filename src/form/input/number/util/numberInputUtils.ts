@@ -61,6 +61,14 @@ function isNumberInputValueNotAValidNumber({
   );
 }
 
+function getIsValidNumberInputMaxFractionDigits({
+  maximumFractionDigits
+}: {
+  maximumFractionDigits: number;
+}) {
+  return Number.isInteger(maximumFractionDigits) && maximumFractionDigits >= 0;
+}
+
 function localizeNumberInputValue({
   value,
   formatProps,
@@ -190,6 +198,7 @@ function delocalizeNumberInputValue({
 export {
   getNumberInputFormatProps,
   getNumberInputParseNumberOptions,
+  getIsValidNumberInputMaxFractionDigits,
   isNumberInputValueNotAValidNumber,
   localizeNumberInputValue,
   delocalizeNumberInputValue
