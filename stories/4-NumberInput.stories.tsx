@@ -38,7 +38,7 @@ storiesOf("Number Input", module)
               <NumberInput
                 maximumFractionDigits={2}
                 name={"price"}
-                onChange={(e) => setState(e.currentTarget.value)}
+                onChange={(e) => setState({value: e.currentTarget.value})}
                 value={state.value}
                 placeholder={"$ 10"}
                 hasError={true}
@@ -60,7 +60,7 @@ storiesOf("Number Input", module)
               <NumberInput
                 maximumFractionDigits={8}
                 name={"price"}
-                onChange={(e) => setState(e.currentTarget.value)}
+                onChange={(e) => setState({value: e.currentTarget.value})}
                 value={state.value}
                 placeholder={"Min. ₿ 0.00000001"}
               />
@@ -82,7 +82,7 @@ storiesOf("Number Input", module)
               }>
               <NumberInput
                 name={"id-number"}
-                onChange={(e) => setState(e.currentTarget.value)}
+                onChange={(e) => setState({value: e.currentTarget.value})}
                 value={state.value}
               />
             </FormField>
@@ -109,7 +109,7 @@ storiesOf("Number Input", module)
                 }}
                 maximumFractionDigits={2}
                 placeholder={"$ 1,000"}
-                onChange={(e) => setState(e.currentTarget.value)}
+                onChange={(e) => setState({value: e.currentTarget.value})}
                 value={state.value}
               />
             </FormField>
@@ -132,7 +132,7 @@ storiesOf("Number Input", module)
                 name={"world-population"}
                 placeholder={"7,794,798,739"}
                 formatProps={{shouldFormatToLocaleString: true}}
-                onChange={(e) => setState(e.currentTarget.value)}
+                onChange={(e) => setState({value: e.currentTarget.value})}
                 value={state.value}
               />
             </FormField>
@@ -159,7 +159,7 @@ storiesOf("Number Input", module)
                   shouldFormatToLocaleString: true,
                   locale: "zh-Hans-CN-u-nu-hanidec"
                 }}
-                onChange={(e) => setState(e.currentTarget.value)}
+                onChange={(e) => setState({value: e.currentTarget.value})}
                 value={state.value}
               />
             </FormField>
@@ -185,7 +185,7 @@ storiesOf("Number Input", module)
                   shouldFormatToLocaleString: true,
                   locale: "tr"
                 }}
-                onChange={(e) => setState(e.currentTarget.value)}
+                onChange={(e) => setState({value: e.currentTarget.value})}
                 value={state.value}
               />
             </FormField>

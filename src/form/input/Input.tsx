@@ -8,7 +8,6 @@ import {InputProps} from "./util/inputTypes";
 const Input = React.forwardRef<HTMLInputElement, InputProps>((props, ref) => {
   const {
     testid,
-    value,
     type = "text",
     isDisabled,
     hasError,

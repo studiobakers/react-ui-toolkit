@@ -5,6 +5,8 @@ import {NumberInputProps} from "./util/numberInputTypes";
 import {
   delocalizeNumberInputValue,
   getIsValidNumberInputMaxFractionDigits,
+  getNumberInputFormatProps,
+  getNumberInputParseNumberOptions,
   localizeNumberInputValue
 } from "./util/numberInputUtils";
 
@@ -22,9 +24,28 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
     throw new Error("maximumFractionDigits should be zero or a positive integer.");
   }
 
+  const {
+    locale,
+    shouldFormatToLocaleString,
+    DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
+    MINUS_SIGN: minusSignForLocale,
+    LOCALE_NEGATIVE_ZERO: negativeZeroForLocale
+  } = getNumberInputFormatProps(formatProps);
+  const parseNumberOptions = getNumberInputParseNumberOptions({
+    locale,
+    maximumFractionDigits
+  });
   const finalValue = localizeNumberInputValue({
     value,
-    formatProps,
+    formatProps: {
+      locale,
+      shouldFormatToLocaleString
+    },
+    signProps: {
+      decimalSeparatorForLocale,
+      minusSignForLocale,
+      negativeZeroForLocale
+    },
     maximumFractionDigits
   });
 
@@ -38,6 +59,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
         value,
         event,
         formatProps,
+        parseNumberOptions,
         maximumFractionDigits
       });
     }

@@ -5,6 +5,12 @@ export type NumberInputFormatProps = {
   shouldFormatToLocaleString?: boolean;
 };
 
+export type NumberInputLocaleProps = {
+  decimalSeparatorForLocale?: string;
+  minusSignForLocale?: string;
+  negativeZeroForLocale?: string;
+};
+
 export type NumberInputProps = Omit<InputProps, "type"> & {
   formatProps?: NumberInputFormatProps;
   maximumFractionDigits?: number;

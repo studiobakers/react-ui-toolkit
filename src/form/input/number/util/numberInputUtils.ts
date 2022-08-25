@@ -11,9 +11,9 @@ import {
   parseNumber,
   removeLeadingZeros
 } from "../../../../core/utils/number/numberUtils";
-import {NumberInputFormatProps} from "./numberInputTypes";
+import {NumberInputFormatProps, NumberInputLocaleProps} from "./numberInputTypes";
 
-function shouldActiveNumberInputLocalization() {
+function isNumberInputLocalizationAllowed() {
   try {
     // We should only activate it for desktops and if `Intl.NumberFormat` is supported
     return !isMobileDevice() && Boolean(new Intl.NumberFormat());
@@ -23,7 +23,7 @@ function shouldActiveNumberInputLocalization() {
 }
 
 function getNumberInputFormatProps(formatProps: NumberInputFormatProps) {
-  return shouldActiveNumberInputLocalization()
+  return isNumberInputLocalizationAllowed()
     ? {
         ...formatProps,
         ...getNumberSeparators(formatProps.locale),
@@ -41,7 +41,7 @@ function getNumberInputFormatProps(formatProps: NumberInputFormatProps) {
 function getNumberInputParseNumberOptions(
   options: ParseNumberOptions
 ): ParseNumberOptions {
-  return shouldActiveNumberInputLocalization()
+  return isNumberInputLocalizationAllowed()
     ? options
     : {
         ...options,
@@ -72,19 +72,20 @@ function getIsValidNumberInputMaxFractionDigits({
 function localizeNumberInputValue({
   value,
   formatProps,
+  signProps,
   maximumFractionDigits
 }: {
   value: React.InputHTMLAttributes<HTMLInputElement>["value"];
   formatProps: NumberInputFormatProps;
+  signProps: NumberInputLocaleProps;
   maximumFractionDigits: number;
 }) {
+  const {locale, shouldFormatToLocaleString} = formatProps;
   const {
-    locale,
-    shouldFormatToLocaleString,
-    DECIMAL_NUMBER_SEPARATOR: decimalSeparatorForLocale,
-    MINUS_SIGN: minusSignForLocale,
-    LOCALE_NEGATIVE_ZERO: negativeZeroForLocale
-  } = getNumberInputFormatProps(formatProps);
+    decimalSeparatorForLocale,
+    minusSignForLocale,
+    negativeZeroForLocale
+  } = signProps;
   let finalValue = value;
 
   if (typeof value === "string" && shouldFormatToLocaleString) {
@@ -120,19 +121,18 @@ function delocalizeNumberInputValue({
   value,
   event,
   formatProps,
+  parseNumberOptions,
   maximumFractionDigits
 }: {
   value: React.InputHTMLAttributes<HTMLInputElement>["value"];
   event: React.SyntheticEvent<HTMLInputElement>;
   formatProps: NumberInputFormatProps;
+  parseNumberOptions: ParseNumberOptions;
   maximumFractionDigits: number;
 }) {
   const {locale, shouldFormatToLocaleString} = getNumberInputFormatProps(formatProps);
   const eventValue = event.currentTarget.value;
-  const formattedNewValue = parseNumber(
-    getNumberInputParseNumberOptions({locale, maximumFractionDigits}),
-    eventValue
-  );
+  const formattedNewValue = parseNumber(parseNumberOptions, eventValue);
   let finalEventValue = formattedNewValue ? String(formattedNewValue) : "";
   // Number("-") returns NaN. Should allow minus sign as first character.
   const isAValidNumber = !isNumberInputValueNotAValidNumber({
