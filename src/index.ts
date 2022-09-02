@@ -49,10 +49,17 @@ import useDateTimer from "./core/utils/hooks/useDateTimer";
 import ProgressBar, {
   ProgressBarProps as ProgressBarComponentProps
 } from "./progress-bar/ProgressBar";
+import TimeInput, {
+  TimeInputProps as TimeInputComponentProps
+} from "./form/time-input/TimeInput";
 import {DateTimerProps as DateTimerComponentProps} from "./date-timer/util/dateTimerTypes";
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
-import {useToastContext, useToaster} from "./toast/util/toastHooks";
-import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
+import {useToastContextState, useToaster} from "./toast/util/toastHooks";
+import {
+  ToastDispatchContext,
+  ToastStateContext,
+  ToastContextProvider
+} from "./toast/ToastProvider";
 import Select from "./select/Select";
 import useSelectContext from "./select/util/hook/useSelectContext";
 import {SelectProps as SelectComponentProps} from "./select/util/selectTypes";
@@ -84,19 +91,21 @@ export {
   DateTimer,
   ProgressBar,
   Textarea,
+  TimeInput,
   Toggle,
   Switch,
   Toast,
   Select,
   // Hooks
-  useToastContext,
+  useToastContextState,
   useToaster,
   useSelectContext,
   useSingleSelect,
   useMultiSelect,
   useDateTimer,
   // Contexts
-  ToastContext,
+  ToastDispatchContext,
+  ToastStateContext,
   ToastContextProvider
 };
 
@@ -131,6 +140,7 @@ export type ProgressBarProps = ProgressBarComponentProps;
 export type TextareaProps = TextareaComponentProps;
 export type ToggleProps = ToggleComponentProps;
 export type SwitchProps = SwitchComponentProps;
+export type TimeInputProps = TimeInputComponentProps;
 export type DateTimerProps = DateTimerComponentProps;
 export type ListItemProps = ListItemComponentProps;
 export type ToastProps = ToastComponentProps;

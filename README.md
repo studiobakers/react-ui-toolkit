@@ -52,14 +52,14 @@ Here is a simple example that shows how to customize `Button` and `Input`
 ### Storybook
 
 - To run Storybook `npm run storybook`
-- To generate Storybook build `npm run build-storybook`
+- To generate Storybook build `npm run storybook:build`
 
 ### Development
 
-Minimum system versions
+Recommended system versions
 
-- `node >= 14.x`
-- `npm >= 7.x`
+- `node 14.x`
+- `npm 7.x`
 
 You can start to development with `npm run dev` command. The command watches for changes and builds the toolkit. If you want to generate a production ready build you can use `npm run build`.
 

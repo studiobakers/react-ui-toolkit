@@ -31,8 +31,9 @@ export default [
       Textarea: "src/form/textarea/Textarea.tsx",
       Toggle: "src/toggle/Toggle.tsx",
       Switch: "src/switch/Switch.tsx",
-      DateTimer: "src/date-timer/DateTimer.tsx",
-      ProgressBar: "src/progress-bar/ProgressBar.tsx"
+      ProgressBar: "src/progress-bar/ProgressBar.tsx",
+      TimeInput: "src/form/time-input/TimeInput.tsx",
+      DateTimer: "src/date-timer/DateTimer.tsx"
     },
     output: {
       dir: "dist",

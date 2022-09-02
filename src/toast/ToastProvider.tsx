@@ -6,12 +6,11 @@ import toastReducer from "./util/toastReducer";
 import {ToastAction, ToastContextState} from "./util/toastTypes";
 import {isNonNegativeNumber} from "../core/utils/number/numberUtils";
 
-const ToastContext = createContext<[ToastContextState, React.Dispatch<ToastAction>]>([
-  initialToastState,
-  () => undefined
-]);
+const ToastStateContext = createContext<null | ToastContextState>(null);
+const ToastDispatchContext = createContext<null | React.Dispatch<ToastAction>>(null);
 
-ToastContext.displayName = "ToastContext";
+ToastDispatchContext.displayName = "ToastDispatchContext";
+ToastStateContext.displayName = "ToastStateContext";
 
 interface ToastContextProviderProps {
   children: React.ReactNode;
@@ -58,12 +57,14 @@ function ToastContextProvider({
   }, [defaultAutoCloseTimeout]);
 
   return (
-    <ToastContext.Provider value={[state, dispatch]}>
-      {children}
+    <ToastStateContext.Provider value={state}>
+      <ToastDispatchContext.Provider value={dispatch}>
+        {children}
 
-      <ToastStack customRootId={customRootId} />
-    </ToastContext.Provider>
+        <ToastStack customRootId={customRootId} />
+      </ToastDispatchContext.Provider>
+    </ToastStateContext.Provider>
   );
 }
 
-export {ToastContext, ToastContextProvider};
+export {ToastDispatchContext, ToastStateContext, ToastContextProvider};

@@ -1,3 +1,5 @@
+const HH_MM_A_TIME_FORMAT_REGEX = /((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/;
+
 const SECOND_IN_MS = 1000;
 const MINUTE_IN_S = 60;
 const MINUTE_IN_MS = MINUTE_IN_S * SECOND_IN_MS;
@@ -6,4 +8,19 @@ const DAY_IN_HRS = 24;
 const HOUR_IN_S = HOUR_IN_MINS * MINUTE_IN_S;
 const DAY_IN_S = HOUR_IN_S * DAY_IN_HRS;
 
-export {DAY_IN_HRS, DAY_IN_S, HOUR_IN_S, MINUTE_IN_S, MINUTE_IN_MS, SECOND_IN_MS};
+const DATE_FORMAT = {
+  DEFAULT: "MMM d, yyyy",
+  LONG_TIME_FORMAT: "hh:mm a"
+};
+
+export {
+  HH_MM_A_TIME_FORMAT_REGEX,
+  DAY_IN_HRS,
+  DAY_IN_S,
+  HOUR_IN_S,
+  HOUR_IN_MINS,
+  MINUTE_IN_S,
+  MINUTE_IN_MS,
+  SECOND_IN_MS,
+  DATE_FORMAT
+};
