@@ -1,7 +1,7 @@
 import React, {useLayoutEffect} from "react";
 import classNames from "classnames";
 
-import {useToaster, useToastContext} from "./util/toastHooks";
+import {useToaster, useToastContextState} from "./util/toastHooks";
 import {ToastContextState} from "./util/toastTypes";
 import ListItem from "../list/item/ListItem";
 import ToastCloseButton from "./close-button/ToastCloseButton";
@@ -13,7 +13,7 @@ export interface ToastProps {
 }
 
 function Toast({testid, data}: ToastProps) {
-  const [contextState] = useToastContext();
+  const contextState = useToastContextState();
   const {hide} = useToaster();
   const {
     timeout = contextState.defaultAutoCloseTimeout,

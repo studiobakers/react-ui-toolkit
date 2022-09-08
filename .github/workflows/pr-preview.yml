@@ -1,0 +1,34 @@
+name: Deploy PR previews to GitHub Pages
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency: preview-${{ github.ref }}
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 14
+
+      - name: Install dependencies and build storybook
+        run: |
+          npm install
+          npm run storybook:build
+
+      - name: Deploy storybook build to GitHub Pages
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./public/

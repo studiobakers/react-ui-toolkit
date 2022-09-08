@@ -5,3 +5,10 @@ export interface RemainingTimeBreakdown {
   minutes: number;
   seconds: number;
 }
+
+export type FormatDateUtilOptions = {
+  timeZone?: string | null;
+  format?: string;
+  shouldShiftDateToCompensateForTimezone?: boolean;
+  isProvidedDateInUTC?: boolean;
+};
