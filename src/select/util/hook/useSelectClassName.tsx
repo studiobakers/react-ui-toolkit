@@ -18,7 +18,9 @@ function useSelectClassName(state: SelectContextValue, customClassName?: string)
   return classNames("select", customClassName, {
     "select--is-disabled": isDisabled,
     "select--is-multi-select": isMultiSelect,
-    "select--has-selected-option": Array.isArray(value) ? Boolean(value.length) : Boolean(value),
+    "select--has-selected-option": Array.isArray(value)
+      ? Boolean(value.length)
+      : Boolean(value),
     "select--has-error": hasError,
     "select--is-open": isMenuOpen
   });
