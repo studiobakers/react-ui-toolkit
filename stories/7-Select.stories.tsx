@@ -19,6 +19,7 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
+            options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
             value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
@@ -28,10 +29,15 @@ storiesOf("Select", module)
 
               <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
             </Select.Trigger>
+
             <Select.Content>
-              {state.options.map((option) => (
-                <Select.Item option={option}>{option.title}</Select.Item>
-              ))}
+              <List items={state.options}>
+                {(option) => (
+                  <Select.Item option={option} as={"li"}>
+                    {option.title}
+                  </Select.Item>
+                )}
+              </List>
             </Select.Content>
           </Select>
         )}
@@ -42,6 +48,7 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
+            options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
             value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
@@ -69,6 +76,7 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
+            options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
             value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
@@ -78,6 +86,7 @@ storiesOf("Select", module)
 
               <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
             </Select.Trigger>
+
             <Select.Content>
               <Select.ItemList
                 contentRenderer={(option) => option.title}
@@ -93,6 +102,7 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
+            options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
             value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
@@ -102,6 +112,7 @@ storiesOf("Select", module)
 
               <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
             </Select.Trigger>
+
             <Select.Content>
               <Select.Group>
                 <div className={"select-story__group__title"}>{"Group 1"}</div>
@@ -127,6 +138,7 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
+            options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
             value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
@@ -136,6 +148,7 @@ storiesOf("Select", module)
 
               <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
             </Select.Trigger>
+
             <Select.Content>
               {state.options.map((option) => (
                 <Select.Item option={option}>{option.CustomContent}</Select.Item>
@@ -154,7 +167,8 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
-            onSelect={(option) => handleMultiSelect(state, setState, option)}
+            options={state.options}
+            onSelect={(option) => option && handleMultiSelect(state, setState, option)}
             value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
@@ -163,10 +177,17 @@ storiesOf("Select", module)
 
               <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
             </Select.Trigger>
+
             <Select.Content>
-              {state.options.map((option) => (
-                <Select.Item option={option}>{option.title}</Select.Item>
-              ))}
+              {
+                <List items={state.options}>
+                  {(option) => (
+                    <Select.Item option={option} as={"li"}>
+                      {option.title}
+                    </Select.Item>
+                  )}
+                </List>
+              }
             </Select.Content>
           </Select>
         )}
@@ -178,7 +199,8 @@ storiesOf("Select", module)
         {(state, setState) => (
           <Select
             role={"listbox"}
-            onSelect={(option) => handleMultiSelect(state, setState, option)}
+            options={state.options}
+            onSelect={(option) => option && handleMultiSelect(state, setState, option)}
             value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
@@ -204,6 +226,7 @@ storiesOf("Select", module)
 
               <span style={{marginTop: "8px", marginLeft: "50px"}}>{"ˇ"}</span>
             </Select.Trigger>
+
             <Select.Content>
               <Select.Group>
                 <div className={"select-story__group__title"}>{"Group 1"}</div>

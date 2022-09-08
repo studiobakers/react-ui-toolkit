@@ -8,8 +8,8 @@ import {ListProps} from "../..";
 
 export type SelectItemListProps<T extends Option = Option> = {
   options: T[];
-  customClassName?: string;
   contentRenderer: (option: T) => React.ReactNode;
+  customClassName?: string;
 } & Omit<ListProps, "items" | "ref" | "children">;
 
 /**

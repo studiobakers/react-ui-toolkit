@@ -117,11 +117,16 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
     };
   }, [shouldFocusOnInput]);
 
+  useEffect(() => {
+    setComputedDropdownOptions(filterOutItemsByKey(options, "id", selectedOptions));
+  }, [options, selectedOptions]);
+
   return (
     // TODO: Add isMenuOpenHook when we have it
     <Select
       role={"listbox"}
       onSelect={handleSelect}
+      options={computedDropdownOptions}
       customClassName={typeaheadSelectClassName}
       value={selectedOptions}
       isDisabled={isDisabled}
@@ -152,13 +157,11 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
       />
 
       <Select.Content>
-        {filterOutItemsByKey(computedDropdownOptions, "id", selectedOptions).map(
-          (option) => (
-            <Select.Item key={option.id} option={option}>
-              {option.title}
-            </Select.Item>
-          )
-        )}
+        {computedDropdownOptions.map((option) => (
+          <Select.Item key={option.id} option={option}>
+            {option.title}
+          </Select.Item>
+        ))}
         {shouldShowEmptyOptions && !computedDropdownOptions.length && (
           <p
             data-testid={`${testid}.empty-message`}
@@ -186,7 +189,7 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
 
   function handleSelect(option: T) {
     if (!shouldDisplayOnlyTags && !isDisabled) {
-      onSelect(option!);
+      onSelect(option);
       setComputedDropdownOptions(options);
       setKeyword("");
       setShouldFocusOnInput(true);

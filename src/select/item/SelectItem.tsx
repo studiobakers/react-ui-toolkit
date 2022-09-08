@@ -1,3 +1,5 @@
+import CheckIcon from "../../ui/icons/check.svg";
+
 import "./_select-item.scss";
 
 import classNames from "classnames";
@@ -5,14 +7,13 @@ import React, {
   ForwardedRef,
   forwardRef,
   Ref,
-  useEffect,
   useImperativeHandle,
   useLayoutEffect,
   useRef
 } from "react";
 
-import useSelectContext from "../util/hook/useSelectContext";
 import {SelectItemElement, Option} from "../util/selectTypes";
+import {useSelectContext, useSelectDispatchContext} from "../util/context/SelectContext";
 
 export interface SelectItemProps<T extends Option = Option> {
   option: T | null;
@@ -32,7 +33,8 @@ function SelectItemComponent<T extends Option = Option>(
   }: SelectItemProps<T>,
   ref?: ForwardedRef<SelectItemElement>
 ) {
-  const {selectState, dispatchSelectStateAction} = useSelectContext();
+  const selectState = useSelectContext();
+  const dispatchSelectStateAction = useSelectDispatchContext();
   const {onSelect, value, focusedOptionIndex, shouldCloseOnSelect, options} = selectState;
   const optionIndex = options.findIndex((opt) => opt?.id === option?.id);
   const isSelected = Array.isArray(value)
@@ -56,12 +58,7 @@ function SelectItemComponent<T extends Option = Option>(
     if (isFocused && optionRef.current) {
       optionRef.current.focus();
     }
-  }, [isFocused, optionRef]);
-
-  useEffect(() => {
-    dispatchSelectStateAction({type: "ADD_OPTION", payload: option});
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [isFocused]);
 
   return (
     <WrapperElement
@@ -73,10 +70,8 @@ function SelectItemComponent<T extends Option = Option>(
       tabIndex={option?.isDisabled ? -1 : 0}
       aria-selected={isSelected}
       onClick={handleClick}
-      onMouseEnter={handleFocus}
-      onKeyDown={handleSelectKeyDown}
-      onFocus={handleFocus}>
-      {children}
+      onKeyDown={handleSelectKeyDown}>
+      {children} {isSelected && <CheckIcon />}
     </WrapperElement>
   );
 
@@ -98,10 +93,6 @@ function SelectItemComponent<T extends Option = Option>(
     if (onKeyDown) {
       onKeyDown(option, event);
     }
-  }
-
-  function handleFocus() {
-    dispatchSelectStateAction({type: "SET_FOCUSED_OPTION_INDEX", payload: optionIndex});
   }
 }
 

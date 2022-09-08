@@ -6,6 +6,7 @@ import React from "react";
 import ListItem from "../../../list/item/ListItem";
 import Tag, {TagShape} from "../../../tag/Tag";
 import Select from "../../Select";
+import List from "../../../list/List";
 
 export interface TypeheadSelectTriggerProps {
   tags: TagShape[];
@@ -21,8 +22,14 @@ function TypeheadSelectTrigger({
 }: TypeheadSelectTriggerProps) {
   return (
     <Select.Trigger customClassName={"typeahead-select-trigger"}>
-      <ul className={classNames("typeahead-select-trigger__tag-list", customClassName)}>
-        {tags.map((tag: TagShape) => (
+      <List
+        customClassName={classNames(
+          "typeahead-select-trigger__tag-list",
+          customClassName
+        )}
+        testid={"TypeaheadSelectTrigger.list"}
+        items={tags}>
+        {(tag: TagShape) => (
           <ListItem
             key={tag.id}
             customClassName={"typeahead-select-trigger__tag-list__item"}>
@@ -32,10 +39,9 @@ function TypeheadSelectTrigger({
               tag={tag}
             />
           </ListItem>
-        ))}
-
-        {input}
-      </ul>
+        )}
+      </List>
+      {input}
     </Select.Trigger>
   );
 }

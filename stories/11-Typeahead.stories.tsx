@@ -147,7 +147,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                     thirdSelectedOptions: [...state.thirdSelectedOptions, option]
                   })
                 }
-                onKeywordChange={handleKeywordChange(state, setState)}
+                onKeywordChange={handleKeywordChange(setState)}
                 onTagRemove={handleRemoveTag(state, setState, "thirdSelectedOptions")}
                 typeaheadProps={{
                   placeholder: "Select Languages",
@@ -174,7 +174,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                     keyword: ""
                   })
                 }
-                onKeywordChange={handleKeywordChange(state, setState)}
+                onKeywordChange={handleKeywordChange(setState)}
                 controlledKeyword={state.keyword}
                 onTagRemove={handleRemoveTag(state, setState, "thirdSelectedOptions")}
                 typeaheadProps={{
@@ -222,7 +222,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
       });
   }
 
-  function handleKeywordChange(state, setState) {
+  function handleKeywordChange(setState) {
     return async (keyword) => {
       if (keyword) {
         setState((prevState) => ({

@@ -1,33 +1,25 @@
 import classNames from "classnames";
-import React, {forwardRef, useEffect, useImperativeHandle, useRef} from "react";
+import React, {forwardRef, useImperativeHandle, useRef} from "react";
 
 import Button, {ButtonProps} from "../../button/Button";
-import useSelectContext from "../util/hook/useSelectContext";
+import {useSelectContext, useSelectDispatchContext} from "../util/context/SelectContext";
 
 import "./_select-trigger.scss";
 
 export type SelectTriggerProps = Omit<ButtonProps, "type">;
 
 function SelectTriggerComponent(
-  {customClassName, children, onClick, ...otherProps}: SelectTriggerProps,
+  {customClassName, children, onClick, onKeyDown, ...otherProps}: SelectTriggerProps,
   ref?: React.ForwardedRef<HTMLButtonElement>
 ) {
-  const {
-    selectState: {role, isMenuOpen, isDisabled, focusedOptionIndex},
-    dispatchSelectStateAction
-  } = useSelectContext();
+  const {role, isMenuOpen, isDisabled} = useSelectContext();
+  const dispatchSelectStateAction = useSelectDispatchContext();
   const selectTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   useImperativeHandle<HTMLButtonElement | null, HTMLButtonElement | null>(
     ref,
     () => selectTriggerRef.current
   );
-
-  useEffect(() => {
-    if (focusedOptionIndex === -1) {
-      selectTriggerRef.current?.focus();
-    }
-  }, [focusedOptionIndex, selectTriggerRef]);
 
   return (
     <Button
@@ -42,12 +34,14 @@ function SelectTriggerComponent(
   );
 
   function handleClick(event: React.MouseEvent<HTMLButtonElement>) {
-    if (!isDisabled) {
-      dispatchSelectStateAction({type: "TOGGLE_MENU_VISIBILITY"});
+    if (isDisabled) {
+      return;
+    }
 
-      if (onClick) {
-        onClick(event);
-      }
+    dispatchSelectStateAction({type: "TOGGLE_MENU_VISIBILITY"});
+
+    if (onClick) {
+      onClick(event);
     }
   }
 }

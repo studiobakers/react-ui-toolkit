@@ -18,14 +18,15 @@ type OptionSelectHandler<T extends Option = Option> = (
 
 type TypeaheadSelectOptionSelectHandler<
   T extends TypeaheadSelectOption = TypeaheadSelectOption
-> = (option: T | null, event?: React.SyntheticEvent<SelectItemElement>) => void;
+> = (option: T, event?: React.SyntheticEvent<SelectItemElement>) => void;
 
 type SelectRole = "listbox" | "menu";
 interface SelectProps<T extends Option = Option> {
   children: React.ReactNode;
-  role: SelectRole;
+  options: (Option | null)[];
   value: SelectValue<T>;
   onSelect: OptionSelectHandler<T>;
+  role?: SelectRole;
   hasError?: boolean;
   customClassName?: string;
   isDisabled?: boolean;
@@ -33,7 +34,7 @@ interface SelectProps<T extends Option = Option> {
   isMenuOpen?: boolean;
 }
 
-type SelectState = Pick<
+type SelectContextValue = Pick<
   SelectProps,
   "hasError" | "isDisabled" | "onSelect" | "shouldCloseOnSelect" | "value" | "role"
 > &
@@ -47,13 +48,12 @@ interface SelectOwnState {
 
 type SelectValue<T extends Option> = T | T[] | null;
 
-type SelectStateAction<T extends Option = Option> =
+type SelectStateAction =
   | {type: "TOGGLE_MENU_VISIBILITY"}
-  | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number}
-  | {type: "ADD_OPTION"; payload: T | null};
+  | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number};
 
 export type {
-  SelectState,
+  SelectContextValue,
   Option,
   SelectRole,
   OptionSelectHandler,

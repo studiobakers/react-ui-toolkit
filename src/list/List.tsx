@@ -25,11 +25,7 @@ export interface ListProps<Item = any> {
 
 export type ListElementType = Extract<keyof JSX.IntrinsicElements, "ul" | "ol" | "dl">;
 
-const List = React.forwardRef<
-  ListElementType,
-  ListProps
-  // eslint-disable-next-line prefer-arrow-callback
->(function ListComponent<Item extends any>(
+function ListComponent<Item extends any>(
   {
     items,
     children,
@@ -81,7 +77,9 @@ const List = React.forwardRef<
         emptyStateProps.emptyState}
     </ListTypeElement>
   );
-});
+}
+
+const List = React.forwardRef<ListElementType, ListProps>(ListComponent);
 
 export default List as <Item = any>(
   props: ListProps<Item> & {ref?: Ref<ListElementType>}

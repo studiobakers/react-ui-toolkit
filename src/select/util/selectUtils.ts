@@ -1,17 +1,23 @@
-import {initialSelectState} from "./context/SelectContext";
-import {SelectOwnState, SelectProps, SelectState} from "./selectTypes";
+import {SelectOwnState, SelectProps, SelectContextValue} from "./selectTypes";
 
 /**
  * Generates select state from provided props.
- * @param {SelectState} state - The current state of the select
+ * @param {SelectContextValue} state - The current state of the select
  * @param props - The props passed to the select
- * @returns {SelectState} - The new state of the select
+ * @returns {SelectContextValue} - The new state of the select
  */
-function generateSelectState(state: SelectOwnState, props: SelectProps): SelectState {
-  const selectState: SelectState = {
-    ...initialSelectState,
-    ...state,
-    ...props
+function generateSelectState(
+  state: SelectOwnState,
+  props: SelectProps
+): SelectContextValue {
+  const selectState: SelectContextValue = {
+    isDisabled: props.isDisabled ?? false,
+    hasError: props.hasError ?? false,
+    value: props.value || null,
+    onSelect: props.onSelect,
+    shouldCloseOnSelect: props.shouldCloseOnSelect ?? true,
+    role: props.role ?? "listbox",
+    ...state
   };
 
   return selectState;

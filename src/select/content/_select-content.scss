@@ -15,11 +15,15 @@
   border: 1px solid #dfe3ef;
   border-radius: 6px;
 
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-
-  visibility: hidden;
-
+  opacity: 0;
+  
+  transition: opacity 0.25s ease;
+  
   &--is-visible {
-    visibility: visible;
+    opacity: 1;
+  }
+
+  .list {
+    margin: unset;
   }
 }

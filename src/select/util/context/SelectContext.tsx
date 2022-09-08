@@ -1,57 +1,34 @@
-import {createContext, Dispatch} from "react";
+import {createContext, Dispatch, useContext} from "react";
 
-import {SelectOwnState, SelectState, SelectStateAction} from "../selectTypes";
+import {SelectContextValue, SelectStateAction} from "../selectTypes";
 
-const initialSelectOwnState: SelectOwnState = {
-  focusedOptionIndex: 0,
-  isMenuOpen: false,
-  options: []
-};
-
-const initialSelectState: SelectState = {
-  isDisabled: false,
-  hasError: false,
-  value: null,
-  onSelect: () => undefined,
-  shouldCloseOnSelect: true,
-  role: "listbox",
-  ...initialSelectOwnState
-};
-
-function selectStateReducer(state: SelectOwnState, action: SelectStateAction) {
-  let newState = state;
-
-  switch (action.type) {
-    case "TOGGLE_MENU_VISIBILITY":
-      newState = {
-        ...state,
-        isMenuOpen: !state.isMenuOpen,
-        //  Moves focus to select trigger when menu closed and first option when menu opened
-        focusedOptionIndex: state.isMenuOpen ? -1 : 0
-      };
-      break;
-
-    case "SET_FOCUSED_OPTION_INDEX":
-      newState = {...state, focusedOptionIndex: action.payload};
-      break;
-
-    case "ADD_OPTION":
-      newState = {...state, options: [...state.options, action.payload]};
-      break;
-
-    default:
-      break;
-  }
-
-  return newState;
-}
-
-const SelectContext = createContext({
-  selectState: initialSelectState,
-  dispatchSelectStateAction: (() => undefined) as Dispatch<SelectStateAction>
-});
+const SelectContext = createContext<null | SelectContextValue>(null);
+const SelectDispatchContext = createContext<null | Dispatch<SelectStateAction>>(null);
 
 SelectContext.displayName = "SelectContext";
 
-export default SelectContext;
-export {selectStateReducer, initialSelectState, initialSelectOwnState};
+function useSelectContext() {
+  const context = useContext(SelectContext);
+
+  if (!context) {
+    throw new Error(
+      "You can only use SelectContext within a component tree that is rooted with SelectContext.Provider."
+    );
+  }
+
+  return context;
+}
+
+function useSelectDispatchContext() {
+  const dispatch = useContext(SelectDispatchContext);
+
+  if (!dispatch) {
+    throw new Error(
+      "You can only use SelectDispatchContext within a component tree that is rooted with SelectDispatchContext.Provider."
+    );
+  }
+
+  return dispatch;
+}
+
+export {useSelectContext, useSelectDispatchContext, SelectContext, SelectDispatchContext};

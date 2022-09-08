@@ -1,5 +1,5 @@
 .typeahead-select {
-  width: auto;
+  width: 100%;
 }
 
 .typeahead-select__header-container {
@@ -30,7 +30,6 @@
 .typeahead-select--is-dropdown-menu-open {
   .typeahead-select__input {
     position: relative;
-    z-index: 1;
   }
 }
 

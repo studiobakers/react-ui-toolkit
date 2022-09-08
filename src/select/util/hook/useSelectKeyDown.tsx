@@ -1,7 +1,7 @@
 import React, {useCallback} from "react";
 
 import {KEYBOARD_EVENT_KEY} from "../../../core/utils/keyboard/keyboardEventConstants";
-import {SelectState, SelectStateAction} from "../selectTypes";
+import {SelectContextValue, SelectStateAction} from "../selectTypes";
 
 /**
  * A hook for handle select key down event.
@@ -16,7 +16,7 @@ import {SelectState, SelectStateAction} from "../selectTypes";
  * />
  */
 function useSelectKeyDown(
-  state: SelectState,
+  state: SelectContextValue,
   dispatch: React.Dispatch<SelectStateAction>
 ) {
   const {isMenuOpen, focusedOptionIndex, onSelect, shouldCloseOnSelect, options} = state;
@@ -26,11 +26,21 @@ function useSelectKeyDown(
       const {key} = event;
 
       switch (key) {
-        case KEYBOARD_EVENT_KEY.ESCAPE: {
+        case KEYBOARD_EVENT_KEY.TAB: {
           if (isMenuOpen) {
-            event.stopPropagation();
+            event.preventDefault();
+
             dispatch({type: "TOGGLE_MENU_VISIBILITY"});
           }
+
+          break;
+        }
+
+        case KEYBOARD_EVENT_KEY.ESCAPE: {
+          if (isMenuOpen) {
+            dispatch({type: "TOGGLE_MENU_VISIBILITY"});
+          }
+
           break;
         }
 
@@ -40,14 +50,23 @@ function useSelectKeyDown(
             event.stopPropagation();
             event.preventDefault();
 
-            if (!options[focusedOptionIndex]?.isDisabled) {
+            if (
+              Boolean(options[focusedOptionIndex]) &&
+              !options[focusedOptionIndex]?.isDisabled
+            ) {
               onSelect(options[focusedOptionIndex]);
 
               if (shouldCloseOnSelect) {
                 dispatch({type: "TOGGLE_MENU_VISIBILITY"});
+              } else {
+                dispatch({
+                  type: "SET_FOCUSED_OPTION_INDEX",
+                  payload: -1
+                });
               }
             }
           }
+
           break;
         }
 
@@ -59,6 +78,7 @@ function useSelectKeyDown(
             type: "SET_FOCUSED_OPTION_INDEX",
             payload: (focusedOptionIndex + 1) % options.length
           });
+
           break;
         }
 
@@ -70,6 +90,7 @@ function useSelectKeyDown(
             type: "SET_FOCUSED_OPTION_INDEX",
             payload: (focusedOptionIndex || options.length) - 1
           });
+
           break;
         }
 
@@ -81,6 +102,7 @@ function useSelectKeyDown(
             type: "SET_FOCUSED_OPTION_INDEX",
             payload: 0
           });
+
           break;
         }
 
@@ -92,6 +114,7 @@ function useSelectKeyDown(
             type: "SET_FOCUSED_OPTION_INDEX",
             payload: options.length - 1
           });
+
           break;
         }
 

@@ -54,7 +54,6 @@ import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
 import {useToastContext, useToaster} from "./toast/util/toastHooks";
 import {ToastContext, ToastContextProvider} from "./toast/ToastProvider";
 import Select from "./select/Select";
-import useSelectContext from "./select/util/hook/useSelectContext";
 import {SelectProps as SelectComponentProps} from "./select/util/selectTypes";
 import {SelectGroupProps as SelectGroupComponentProps} from "./select/group/SelectGroup";
 import {SelectTriggerProps as SelectTriggerComponentProps} from "./select/trigger/SelectTrigger";
@@ -91,7 +90,6 @@ export {
   // Hooks
   useToastContext,
   useToaster,
-  useSelectContext,
   useSingleSelect,
   useMultiSelect,
   useDateTimer,
