@@ -205,7 +205,11 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
 
   function handleKeywordChange(value: string) {
     if (shouldFilterOptionsByKeyword) {
-      setComputedDropdownOptions(filterOptionsByKeyword(options, value));
+      const unselectedOptions = options.filter(
+        (option) => selectedOptions.indexOf(option) < 0
+      );
+
+      setComputedDropdownOptions(filterOptionsByKeyword(unselectedOptions, value));
     }
 
     if (onKeywordChange) {
