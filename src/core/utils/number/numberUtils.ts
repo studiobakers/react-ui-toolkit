@@ -1,3 +1,9 @@
+import {
+  DEFAULT_DECIMAL_NUMBER_SEPARATOR,
+  DEFAULT_MINUS_SIGN,
+  DEFAULT_NUMERALS,
+  DEFAULT_THOUSANDTHS_SEPARATOR
+} from "./numberConstants";
 import {FormatNumberOptions, ParseNumberOptions} from "./numberTypes";
 
 /**
@@ -120,21 +126,32 @@ function mapDigitToLocalVersion({locale = NAVIGATOR_LANGUAGE}: {locale?: string}
 }
 
 function getNumberSeparators(locale = NAVIGATOR_LANGUAGE) {
-  // eslint-disable-next-line no-magic-numbers
-  const parts = new Intl.NumberFormat(locale).formatToParts(-12345.6);
-  const THOUSANDTHS_SEPARATOR = parts.find((d) => d.type === "group")!.value;
-  const DECIMAL_NUMBER_SEPARATOR = parts.find((d) => d.type === "decimal")!.value;
-  const MINUS_SIGN = parts.find((d) => d.type === "minusSign")!.value;
+  let THOUSANDTHS_SEPARATOR = DEFAULT_THOUSANDTHS_SEPARATOR;
+  let DECIMAL_NUMBER_SEPARATOR = DEFAULT_DECIMAL_NUMBER_SEPARATOR;
+  let MINUS_SIGN = DEFAULT_MINUS_SIGN;
+
+  if (new Intl.NumberFormat()) {
+    // eslint-disable-next-line no-magic-numbers
+    const parts = new Intl.NumberFormat(locale).formatToParts(-12345.6);
+
+    THOUSANDTHS_SEPARATOR = parts.find((d) => d.type === "group")!.value;
+    DECIMAL_NUMBER_SEPARATOR = parts.find((d) => d.type === "decimal")!.value;
+    MINUS_SIGN = parts.find((d) => d.type === "minusSign")!.value;
+  }
 
   return {THOUSANDTHS_SEPARATOR, DECIMAL_NUMBER_SEPARATOR, MINUS_SIGN};
 }
 
 function getLocaleNumerals(locale = NAVIGATOR_LANGUAGE) {
-  const numerals = new Intl.NumberFormat(locale, {useGrouping: false})
-    // eslint-disable-next-line no-magic-numbers
-    .format(9876543210)
-    .split("")
-    .reverse();
+  let numerals = DEFAULT_NUMERALS;
+
+  if (new Intl.NumberFormat()) {
+    numerals = new Intl.NumberFormat(locale, {useGrouping: false})
+      // eslint-disable-next-line no-magic-numbers
+      .format(9876543210)
+      .split("")
+      .reverse();
+  }
 
   return numerals;
 }
