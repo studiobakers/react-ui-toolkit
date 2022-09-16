@@ -130,7 +130,7 @@ function getNumberSeparators(locale = NAVIGATOR_LANGUAGE) {
   let DECIMAL_NUMBER_SEPARATOR = DEFAULT_DECIMAL_NUMBER_SEPARATOR;
   let MINUS_SIGN = DEFAULT_MINUS_SIGN;
 
-  if (new Intl.NumberFormat()) {
+  if (new Intl.NumberFormat().formatToParts()) {
     // eslint-disable-next-line no-magic-numbers
     const parts = new Intl.NumberFormat(locale).formatToParts(-12345.6);
 
