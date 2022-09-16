@@ -7,6 +7,7 @@ import {
   getNegativeZero,
   getNumberSeparators,
   getThousandthSeparatorCount,
+  isIntlAPISupported,
   mapDigitsToLocalVersion,
   parseNumber,
   removeLeadingZeros
@@ -15,8 +16,8 @@ import {NumberInputFormatProps, NumberInputLocaleProps} from "./numberInputTypes
 
 function isNumberInputLocalizationAllowed() {
   try {
-    // We should only activate it for desktops and if `Intl.NumberFormat` is supported
-    return !isMobileDevice() && Boolean(new Intl.NumberFormat());
+    // We should only activate it for desktops and if `Intl` API is supported
+    return !isMobileDevice() && isIntlAPISupported();
   } catch (error) {
     return false;
   }

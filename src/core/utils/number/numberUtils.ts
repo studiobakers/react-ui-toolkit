@@ -33,6 +33,13 @@ const NAVIGATOR_LANGUAGE =
   // eslint-disable-next-line no-negated-condition
   typeof navigator !== "undefined" ? navigator.language : "en-GB";
 
+function isIntlAPISupported() {
+  return (
+    typeof new Intl.NumberFormat() !== "undefined" &&
+    typeof new Intl.NumberFormat().formatToParts !== "undefined"
+  );
+}
+
 function formatNumber(formatNumberOptions: FormatNumberOptions) {
   const {locale, ...otherOptions} = formatNumberOptions;
   const options = {
@@ -130,7 +137,7 @@ function getNumberSeparators(locale = NAVIGATOR_LANGUAGE) {
   let DECIMAL_NUMBER_SEPARATOR = DEFAULT_DECIMAL_NUMBER_SEPARATOR;
   let MINUS_SIGN = DEFAULT_MINUS_SIGN;
 
-  if (new Intl.NumberFormat().formatToParts()) {
+  if (isIntlAPISupported()) {
     // eslint-disable-next-line no-magic-numbers
     const parts = new Intl.NumberFormat(locale).formatToParts(-12345.6);
 
@@ -145,7 +152,7 @@ function getNumberSeparators(locale = NAVIGATOR_LANGUAGE) {
 function getLocaleNumerals(locale = NAVIGATOR_LANGUAGE) {
   let numerals = DEFAULT_NUMERALS;
 
-  if (new Intl.NumberFormat()) {
+  if (isIntlAPISupported()) {
     numerals = new Intl.NumberFormat(locale, {useGrouping: false})
       // eslint-disable-next-line no-magic-numbers
       .format(9876543210)
@@ -222,6 +229,7 @@ function isNonNegativeNumber(x: unknown): x is number {
 export {
   truncateDecimalPart,
   isInteger,
+  isIntlAPISupported,
   formatNumber,
   parseNumber,
   getDigit,
