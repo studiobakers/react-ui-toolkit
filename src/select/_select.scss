@@ -1,0 +1,11 @@
+.select {
+  position: relative;
+
+  width: max-content;
+
+  &--is-open {
+    .select-trigger {
+      border-color: var(--disabled-text-color);
+    }
+  }
+}

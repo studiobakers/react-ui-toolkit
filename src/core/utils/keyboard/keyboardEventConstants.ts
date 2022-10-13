@@ -9,7 +9,9 @@ const KEYBOARD_EVENT_KEY = {
   ARROW_LEFT: "ArrowLeft",
   ARROW_RIGHT: "ArrowRight",
   CMD: "",
-  SHIFT: "Shift"
+  SHIFT: "Shift",
+  HOME: "Home",
+  END: "End"
 };
 
 export {KEYBOARD_EVENT_KEY};

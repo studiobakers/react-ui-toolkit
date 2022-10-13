@@ -1,27 +1,33 @@
 import CaretDownIcon from "../../ui/icons/caret-down.svg";
 
-import "./_typeahead-select.scss";
-
 import React, {useState, useEffect, useRef} from "react";
 import classNames from "classnames";
 
-import {DropdownOption} from "../../dropdown/list/item/DropdownListItem";
 import TypeaheadInput, {
   TypeaheadInputProps
 } from "../../form/input/typeahead/TypeaheadInput";
-import {mapDropdownOptionsToTagShapes} from "../../tag/util/tagUtils";
+import {mapOptionsToTagShapes} from "../../tag/util/tagUtils";
 import {TagShape} from "../../tag/Tag";
-import Dropdown from "../../dropdown/Dropdown";
 import {filterOptionsByKeyword} from "./util/typeaheadSelectUtils";
 import {filterOutItemsByKey} from "../../core/utils/array/arrayUtils";
 import Spinner from "../../spinner/Spinner";
 import {KEYBOARD_EVENT_KEY} from "../../core/utils/keyboard/keyboardEventConstants";
-import TypeaheadSelectHeader from "./header/TypeaheadSelectHeader";
+import {
+  Option,
+  TypeaheadSelectOption,
+  TypeaheadSelectOptionSelectHandler
+} from "../util/selectTypes";
+import Select from "../Select";
+import TypeheadSelectTrigger from "./trigger/TypeheadSelectTrigger";
 
-export interface TypeaheadSelectProps {
-  selectedOptions: DropdownOption[];
-  dropdownOptions: DropdownOption[];
-  onSelect: (option: DropdownOption) => void;
+import "./_typeahead-select.scss";
+
+export interface TypeaheadSelectProps<
+  T extends TypeaheadSelectOption = TypeaheadSelectOption
+> {
+  selectedOptions: T[];
+  options: T[];
+  onSelect: TypeaheadSelectOptionSelectHandler<T>;
   typeaheadProps: Pick<
     TypeaheadInputProps,
     "id" | "placeholder" | "name" | "onFocus" | "type"
@@ -30,7 +36,7 @@ export interface TypeaheadSelectProps {
   onKeywordChange?: (value: string) => void;
   initialKeyword?: string;
   controlledKeyword?: string;
-  onTagRemove?: (option: DropdownOption) => void;
+  onTagRemove?: (option: Option) => void;
   selectedOptionLimit?: number;
   customClassName?: string;
   shouldDisplaySelectedOptions?: boolean;
@@ -43,9 +49,9 @@ export interface TypeaheadSelectProps {
 }
 
 /* eslint-disable complexity */
-function TypeaheadSelect({
+function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption>({
   testid,
-  dropdownOptions,
+  options,
   selectedOptions,
   typeaheadProps,
   onTagRemove,
@@ -62,16 +68,16 @@ function TypeaheadSelect({
   customSpinner,
   initialKeyword = "",
   controlledKeyword
-}: TypeaheadSelectProps) {
+}: TypeaheadSelectProps<T>) {
   const typeaheadInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isMenuOpen, setMenuVisibility] = useState(false);
-  const [computedDropdownOptions, setComputedDropdownOptions] = useState(dropdownOptions);
+  const [computedDropdownOptions, setComputedDropdownOptions] = useState(options);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
   const [keyword, setKeyword] = useState(initialKeyword);
   const inputValue = typeof controlledKeyword === "string" ? controlledKeyword : keyword;
 
-  const tags = mapDropdownOptionsToTagShapes(selectedOptions);
+  const tags = mapOptionsToTagShapes(selectedOptions);
   const shouldDisplayOnlyTags = Boolean(
     selectedOptionLimit && selectedOptions.length >= selectedOptionLimit
   );
@@ -91,8 +97,8 @@ function TypeaheadSelect({
   );
 
   useEffect(() => {
-    setComputedDropdownOptions(dropdownOptions);
-  }, [dropdownOptions]);
+    setComputedDropdownOptions(options);
+  }, [options]);
 
   useEffect(() => {
     let timeoutId: any;
@@ -111,9 +117,21 @@ function TypeaheadSelect({
     };
   }, [shouldFocusOnInput]);
 
-  const dropdownHeader = (
-    <div className={"typeahead-select__header-container"}>
-      <TypeaheadSelectHeader
+  useEffect(() => {
+    setComputedDropdownOptions(filterOutItemsByKey(options, "id", selectedOptions));
+  }, [options, selectedOptions]);
+
+  return (
+    // TODO: Add isMenuOpenHook when we have it
+    <Select
+      role={"listbox"}
+      onSelect={handleSelect}
+      options={computedDropdownOptions}
+      customClassName={typeaheadSelectClassName}
+      value={selectedOptions}
+      isDisabled={isDisabled}
+      shouldCloseOnSelect={shouldCloseOnSelect}>
+      <TypeheadSelectTrigger
         tags={shouldDisplaySelectedOptions ? tags : []}
         handleTagRemove={handleRemove}
         input={
@@ -137,27 +155,22 @@ function TypeaheadSelect({
           )
         }
       />
-    </div>
-  );
 
-  return (
-    <Dropdown
-      testid={testid}
-      customClassName={typeaheadSelectClassName}
-      headerWithoutButton={dropdownHeader}
-      role={"listbox"}
-      options={filterOutItemsByKey(computedDropdownOptions, "id", selectedOptions)}
-      onSelect={handleSelect}
-      selectedOption={null}
-      isMenuOpenHook={[isMenuOpen, setMenuVisibility]}
-      hasDeselectOption={false}
-      shouldCloseOnSelect={shouldCloseOnSelect}
-      shouldJumpToQuery={false}
-      isDisabled={isDisabled}
-      areOptionsFetching={areOptionsFetching}
-      shouldShowEmptyOptions={shouldShowEmptyOptions}
-      canOpenDropdownMenu={canOpenDropdownMenu}
-    />
+      <Select.Content>
+        {computedDropdownOptions.map((option) => (
+          <Select.Item key={option.id} option={option}>
+            {option.title}
+          </Select.Item>
+        ))}
+        {shouldShowEmptyOptions && !computedDropdownOptions.length && (
+          <p
+            data-testid={`${testid}.empty-message`}
+            className={"dropdown-list__empty-message"}>
+            {"No available options"}
+          </p>
+        )}
+      </Select.Content>
+    </Select>
   );
 
   function openDropdownMenu() {
@@ -174,16 +187,16 @@ function TypeaheadSelect({
     }
   }
 
-  function handleSelect(option: DropdownOption | null) {
-    if (!shouldDisplayOnlyTags) {
-      onSelect(option!);
-      setComputedDropdownOptions(dropdownOptions);
+  function handleSelect(option: T) {
+    if (!shouldDisplayOnlyTags && !isDisabled) {
+      onSelect(option);
+      setComputedDropdownOptions(options);
       setKeyword("");
       setShouldFocusOnInput(true);
     }
   }
 
-  function handleRemove(tag: TagShape<DropdownOption>) {
+  function handleRemove(tag: TagShape<Option>) {
     if (onTagRemove) {
       onTagRemove(tag.context!);
       setShouldFocusOnInput(true);
@@ -192,7 +205,11 @@ function TypeaheadSelect({
 
   function handleKeywordChange(value: string) {
     if (shouldFilterOptionsByKeyword) {
-      setComputedDropdownOptions(filterOptionsByKeyword(dropdownOptions, value));
+      const unselectedOptions = options.filter(
+        (option) => selectedOptions.indexOf(option) < 0
+      );
+
+      setComputedDropdownOptions(filterOptionsByKeyword(unselectedOptions, value));
     }
 
     if (onKeywordChange) {

@@ -1,7 +1,9 @@
-import {DropdownOption} from "./../../dropdown/list/item/DropdownListItem";
+import {TypeaheadSelectOption} from "../../select/util/selectTypes";
 import {TagShape} from "../Tag";
 
-function mapDropdownOptionToTagShape(option: DropdownOption): TagShape<DropdownOption> {
+function mapOptionToTagShape<T extends TypeaheadSelectOption = TypeaheadSelectOption>(
+  option: T
+): TagShape<T> {
   return {
     id: option.id,
     content: option.title,
@@ -9,8 +11,10 @@ function mapDropdownOptionToTagShape(option: DropdownOption): TagShape<DropdownO
   };
 }
 
-function mapDropdownOptionsToTagShapes(options: DropdownOption[]) {
-  return options.map(mapDropdownOptionToTagShape);
+function mapOptionsToTagShapes<T extends TypeaheadSelectOption = TypeaheadSelectOption>(
+  options: T[]
+) {
+  return options.map(mapOptionToTagShape);
 }
 
-export {mapDropdownOptionsToTagShapes};
+export {mapOptionsToTagShapes};

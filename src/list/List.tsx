@@ -1,6 +1,6 @@
 import "./_list.scss";
 
-import React, {Fragment} from "react";
+import React, {Fragment, Ref} from "react";
 import classNames from "classnames";
 
 import {generateListItemKey} from "./util/listUtils";
@@ -23,17 +23,22 @@ export interface ListProps<Item = any> {
   type?: "unordered" | "ordered" | "description";
 }
 
-function List<Item extends any>({
-  items,
-  children,
-  customClassName,
-  testid,
-  role,
-  listItemKeyGenerator,
-  placeholderProps,
-  emptyStateProps,
-  type = "unordered"
-}: ListProps<Item>) {
+export type ListElementType = Extract<keyof JSX.IntrinsicElements, "ul" | "ol" | "dl">;
+
+function ListComponent<Item extends any>(
+  {
+    items,
+    children,
+    customClassName,
+    testid,
+    listItemKeyGenerator,
+    placeholderProps,
+    emptyStateProps,
+    type = "unordered",
+    role
+  }: ListProps<Item>,
+  ref?: React.ForwardedRef<ListElementType>
+) {
   const listClassName = classNames("list", customClassName);
   let ListTypeElement: Extract<keyof JSX.IntrinsicElements, "ul" | "ol" | "dl">;
 
@@ -52,7 +57,8 @@ function List<Item extends any>({
   }
 
   return (
-    <ListTypeElement className={listClassName} role={role} data-testid={testid}>
+    // @ts-ignore - ref type is compatible
+    <ListTypeElement ref={ref} className={listClassName} role={role} data-testid={testid}>
       {items.map((item: Item, index: number) => {
         const listItemTestId = `${testid}.item-${index}`;
 
@@ -73,4 +79,8 @@ function List<Item extends any>({
   );
 }
 
-export default List;
+const List = React.forwardRef<ListElementType, ListProps>(ListComponent);
+
+export default List as <Item = any>(
+  props: ListProps<Item> & {ref?: Ref<ListElementType>}
+) => JSX.Element;

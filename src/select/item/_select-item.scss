@@ -1,0 +1,45 @@
+.select-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 8px 16px;
+
+  outline: none;
+
+  cursor: pointer;
+
+  &--is-focused,
+  &:hover {
+    color: white;
+
+    /* stylelint-disable-next-line color-no-hex */
+    background-color: #3687ff;
+  }
+
+  &--is-selected {
+    &.select-item--is-focused,
+    &:hover {
+      color: black;
+      background-color: white;
+    }
+
+    .check-icon {
+      path {
+        fill: black;
+      }
+    }
+  }
+
+  &--is-disabled {
+    color: var(--disabled-text-color);
+    
+    cursor: not-allowed;
+
+    &.select-item--is-focused,
+    &:hover {
+      color: var(--disabled-text-color);
+      background-color: white;
+    }
+  }
+}

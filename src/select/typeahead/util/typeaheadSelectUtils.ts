@@ -1,9 +1,9 @@
-import {DropdownOption} from "../../../dropdown/list/item/DropdownListItem";
+import {TypeaheadSelectOption} from "../../util/selectTypes";
 
-function filterOptionsByKeyword(
-  options: DropdownOption[],
+function filterOptionsByKeyword<T extends TypeaheadSelectOption = TypeaheadSelectOption>(
+  options: T[],
   keyword: string
-): DropdownOption[] {
+): T[] {
   let filteredOptions = options;
 
   if (keyword) {

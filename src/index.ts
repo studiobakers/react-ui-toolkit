@@ -28,12 +28,6 @@ import TypeaheadInput, {
 import TypeaheadSelect, {
   TypeaheadSelectProps as TypeaheadSelectComponentProps
 } from "./select/typeahead/TypeaheadSelect";
-import Dropdown, {DropdownProps as DropdownComponentProps} from "./dropdown/Dropdown";
-import {
-  DropdownOption as DropdownComponentOption,
-  DropdownOptionSelectHandler as DropdownOptionSelectComponentHandler,
-  DropdownSelectedOption as DropdownSelectedComponentOption
-} from "./dropdown/list/item/DropdownListItem";
 import List, {ListProps as ListComponentProps} from "./list/List";
 import ListItem, {ListItemProps as ListItemComponentProps} from "./list/item/ListItem";
 import DescriptionTerm, {
@@ -66,6 +60,14 @@ import {
   ToastStateContext,
   ToastContextProvider
 } from "./toast/ToastProvider";
+import Select from "./select/Select";
+import {SelectProps as SelectComponentProps} from "./select/util/selectTypes";
+import {SelectGroupProps as SelectGroupComponentProps} from "./select/group/SelectGroup";
+import {SelectTriggerProps as SelectTriggerComponentProps} from "./select/trigger/SelectTrigger";
+import {SelectContentProps as SelectContentComponentProps} from "./select/content/SelectContent";
+import {SelectItemProps as SelectItemComponentProps} from "./select/item/SelectItem";
+import useSingleSelect from "./select/util/hook/useSingleSelect";
+import useMultiSelect from "./select/util/hook/useMultiSelect";
 
 export {
   // Components
@@ -78,7 +80,6 @@ export {
   RadioGroup,
   TypeaheadInput,
   TypeaheadSelect,
-  Dropdown,
   List,
   ListItem,
   DescriptionTerm,
@@ -93,9 +94,12 @@ export {
   Toggle,
   Switch,
   Toast,
+  Select,
   // Hooks
   useToastContextState,
   useToaster,
+  useSingleSelect,
+  useMultiSelect,
   useDateTimer,
   // Contexts
   ToastDispatchContext,
@@ -123,19 +127,6 @@ export type RadioGroupProps<Id = string, Context = any> = RadioGroupComponentPro
 >;
 export type TypeaheadInputProps = TypeaheadInputComponentProps;
 export type TypeaheadSelectProps = TypeaheadSelectComponentProps;
-export type DropdownProps<OptionIdShape> = DropdownComponentProps<OptionIdShape>;
-export type DropdownOption<Id = string, Context = any> = DropdownComponentOption<
-  Id,
-  Context
->;
-export type DropdownOptionSelectHandler<
-  Id = string,
-  Context = any
-> = DropdownOptionSelectComponentHandler<Id, Context>;
-export type DropdownSelectedOption<
-  Id = string,
-  Context = any
-> = DropdownSelectedComponentOption<Id, Context>;
 export type ListProps<Item = any> = ListComponentProps<Item>;
 export type ButtonProps = ButtonComponentProps;
 export type DescriptionTermProps = DescriptionTermComponentProps;
@@ -151,3 +142,8 @@ export type TimeInputProps = TimeInputComponentProps;
 export type DateTimerProps = DateTimerComponentProps;
 export type ListItemProps = ListItemComponentProps;
 export type ToastProps = ToastComponentProps;
+export type SelectProps = SelectComponentProps;
+export type SelectGroupProps = SelectGroupComponentProps;
+export type SelectTriggerProps = SelectTriggerComponentProps;
+export type SelectContentProps = SelectContentComponentProps;
+export type SelectItemProps = SelectItemComponentProps;

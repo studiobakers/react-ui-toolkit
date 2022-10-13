@@ -1,0 +1,29 @@
+.select-content {
+  position: absolute;
+
+  z-index: 1;
+
+  width: max-content;
+  min-width: 100%;
+
+  margin-top: 15px;
+  padding: 6px 0;
+
+  background-color: white;
+
+  /* stylelint-disable-next-line color-no-hex */
+  border: 1px solid #dfe3ef;
+  border-radius: 6px;
+
+  opacity: 0;
+  
+  transition: opacity 0.25s ease;
+  
+  &--is-visible {
+    opacity: 1;
+  }
+
+  .list {
+    margin: unset;
+  }
+}

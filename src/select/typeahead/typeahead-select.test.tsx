@@ -9,7 +9,7 @@ import {testA11y} from "../../core/utils/test/testUtils";
 describe("<TypeaheadSelect />", () => {
   const defaultTypeaheadSelectProps: TypeaheadSelectProps = {
     testid: "typeahead-select",
-    dropdownOptions: [
+    options: [
       {id: "1", title: "first-dropdown-option"},
       {id: "2", title: "second-dropdown-option"},
       {id: "3", title: "third-dropdown-option"}

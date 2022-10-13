@@ -1,5 +1,3 @@
-import "./_dropdown-story-option-constants.scss";
-
 import React from "react";
 
 function CoinDropdownOptionCustomContent({
@@ -44,7 +42,29 @@ const initialState = {
         isDisabled: true
       }
     ],
-    selectedOption: null
+    selectedOption: null as {id: string; isDisabled?: boolean; title: string} | null
+  },
+  multiSelect: {
+    options: [
+      {
+        id: "turkish",
+        title: "Turkish"
+      },
+      {
+        id: "english",
+        title: "English"
+      },
+      {
+        id: "spanish",
+        title: "Spanish"
+      },
+      {
+        id: "french",
+        title: "French - Disabled",
+        isDisabled: true
+      }
+    ] as {id: string; isDisabled?: boolean; title: string}[],
+    value: [] as {id: string; isDisabled?: boolean; title: string}[]
   },
   withSubtitle: {
     options: [
@@ -64,28 +84,7 @@ const initialState = {
         subtitle: "JavaScript"
       }
     ],
-    selectedOption: null
-  },
-  withContext: {
-    options: [
-      {
-        id: "js",
-        title: "JavaScript",
-        context: {
-          icon: "https://img.icons8.com/dusk/48/000000/javascript-logo.png",
-          url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript"
-        }
-      },
-      {
-        id: "ts",
-        title: "TypeScript",
-        context: {
-          icon: "https://img.icons8.com/color/48/000000/typescript.png",
-          url: "https://www.typescriptlang.org/"
-        }
-      }
-    ],
-    selectedOption: null
+    selectedOption: null as {id: string; isDisabled?: boolean; subtitle: string} | null
   },
   withCustomContent: {
     options: [
@@ -128,7 +127,11 @@ const initialState = {
         )
       }
     ],
-    selectedOption: null
+    selectedOption: null as {
+      id: string;
+      title?: string;
+      CustomContent: JSX.Element;
+    } | null
   }
 };
 

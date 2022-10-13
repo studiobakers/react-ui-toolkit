@@ -45,7 +45,9 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
     </div>
   );
 
-  function handleRemove() {
+  function handleRemove(event: React.MouseEvent<HTMLDivElement>) {
+    event.stopPropagation();
+
     if (onRemove) {
       onRemove(tag);
     }
@@ -57,7 +59,9 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
     switch (event.key) {
       case KEYBOARD_EVENT_KEY.ENTER:
       case KEYBOARD_EVENT_KEY.BACKSPACE:
-        handleRemove();
+        if (onRemove) {
+          onRemove(tag);
+        }
         break;
 
       default:
