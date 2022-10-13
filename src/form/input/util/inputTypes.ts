@@ -27,6 +27,7 @@ export type InputProps = Omit<
   "disabled" | "name" | "className"
 > & {
   name: string;
+  onChange: React.ReactEventHandler<HTMLInputElement>;
   type?: InputTypes;
   testid?: string;
   leftIcon?: React.ReactNode;
@@ -34,12 +35,4 @@ export type InputProps = Omit<
   isDisabled?: boolean;
   hasError?: boolean;
   customClassName?: string;
-  onChange: React.ReactEventHandler<HTMLInputElement>;
-  localizationOptions?: InputLocalizationOptions;
-};
-
-export type InputLocalizationOptions = {
-  shouldFormatToLocaleString?: boolean;
-  locale?: string;
-  maximumFractionDigits?: number;
 };

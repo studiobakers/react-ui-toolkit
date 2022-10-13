@@ -4,31 +4,30 @@ import {storiesOf} from "@storybook/react";
 import StateProvider from "./utils/StateProvider";
 
 import FormField from "../src/form/field/FormField";
-import Input from "../src/form/input/Input";
+import NumberInput from "../src/form/input/number/NumberInput";
 
 storiesOf("Number Input", module)
   .add("Number Input", () => (
     <Fragment>
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <FormField label={"Price – maximumFractionDigits={2}"}>
-              <Input
-                localizationOptions={{maximumFractionDigits: 2}}
+              <NumberInput
+                maximumFractionDigits={2}
                 name={"price"}
-                type={"number"}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
                 placeholder={"$ 10"}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
 
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <br />
@@ -36,18 +35,17 @@ storiesOf("Number Input", module)
             <FormField
               label={"Price - Has Error"}
               errorMessages={["Please enter a valid price"]}>
-              <Input
-                localizationOptions={{maximumFractionDigits: 2}}
+              <NumberInput
+                maximumFractionDigits={2}
                 name={"price"}
-                type={"number"}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
                 placeholder={"$ 10"}
                 hasError={true}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -55,43 +53,41 @@ storiesOf("Number Input", module)
   ))
   .add("Number Input with maximumFractionDigit", () => (
     <Fragment>
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <FormField label={"Price (BTC) – maximumFractionDigits={8}"}>
-              <Input
-                localizationOptions={{maximumFractionDigits: 8}}
+              <NumberInput
+                maximumFractionDigits={8}
                 name={"price"}
-                type={"number"}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
                 placeholder={"Min. ₿ 0.00000001"}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
 
       <br />
 
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <FormField
               label={
                 "ID or Passport Number – maxFractionDigits={0} - Can have leading zeros"
               }>
-              <Input
+              <NumberInput
                 name={"id-number"}
-                type={"number"}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -99,51 +95,49 @@ storiesOf("Number Input", module)
   ))
   .add("Number Input with shouldFormatToLocaleString", () => (
     <Fragment>
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <FormField
               label={
                 "Wallet ($) – maximumFractionDigits={2} - shouldFormatToLocaleString={true}"
               }>
-              <Input
+              <NumberInput
                 name={"wallet"}
-                localizationOptions={{
-                  maximumFractionDigits: 2,
+                formatProps={{
                   shouldFormatToLocaleString: true
                 }}
-                type={"number"}
+                maximumFractionDigits={2}
                 placeholder={"$ 1,000"}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
 
       <br />
 
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <FormField
               label={
                 "World Population – maximumFractionDigits={0} - shouldFormatToLocaleString={true}"
               }>
-              <Input
+              <NumberInput
                 name={"world-population"}
-                type={"number"}
                 placeholder={"7,794,798,739"}
-                localizationOptions={{shouldFormatToLocaleString: true}}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                formatProps={{shouldFormatToLocaleString: true}}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
@@ -151,54 +145,52 @@ storiesOf("Number Input", module)
   ))
   .add("Number Input with locale", () => (
     <Fragment>
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <FormField
               label={
                 'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"zh-Hans-CN-u-nu-hanidec"}'
               }>
-              <Input
+              <NumberInput
                 name={"world-population"}
-                type={"number"}
-                localizationOptions={{
-                  maximumFractionDigits: 4,
+                maximumFractionDigits={4}
+                formatProps={{
                   shouldFormatToLocaleString: true,
                   locale: "zh-Hans-CN-u-nu-hanidec"
                 }}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
 
       <br />
 
-      <StateProvider initialState={""}>
+      <StateProvider initialState={{value: ""}}>
         {(state, setState) => (
           <Fragment>
             <FormField
               label={
                 'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"tr"}'
               }>
-              <Input
+              <NumberInput
                 name={"world-population"}
-                type={"number"}
-                localizationOptions={{
-                  maximumFractionDigits: 4,
+                maximumFractionDigits={4}
+                formatProps={{
                   shouldFormatToLocaleString: true,
                   locale: "tr"
                 }}
-                onChange={(e) => setState(e.currentTarget.value)}
-                value={state}
+                onChange={(e) => setState({value: e.currentTarget.value})}
+                value={state.value}
               />
             </FormField>
 
-            <p>{`event.currentTarget.value: ${state}`}</p>
+            <p>{`event.currentTarget.value: ${state.value}`}</p>
           </Fragment>
         )}
       </StateProvider>
