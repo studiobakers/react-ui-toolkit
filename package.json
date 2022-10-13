@@ -77,7 +77,7 @@
     "jest": "26.4.2",
     "jest-axe": "4.1.0",
     "lint-staged": "10.2.13",
-    "node-sass": "4.14.1",
+    "node-sass": "7.0.3",
     "prettier": "2.0.5",
     "react-docgen-typescript-loader": "3.7.2",
     "react-svg-loader": "3.0.3",
