@@ -9,6 +9,8 @@ import {InputProps as InputComponentProps} from "./form/input/util/inputTypes";
 import PasswordInput, {
   PasswordInputProps as PasswordInputComponentProps
 } from "./form/password-input/PasswordInput";
+import NumberInput from "./form/input/number/NumberInput";
+import {NumberInputProps as NumberInputComponentProps} from "./form/input/number/util/numberInputTypes";
 import FileInput, {
   FileInputProps as FileInputComponentProps
 } from "./form/input/file/FileInput";
@@ -73,6 +75,7 @@ export {
   // Components
   FormField,
   Input,
+  NumberInput,
   FileInput,
   PasswordInput,
   CheckboxInput,
@@ -110,6 +113,7 @@ export {
 // Types
 export type FormFieldProps = FormFieldComponentProps;
 export type InputProps = InputComponentProps;
+export type NumberInputProps = NumberInputComponentProps;
 export type FileInputProps = FileInputComponentProps;
 export type PasswordInputProps = PasswordInputComponentProps;
 export type CheckboxInputProps = CheckboxInputComponentProps;
