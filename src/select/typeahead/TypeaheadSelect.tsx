@@ -18,7 +18,7 @@ import {
   TypeaheadSelectOptionSelectHandler
 } from "../util/selectTypes";
 import Select from "../Select";
-import TypeheadSelectTrigger from "./trigger/TypeheadSelectTrigger";
+import TypeheadSelectTrigger from "./trigger/TypeaheadSelectTrigger";
 
 import "./_typeahead-select.scss";
 
@@ -130,7 +130,8 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
       customClassName={typeaheadSelectClassName}
       value={selectedOptions}
       isDisabled={isDisabled}
-      shouldCloseOnSelect={shouldCloseOnSelect}>
+      shouldCloseOnSelect={shouldCloseOnSelect}
+    >
       <TypeheadSelectTrigger
         tags={shouldDisplaySelectedOptions ? tags : []}
         handleTagRemove={handleRemove}
@@ -165,7 +166,8 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
         {shouldShowEmptyOptions && !computedDropdownOptions.length && (
           <p
             data-testid={`${testid}.empty-message`}
-            className={"dropdown-list__empty-message"}>
+            className={"dropdown-list__empty-message"}
+          >
             {"No available options"}
           </p>
         )}
