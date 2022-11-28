@@ -1,9 +1,10 @@
-import {initialState} from "./constants/select/selectStoryConstants";
+import {Option} from "../../src/select/util/selectTypes";
+import {initialState, Language} from "./constants/select/selectStoryConstants";
 
 function handleMultiSelect(
   state: typeof initialState.multiSelect,
   setState: React.Dispatch<React.SetStateAction<typeof initialState.multiSelect>>,
-  option: {id: string; isDisabled?: boolean; title: string}
+  option: Option<Language>
 ) {
   const isSelected = state.value.findIndex((opt) => opt.id === option.id) > -1;
 

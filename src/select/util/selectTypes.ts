@@ -1,13 +1,19 @@
 import React from "react";
 
-interface Option {
-  id: string;
+interface Option<Id = string> {
+  id: Id;
+  title: React.ReactNode;
   isDisabled?: boolean;
 }
 
-interface TypeaheadSelectOption extends Option {
-  title: string;
-}
+// TypeaheadSelectOption is intentionally empty. It happens not
+// to have more properties than Option, but this may
+// change in the future, and it helps to have a TypeaheadSelectOption
+// interface that people can use. Therefore the no-empty-interface is disabled
+// rule for this declaration:
+
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
+interface TypeaheadSelectOption extends Option {}
 
 type SelectItemElement = HTMLLIElement | HTMLDivElement;
 

@@ -9,7 +9,8 @@ function filterOptionsByKeyword<T extends TypeaheadSelectOption = TypeaheadSelec
   if (keyword) {
     filteredOptions = options.filter(
       (option) =>
-        !option.title || option.title.toLowerCase().includes(keyword.toLowerCase())
+        typeof option.title === "string" &&
+        option.title.toLowerCase().includes(keyword.toLowerCase())
     );
   }
 

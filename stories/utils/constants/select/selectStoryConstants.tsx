@@ -1,4 +1,5 @@
 import React from "react";
+import {Option} from "../../../../src/select/util/selectTypes";
 
 function CoinDropdownOptionCustomContent({
   id,
@@ -19,6 +20,13 @@ function CoinDropdownOptionCustomContent({
       <span>{change}%</span>
     </div>
   );
+}
+
+export enum Language {
+  TURKISH = "turkish",
+  ENGLISH = "english",
+  SPANISH = "spanish",
+  FRENCH = "french"
 }
 
 const initialState = {
@@ -42,7 +50,7 @@ const initialState = {
         isDisabled: true
       }
     ],
-    selectedOption: null as {id: string; isDisabled?: boolean; title: string} | null
+    selectedOption: null as Option<Language> | null
   },
   multiSelect: {
     options: [
@@ -63,8 +71,8 @@ const initialState = {
         title: "French - Disabled",
         isDisabled: true
       }
-    ] as {id: string; isDisabled?: boolean; title: string}[],
-    value: [] as {id: string; isDisabled?: boolean; title: string}[]
+    ] as Option<Language>[],
+    value: [] as Option<Language>[]
   },
   withSubtitle: {
     options: [
@@ -84,7 +92,7 @@ const initialState = {
         subtitle: "JavaScript"
       }
     ],
-    selectedOption: null as {id: string; isDisabled?: boolean; subtitle: string} | null
+    selectedOption: null as Option | null
   },
   withCustomContent: {
     options: [
@@ -127,11 +135,7 @@ const initialState = {
         )
       }
     ],
-    selectedOption: null as {
-      id: string;
-      title?: string;
-      CustomContent: JSX.Element;
-    } | null
+    selectedOption: null as Option | null
   }
 };
 
