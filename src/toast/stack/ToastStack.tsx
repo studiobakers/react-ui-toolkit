@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import List from "../../list/List";
 import Toast from "../Toast";
-import {useToastContextState} from "../util/toastHooks";
+import {useToastContextState} from "../util/context/ToastContext";
 
 interface ToastStackProps {
   customRootId?: string;
@@ -37,7 +37,8 @@ function ToastStack({customRootId}: ToastStackProps) {
         <List
           testid={"ToastStack"}
           items={state.toastStack}
-          customClassName={"toast-stack"}>
+          customClassName={"toast-stack"}
+        >
           {(toast, testid) => <Toast testid={testid} data={toast} />}
         </List>
       ) : (

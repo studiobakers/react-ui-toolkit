@@ -3,8 +3,8 @@ import classNames from "classnames";
 
 import {Option} from "../util/selectTypes";
 import List, {ListElementType} from "../../list/List";
-import Select from "../Select";
 import {ListProps} from "../..";
+import SelectItem from "../item/SelectItem";
 
 export type SelectItemListProps<T extends Option = Option> = {
   options: T[];
@@ -24,15 +24,17 @@ function SelectItemListComponent<T extends Option = Option>(
       ref={ref}
       items={options}
       customClassName={(classNames("select-item-list"), customClassName)}
-      {...listProps}>
+      {...listProps}
+    >
       {(option, listItemTestId) => (
-        <Select.Item
+        <SelectItem
           key={listItemTestId}
           as={"li"}
           option={option}
-          customClassName={"select-item-list__item"}>
+          customClassName={"select-item-list__item"}
+        >
           {contentRenderer(option)}
-        </Select.Item>
+        </SelectItem>
       )}
     </List>
   );

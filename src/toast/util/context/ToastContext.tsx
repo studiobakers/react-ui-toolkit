@@ -1,9 +1,13 @@
-import {useCallback, useContext} from "react";
+import {createContext, useCallback, useContext} from "react";
 
-import {generateRandomString} from "../../core/utils/string/stringUtils";
-import {ToastItemContext} from "../ToastItemContext";
-import {ToastDispatchContext, ToastStateContext} from "../ToastProvider";
-import {ToastContextState, ToastData} from "./toastTypes";
+import {ToastContextState, ToastAction, ToastData} from "./toastContextTypes";
+import {generateRandomString} from "../../../core/utils/string/stringUtils";
+
+const ToastStateContext = createContext<null | ToastContextState>(null);
+const ToastDispatchContext = createContext<null | React.Dispatch<ToastAction>>(null);
+
+ToastDispatchContext.displayName = "ToastDispatchContext";
+ToastStateContext.displayName = "ToastStateContext";
 
 /**
  * @returns {Object} Current value of ToastContextState
@@ -62,7 +66,7 @@ function useToaster() {
      * Updates the data for a Toast given its ID
      */
     update: useCallback(
-      (toastId, toastData: Partial<ToastData>) => {
+      (toastId: string, toastData: Partial<ToastData>) => {
         dispatch({
           type: "UPDATE",
           toastId,
@@ -82,14 +86,4 @@ function useToaster() {
   };
 }
 
-function useToastItemContext() {
-  const toastItemContext = useContext(ToastItemContext);
-
-  if (!toastItemContext) {
-    throw new Error("Trying to consume ToastItemContext outside of its provider");
-  }
-
-  return toastItemContext;
-}
-
-export {useToastContextState, useToaster, useToastItemContext};
+export {ToastStateContext, ToastDispatchContext, useToastContextState, useToaster};

@@ -9,7 +9,7 @@ import FormField from "../src/form/field/FormField";
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import Input from "../src/form/input/Input";
 import Button from "../src/button/Button";
-import {useToaster} from "../src/toast/util/toastHooks";
+import {useToaster} from "../src/toast/util/context/ToastContext";
 import StoryFragment from "./utils/StoryFragment";
 import Toast from "../src/toast/Toast";
 import {ToastContextProvider} from "../src/toast/ToastProvider";
@@ -32,7 +32,8 @@ function ToastExamples() {
                 );
               }
             })
-          }>
+          }
+        >
           {"Info Toast"}
         </Button>
 
@@ -48,7 +49,8 @@ function ToastExamples() {
                 );
               }
             })
-          }>
+          }
+        >
           {"Success Toast"}
         </Button>
 
@@ -64,7 +66,8 @@ function ToastExamples() {
                 );
               }
             })
-          }>
+          }
+        >
           {"Warning Toast"}
         </Button>
 
@@ -80,7 +83,8 @@ function ToastExamples() {
                 );
               }
             })
-          }>
+          }
+        >
           {"Error Toast"}
         </Button>
       </div>
@@ -103,7 +107,8 @@ function ToastExamples() {
               },
               id: "custom-info-toast"
             })
-          }>
+          }
+        >
           {"Info Toast with Custom ID"}
         </Button>
 
@@ -122,7 +127,8 @@ function ToastExamples() {
               },
               timeout: 10000
             })
-          }>
+          }
+        >
           {"Update Custom Toast"}
         </Button>
 
@@ -147,7 +153,8 @@ function ToastExamples() {
             timeout: 100,
             autoClose: true
           })
-        }>
+        }
+      >
         {"Closes itself in 100ms"}
       </Button>
 
@@ -172,7 +179,8 @@ function ToastExamples() {
                 );
               }
             })
-          }>
+          }
+        >
           {"Toast with Close Button"}
         </Button>
       </div>
@@ -231,7 +239,8 @@ storiesOf("Toast", module)
           />
           <ToastContextProvider
             limit={state.limit ? parseInt(state.limit) : undefined}
-            autoCloseToasts={state.autoCloseToasts}>
+            autoCloseToasts={state.autoCloseToasts}
+          >
             <ToastExamples />
           </ToastContextProvider>
         </StoryFragment>

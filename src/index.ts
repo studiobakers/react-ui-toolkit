@@ -56,12 +56,13 @@ import TimeInput, {
 } from "./form/time-input/TimeInput";
 import {DateTimerProps as DateTimerComponentProps} from "./date-timer/util/dateTimerTypes";
 import Toast, {ToastProps as ToastComponentProps} from "./toast/Toast";
-import {useToastContextState, useToaster} from "./toast/util/toastHooks";
 import {
   ToastDispatchContext,
   ToastStateContext,
-  ToastContextProvider
-} from "./toast/ToastProvider";
+  useToastContextState,
+  useToaster
+} from "./toast/util/context/ToastContext";
+import {ToastContextProvider} from "./toast/ToastProvider";
 import Select from "./select/Select";
 import {SelectProps as SelectComponentProps} from "./select/util/selectTypes";
 import {SelectGroupProps as SelectGroupComponentProps} from "./select/group/SelectGroup";

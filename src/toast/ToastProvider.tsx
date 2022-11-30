@@ -1,16 +1,10 @@
-import React, {createContext, useReducer, useEffect} from "react";
+import React, {useReducer, useEffect} from "react";
 
 import ToastStack from "./stack/ToastStack";
 import {DEFAULT_TOAST_TIMEOUT, initialToastState} from "./util/toastConstants";
-import toastReducer from "./util/toastReducer";
-import {ToastAction, ToastContextState} from "./util/toastTypes";
+import toastContextReducer from "./util/context/toastContextReducer";
 import {isNonNegativeNumber} from "../core/utils/number/numberUtils";
-
-const ToastStateContext = createContext<null | ToastContextState>(null);
-const ToastDispatchContext = createContext<null | React.Dispatch<ToastAction>>(null);
-
-ToastDispatchContext.displayName = "ToastDispatchContext";
-ToastStateContext.displayName = "ToastStateContext";
+import {ToastDispatchContext, ToastStateContext} from "./util/context/ToastContext";
 
 interface ToastContextProviderProps {
   children: React.ReactNode;
@@ -24,7 +18,6 @@ interface ToastContextProviderProps {
  * Wraps its children in a context provider
  * these children can then use the useToast hook to show toast messages
  */
-
 function ToastContextProvider({
   children,
   customRootId,
@@ -32,7 +25,7 @@ function ToastContextProvider({
   limit,
   defaultAutoCloseTimeout = DEFAULT_TOAST_TIMEOUT
 }: ToastContextProviderProps) {
-  const [state, dispatch] = useReducer(toastReducer, {
+  const [state, dispatch] = useReducer(toastContextReducer, {
     ...initialToastState,
     autoCloseToasts,
     limit,
@@ -67,4 +60,4 @@ function ToastContextProvider({
   );
 }
 
-export {ToastDispatchContext, ToastStateContext, ToastContextProvider};
+export {ToastContextProvider};

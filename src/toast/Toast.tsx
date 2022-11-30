@@ -1,8 +1,8 @@
 import React, {useLayoutEffect} from "react";
 import classNames from "classnames";
 
-import {useToaster, useToastContextState} from "./util/toastHooks";
-import {ToastContextState} from "./util/toastTypes";
+import {useToaster, useToastContextState} from "./util/context/ToastContext";
+import {ToastContextState} from "./util/context/toastContextTypes";
 import ListItem from "../list/item/ListItem";
 import ToastCloseButton from "./close-button/ToastCloseButton";
 import {ToastItemContext} from "./ToastItemContext";

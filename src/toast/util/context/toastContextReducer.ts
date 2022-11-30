@@ -1,12 +1,12 @@
 import {
   limitArrayLengthFromTheEnd,
   updateAtIndex
-} from "../../core/utils/array/arrayUtils";
-import {not} from "../../core/utils/function/functionUtils";
-import {isNonNegativeNumber} from "../../core/utils/number/numberUtils";
-import {initialToastState} from "./toastConstants";
-import {ToastAction} from "./toastTypes";
-import {isSameToast} from "./toastUtils";
+} from "../../../core/utils/array/arrayUtils";
+import {not} from "../../../core/utils/function/functionUtils";
+import {isNonNegativeNumber} from "../../../core/utils/number/numberUtils";
+import {ToastAction} from "../context/toastContextTypes";
+import {initialToastState} from "../toastConstants";
+import {isSameToast} from "../toastUtils";
 
 type ToastState = typeof initialToastState;
 

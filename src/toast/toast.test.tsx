@@ -1,11 +1,10 @@
 import React from "react";
-import {render, screen} from "@testing-library/react";
-import {waitFor} from "@testing-library/dom";
+import {render, screen, waitFor} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 
 import {Button, Toast, ToastContextProvider, useToaster} from "..";
-import {ToastContextState} from "./util/toastTypes";
+import {ToastContextState} from "./util/context/toastContextTypes";
 import {DEFAULT_TOAST_TIMEOUT} from "./util/toastConstants";
 
 const testToastContentText = "This is a test toast";
@@ -94,7 +93,7 @@ describe("<ToastContextProvider />", () => {
 
     await waitFor(
       () => {
-        expect(screen.queryByText(testToastContentText)).toBeInTheDocument();
+        expect(screen.getByText(testToastContentText)).toBeInTheDocument();
       },
       {timeout: DEFAULT_TOAST_TIMEOUT}
     );
@@ -138,7 +137,7 @@ describe("<ToastContextProvider />", () => {
 
     await waitFor(
       () => {
-        expect(screen.queryByText(testToastContentText)).toBeInTheDocument();
+        expect(screen.getByText(testToastContentText)).toBeInTheDocument();
       },
       {timeout}
     );
@@ -202,6 +201,7 @@ describe("<ToastContextProvider />", () => {
       <ToastContextProvider autoCloseToasts={false}>{children}</ToastContextProvider>
     );
 
+    // eslint-disable-next-line react/jsx-no-bind
     render(<ButtonWithToast renderCustomToast={customToastRenderer} />, {
       wrapper
     });
