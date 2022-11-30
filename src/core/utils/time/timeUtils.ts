@@ -1,7 +1,6 @@
-import utcToZonedTime from "date-fns-tz/utcToZonedTime";
-import timezonedFormat from "date-fns-tz/format";
-import formatWithOptions from "date-fns/fp/formatWithOptions";
-import enCA from "date-fns/locale/en-CA";
+import {utcToZonedTime, format as timezonedFormat} from "date-fns-tz";
+import {formatWithOptions} from "date-fns/fp";
+import {enCA} from "date-fns/locale";
 
 import {DateTimerProps, TimerType} from "../../../date-timer/util/dateTimerTypes";
 import {
