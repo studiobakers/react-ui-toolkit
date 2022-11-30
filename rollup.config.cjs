@@ -1,15 +1,24 @@
-import typescript from "rollup-plugin-typescript2";
-import {terser} from "rollup-plugin-terser";
-import {eslint} from "rollup-plugin-eslint";
-import postcss from "rollup-plugin-postcss";
-import stylelint from "rollup-plugin-stylelint";
-import reactSvg from "rollup-plugin-react-svg";
-
+const typescript = require("rollup-plugin-typescript2");
+const {terser} = require("rollup-plugin-terser");
+const {eslint} = require("rollup-plugin-eslint");
+const postcss = require("rollup-plugin-postcss");
+const stylelint = require("rollup-plugin-stylelint").default;
+const reactSvg = require("rollup-plugin-react-svg");
 const path = require("path");
 
-export default [
+module.exports = [
   {
-    external: ["react", "react-dom", "classnames", "react-textarea-autosize"],
+    external: [
+      "react",
+      "react-dom",
+      "classnames",
+      "react-textarea-autosize",
+      "uuid",
+      "date-fns",
+      "date-fns/fp",
+      "date-fns/locale",
+      "date-fns-tz"
+    ],
     input: {
       index: "src/index.ts",
       FormField: "src/form/field/FormField.tsx",
@@ -47,15 +56,10 @@ export default [
         fix: true,
         exclude: ["./src/**/**.scss", "./src/**/**.svg"]
       }),
-      stylelint({
-        ignoreFiles: ["**/*.ts", "**/*.js"]
-      }),
-      postcss({
-        extract: path.resolve("dist/main.css")
-      }),
+      stylelint(),
+      postcss({extract: path.resolve("dist/main.css")}),
       typescript({
-        rollupCommonJSResolveHack: true,
-        exclude: "**/__tests__/**",
+        exclude: ["**/__tests__/**", "node_modules"],
         clean: true
       })
     ]
