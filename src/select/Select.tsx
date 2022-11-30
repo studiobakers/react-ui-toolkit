@@ -50,7 +50,8 @@ function SelectComponent<T extends Option = Option>(
       className={selectClassName}
       role={role}
       onKeyDown={handleSelectKeyDown}
-      aria-multiselectable={Array.isArray(value)}>
+      aria-multiselectable={Array.isArray(value)}
+    >
       <SelectContext.Provider value={selectState}>
         <SelectDispatchContext.Provider value={dispatchSelectStateAction}>
           {children}

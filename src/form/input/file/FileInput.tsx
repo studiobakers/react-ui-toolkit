@@ -18,7 +18,6 @@ export interface FileInputProps {
   customClassName?: string;
   customLabelClassName?: string;
   acceptedFileTypes?: string;
-  ref?: React.RefObject<HTMLLabelElement>;
   isMultiple?: boolean;
 }
 
@@ -67,7 +66,8 @@ const FileInput = React.forwardRef<HTMLLabelElement, FileInputProps>(
           ref={ref}
           htmlFor={htmlFor}
           className={labelClassName}
-          data-testid={`${testid}.label`}>
+          data-testid={`${testid}.label`}
+        >
           {children}
 
           {isPending && spinnerContent}

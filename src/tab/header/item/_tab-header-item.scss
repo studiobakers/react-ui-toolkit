@@ -10,23 +10,23 @@
     outline: none;
 
     &:focus {
-      color: rgba(var(--active-color), 0.7);
+      color: RGB(var(--active-color) 0.7);
     }
   }
 }
 
 .tab-header-item--is-active {
-  color: rgba(var(--active-color), 1);
+  color: RGB(var(--active-color) 1);
 
   .list-item__click-wrapper {
     &:focus {
-      color: rgba(var(--active-color), 1);
+      color: RGB(var(--active-color) 1);
     }
   }
 }
 
 .tab-header-item--is-disabled {
-  color: rgba(var(--disabled-color), 1);
+  color: RGB(var(--disabled-color) 1);
 
   .list-item__click-wrapper {
     &:hover {
@@ -34,7 +34,7 @@
     }
 
     &:focus {
-      color: rgba(var(--disabled-color), 1);
+      color: RGB(var(--disabled-color) 1);
     }
   }
 }

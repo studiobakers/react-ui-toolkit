@@ -22,7 +22,8 @@ function TabHeaderItem({testid, tab, onClick, index, isActive}: TabHeaderItemPro
         "tab-header-item--is-disabled": tab.isDisabled
       })}
       clickableListItemProps={{onClick: handleClick}}
-      testid={testid}>
+      testid={testid}
+    >
       {tab.icon && <span className={"tab-header-item__icon"}>{tab.icon}</span>}
 
       {tab.content}

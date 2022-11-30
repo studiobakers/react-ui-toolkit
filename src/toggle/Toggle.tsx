@@ -38,7 +38,8 @@ function Toggle({
           selectedItems,
           onToggle,
           canSelectMultiple
-        }}>
+        }}
+      >
         {children}
       </ToggleContext.Provider>
     </ul>

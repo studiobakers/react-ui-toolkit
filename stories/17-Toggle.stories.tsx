@@ -76,7 +76,8 @@ storiesOf("Toggle", module)
           <Toggle
             selectedItems={state}
             canSelectMultiple={true}
-            onToggle={(e) => setState(e)}>
+            onToggle={(e) => setState(e)}
+          >
             <Toggle.Item dataId="react">{"React"}</Toggle.Item>
             <Toggle.Item dataId="vue">{"Vue"}</Toggle.Item>
             <Toggle.Item dataId="angular">{"Angular"}</Toggle.Item>
@@ -95,7 +96,8 @@ storiesOf("Toggle", module)
             canSelectMultiple={true}
             onToggle={(e) => setState(e)}
             customClassName={"toggle-vertically"}
-            position={"vertical"}>
+            position={"vertical"}
+          >
             <Toggle.Item dataId={"mobile"}>{"Mobile"}</Toggle.Item>
             <Toggle.Item dataId={"tablet"}>{"Tablet"}</Toggle.Item>
             <Toggle.Item dataId={"notebook"}>{"Notebook"}</Toggle.Item>

@@ -23,7 +23,8 @@ function FormFieldMessage({
         "form-field-message",
         customClassName,
         `form-field-message--is-${type}`
-      )}>
+      )}
+    >
       {message}
     </p>
   );
