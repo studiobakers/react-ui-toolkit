@@ -16,7 +16,6 @@ export type TypeaheadInputProps = Omit<InputProps, "onChange" | "type"> & {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   role?: string;
-  children?: React.ReactNode;
 };
 
 const DEFAULT_DEBOUNCE_TIMEOUT = 250;

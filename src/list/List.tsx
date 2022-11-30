@@ -25,7 +25,7 @@ export interface ListProps<Item = any> {
 
 export type ListElementType = Extract<keyof JSX.IntrinsicElements, "ul" | "ol" | "dl">;
 
-function ListComponent<Item extends any>(
+function ListComponent<Item>(
   {
     items,
     children,
@@ -64,7 +64,8 @@ function ListComponent<Item extends any>(
 
         return (
           <Fragment
-            key={generateListItemKey({listItemKeyGenerator, listItemTestId, item})}>
+            key={generateListItemKey({listItemKeyGenerator, listItemTestId, item})}
+          >
             {children(item, listItemTestId, index)}
           </Fragment>
         );

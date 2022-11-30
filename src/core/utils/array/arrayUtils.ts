@@ -31,7 +31,7 @@ function updateAtIndex<Item>(items: Item[], index: number, newItem: Item): Item[
  * @param array - List of items
  * @returns The same array if array.length <=limit, otherwise returns a new array.
  */
-function limitArrayLengthFromTheEnd<Item extends any>(
+function limitArrayLengthFromTheEnd<Item>(
   limit: undefined | number,
   array: Item[]
 ): Item[] {
