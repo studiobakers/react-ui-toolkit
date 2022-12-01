@@ -6,14 +6,9 @@ interface Option<Id = string> {
   isDisabled?: boolean;
 }
 
-// TypeaheadSelectOption is intentionally empty. It happens not
-// to have more properties than Option, but this may
-// change in the future, and it helps to have a TypeaheadSelectOption
-// interface that people can use. Therefore the no-empty-interface is disabled
-// rule for this declaration:
-
-// eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface TypeaheadSelectOption extends Option {}
+type TypeaheadSelectOption<Id = string> = Omit<Option, "id"> & {
+  id: Id;
+};
 
 type SelectItemElement = HTMLLIElement | HTMLDivElement;
 
