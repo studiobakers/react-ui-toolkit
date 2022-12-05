@@ -6,15 +6,15 @@ import classNames from "classnames";
 import TabHeaderItem from "./header/item/TabHeaderItem";
 import List from "../list/List";
 
-export type TabItem = {
-  id: string;
+export type TabItem<ID> = {
+  id: ID;
   content: React.ReactNode;
   icon?: React.ReactNode;
   isDisabled?: boolean;
 };
 
-interface UncontrolledTabProps {
-  items: TabItem[];
+interface UncontrolledTabProps<ID> {
+  items: TabItem<ID>[];
   children: React.ReactNode[];
   testid?: string;
   initialActiveTabIndex?: number;
@@ -35,7 +35,7 @@ type ControlledTabProps =
       onTabChange?: (index: number) => void;
     };
 
-export type TabProps = ControlledTabProps & UncontrolledTabProps;
+export type TabProps = ControlledTabProps & UncontrolledTabProps<string | number>;
 
 function Tab({
   testid,
@@ -48,6 +48,8 @@ function Tab({
 }: TabProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
+
+  console.log(items);
 
   return (
     <div className={tabClassName}>

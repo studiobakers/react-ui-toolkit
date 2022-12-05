@@ -136,7 +136,7 @@ export type ButtonProps = ButtonComponentProps;
 export type DescriptionTermProps = DescriptionTermComponentProps;
 export type FileUploadButtonProps = FileUploadButtonComponentProps;
 export type SpinnerProps = SpinnerComponentProps;
-export type TabItem = TabComponentItem;
+export type TabItem <ID = number|string> = TabComponentItem <ID>;
 export type TabProps = TabComponentProps;
 export type ProgressBarProps = ProgressBarComponentProps;
 export type TextareaProps = TextareaComponentProps;

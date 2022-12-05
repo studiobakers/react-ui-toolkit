@@ -6,15 +6,15 @@ import classNames from "classnames";
 import {TabItem} from "../../Tab";
 import ListItem from "../../../list/item/ListItem";
 
-type TabHeaderItemProps = {
-  tab: TabItem;
+type TabHeaderItemProps<ID> = {
+  tab: TabItem<ID>;
   onClick: (index: number) => void;
   isActive: boolean;
   index: number;
   testid?: string;
 };
 
-function TabHeaderItem({testid, tab, onClick, index, isActive}: TabHeaderItemProps) {
+function TabHeaderItem({testid, tab, onClick, index, isActive}: TabHeaderItemProps<number|string>) {
   return (
     <ListItem
       customClassName={classNames("tab-header-item", {

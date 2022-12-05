@@ -6,7 +6,7 @@ import {TabItem, TabProps} from "./Tab";
 import {Tab} from "..";
 import {testA11y} from "../core/utils/test/testUtils";
 
-const tabItems: TabItem[] = [
+const tabItems: TabItem<string>[] = [
   {
     id: "tab-item-1",
     content: <div data-testid={"uncontrolled-tab.content-0"}>{"Tab Item 0"}</div>
