@@ -40,7 +40,8 @@ const TypeaheadInput = React.forwardRef<HTMLInputElement, TypeaheadInputProps>(
       rightIcon,
       initialValue = "",
       value,
-      queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT
+      queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
+      ...otherProps
     } = props;
 
     const [inputValue, setInputValue] = useDebounce(
@@ -73,6 +74,7 @@ const TypeaheadInput = React.forwardRef<HTMLInputElement, TypeaheadInputProps>(
         leftIcon={leftIcon}
         rightIcon={rightIcon}
         role={role}
+        {...otherProps}
       />
     );
 
