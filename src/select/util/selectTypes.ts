@@ -2,13 +2,10 @@ import React from "react";
 
 interface Option<Id = string> {
   id: Id;
-  title: React.ReactNode;
   isDisabled?: boolean;
 }
 
-type TypeaheadSelectOption<Id = string> = Omit<Option, "id"> & {
-  id: Id;
-};
+type TypeaheadSelectOption<Id = string> = Option<Id>;
 
 type SelectItemElement = HTMLLIElement | HTMLDivElement;
 

@@ -50,7 +50,7 @@ const initialState = {
         isDisabled: true
       }
     ],
-    selectedOption: null as Option<Language> | null
+    selectedOption: null as (Option<Language> & {title: string}) | null
   },
   multiSelect: {
     options: [
@@ -71,8 +71,8 @@ const initialState = {
         title: "French - Disabled",
         isDisabled: true
       }
-    ] as Option<Language>[],
-    value: [] as Option<Language>[]
+    ] as (Option<Language> & {title: string})[],
+    value: [] as (Option<Language> & {title: string})[]
   },
   withSubtitle: {
     options: [
@@ -92,7 +92,7 @@ const initialState = {
         subtitle: "JavaScript"
       }
     ],
-    selectedOption: null as Option | null
+    selectedOption: null as (Option & {title: string}) | null
   },
   withCustomContent: {
     options: [
@@ -135,7 +135,7 @@ const initialState = {
         )
       }
     ],
-    selectedOption: null as Option | null
+    selectedOption: null as (Option<Language> & {title: string}) | null
   }
 };
 

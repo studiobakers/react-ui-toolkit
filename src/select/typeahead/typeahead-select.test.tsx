@@ -5,9 +5,12 @@ import "@testing-library/jest-dom";
 
 import TypeaheadSelect, {TypeaheadSelectProps} from "./TypeaheadSelect";
 import {testA11y} from "../../core/utils/test/testUtils";
+import {TypeaheadSelectOption} from "../util/selectTypes";
 
 describe("<TypeaheadSelect />", () => {
-  const defaultTypeaheadSelectProps: TypeaheadSelectProps = {
+  const defaultTypeaheadSelectProps: TypeaheadSelectProps<
+    TypeaheadSelectOption & {title: string}
+  > = {
     testid: "typeahead-select",
     options: [
       {id: "1", title: "first-dropdown-option"},
@@ -21,7 +24,8 @@ describe("<TypeaheadSelect />", () => {
     typeaheadProps: {
       placeholder: "test placeholder",
       name: "test typeahead"
-    }
+    },
+    contentRenderer: (option) => option.title
   };
 
   it("should render correctly", () => {

@@ -1,20 +1,24 @@
+import React from "react";
+
 import {TypeaheadSelectOption} from "../../select/util/selectTypes";
 import {TagShape} from "../Tag";
 
 function mapOptionToTagShape<T extends TypeaheadSelectOption = TypeaheadSelectOption>(
-  option: T
+  option: T,
+  content: React.ReactNode
 ): TagShape<T> {
   return {
     id: option.id,
-    content: option.title,
+    content,
     context: option
   };
 }
 
 function mapOptionsToTagShapes<T extends TypeaheadSelectOption = TypeaheadSelectOption>(
-  options: T[]
+  options: T[],
+  contentRenderer: (option: T) => React.ReactNode
 ) {
-  return options.map(mapOptionToTagShape);
+  return options.map((option) => mapOptionToTagShape(option, contentRenderer(option)));
 }
 
 export {mapOptionsToTagShapes};

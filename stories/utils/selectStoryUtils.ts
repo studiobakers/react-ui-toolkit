@@ -4,7 +4,7 @@ import {initialState, Language} from "./constants/select/selectStoryConstants";
 function handleMultiSelect(
   state: typeof initialState.multiSelect,
   setState: React.Dispatch<React.SetStateAction<typeof initialState.multiSelect>>,
-  option: Option<Language>
+  option: Option<Language> & {title: string}
 ) {
   const isSelected = state.value.findIndex((opt) => opt.id === option.id) > -1;
 
