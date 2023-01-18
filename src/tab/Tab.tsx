@@ -6,15 +6,15 @@ import classNames from "classnames";
 import TabHeaderItem from "./header/item/TabHeaderItem";
 import List from "../list/List";
 
-export type TabItem = {
-  id: string;
+export type TabItem<ID = string | number> = {
+  id: ID;
   content: React.ReactNode;
   icon?: React.ReactNode;
   isDisabled?: boolean;
 };
 
-interface UncontrolledTabProps {
-  items: TabItem[];
+interface UncontrolledTabProps<ID> {
+  items: TabItem<ID>[];
   children: React.ReactNode[];
   testid?: string;
   initialActiveTabIndex?: number;
@@ -26,16 +26,16 @@ interface UncontrolledTabProps {
 // and initialActiveTabIndex should be undefined
 type ControlledTabProps =
   | {
-      activeTabIndex: number;
-      onTabChange: (index: number) => void;
-      initialActiveTabIndex?: number;
-    }
+    activeTabIndex: number;
+    onTabChange: (index: number) => void;
+    initialActiveTabIndex?: number;
+  }
   | {
-      activeTabIndex?: number;
-      onTabChange?: (index: number) => void;
-    };
+    activeTabIndex?: number;
+    onTabChange?: (index: number) => void;
+  };
 
-export type TabProps = ControlledTabProps & UncontrolledTabProps;
+export type TabProps = ControlledTabProps & UncontrolledTabProps<string | number>;
 
 function Tab({
   testid,
@@ -70,9 +70,9 @@ function Tab({
       <div className={"tab__body"} data-testid={`${testid}.body`}>
         {
           children[
-            activeTabIndexFromProps === undefined
-              ? activeTabIndex
-              : activeTabIndexFromProps
+          activeTabIndexFromProps === undefined
+            ? activeTabIndex
+            : activeTabIndexFromProps
           ]
         }
       </div>
