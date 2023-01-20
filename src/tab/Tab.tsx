@@ -19,6 +19,7 @@ interface UncontrolledTabProps {
   testid?: string;
   initialActiveTabIndex?: number;
   customClassName?: string;
+  shouldDisplayTabBody?: boolean;
 }
 
 // if one of the controlled tab props are present
@@ -26,14 +27,14 @@ interface UncontrolledTabProps {
 // and initialActiveTabIndex should be undefined
 type ControlledTabProps =
   | {
-      activeTabIndex: number;
-      onTabChange: (index: number) => void;
-      initialActiveTabIndex?: number;
-    }
+    activeTabIndex: number;
+    onTabChange: (index: number) => void;
+    initialActiveTabIndex?: number;
+  }
   | {
-      activeTabIndex?: number;
-      onTabChange?: (index: number) => void;
-    };
+    activeTabIndex?: number;
+    onTabChange?: (index: number) => void;
+  };
 
 export type TabProps = ControlledTabProps & UncontrolledTabProps;
 
@@ -41,6 +42,7 @@ function Tab({
   testid,
   items,
   initialActiveTabIndex = 0,
+  shouldDisplayTabBody = true,
   activeTabIndex: activeTabIndexFromProps,
   children,
   customClassName,
@@ -67,15 +69,17 @@ function Tab({
         )}
       </List>
 
-      <div className={"tab__body"} data-testid={`${testid}.body`}>
-        {
-          children[
+      {shouldDisplayTabBody &&
+        <div className={"tab__body"} data-testid={`${testid}.body`}>
+          {
+            children[
             activeTabIndexFromProps === undefined
               ? activeTabIndex
               : activeTabIndexFromProps
-          ]
-        }
-      </div>
+            ]
+          }
+        </div>
+      }
     </div>
   );
 
