@@ -8,8 +8,12 @@
 
   padding: 0;
 
-  border: 1px solid var(--default-border-color);
-  border-radius: var(--small-border-radius);
+  .typeahead-select__input {
+    .input {
+      border: none;
+      border-radius: 8px;
+    }
+  }
 }
 
 .typeahead-select-trigger__tag-list {

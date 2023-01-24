@@ -47,6 +47,7 @@ function SelectComponent<T extends Option = Option>(
   return (
     <div
       ref={selectRef}
+      data-testid={props.testid}
       className={selectClassName}
       role={role}
       onKeyDown={handleSelectKeyDown}

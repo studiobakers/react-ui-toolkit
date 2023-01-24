@@ -34,7 +34,6 @@ export interface TypeaheadSelectProps<
   contentRenderer: (option: T) => React.ReactNode;
   onKeywordChange: (value: string) => void;
   testid?: string;
-  initialKeyword?: string;
   controlledKeyword?: string;
   onTagRemove?: (option: Option) => void;
   selectedOptionLimit?: number;
@@ -47,7 +46,6 @@ export interface TypeaheadSelectProps<
   areOptionsFetching?: boolean;
 }
 
-/* eslint-disable complexity */
 function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption>({
   testid,
   options,
@@ -65,23 +63,23 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
   canOpenDropdownMenu = true,
   areOptionsFetching,
   customSpinner,
-  initialKeyword = "",
-  controlledKeyword
+  controlledKeyword = ""
 }: TypeaheadSelectProps<T>) {
   const typeaheadInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isMenuOpen, setMenuVisibility] = useState(false);
   const [computedDropdownOptions, setComputedDropdownOptions] = useState(options);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
-  const [keyword, setKeyword] = useState(initialKeyword);
-  const inputValue = typeof controlledKeyword === "string" ? controlledKeyword : keyword;
+  const [keyword, setKeyword] = useState(controlledKeyword);
 
   const tags = mapOptionsToTagShapes(selectedOptions, contentRenderer);
   const shouldDisplayOnlyTags = Boolean(
     selectedOptionLimit && selectedOptions.length >= selectedOptionLimit
   );
 
-  const canSelectMultiple = !selectedOptionLimit || selectedOptionLimit > 1;
+  const canSelectMultiple =
+    options.length > 1 && (!selectedOptionLimit || selectedOptionLimit > 1);
+
   const shouldCloseOnSelect =
     !canSelectMultiple ||
     Boolean(selectedOptionLimit && selectedOptions.length >= selectedOptionLimit - 1);
@@ -123,6 +121,7 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
   return (
     // TODO: Add isMenuOpenHook when we have it
     <Select
+      testid={testid}
       role={"listbox"}
       onSelect={handleSelect}
       options={computedDropdownOptions}
@@ -133,6 +132,7 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
       <TypeheadSelectTrigger
         tags={shouldDisplaySelectedOptions ? tags : []}
         handleTagRemove={handleRemove}
+        onClick={openDropdownMenu}
         input={
           !shouldDisplayOnlyTags && (
             <TypeaheadInput
@@ -142,8 +142,8 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
               name={typeaheadProps.name}
               type={typeaheadProps.type}
               placeholder={typeaheadProps.placeholder}
-              value={inputValue}
-              onQueryChange={onKeywordChange}
+              value={keyword}
+              onQueryChange={handleQueryChange}
               onKeyDown={handleKeyDown}
               rightIcon={
                 areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
@@ -192,7 +192,12 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
       onSelect(option);
       setComputedDropdownOptions(options);
       setKeyword("");
-      setShouldFocusOnInput(true);
+
+      if (shouldCloseOnSelect) {
+        setMenuVisibility(false);
+      } else {
+        setShouldFocusOnInput(true);
+      }
     }
   }
 
@@ -200,6 +205,8 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
     if (onTagRemove) {
       onTagRemove(tag.context!);
       setShouldFocusOnInput(true);
+      setMenuVisibility(false);
+      setKeyword("");
     }
   }
 
@@ -208,7 +215,7 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
 
     if (
       key === KEYBOARD_EVENT_KEY.BACKSPACE &&
-      !inputValue &&
+      keyword === "" &&
       onTagRemove &&
       selectedOptions.length
     ) {
@@ -216,7 +223,12 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
       onTagRemove(selectedOptions[selectedOptions.length - 1]);
     }
   }
+
+  function handleQueryChange(value: string) {
+    setKeyword(value);
+
+    onKeywordChange(value);
+  }
 }
-/* eslint-enable complexity */
 
 export default TypeaheadSelect;

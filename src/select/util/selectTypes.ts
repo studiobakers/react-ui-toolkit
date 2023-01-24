@@ -30,6 +30,7 @@ interface SelectProps<T extends Option = Option> {
   isDisabled?: boolean;
   shouldCloseOnSelect?: boolean;
   isMenuOpen?: boolean;
+  testid?: string;
 }
 
 type SelectContextValue = Pick<
