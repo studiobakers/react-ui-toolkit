@@ -6,14 +6,14 @@ import classNames from "classnames";
 import TabHeaderItem from "./header/item/TabHeaderItem";
 import List from "../list/List";
 
-export type TabItem<ID = string | number> = {
+export type TabItem<ID extends string | number = string | number> = {
   id: ID;
   content: React.ReactNode;
   icon?: React.ReactNode;
   isDisabled?: boolean;
 };
 
-interface UncontrolledTabProps<ID> {
+interface UncontrolledTabProps<ID extends string | number = string | number> {
   items: TabItem<ID>[];
   children: React.ReactNode[];
   testid?: string;
