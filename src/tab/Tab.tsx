@@ -27,14 +27,14 @@ interface UncontrolledTabProps {
 // and initialActiveTabIndex should be undefined
 type ControlledTabProps =
   | {
-    activeTabIndex: number;
-    onTabChange: (index: number) => void;
-    initialActiveTabIndex?: number;
-  }
+      activeTabIndex: number;
+      onTabChange: (index: number) => void;
+      initialActiveTabIndex?: number;
+    }
   | {
-    activeTabIndex?: number;
-    onTabChange?: (index: number) => void;
-  };
+      activeTabIndex?: number;
+      onTabChange?: (index: number) => void;
+    };
 
 export type TabProps = ControlledTabProps & UncontrolledTabProps;
 
@@ -72,9 +72,9 @@ function Tab({
       <div className={"tab__body"} data-testid={`${testid}.body`}>
         {
           children[
-          activeTabIndexFromProps === undefined
-            ? activeTabIndex
-            : activeTabIndexFromProps
+            activeTabIndexFromProps === undefined
+              ? activeTabIndex
+              : activeTabIndexFromProps
           ]
         }
       </div>
