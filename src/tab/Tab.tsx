@@ -26,14 +26,14 @@ interface UncontrolledTabProps {
 // and initialActiveTabIndex should be undefined
 type ControlledTabProps =
   | {
-    activeTabIndex: number;
-    onTabChange: (index: number) => void;
-    initialActiveTabIndex?: number;
-  }
+      activeTabIndex: number;
+      onTabChange: (index: number) => void;
+      initialActiveTabIndex?: number;
+    }
   | {
-    activeTabIndex?: number;
-    onTabChange?: (index: number) => void;
-  };
+      activeTabIndex?: number;
+      onTabChange?: (index: number) => void;
+    };
 
 export type TabProps = ControlledTabProps & UncontrolledTabProps;
 
@@ -49,12 +49,16 @@ function Tab({
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
 
-  let activeTabIndexToUse = activeTabIndexFromProps === undefined
-    ? activeTabIndex
-    : activeTabIndexFromProps;
+  let activeTabIndexToUse =
+    activeTabIndexFromProps === undefined ? activeTabIndex : activeTabIndexFromProps;
 
-  // check if active index is out of bounds
-  activeTabIndexToUse = activeTabIndexToUse > items.length ? 0 : activeTabIndexToUse;
+  /**
+   * In case activeTabIndex is out of bounds, we need to reset it to 0.
+   * This can happen if items are changes after the mount
+   */
+  if (activeTabIndexToUse > items.length) {
+    activeTabIndexToUse = 0;
+  }
 
   return (
     <div className={tabClassName}>
@@ -64,20 +68,14 @@ function Tab({
             testid={itemTestId}
             onClick={handleChangeActiveTab}
             tab={item}
-            isActive={
-              activeTabIndexToUse === index
-            }
+            isActive={activeTabIndexToUse === index}
             index={index!}
           />
         )}
       </List>
 
       <div className={"tab__body"} data-testid={`${testid}.body`}>
-        {
-          children[
-          activeTabIndexToUse
-          ]
-        }
+        {children[activeTabIndexToUse]}
       </div>
     </div>
   );

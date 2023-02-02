@@ -5,17 +5,16 @@ interface Size {
   height: number | undefined;
 }
 function useWindowSize(): Size {
-
   const [windowSize, setWindowSize] = useState<Size>({
     width: undefined,
-    height: undefined,
+    height: undefined
   });
 
   useEffect(() => {
     function handleResize() {
       setWindowSize({
         width: window.innerWidth,
-        height: window.innerHeight,
+        height: window.innerHeight
       });
     }
     window.addEventListener("resize", handleResize);
