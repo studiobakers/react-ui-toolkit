@@ -49,9 +49,8 @@ function Tab({
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
 
-  let activeTabIndexToUse =
-    activeTabIndexFromProps === undefined ? activeTabIndex : activeTabIndexFromProps;
-
+  let activeTabIndexToUse = activeTabIndexFromProps || activeTabIndex;
+  
   /**
    * In case activeTabIndex is out of bounds, we need to reset it to 0.
    * This can happen if items are changes after the mount
