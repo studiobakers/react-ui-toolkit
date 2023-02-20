@@ -4,6 +4,7 @@ import React, {
   ForwardedRef,
   forwardRef,
   Ref,
+  useEffect,
   useImperativeHandle,
   useReducer,
   useRef
@@ -43,6 +44,15 @@ function SelectComponent<T extends Option = Option>(
     ref,
     () => selectRef.current
   );
+
+  useEffect(() => {
+    if (props.options.length !== selectOwnState.options.length) {
+      dispatchSelectStateAction({
+        type: "SET_OPTIONS",
+        options: props.options
+      });
+    }
+  }, [props.options, selectOwnState.options.length]);
 
   return (
     <div
