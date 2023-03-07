@@ -64,7 +64,8 @@ function ListComponent<Item extends any>(
 
         return (
           <Fragment
-            key={generateListItemKey({listItemKeyGenerator, listItemTestId, item})}>
+            key={generateListItemKey({listItemKeyGenerator, listItemTestId, item})}
+          >
             {children(item, listItemTestId, index)}
           </Fragment>
         );

@@ -37,7 +37,8 @@ function ListItem({
       data-testid={testid}
       className={containerClassName}
       role={role}
-      aria-selected={ariaSelected}>
+      aria-selected={ariaSelected}
+    >
       {children}
     </li>
   );
@@ -50,7 +51,8 @@ function ListItem({
           tabIndex={clickableListItemProps.tabIndex || 0}
           className={"list-item__click-wrapper"}
           onClick={handleClick}
-          onKeyPress={handleKeyPress}>
+          onKeyPress={handleKeyPress}
+        >
           {children}
         </div>
       </li>

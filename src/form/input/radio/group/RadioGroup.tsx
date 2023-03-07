@@ -28,7 +28,8 @@ function RadioGroup<Id = string, Context = any>({
     <List
       testid={testid}
       items={items}
-      customClassName={classNames("radio-group", customClassName)}>
+      customClassName={classNames("radio-group", customClassName)}
+    >
       {(item, itemTestId) => (
         <ListItem customClassName={classNames("radio-group__item", item.customClassName)}>
           <RadioInput

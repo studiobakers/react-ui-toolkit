@@ -1,11 +1,11 @@
 import typescript from "rollup-plugin-typescript2";
-import {terser} from "rollup-plugin-terser";
+import terser from "@rollup/plugin-terser";
 import {eslint} from "rollup-plugin-eslint";
 import postcss from "rollup-plugin-postcss";
-import stylelint from "rollup-plugin-stylelint";
+// todo: solve "[!] TypeError: stylelint is not a function" error
+// import stylelint from "rollup-plugin-stylelint";
 import reactSvg from "rollup-plugin-react-svg";
-
-const path = require("path");
+import path from "path";
 
 export default [
   {
@@ -47,14 +47,13 @@ export default [
         fix: true,
         exclude: ["./src/**/**.scss", "./src/**/**.svg"]
       }),
-      stylelint({
-        ignoreFiles: ["**/*.ts", "**/*.js"]
-      }),
+      // stylelint({
+      //   ignoreFiles: ["**/*.ts", "**/*.js"]
+      // }),
       postcss({
         extract: path.resolve("dist/main.css")
       }),
       typescript({
-        rollupCommonJSResolveHack: true,
         exclude: "**/__tests__/**",
         clean: true
       })

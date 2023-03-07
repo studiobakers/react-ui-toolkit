@@ -31,7 +31,8 @@ storiesOf("Button", module)
             <Button
               type={"button"}
               onClick={() => setState(true)}
-              shouldDisplaySpinner={state}>
+              shouldDisplaySpinner={state}
+            >
               {"Click Me - shouldDisplaySpinner"}
             </Button>
           )}
@@ -43,7 +44,8 @@ storiesOf("Button", module)
           type={"button"}
           onClick={(e) => alert("Thank You!")}
           shouldDisplaySpinner={true}
-          customSpinner={<SpinnerStorySample />}>
+          customSpinner={<SpinnerStorySample />}
+        >
           {"Click Me - shouldDisplaySpinner - customSpinner"}
         </Button>
 
@@ -54,7 +56,8 @@ storiesOf("Button", module)
           type={"button"}
           onClick={() =>
             alert(`Button width: ${buttonRef.current.getBoundingClientRect().width}`)
-          }>
+          }
+        >
           {"Get Button Width"}
         </Button>
       </StoryFragment>
@@ -78,7 +81,8 @@ storiesOf("Button", module)
             )
           }
           name={"photos"}
-          htmlFor={"photos"}>
+          htmlFor={"photos"}
+        >
           {"Upload your photos"}
         </FileUploadButton>
 
@@ -94,7 +98,8 @@ storiesOf("Button", module)
           }
           name={"second-photos"}
           htmlFor={"second-photos"}
-          isDisabled={true}>
+          isDisabled={true}
+        >
           {"Upload your photos - isDisabled"}
         </FileUploadButton>
 
@@ -110,7 +115,8 @@ storiesOf("Button", module)
           }
           name={"second-photos"}
           htmlFor={"second-photos"}
-          isPending={true}>
+          isPending={true}
+        >
           {"Upload your photos - isPending"}
         </FileUploadButton>
 
@@ -127,7 +133,8 @@ storiesOf("Button", module)
           name={"second-photos"}
           htmlFor={"second-photos"}
           isPending={true}
-          customSpinner={<SpinnerStorySample />}>
+          customSpinner={<SpinnerStorySample />}
+        >
           {"Upload your photos - isPending - customSpinner"}
         </FileUploadButton>
 
@@ -143,7 +150,8 @@ storiesOf("Button", module)
             )
           }
           name={"photos"}
-          htmlFor={"photos"}>
+          htmlFor={"photos"}
+        >
           {"Get FileUploadButton Ref"}
         </FileUploadButton>
       </StoryFragment>

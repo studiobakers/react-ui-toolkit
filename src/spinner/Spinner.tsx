@@ -18,7 +18,8 @@ function Spinner({color = "#150F2A", customClassName}: SpinnerProps) {
       viewBox={"0 0 20 20"}
       fill={"none"}
       className={spinnerClassName}
-      xmlns={"http://www.w3.org/2000/svg"}>
+      xmlns={"http://www.w3.org/2000/svg"}
+    >
       <path
         fillRule={"evenodd"}
         clipRule={"evenodd"}
@@ -32,7 +33,8 @@ function Spinner({color = "#150F2A", customClassName}: SpinnerProps) {
           y1={"10.0351"}
           x2={"4.52632"}
           y2={"10.0351"}
-          gradientUnits={"userSpaceOnUse"}>
+          gradientUnits={"userSpaceOnUse"}
+        >
           <stop stopColor={color} />
           <stop offset={"1"} stopColor={"white"} stopOpacity={"0"} />
         </linearGradient>

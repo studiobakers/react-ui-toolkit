@@ -40,7 +40,8 @@ storiesOf("Time Input", module).add("Time Input", () => (
       {(state, setState) => (
         <FormField
           label={"Appointment Time - hasError"}
-          errorMessages={["Please enter a valid time"]}>
+          errorMessages={["Please enter a valid time"]}
+        >
           <TimeInput
             testid={"appointment-time-has-error"}
             value={state.value}

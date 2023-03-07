@@ -28,7 +28,8 @@ function SelectTriggerComponent(
       aria-haspopup={role}
       aria-expanded={isMenuOpen}
       onClick={handleClick}
-      {...otherProps}>
+      {...otherProps}
+    >
       {children}
     </Button>
   );
