@@ -1,0 +1,1 @@
+"use strict";var e,t=require("react"),r=(e=t)&&"object"==typeof e&&"default"in e?e.default:e,u=require("./_tslib-5fa49119.js");exports.useDebounce=function(e,t,n){var c=u.__read(r.useState(t),2),f=c[0],i=c[1],a=r.useRef(f);return r.useEffect((function(){var t;return a.current!==f&&(t=setTimeout((function(){e(f)}),n),a.current=f),function(){clearTimeout(t)}}),[a,e,f,n]),[f,i]};

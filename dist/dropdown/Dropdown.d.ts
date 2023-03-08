@@ -1,0 +1,37 @@
+import React from "react";
+import { DropdownOption, DropdownOptionSelectHandler, DropdownSelectedOption } from "./list/item/DropdownListItem";
+import { DropdownPosition } from "./util/dropdownConstants";
+import "./_dropdown.scss";
+export declare type MenuVisibilityChangeHandlerTypeArgument = "open" | "closed";
+export interface DropdownProps<OptionIdShape> {
+    options: DropdownOption<OptionIdShape>[];
+    selectedOption: DropdownSelectedOption<OptionIdShape>;
+    onSelect: DropdownOptionSelectHandler<OptionIdShape>;
+    role: "listbox" | "menu" | "combobox";
+    testid?: string;
+    header?: React.ReactNode;
+    placeholder?: string;
+    position?: DropdownPosition;
+    customClassName?: string;
+    isMultiSelect?: boolean;
+    canSelectAlreadySelected?: boolean;
+    hasError?: boolean;
+    hasHeaderBoxShadow?: boolean;
+    hasDeselectOption?: boolean;
+    isDisabled?: boolean;
+    errorMessages?: string[];
+    isMenuOpenHook?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    headerWithoutButton?: React.ReactNode;
+    customSpinner?: React.ReactNode;
+    shouldCloseOnSelect?: boolean;
+    onMenuVisibilityChange?: (type: MenuVisibilityChangeHandlerTypeArgument) => void;
+    areOptionsFetching?: boolean;
+    deselectOptionTitle?: string;
+    noOptionsMessage?: string;
+    headerButtonClassName?: string;
+    shouldJumpToQuery?: boolean;
+    shouldShowEmptyOptions?: boolean;
+    canOpenDropdownMenu?: boolean;
+}
+declare function Dropdown<OptionIdShape extends string>({ testid, header, placeholder, customClassName, position, role, isMultiSelect, options, selectedOption, onSelect, canSelectAlreadySelected, hasHeaderBoxShadow, hasDeselectOption, hasError, isDisabled, isMenuOpenHook, headerWithoutButton, customSpinner, shouldCloseOnSelect, onMenuVisibilityChange, areOptionsFetching, deselectOptionTitle, noOptionsMessage, headerButtonClassName, shouldJumpToQuery, shouldShowEmptyOptions, canOpenDropdownMenu }: DropdownProps<OptionIdShape>): JSX.Element;
+export default Dropdown;
