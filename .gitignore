@@ -3,6 +3,7 @@
 node_modules
 storybook-static
 public
+dist
 
 # testing
 coverage
