@@ -26,8 +26,7 @@ const DescriptionTerm = React.forwardRef<HTMLDivElement, DescriptionTermProps>(
         className={containerClassName}
         data-testid={testid}
         id={id}
-        role={role}
-      >
+        role={role}>
         <dt className={classNames("description-term__title", titleClassName)}>{title}</dt>
 
         <dd className={classNames("description-term__description", descriptionClassName)}>

@@ -34,8 +34,7 @@ storiesOf("Number Input", module)
 
             <FormField
               label={"Price - Has Error"}
-              errorMessages={["Please enter a valid price"]}
-            >
+              errorMessages={["Please enter a valid price"]}>
               <NumberInput
                 maximumFractionDigits={2}
                 name={"price"}
@@ -80,8 +79,7 @@ storiesOf("Number Input", module)
             <FormField
               label={
                 "ID or Passport Number – maxFractionDigits={0} - Can have leading zeros"
-              }
-            >
+              }>
               <NumberInput
                 name={"id-number"}
                 onChange={(e) => setState({value: e.currentTarget.value})}
@@ -103,8 +101,7 @@ storiesOf("Number Input", module)
             <FormField
               label={
                 "Wallet ($) – maximumFractionDigits={2} - shouldFormatToLocaleString={true}"
-              }
-            >
+              }>
               <NumberInput
                 name={"wallet"}
                 formatProps={{
@@ -130,8 +127,7 @@ storiesOf("Number Input", module)
             <FormField
               label={
                 "World Population – maximumFractionDigits={0} - shouldFormatToLocaleString={true}"
-              }
-            >
+              }>
               <NumberInput
                 name={"world-population"}
                 placeholder={"7,794,798,739"}
@@ -155,8 +151,7 @@ storiesOf("Number Input", module)
             <FormField
               label={
                 'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"zh-Hans-CN-u-nu-hanidec"}'
-              }
-            >
+              }>
               <NumberInput
                 name={"world-population"}
                 maximumFractionDigits={4}
@@ -182,8 +177,7 @@ storiesOf("Number Input", module)
             <FormField
               label={
                 'Budget (Locale) – maximumFractionDigits={4} - shouldFormatToLocaleString={true} - locale={"tr"}'
-              }
-            >
+              }>
               <NumberInput
                 name={"world-population"}
                 maximumFractionDigits={4}

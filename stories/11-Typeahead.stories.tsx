@@ -135,8 +135,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
             <FormField
               label={
                 "Select Languages (API Fetch Simulation) - with keyword by TypeaheadSelect"
-              }
-            >
+              }>
               <TypeaheadSelect
                 shouldFilterOptionsByKeyword={false}
                 areOptionsFetching={state.areOptionsFetching}
@@ -162,8 +161,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
         <StateProvider initialState={initialState}>
           {(state, setState) => (
             <FormField
-              label={"Select Languages (API Fetch Simulation) - with keyword by parent"}
-            >
+              label={"Select Languages (API Fetch Simulation) - with keyword by parent"}>
               <TypeaheadSelect
                 shouldFilterOptionsByKeyword={false}
                 areOptionsFetching={state.areOptionsFetching}

@@ -39,8 +39,7 @@ storiesOf("Input", module)
       <FormField
         labelledBy={"Full Name"}
         label={"Full Name"}
-        helperMessages={["You can include your middle name"]}
-      >
+        helperMessages={["You can include your middle name"]}>
         <Input
           name="fullName"
           placeholder={"Input hasHelperMessage with FormField"}
@@ -53,8 +52,7 @@ storiesOf("Input", module)
       <FormField
         labelledBy={"Full Name"}
         label={"Full Name"}
-        errorMessages={["Please enter a full name"]}
-      >
+        errorMessages={["Please enter a full name"]}>
         <Input
           name={"fullName"}
           placeholder={"Input errorMessage with FormField"}

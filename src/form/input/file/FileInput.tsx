@@ -67,8 +67,7 @@ const FileInput = React.forwardRef<HTMLLabelElement, FileInputProps>(
           ref={ref}
           htmlFor={htmlFor}
           className={labelClassName}
-          data-testid={`${testid}.label`}
-        >
+          data-testid={`${testid}.label`}>
           {children}
 
           {isPending && spinnerContent}

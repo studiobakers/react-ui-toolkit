@@ -37,8 +37,7 @@ function ToastStack({customRootId}: ToastStackProps) {
         <List
           testid={"ToastStack"}
           items={state.toastStack}
-          customClassName={"toast-stack"}
-        >
+          customClassName={"toast-stack"}>
           {(toast, testid) => <Toast testid={testid} data={toast} />}
         </List>
       ) : (

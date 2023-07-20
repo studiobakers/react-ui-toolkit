@@ -118,8 +118,7 @@ function ClickableUserListItem({user}) {
             onClick: () => {
               setState({displayEmail: !state.displayEmail});
             }
-          }}
-        >
+          }}>
           Click to toggle <em>{user.name}</em>`s email address
           {state.displayEmail && <strong>{` ${user.email}`}</strong>}
         </ListItem>
@@ -157,8 +156,7 @@ storiesOf("List", module)
         placeholderProps={{
           shouldDisplayPlaceholder: true,
           placeholder: renderPlaceholders()
-        }}
-      >
+        }}>
         {(item) => <UserListItem user={item} />}
       </List>
 
@@ -172,8 +170,7 @@ storiesOf("List", module)
         emptyStateProps={{
           shouldDisplayEmptyState: true,
           emptyState: "Sorry, there are no users"
-        }}
-      >
+        }}>
         {(item) => <UserListItem user={item} />}
       </List>
     </Fragment>

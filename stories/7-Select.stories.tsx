@@ -21,8 +21,7 @@ storiesOf("Select", module)
             role={"listbox"}
             options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-          >
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -51,8 +50,7 @@ storiesOf("Select", module)
             role={"listbox"}
             options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-          >
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -80,8 +78,7 @@ storiesOf("Select", module)
             role={"listbox"}
             options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-          >
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -107,8 +104,7 @@ storiesOf("Select", module)
             role={"listbox"}
             options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-          >
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -144,8 +140,7 @@ storiesOf("Select", module)
             role={"listbox"}
             options={state.options}
             onSelect={(option) => setState({...state, selectedOption: option})}
-            value={state.selectedOption}
-          >
+            value={state.selectedOption}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.selectedOption ? state.selectedOption.title : "Select Item"}
@@ -174,8 +169,7 @@ storiesOf("Select", module)
             role={"listbox"}
             options={state.options}
             onSelect={(option) => option && handleMultiSelect(state, setState, option)}
-            value={state.value}
-          >
+            value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.value.length ? `${state.value.length} selected` : "Select Items"}
@@ -207,8 +201,7 @@ storiesOf("Select", module)
             role={"listbox"}
             options={state.options}
             onSelect={(option) => option && handleMultiSelect(state, setState, option)}
-            value={state.value}
-          >
+            value={state.value}>
             <Select.Trigger style={{justifyContent: "space-between"}}>
               <div>
                 {state.value.length ? (
@@ -222,8 +215,7 @@ storiesOf("Select", module)
                               ...state,
                               value: state.value.filter((option) => option.id !== tag.id)
                             })
-                          }
-                        ></Tag>
+                          }></Tag>
                       </ListItem>
                     )}
                   </List>

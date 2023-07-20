@@ -70,8 +70,7 @@ function SelectItemComponent<T extends Option = Option>(
       tabIndex={option?.isDisabled ? -1 : 0}
       aria-selected={isSelected}
       onClick={handleClick}
-      onKeyDown={handleSelectKeyDown}
-    >
+      onKeyDown={handleSelectKeyDown}>
       {children} {isSelected && <CheckIcon />}
     </WrapperElement>
   );

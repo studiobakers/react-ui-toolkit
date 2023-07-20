@@ -14,8 +14,7 @@ function SelectGroupComponent(
       ref={ref}
       className={classNames("select-group", customClassName)}
       role={"group"}
-      {...props}
-    >
+      {...props}>
       {children}
     </div>
   );

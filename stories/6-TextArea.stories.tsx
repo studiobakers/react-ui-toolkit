@@ -58,8 +58,7 @@ storiesOf("Textarea", module).add("Textarea", () => (
     <FormField
       labelledBy={"Address"}
       label={"Address"}
-      errorMessages={["Please enter your address"]}
-    >
+      errorMessages={["Please enter your address"]}>
       <Textarea
         id={"address"}
         name={"Address"}

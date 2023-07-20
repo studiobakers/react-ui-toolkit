@@ -49,8 +49,7 @@ function ProgressBar(props: ProgressBarProps) {
       title={title}
       aria-valuetext={ariaValueText}
       aria-describedby={ariaDescribedBy}
-      data-testid={testid}
-    >
+      data-testid={testid}>
       <div
         className={"progress-bar__track"}
         style={{

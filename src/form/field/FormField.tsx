@@ -47,8 +47,7 @@ function FormField(props: FormFieldProps) {
         <List
           testid={`${testid}.error-messages`}
           customClassName={"form-field__error-message-list"}
-          items={errorMessages!}
-        >
+          items={errorMessages!}>
           {(message, messageTestId) => (
             <ListItem customClassName={"form-field__error-message-list__item"}>
               <FormFieldMessage type={"error"} message={message} testid={messageTestId} />
@@ -61,8 +60,7 @@ function FormField(props: FormFieldProps) {
         <List
           testid={`${testid}.helper-messages`}
           customClassName={"form-field__helper-message-list"}
-          items={helperMessages!}
-        >
+          items={helperMessages!}>
           {(message, messageTestId) => (
             <ListItem customClassName={"form-field__helper-message-list__item"}>
               <FormFieldMessage

@@ -32,8 +32,7 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
       data-testid={testid}
       onKeyDown={handleKeyPress}
       className={containerClassName}
-      onClick={handleRemove}
-    >
+      onClick={handleRemove}>
       <div className={"tag__body"}>{tag.content}</div>
 
       {onRemove && (

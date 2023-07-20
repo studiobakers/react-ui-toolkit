@@ -28,13 +28,11 @@ function TypeheadSelectTrigger({
           customClassName
         )}
         testid={"TypeaheadSelectTrigger.list"}
-        items={tags}
-      >
+        items={tags}>
         {(tag: TagShape) => (
           <ListItem
             key={tag.id}
-            customClassName={"typeahead-select-trigger__tag-list__item"}
-          >
+            customClassName={"typeahead-select-trigger__tag-list__item"}>
             <Tag
               onRemove={handleTagRemove}
               customClassName={"typeahead-select-trigger__tag-list__item__tag"}

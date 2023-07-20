@@ -62,8 +62,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         autoFocus={shouldFocus}
         onClick={handleClick}
         disabled={isButtonDisabled}
-        {...rest}
-      >
+        {...rest}>
         {children}
 
         {shouldDisplaySpinner && spinnerContent}

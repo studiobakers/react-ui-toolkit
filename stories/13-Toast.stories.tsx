@@ -32,8 +32,7 @@ function ToastExamples() {
                 );
               }
             })
-          }
-        >
+          }>
           {"Info Toast"}
         </Button>
 
@@ -49,8 +48,7 @@ function ToastExamples() {
                 );
               }
             })
-          }
-        >
+          }>
           {"Success Toast"}
         </Button>
 
@@ -66,8 +64,7 @@ function ToastExamples() {
                 );
               }
             })
-          }
-        >
+          }>
           {"Warning Toast"}
         </Button>
 
@@ -83,8 +80,7 @@ function ToastExamples() {
                 );
               }
             })
-          }
-        >
+          }>
           {"Error Toast"}
         </Button>
       </div>
@@ -107,8 +103,7 @@ function ToastExamples() {
               },
               id: "custom-info-toast"
             })
-          }
-        >
+          }>
           {"Info Toast with Custom ID"}
         </Button>
 
@@ -127,8 +122,7 @@ function ToastExamples() {
               },
               timeout: 10000
             })
-          }
-        >
+          }>
           {"Update Custom Toast"}
         </Button>
 
@@ -153,8 +147,7 @@ function ToastExamples() {
             timeout: 100,
             autoClose: true
           })
-        }
-      >
+        }>
         {"Closes itself in 100ms"}
       </Button>
 
@@ -179,8 +172,7 @@ function ToastExamples() {
                 );
               }
             })
-          }
-        >
+          }>
           {"Toast with Close Button"}
         </Button>
       </div>
@@ -239,8 +231,7 @@ storiesOf("Toast", module)
           />
           <ToastContextProvider
             limit={state.limit ? parseInt(state.limit) : undefined}
-            autoCloseToasts={state.autoCloseToasts}
-          >
+            autoCloseToasts={state.autoCloseToasts}>
             <ToastExamples />
           </ToastContextProvider>
         </StoryFragment>

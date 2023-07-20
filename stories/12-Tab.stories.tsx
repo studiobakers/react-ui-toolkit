@@ -46,8 +46,7 @@ storiesOf("Tab", module).add("Tab", () => (
           <div style={{display: "flex"}}>
             <Button
               onClick={() => setState(Math.max(0, (state - 1) % 2))}
-              isDisabled={state === 0}
-            >
+              isDisabled={state === 0}>
               Previous Tab
             </Button>
             <Button onClick={() => setState((state + 1) % 2)} isDisabled={state === 1}>
@@ -61,8 +60,7 @@ storiesOf("Tab", module).add("Tab", () => (
             onTabChange={(index) => {
               console.log("tab changed to index: ", index);
               setState(index);
-            }}
-          >
+            }}>
             {[<div key={0}>{"Home tab"}</div>, <div key={1}>{"Following tab"}</div>]}
           </Tab>
         </div>

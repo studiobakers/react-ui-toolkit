@@ -57,8 +57,7 @@ function PasswordInput({
             aria-label={iconAriaLabel}
             onClick={togglePasswordVisibility}
             shouldStopPropagation={false}
-            shouldPreventDefault={false}
-          >
+            shouldPreventDefault={false}>
             {icon}
           </Button>
         )

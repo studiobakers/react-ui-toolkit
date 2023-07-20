@@ -32,8 +32,7 @@ const FileUploadButton = React.forwardRef<HTMLLabelElement, FileUploadButtonProp
           "button",
           customLabelClassName
         )}
-        onChange={handleFileSelect}
-      >
+        onChange={handleFileSelect}>
         {children}
       </FileInput>
     );

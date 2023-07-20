@@ -24,15 +24,13 @@ function SelectItemListComponent<T extends Option = Option>(
       ref={ref}
       items={options}
       customClassName={(classNames("select-item-list"), customClassName)}
-      {...listProps}
-    >
+      {...listProps}>
       {(option, listItemTestId) => (
         <Select.Item
           key={listItemTestId}
           as={"li"}
           option={option}
-          customClassName={"select-item-list__item"}
-        >
+          customClassName={"select-item-list__item"}>
           {contentRenderer(option)}
         </Select.Item>
       )}

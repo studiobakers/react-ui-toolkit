@@ -109,8 +109,7 @@ storiesOf("Progress Bar", module)
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
-        }}
-      >
+        }}>
         {<p>{"0 %"}</p>}
       </ProgressBar>
 
@@ -122,8 +121,7 @@ storiesOf("Progress Bar", module)
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
-        }}
-      >
+        }}>
         {<p>{"85 %"}</p>}
       </ProgressBar>
 
@@ -135,8 +133,7 @@ storiesOf("Progress Bar", module)
           backgroundColor: colors.background,
           trackColor: colors.track,
           completedColor: colors.completed
-        }}
-      >
+        }}>
         {<p>{"Completed!"}</p>}
       </ProgressBar>
 
