@@ -1,0 +1,12 @@
+{
+  "extends": ["@hipo/stylelint-config-base"],
+  "plugins": ["stylelint-order", "stylelint-scss"],
+  "rules": {
+    "color-hex-case": "lower",
+    "selector-class-pattern": null,
+    "no-descending-specificity": null,
+    "function-name-case": null,
+    "color-function-notation": null,
+    "custom-property-empty-line-before": null
+  }
+}

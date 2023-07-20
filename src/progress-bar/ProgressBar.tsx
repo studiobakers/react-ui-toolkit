@@ -23,19 +23,16 @@ export interface ProgressBarProps {
 }
 
 function ProgressBar(props: ProgressBarProps) {
-  const {
-    ariaLabelledBy,
-    ariaLabel,
-    title,
-    ariaValueText,
-    ariaDescribedBy,
-    testid
-  } = props;
+  const {ariaLabelledBy, ariaLabel, title, ariaValueText, ariaDescribedBy, testid} =
+    props;
   const {percentage, style, children, customClassName} = props;
   const progressBarClassName = classNames("progress-bar", customClassName);
   const parsedPercentage = percentage >= MAX_VALUE ? MAX_VALUE : percentage;
-  const {trackColor = "blue", backgroundColor = "gray", completedColor = "green"} =
-    style || {};
+  const {
+    trackColor = "blue",
+    backgroundColor = "gray",
+    completedColor = "green"
+  } = style || {};
 
   return (
     <div
