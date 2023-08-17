@@ -1,10 +1,10 @@
 const path = require("path");
 
-module.exports = ({ config }) => {  
+module.exports = ({config}) => {
   // modify storybook's file-loader rule to avoid conflicts with our inline svg
-  const fileLoaderRule = config.module.rules.find(rule => rule.test.test('.svg'));
+  const fileLoaderRule = config.module.rules.find((rule) => rule.test.test(".svg"));
   fileLoaderRule.exclude = /\.svg$/;
-  
+
   config.module.rules.push({
     test: /\.svg$/,
     exclude: /node_modules/,
@@ -34,8 +34,7 @@ module.exports = ({ config }) => {
             "@babel/plugin-proposal-nullish-coalescing-operator"
           ]
         }
-      },
-      require.resolve("react-docgen-typescript-loader")
+      }
     ]
   });
 

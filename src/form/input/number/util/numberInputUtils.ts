@@ -82,11 +82,8 @@ function localizeNumberInputValue({
   maximumFractionDigits: number;
 }) {
   const {locale, shouldFormatToLocaleString} = formatProps;
-  const {
-    decimalSeparatorForLocale,
-    minusSignForLocale,
-    negativeZeroForLocale
-  } = signProps;
+  const {decimalSeparatorForLocale, minusSignForLocale, negativeZeroForLocale} =
+    signProps;
   let finalValue = value;
 
   if (typeof value === "string" && shouldFormatToLocaleString) {
