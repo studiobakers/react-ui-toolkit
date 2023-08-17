@@ -1,3 +1,4 @@
+import classNames from "classnames";
 import React from "react";
 
 import Input from "../Input";
@@ -17,6 +18,7 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
     value,
     onChange,
     inputMode = "decimal",
+    customClassName,
     ...rest
   } = props;
 
@@ -50,7 +52,14 @@ const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>((props,
   });
 
   return (
-    <Input ref={ref} type={"text"} onChange={handleChange} value={finalValue} {...rest} />
+    <Input
+      ref={ref}
+      customClassName={classNames(customClassName, "number-input")}
+      type={"text"}
+      onChange={handleChange}
+      value={finalValue}
+      {...rest}
+    />
   );
 
   function handleChange(event: React.SyntheticEvent<HTMLInputElement>) {
