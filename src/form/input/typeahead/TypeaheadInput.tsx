@@ -15,7 +15,6 @@ export type TypeaheadInputProps = Omit<InputProps, "onChange" | "type"> & {
   onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
-  role?: string;
   children?: React.ReactNode;
 };
 
@@ -32,7 +31,6 @@ const TypeaheadInput = React.forwardRef<HTMLInputElement, TypeaheadInputProps>(
       onFocus,
       onBlur,
       id,
-      role,
       onKeyDown,
       onQueryChange,
       isDisabled = false,
@@ -40,7 +38,8 @@ const TypeaheadInput = React.forwardRef<HTMLInputElement, TypeaheadInputProps>(
       rightIcon,
       initialValue = "",
       value,
-      queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT
+      queryChangeDebounceTimeout = DEFAULT_DEBOUNCE_TIMEOUT,
+      ...otherProps
     } = props;
 
     const [inputValue, setInputValue] = useDebounce(
@@ -72,7 +71,7 @@ const TypeaheadInput = React.forwardRef<HTMLInputElement, TypeaheadInputProps>(
         isDisabled={isDisabled}
         leftIcon={leftIcon}
         rightIcon={rightIcon}
-        role={role}
+        {...otherProps}
       />
     );
 
