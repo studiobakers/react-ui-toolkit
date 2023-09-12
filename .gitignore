@@ -1,9 +1,9 @@
 .idea
 .vscode
 node_modules
-dist
 storybook-static
 public
+dist
 
 # testing
 coverage
