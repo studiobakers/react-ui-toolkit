@@ -4,7 +4,6 @@ import React, {
   ForwardedRef,
   forwardRef,
   Ref,
-  useEffect,
   useImperativeHandle,
   useReducer,
   useRef
@@ -30,8 +29,7 @@ function SelectComponent<T extends Option = Option>(
   const {children, role = "listbox", customClassName, value} = props;
   const [selectOwnState, dispatchSelectStateAction] = useReducer(selectStateReducer, {
     focusedOptionIndex: -1,
-    isMenuOpen: false,
-    options: props.options || []
+    isMenuOpen: false
   });
   const selectRef = useRef<HTMLDivElement | null>(null);
   const selectState = generateSelectState(selectOwnState, props);
@@ -44,15 +42,6 @@ function SelectComponent<T extends Option = Option>(
     ref,
     () => selectRef.current
   );
-
-  useEffect(() => {
-    if (props.options.length !== selectOwnState.options.length) {
-      dispatchSelectStateAction({
-        type: "SET_OPTIONS",
-        options: props.options
-      });
-    }
-  }, [props.options, selectOwnState.options.length]);
 
   return (
     <div

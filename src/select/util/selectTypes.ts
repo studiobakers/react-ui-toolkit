@@ -21,7 +21,7 @@ type TypeaheadSelectOptionSelectHandler<
 type SelectRole = "listbox" | "menu";
 interface SelectProps<T extends Option = Option> {
   children: React.ReactNode;
-  options: (Option | null)[];
+  options: Option[];
   value: SelectValue<T>;
   onSelect: OptionSelectHandler<T>;
   role?: SelectRole;
@@ -35,22 +35,26 @@ interface SelectProps<T extends Option = Option> {
 
 type SelectContextValue = Pick<
   SelectProps,
-  "hasError" | "isDisabled" | "onSelect" | "shouldCloseOnSelect" | "value" | "role"
+  | "hasError"
+  | "isDisabled"
+  | "onSelect"
+  | "shouldCloseOnSelect"
+  | "value"
+  | "role"
+  | "options"
 > &
   SelectOwnState;
 
 interface SelectOwnState {
   isMenuOpen: boolean;
   focusedOptionIndex: number;
-  options: (Option | null)[];
 }
 
 type SelectValue<T extends Option> = T | T[] | null;
 
 type SelectStateAction =
   | {type: "TOGGLE_MENU_VISIBILITY"}
-  | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number}
-  | {type: "SET_OPTIONS"; options: (Option | null)[]};
+  | {type: "SET_FOCUSED_OPTION_INDEX"; payload: number};
 
 export type {
   SelectContextValue,

@@ -4,13 +4,6 @@ function selectStateReducer(state: SelectOwnState, action: SelectStateAction) {
   let newState = state;
 
   switch (action.type) {
-    case "SET_OPTIONS":
-      newState = {
-        ...state,
-        options: action.options
-      };
-      break;
-
     case "TOGGLE_MENU_VISIBILITY":
       newState = {
         ...state,
