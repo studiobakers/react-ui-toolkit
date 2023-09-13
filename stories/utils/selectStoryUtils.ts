@@ -8,7 +8,7 @@ function handleMultiSelect(
 ) {
   const isSelected = state.value.findIndex((opt) => opt.id === option.id) > -1;
 
-  let newValue = [] as typeof option[];
+  let newValue = [] as (typeof option)[];
 
   if (isSelected) {
     newValue = state.value.filter((opt) => opt.id !== option.id);

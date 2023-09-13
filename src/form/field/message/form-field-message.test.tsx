@@ -33,7 +33,7 @@ describe("<FormFieldMessage />", () => {
   it("should have proper modifier class name for the type prop provided", () => {
     const {rerender} = render(<FormFieldMessage {...defaultFormFieldMessageProps} />);
 
-    const formFieldMessageTypes: typeof defaultFormFieldMessageProps.type[] = [
+    const formFieldMessageTypes: (typeof defaultFormFieldMessageProps.type)[] = [
       "error",
       "warning",
       "helper"

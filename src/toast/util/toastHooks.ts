@@ -62,7 +62,7 @@ function useToaster() {
      * Updates the data for a Toast given its ID
      */
     update: useCallback(
-      (toastId, toastData: Partial<ToastData>) => {
+      (toastId: string, toastData: Partial<ToastData>) => {
         dispatch({
           type: "UPDATE",
           toastId,

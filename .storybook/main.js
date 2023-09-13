@@ -3,5 +3,8 @@ module.exports = {
   addons: ["@storybook/addon-actions/register", "@storybook/addon-links/register"],
   features: {
     postcss: false // do not use the built-in postcss
+  },
+  core: {
+    builder: "webpack5"
   }
 };
