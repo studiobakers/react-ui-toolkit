@@ -73,6 +73,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                     selectedOptions: [...state.selectedOptions, option]
                   })
                 }
+                keyword={state.keyword}
                 onKeywordChange={(keyword) =>
                   setState({
                     ...state,
@@ -107,6 +108,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                     secondSelectedOptions: [...state.secondSelectedOptions, option]
                   })
                 }
+                keyword={state.keyword}
                 onKeywordChange={(keyword) =>
                   setState({
                     ...state,
@@ -136,6 +138,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                 options={state.options}
                 contentRenderer={(option) => option.title}
                 selectedOptions={state.secondSelectedOptions}
+                keyword={state.keyword}
                 onKeywordChange={(keyword) =>
                   setState({
                     ...state,
@@ -179,6 +182,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                     thirdSelectedOptions: [...state.thirdSelectedOptions, option]
                   })
                 }
+                keyword={state.keyword}
                 onKeywordChange={handleAsyncKeywordChange(setState)}
                 onTagRemove={handleRemoveTag(state, setState, "thirdSelectedOptions")}
                 typeaheadProps={{
@@ -207,7 +211,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                   })
                 }
                 onKeywordChange={handleAsyncKeywordChange(setState)}
-                controlledKeyword={state.keyword}
+                keyword={state.keyword}
                 onTagRemove={handleRemoveTag(state, setState, "thirdSelectedOptions")}
                 typeaheadProps={{
                   placeholder: "Select Languages",
@@ -231,6 +235,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                   })
                 }
                 contentRenderer={(option) => option.id}
+                keyword={state.keyword}
                 onKeywordChange={(keyword) =>
                   setState({
                     ...state,

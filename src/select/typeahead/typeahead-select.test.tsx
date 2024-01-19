@@ -25,6 +25,7 @@ describe("<TypeaheadSelect />", () => {
       placeholder: "test placeholder",
       name: "test typeahead"
     },
+    keyword: "",
     contentRenderer: (option) => option.title
   };
 
@@ -64,16 +65,14 @@ describe("<TypeaheadSelect />", () => {
   });
 
   it("should set initialValue and remove when set new value", () => {
-    render(
-      <TypeaheadSelect controlledKeyword={"initial"} {...defaultTypeaheadSelectProps} />
-    );
+    render(<TypeaheadSelect {...defaultTypeaheadSelectProps} keyword={"initial"} />);
 
     const typeaheadSelectInput = screen.getByTestId(
       `${defaultTypeaheadSelectProps.testid}.search`
     ).firstElementChild as HTMLInputElement;
 
     expect(typeaheadSelectInput).toHaveValue("initial");
-    
+
     typeaheadSelectInput.setSelectionRange(0, typeaheadSelectInput.value.length);
 
     userEvent.type(typeaheadSelectInput, "test");
@@ -109,7 +108,7 @@ describe("<TypeaheadSelect />", () => {
 
     expect(dropdownList).not.toHaveClass("typeahead-select--is-dropdown-menu-open");
 
-    userEvent.click(screen.getByTestId("TypeaheadSelectTrigger"));
+    userEvent.click(screen.getByRole("button"));
 
     expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
   });
@@ -170,7 +169,7 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    userEvent.click(screen.getByTestId("TypeaheadSelectTrigger"));
+    userEvent.click(screen.getByRole("button"));
 
     const dropdownList = screen.getByTestId("test-dropdown-visibility");
 
@@ -205,7 +204,7 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    userEvent.click(screen.getByTestId("TypeaheadSelectTrigger"));
+    userEvent.click(screen.getByRole("button"));
 
     const dropdownList = screen.getByTestId("test-dropdown-visibility");
 
