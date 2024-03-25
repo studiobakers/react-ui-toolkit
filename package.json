@@ -1,7 +1,7 @@
 {
   "name": "@hipo/react-ui-toolkit",
-  "version": "1.1.1",
-  "description": "React based UI toolkit.",
+  "version": "1.1.2",
+  "description": "Bakers Studio's React based UI toolkit.",
   "main": "dist/index.js",
   "scripts": {
     "dev": "./node_modules/.bin/rollup -c -w",
