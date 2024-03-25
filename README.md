@@ -56,10 +56,7 @@ Here is a simple example that shows how to customize `Button` and `Input`
 
 ### Development
 
-Recommended system versions
-
-- `node 14.x`
-- `npm 7.x`
+For recommended `node` and `npm` versions, you can check `package.json`
 
 You can start to development with `npm run dev` command. The command watches for changes and builds the toolkit. If you want to generate a production ready build you can use `npm run build`.
 
