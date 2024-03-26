@@ -5,6 +5,10 @@ on:
     branches: # only trigger when a commit was pushed to main
       - main
 
+permissions:
+  # this is required to create a release
+  contents: read
+
 jobs:
   publish:
     runs-on: ubuntu-latest
