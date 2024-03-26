@@ -11,8 +11,8 @@ on:
 concurrency: preview-${{ github.ref }}
 
 permissions:
-  # this is required to allow the action to comment on the PR
-  pull-requests: write
+  # this is required to allow the action to comment on the PR and push to the repo
+  contents: write
 
 jobs:
   deploy-preview:
@@ -25,7 +25,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 18.0.0
 
       - name: Install dependencies and build storybook
         run: |
