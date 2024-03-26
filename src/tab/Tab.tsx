@@ -19,6 +19,7 @@ interface UncontrolledTabProps {
   testid?: string;
   initialActiveTabIndex?: number;
   customClassName?: string;
+  wrapperId?: string;
 }
 
 // if one of the controlled tab props are present
@@ -44,13 +45,14 @@ function Tab({
   activeTabIndex: activeTabIndexFromProps,
   children,
   customClassName,
-  onTabChange
+  onTabChange,
+  wrapperId
 }: TabProps) {
   const [activeTabIndex, setActiveTabIndex] = useState(initialActiveTabIndex);
   const tabClassName = classNames("tab", customClassName);
 
   return (
-    <div className={tabClassName}>
+    <div id={wrapperId} className={tabClassName}>
       <List testid={`${testid}.header`} customClassName={"tab__header"} items={items}>
         {(item, itemTestId, index) => (
           <TabHeaderItem

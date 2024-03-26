@@ -1,10 +1,16 @@
-### @hipo/react-ui-toolkit 🧩
+# @hipo/react-ui-toolkit 🧩
 
-Hipo's React based UI Toolkit / [Demo](https://react-ui-toolkit.now.sh/)
+Bakers' React based UI Toolkit
 
-### Usage
+## Getting started
 
-After installing the `@hipo/react-ui-toolkit` package you can start with simple example
+First, install the package via npm:
+
+```bash
+npm install @hipo/react-ui-toolkit
+```
+
+After installing the package you should import the main CSS file to gather the initial styles of the components, and then import the components you want to use in your project.:
 
 ```javascript
 import {FormField, Input} from "@hipo/react-ui-toolkit/dist/Input";
@@ -30,40 +36,65 @@ function LoginForm() {
 }
 ```
 
-### Styling
+### How to style components?
 
 Every component holds a minimum amount of CSS. You can modify them via the CSS variables. See `_colors.scss` and `_measurement.scss`
 
-Here is a simple example that shows how to customize `Button` and `Input`
+Here is a simple example that shows how to customize `Button` and `Input` styles by overriding the default CSS variables:
 
-```css
-// _button.css
-.primary-button {
+```scss
+.button {
+  // Override the default button styles using CSS variables
+
   --button-bg: #989898;
   --button-color: black;
 }
 
-// _input.css
 .input {
+  // Override the default input styles using CSS variables
+
   --default-border-color: black;
 }
 ```
 
+## Development
+
+[Storybook](#storybook) is suggested for the development environment. It allows you to see the components in isolation and interact with them. It also supports hot-reloading, i.e. when you change the component, it automatically reloads the component in the browser.
+
+First of all, you need to install the dependencies, in the project root folder, run:
+
+```bash
+npm install
+```
+
+> ⚠️ Make sure you are using the exact version of `node` and `npm` that are specified in the `engines` field of [package.json](/package.json) file. Otherwise, you may face some unexpected issues.
+
 ### Storybook
 
-- To run Storybook `npm run storybook`
-- To generate Storybook build `npm run storybook:build`
+Storybook is a development environment for UI components. It allows you to browse a component library, view the different states of each component, and interactively develop and test components.
 
-### Development
+To run the Storybook development server on your local environment, you can use the following command:
 
-For recommended `node` and `npm` versions, you can check `package.json`
+```bash
+npm run storybook
+```
 
-You can start to development with `npm run dev` command. The command watches for changes and builds the toolkit. If you want to generate a production ready build you can use `npm run build`.
+To generate a static build of the Storybook (usually, you don't need this. This is only necessary when you want to publish it to somewhere), you can use the following command:
 
-Or you can run `npm run storybook` to see the components live. Storybook has own Webpack config that compiles and runs the components.
+```bash
+npm run storybook:build
+```
 
-### Linter
+### Production Build
 
-ESLint and Prettier will handle the linting task. You can set a watcher for `npm run prettify` command in your IDE otherwise you need to run prettier manually or right before the production build it'll automatically runs.
+The production deployment is automated by GitHub Actions. Check the [.github/workflows/new-version.yml](/.github/workflows/new-version.yml) file for more information.
 
-The ruleset can be found in [@hipo/eslint-config-base](https://github.com/Hipo/eslint-config-hipo-base), [@hipo/eslint-config-react](https://github.com/Hipo/eslint-config-hipo-base)
+---
+
+If you need to generate a production ready build for some reason, use:
+
+```bash
+npm run build
+```
+
+This will generate a `dist` folder that contains the compiled components.

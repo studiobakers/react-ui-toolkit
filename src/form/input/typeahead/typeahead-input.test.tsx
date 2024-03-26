@@ -69,4 +69,10 @@ describe("<TypeaheadInput />", () => {
 
     expect(screen.getByRole("textbox")).toHaveAttribute("placeholder", "typeahead input");
   });
+
+  it("should have the extra input props passed to the input", () => {
+    render(<TypeaheadInput {...defaultTypeaheadInputProps} enterKeyHint={"go"} />);
+
+    expect(screen.getByRole("textbox")).toHaveAttribute("enterkeyhint", "go");
+  });
 });
