@@ -36,7 +36,7 @@ storiesOf("Tab", module).add("Tab", () => (
 
     <br />
     <br />
-    <StateProvider initialState={0}>
+    <StateProvider initialState={{index: 0}}>
       {(state, setState) => (
         <div>
           <p>
@@ -45,21 +45,21 @@ storiesOf("Tab", module).add("Tab", () => (
 
           <div style={{display: "flex"}}>
             <Button
-              onClick={() => setState(Math.max(0, (state - 1) % 2))}
-              isDisabled={state === 0}>
+              onClick={() => setState({index: Math.max(0, (state.index - 1) % 2)})}
+              isDisabled={state.index === 0}>
               Previous Tab
             </Button>
-            <Button onClick={() => setState((state + 1) % 2)} isDisabled={state === 1}>
+            <Button onClick={() => setState({index: (state.index + 1) % 2})} isDisabled={state.index === 1}>
               Next Tab
             </Button>
           </div>
 
           <Tab
             items={tabItems}
-            activeTabIndex={state}
+            activeTabIndex={state.index}
             onTabChange={(index) => {
               console.log("tab changed to index: ", index);
-              setState(index);
+              setState({index: index});
             }}>
             {[<div key={0}>{"Home tab"}</div>, <div key={1}>{"Following tab"}</div>]}
           </Tab>

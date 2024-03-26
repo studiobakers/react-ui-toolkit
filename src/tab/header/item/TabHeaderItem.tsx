@@ -7,7 +7,7 @@ import {TabItem} from "../../Tab";
 import ListItem from "../../../list/item/ListItem";
 
 type TabHeaderItemProps = {
-  tab: TabItem;
+  tab: TabItem<string | number>;
   onClick: (index: number) => void;
   isActive: boolean;
   index: number;
