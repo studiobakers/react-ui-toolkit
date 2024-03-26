@@ -10,6 +10,10 @@ on:
 
 concurrency: preview-${{ github.ref }}
 
+permissions:
+  # this is required to allow the action to comment on the PR
+  pull-requests: write
+
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
