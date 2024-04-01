@@ -23,10 +23,7 @@ function TypeheadSelectTrigger({
   onClick
 }: TypeheadSelectTriggerProps) {
   return (
-    <Select.Trigger
-      customClassName={"typeahead-select-trigger"}
-      testid={"TypeaheadSelectTrigger"}
-      onClick={onClick}>
+    <Select.Trigger customClassName={"typeahead-select-trigger"} onClick={onClick}>
       <List
         customClassName={classNames(
           "typeahead-select-trigger__tag-list",

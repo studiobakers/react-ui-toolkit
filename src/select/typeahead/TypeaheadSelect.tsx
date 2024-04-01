@@ -29,12 +29,10 @@ export interface TypeaheadSelectProps<
   onSelect: TypeaheadSelectOptionSelectHandler<T>;
   typeaheadProps: Pick<
     TypeaheadInputProps,
-    "id" | "placeholder" | "name" | "onFocus" | "type"
+    "id" | "placeholder" | "name" | "onFocus" | "type" | "value" | "onQueryChange"
   >;
   contentRenderer: (option: T) => React.ReactNode;
-  onKeywordChange: (value: string) => void;
   testid?: string;
-  controlledKeyword?: string;
   onTagRemove?: (option: Option) => void;
   selectedOptionLimit?: number;
   customClassName?: string;
@@ -52,7 +50,6 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
   selectedOptions,
   typeaheadProps,
   onTagRemove,
-  onKeywordChange,
   onSelect,
   contentRenderer,
   customClassName,
@@ -62,17 +59,16 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
   shouldShowEmptyOptions = true,
   canOpenDropdownMenu = true,
   areOptionsFetching,
-  customSpinner,
-  controlledKeyword = ""
+  customSpinner
 }: TypeaheadSelectProps<T>) {
   const typeaheadInputRef = useRef<HTMLInputElement | null>(null);
 
   const [isMenuOpen, setMenuVisibility] = useState(false);
   const [computedDropdownOptions, setComputedDropdownOptions] = useState(options);
   const [shouldFocusOnInput, setShouldFocusOnInput] = useState(false);
-  const [keyword, setKeyword] = useState(controlledKeyword);
 
   const tags = mapOptionsToTagShapes(selectedOptions, contentRenderer);
+
   const shouldDisplayOnlyTags = Boolean(
     selectedOptionLimit && selectedOptions.length >= selectedOptionLimit
   );
@@ -142,8 +138,8 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
               name={typeaheadProps.name}
               type={typeaheadProps.type}
               placeholder={typeaheadProps.placeholder}
-              value={keyword}
-              onQueryChange={handleQueryChange}
+              value={typeaheadProps.value}
+              onQueryChange={typeaheadProps.onQueryChange}
               onKeyDown={handleKeyDown}
               rightIcon={
                 areOptionsFetching ? spinnerContent : <CaretDownIcon aria-hidden={true} />
@@ -191,7 +187,7 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
     if (!shouldDisplayOnlyTags && !isDisabled) {
       onSelect(option);
       setComputedDropdownOptions(options);
-      setKeyword("");
+      typeaheadProps.onQueryChange("");
 
       if (shouldCloseOnSelect) {
         setMenuVisibility(false);
@@ -202,11 +198,11 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
   }
 
   function handleRemove(tag: TagShape<Option>) {
-    if (onTagRemove) {
-      onTagRemove(tag.context!);
+    if (onTagRemove && tag.context) {
+      onTagRemove(tag.context);
       setShouldFocusOnInput(true);
       setMenuVisibility(false);
-      setKeyword("");
+      typeaheadProps.onQueryChange("");
     }
   }
 
@@ -215,19 +211,13 @@ function TypeaheadSelect<T extends TypeaheadSelectOption = TypeaheadSelectOption
 
     if (
       key === KEYBOARD_EVENT_KEY.BACKSPACE &&
-      keyword === "" &&
+      typeaheadProps.value === "" &&
       onTagRemove &&
       selectedOptions.length
     ) {
       event.stopPropagation();
       onTagRemove(selectedOptions[selectedOptions.length - 1]);
     }
-  }
-
-  function handleQueryChange(value: string) {
-    setKeyword(value);
-
-    onKeywordChange(value);
   }
 }
 

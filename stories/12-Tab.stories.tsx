@@ -49,7 +49,10 @@ storiesOf("Tab", module).add("Tab", () => (
               isDisabled={state.index === 0}>
               Previous Tab
             </Button>
-            <Button onClick={() => setState({index: (state.index + 1) % 2})} isDisabled={state.index === 1}>
+
+            <Button
+              onClick={() => setState({index: (state.index + 1) % 2})}
+              isDisabled={state.index === 1}>
               Next Tab
             </Button>
           </div>
