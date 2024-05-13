@@ -30,27 +30,30 @@ function ListItem({
   listItemRef
 }: ListItemProps) {
   const containerClassName = classNames("list-item", customClassName);
-  let listItem = (
-    <li
-      ref={listItemRef}
-      id={id}
-      data-testid={testid}
-      className={containerClassName}
-      role={role}
-      aria-selected={ariaSelected}>
-      {children}
-    </li>
-  );
+  const listItemProps: React.DetailedHTMLProps<
+    React.LiHTMLAttributes<HTMLLIElement>,
+    HTMLLIElement
+  > & {
+    "data-testid": string | undefined;
+  } = {
+    ref: listItemRef,
+    id,
+    "data-testid": testid,
+    className: containerClassName,
+    role,
+    "aria-selected": ariaSelected
+  };
+  let listItem = <li {...listItemProps}>{children}</li>;
 
   if (clickableListItemProps) {
     listItem = (
-      <li ref={listItemRef} id={id} data-testid={testid} className={containerClassName}>
+      <li {...listItemProps}>
         <div
           role={"button"}
           tabIndex={clickableListItemProps.tabIndex || 0}
           className={"list-item__click-wrapper"}
           onClick={handleClick}
-          onKeyPress={handleKeyPress}>
+          onKeyDown={handleKeyDown}>
           {children}
         </div>
       </li>
@@ -60,11 +63,14 @@ function ListItem({
   return listItem;
 
   function handleClick(event: React.SyntheticEvent) {
-    clickableListItemProps!.onClick(event);
+    event.preventDefault();
+    event.stopPropagation();
+
+    clickableListItemProps?.onClick(event);
   }
 
-  function handleKeyPress(event: React.KeyboardEvent) {
-    if (event.key === KEYBOARD_EVENT_KEY.ENTER) {
+  function handleKeyDown(event: React.KeyboardEvent) {
+    if ([KEYBOARD_EVENT_KEY.ENTER, KEYBOARD_EVENT_KEY.SPACE].includes(event.key)) {
       handleClick(event);
     }
   }
