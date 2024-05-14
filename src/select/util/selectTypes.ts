@@ -5,7 +5,9 @@ interface Option<Id = string> {
   isDisabled?: boolean;
 }
 
-type TypeaheadSelectOption<Id = string> = Option<Id>;
+type TypeaheadSelectOption<Id = string> = Option<Id> & {
+  title: string;
+};
 
 type SelectItemElement = HTMLLIElement | HTMLDivElement;
 

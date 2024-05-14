@@ -17,16 +17,14 @@ describe("<TypeaheadSelect />", () => {
       {id: "2", title: "second-dropdown-option"},
       {id: "3", title: "third-dropdown-option"}
     ],
+    onKeywordChange: jest.fn(),
     selectedOptions: [{id: "1", title: "test"}],
     onSelect: jest.fn(),
     onTagRemove: jest.fn(),
     typeaheadProps: {
       placeholder: "test placeholder",
-      name: "test typeahead",
-      value: "",
-      onQueryChange: jest.fn()
-    },
-    contentRenderer: (option) => option.title
+      name: "test typeahead"
+    }
   };
 
   it("should render correctly", () => {
@@ -65,12 +63,7 @@ describe("<TypeaheadSelect />", () => {
   });
 
   it("should set initialValue and remove when set new value", async () => {
-    render(
-      <TypeaheadSelect
-        {...defaultTypeaheadSelectProps}
-        typeaheadProps={{...defaultTypeaheadSelectProps.typeaheadProps, value: "initial"}}
-      />
-    );
+    render(<TypeaheadSelect initialKeyword={"initial"} {...defaultTypeaheadSelectProps} />);
 
     const typeaheadSelectInput = screen.getByTestId(
       `${defaultTypeaheadSelectProps.testid}.search`

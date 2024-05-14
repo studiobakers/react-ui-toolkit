@@ -8,7 +8,6 @@ import FormField from "../src/form/field/FormField";
 import TypeaheadSelect from "../src/select/typeahead/TypeaheadSelect";
 import {TypeaheadSelectOption} from "../src/select/util/selectTypes";
 import {Language} from "./utils/constants/select/selectStoryConstants";
-import {filterOptionsByKeyword} from "./utils/typeaheadSelectStoryUtils";
 
 const simulateAPICall = (timeout = 1000) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
@@ -28,11 +27,11 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
         id: "spanish",
         title: "Spanish"
       }
-    ] as (TypeaheadSelectOption<Language> & {title: string})[],
+    ] as TypeaheadSelectOption<Language>[],
     thirdOptions: [],
-    selectedOptions: [] as (TypeaheadSelectOption<Language> & {title: string})[],
-    secondSelectedOptions: [] as (TypeaheadSelectOption<Language> & {title: string})[],
-    thirdSelectedOptions: [] as (TypeaheadSelectOption<Language> & {title: string})[],
+    selectedOptions: [] as TypeaheadSelectOption<Language>[],
+    secondSelectedOptions: [] as TypeaheadSelectOption<Language>[],
+    thirdSelectedOptions: [] as TypeaheadSelectOption<Language>[],
     areOptionsFetching: false,
     keyword: ""
   };
@@ -40,13 +39,16 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
   const modelInitialState = {
     options: [
       {
-        id: "2005"
+        id: "2005",
+        title: "2005"
       },
       {
-        id: "2015"
+        id: "2015",
+        title: "2015"
       },
       {
-        id: "2021"
+        id: "2021",
+        title: "2021"
       }
     ],
     thirdOptions: [] as TypeaheadSelectOption[],
@@ -64,25 +66,18 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
           {(state, setState) => (
             <FormField label={"Select Languages"}>
               <TypeaheadSelect
-                options={state.options}
+                options={initialState.options}
                 selectedOptions={state.selectedOptions}
-                contentRenderer={(option) => option.title}
-                onSelect={handleSelect(state, setState)}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    selectedOptions: [...state.selectedOptions, option]
+                  })
+                }
                 onTagRemove={handleRemoveTag(state, setState)}
                 typeaheadProps={{
                   placeholder: "Select Languages",
-                  name: "language",
-                  value: state.keyword,
-                  onQueryChange: (keyword) =>
-                    setState({
-                      ...state,
-                      options: filterOptionsByKeyword(
-                        initialState.options,
-                        keyword,
-                        "title"
-                      ),
-                      keyword
-                    })
+                  name: "language"
                 }}
               />
             </FormField>
@@ -94,25 +89,18 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
             <FormField label={"Select Languages (Max selectable 2)"}>
               <TypeaheadSelect
                 selectedOptionLimit={2}
-                options={state.options}
-                contentRenderer={(option) => option.title}
+                options={initialState.options}
                 selectedOptions={state.secondSelectedOptions}
-                onSelect={handleSelect(state, setState, "secondSelectedOptions")}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    secondSelectedOptions: [...state.secondSelectedOptions, option]
+                  })
+                }
                 onTagRemove={handleRemoveTag(state, setState, "secondSelectedOptions")}
                 typeaheadProps={{
                   placeholder: "Select Languages",
-                  name: "language",
-                  value: state.keyword,
-                  onQueryChange: (keyword) =>
-                    setState({
-                      ...state,
-                      options: filterOptionsByKeyword(
-                        initialState.options,
-                        keyword,
-                        "title"
-                      ),
-                      keyword
-                    })
+                  name: "language"
                 }}
               />
             </FormField>
@@ -125,25 +113,18 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
               <TypeaheadSelect
                 selectedOptionLimit={2}
                 isDisabled={true}
-                options={state.options}
-                contentRenderer={(option) => option.title}
+                options={initialState.options}
                 selectedOptions={state.secondSelectedOptions}
-                onSelect={handleSelect(state, setState)}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    secondSelectedOptions: [...state.secondSelectedOptions, option]
+                  })
+                }
                 onTagRemove={handleRemoveTag(state, setState)}
                 typeaheadProps={{
                   placeholder: "Select Languages",
-                  name: "language",
-                  onQueryChange: (keyword) =>
-                    setState({
-                      ...state,
-                      options: filterOptionsByKeyword(
-                        initialState.options,
-                        keyword,
-                        "title"
-                      ),
-                      keyword
-                    }),
-                  value: state.keyword
+                  name: "language"
                 }}
               />
             </FormField>
@@ -157,17 +138,21 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
                 "Select Languages (API Fetch Simulation) - with keyword by TypeaheadSelect"
               }>
               <TypeaheadSelect
+                shouldFilterOptionsByKeyword={false}
                 areOptionsFetching={state.areOptionsFetching}
                 options={state.thirdOptions}
-                contentRenderer={(option) => option.title}
                 selectedOptions={state.thirdSelectedOptions}
-                onSelect={handleSelect(state, setState, "thirdSelectedOptions")}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    thirdSelectedOptions: [...state.thirdSelectedOptions, option]
+                  })
+                }
+                onKeywordChange={handleKeywordChange(setState)}
                 onTagRemove={handleRemoveTag(state, setState, "thirdSelectedOptions")}
                 typeaheadProps={{
                   placeholder: "Select Languages",
-                  name: "language-test",
-                  value: state.keyword,
-                  onQueryChange: handleAsyncKeywordChange(setState)
+                  name: "language-test"
                 }}
               />
             </FormField>
@@ -179,17 +164,23 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
             <FormField
               label={"Select Languages (API Fetch Simulation) - with keyword by parent"}>
               <TypeaheadSelect
+                shouldFilterOptionsByKeyword={false}
                 areOptionsFetching={state.areOptionsFetching}
                 options={state.thirdOptions}
-                contentRenderer={(option) => option.title}
                 selectedOptions={state.thirdSelectedOptions}
-                onSelect={handleSelect(state, setState, "thirdSelectedOptions")}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    thirdSelectedOptions: [...state.thirdSelectedOptions, option],
+                    keyword: ""
+                  })
+                }
+                onKeywordChange={handleKeywordChange(setState)}
+                controlledKeyword={state.keyword}
                 onTagRemove={handleRemoveTag(state, setState, "thirdSelectedOptions")}
                 typeaheadProps={{
                   placeholder: "Select Languages",
-                  name: "language-test",
-                  value: state.keyword,
-                  onQueryChange: handleAsyncKeywordChange(setState)
+                  name: "language-test"
                 }}
               />
             </FormField>
@@ -200,26 +191,19 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
           {(state, setState) => (
             <FormField label={"Select Model Year"}>
               <TypeaheadSelect
-                options={state.options}
+                options={modelInitialState.options}
                 selectedOptions={state.selectedOptions}
-                onSelect={handleSelect(state, setState)}
-                contentRenderer={(option) => option.id}
+                onSelect={(option) =>
+                  setState({
+                    ...state,
+                    selectedOptions: [...state.selectedOptions, option]
+                  })
+                }
                 onTagRemove={handleRemoveTag(state, setState)}
                 typeaheadProps={{
                   placeholder: "Select Model",
                   name: "model",
-                  type: "number",
-                  value: state.keyword,
-                  onQueryChange: (keyword) =>
-                    setState({
-                      ...state,
-                      options: filterOptionsByKeyword(
-                        modelInitialState.options,
-                        keyword,
-                        "id"
-                      ),
-                      keyword
-                    })
+                  type: "number"
                 }}
               />
             </FormField>
@@ -229,32 +213,17 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
     </StoryFragment>
   );
 
-  function handleSelect(state, setState, optionsArrayName = "selectedOptions") {
-    return (option) =>
-      setState({
-        ...state,
-        [optionsArrayName]: state[optionsArrayName].some(
-          (selected) => selected.id === option.id
-        )
-          ? state[optionsArrayName]
-          : state[optionsArrayName].push(option)
-      });
-  }
-
   function handleRemoveTag(state, setState, optionsArrayName = "selectedOptions") {
-    return (tag) => {
-      const tagIndex = state[optionsArrayName].findIndex(
-        (option) => option.id === tag.id
-      );
-
+    return (tag) =>
       setState({
         ...state,
-        [optionsArrayName]: state[optionsArrayName].splice(tagIndex, 1)
+        [optionsArrayName]: state[optionsArrayName].filter(
+          (options) => options.id !== tag.id
+        )
       });
-    };
   }
 
-  function handleAsyncKeywordChange(setState) {
+  function handleKeywordChange(setState) {
     return async (keyword) => {
       if (keyword) {
         setState((prevState) => ({
