@@ -63,7 +63,9 @@ describe("<TypeaheadSelect />", () => {
   });
 
   it("should set initialValue and remove when set new value", async () => {
-    render(<TypeaheadSelect initialKeyword={"initial"} {...defaultTypeaheadSelectProps} />);
+    render(
+      <TypeaheadSelect initialKeyword={"initial"} {...defaultTypeaheadSelectProps} />
+    );
 
     const typeaheadSelectInput = screen.getByTestId(
       `${defaultTypeaheadSelectProps.testid}.search`
