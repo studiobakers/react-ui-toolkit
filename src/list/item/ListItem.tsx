@@ -63,9 +63,6 @@ function ListItem({
   return listItem;
 
   function handleClick(event: React.SyntheticEvent) {
-    event.preventDefault();
-    event.stopPropagation();
-
     clickableListItemProps?.onClick(event);
   }
 
