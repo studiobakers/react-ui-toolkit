@@ -67,9 +67,9 @@ describe("<TypeaheadSelect />", () => {
       <TypeaheadSelect initialKeyword={"initial"} {...defaultTypeaheadSelectProps} />
     );
 
-    const typeaheadSelectInput = screen.getByTestId(
-      `${defaultTypeaheadSelectProps.testid}.search`
-    ).firstElementChild as HTMLInputElement;
+    const typeaheadSelectInput = screen.getByPlaceholderText(
+      defaultTypeaheadSelectProps.typeaheadProps.placeholder!
+    );
 
     expect(typeaheadSelectInput).toHaveValue("initial");
 
@@ -121,17 +121,13 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    const firstOption = await screen.findByText(
-      defaultTypeaheadSelectProps.options[0].title
-    );
+    const firstOption = screen.getByText(defaultTypeaheadSelectProps.options[0].title);
 
     await userEvent.click(firstOption);
 
     expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(1);
 
-    const secondOption = await screen.findByText(
-      defaultTypeaheadSelectProps.options[1].title
-    );
+    const secondOption = screen.getByText(defaultTypeaheadSelectProps.options[1].title);
 
     await userEvent.click(secondOption);
 
@@ -149,9 +145,7 @@ describe("<TypeaheadSelect />", () => {
 
     const selectedOptionList = screen.getByRole("list");
 
-    const secondOption = await screen.findByText(
-      defaultTypeaheadSelectProps.options[1].title
-    );
+    const secondOption = screen.getByText(defaultTypeaheadSelectProps.options[1].title);
 
     await userEvent.click(secondOption);
 
@@ -170,7 +164,7 @@ describe("<TypeaheadSelect />", () => {
 
     await userEvent.click(screen.getByRole("button"));
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const dropdownList = screen.getByRole("listbox");
 
     expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
 
@@ -178,9 +172,7 @@ describe("<TypeaheadSelect />", () => {
 
     await userEvent.type(typeaheadInput, "second-dropdown");
 
-    const searchedOption = await screen.findByText(
-      defaultTypeaheadSelectProps.options[0].title
-    );
+    const searchedOption = screen.getByText(defaultTypeaheadSelectProps.options[0].title);
 
     expect(dropdownList).toContainElement(searchedOption);
 
@@ -205,7 +197,7 @@ describe("<TypeaheadSelect />", () => {
 
     await userEvent.click(screen.getByRole("button"));
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const dropdownList = screen.getByRole("listbox");
 
     expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
 
@@ -213,9 +205,7 @@ describe("<TypeaheadSelect />", () => {
 
     userEvent.type(typeaheadInput, "second-dropdown");
 
-    const searchedOption = await screen.findByText(
-      defaultTypeaheadSelectProps.options[1].title
-    );
+    const searchedOption = screen.getByText(defaultTypeaheadSelectProps.options[1].title);
 
     expect(dropdownList).toContainElement(searchedOption);
 
