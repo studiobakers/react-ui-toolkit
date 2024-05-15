@@ -29,8 +29,7 @@ function SelectComponent<T extends Option = Option>(
   const {children, role = "listbox", customClassName, value} = props;
   const [selectOwnState, dispatchSelectStateAction] = useReducer(selectStateReducer, {
     focusedOptionIndex: -1,
-    isMenuOpen: false,
-    options: props.options || []
+    isMenuOpen: false
   });
   const selectRef = useRef<HTMLDivElement | null>(null);
   const selectState = generateSelectState(selectOwnState, props);
@@ -47,6 +46,7 @@ function SelectComponent<T extends Option = Option>(
   return (
     <div
       ref={selectRef}
+      data-testid={props.testid}
       className={selectClassName}
       role={role}
       onKeyDown={handleSelectKeyDown}

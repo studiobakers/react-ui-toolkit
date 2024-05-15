@@ -35,7 +35,8 @@ function SelectItemComponent<T extends Option = Option>(
 ) {
   const selectState = useSelectContext();
   const dispatchSelectStateAction = useSelectDispatchContext();
-  const {onSelect, value, focusedOptionIndex, shouldCloseOnSelect, options} = selectState;
+  const {onSelect, value, focusedOptionIndex, shouldCloseOnSelect, options, isMenuOpen} =
+    selectState;
   const optionIndex = options.findIndex((opt) => opt?.id === option?.id);
   const isSelected = Array.isArray(value)
     ? Boolean(value.find((currentOption) => currentOption.id === option?.id))
@@ -83,7 +84,7 @@ function SelectItemComponent<T extends Option = Option>(
         payload: optionIndex
       });
 
-      if (shouldCloseOnSelect) {
+      if (shouldCloseOnSelect && isMenuOpen) {
         dispatchSelectStateAction({type: "TOGGLE_MENU_VISIBILITY"});
       }
     }

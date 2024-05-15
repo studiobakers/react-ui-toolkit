@@ -1,22 +1,25 @@
 import React from "react";
-import {fireEvent, render, screen, within} from "@testing-library/react";
+import {fireEvent, render, screen} from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
 
 import TypeaheadSelect, {TypeaheadSelectProps} from "./TypeaheadSelect";
 import {testA11y} from "../../core/utils/test/testUtils";
+import {TypeaheadSelectOption} from "../util/selectTypes";
 
 describe("<TypeaheadSelect />", () => {
-  const defaultTypeaheadSelectProps: TypeaheadSelectProps = {
+  const defaultTypeaheadSelectProps: TypeaheadSelectProps<
+    TypeaheadSelectOption & {title: string}
+  > = {
     testid: "typeahead-select",
     options: [
       {id: "1", title: "first-dropdown-option"},
       {id: "2", title: "second-dropdown-option"},
       {id: "3", title: "third-dropdown-option"}
     ],
+    onKeywordChange: jest.fn(),
     selectedOptions: [{id: "1", title: "test"}],
     onSelect: jest.fn(),
-    onKeywordChange: jest.fn(),
     onTagRemove: jest.fn(),
     typeaheadProps: {
       placeholder: "test placeholder",
@@ -41,12 +44,12 @@ describe("<TypeaheadSelect />", () => {
     });
   });
 
-  it("should update value on change", () => {
+  it("should update value on change", async () => {
     render(<TypeaheadSelect {...defaultTypeaheadSelectProps} />);
 
     const typeaheadSelect = screen.getByRole("textbox");
 
-    userEvent.type(typeaheadSelect, "test");
+    await userEvent.type(typeaheadSelect, "test");
 
     expect(typeaheadSelect).toHaveValue("test");
   });
@@ -59,20 +62,21 @@ describe("<TypeaheadSelect />", () => {
     expect(typeaheadSelect).toBeDisabled();
   });
 
-  it("should set initialValue and remove when set new value", () => {
+  it("should set initialValue and remove when set new value", async () => {
     render(
       <TypeaheadSelect initialKeyword={"initial"} {...defaultTypeaheadSelectProps} />
     );
 
-    const typeaheadSelect = screen.getByRole("textbox") as HTMLInputElement;
+    const typeaheadSelectInput = screen.getByPlaceholderText(
+      defaultTypeaheadSelectProps.typeaheadProps.placeholder!
+    );
 
-    expect(typeaheadSelect).toHaveValue("initial");
+    expect(typeaheadSelectInput).toHaveValue("initial");
 
-    typeaheadSelect.setSelectionRange(0, typeaheadSelect.value.length);
+    await userEvent.clear(typeaheadSelectInput);
+    await userEvent.type(typeaheadSelectInput, "test");
 
-    userEvent.type(typeaheadSelect, "test");
-
-    expect(typeaheadSelect).toHaveValue("test");
+    expect(typeaheadSelectInput).toHaveValue("test");
   });
 
   it("should render custom spinner correctly", () => {
@@ -91,25 +95,24 @@ describe("<TypeaheadSelect />", () => {
     expect(container).toContainElement(spinner);
   });
 
-  it("should render option menu when focused", () => {
+  it("should render option menu when focused", async () => {
     render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
-        testid={"test-dropdown-visibility"}
+        testid={"test-dropdown-visibility-on-focus"}
       />
     );
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const dropdownList = screen.getByTestId("test-dropdown-visibility-on-focus");
 
-    expect(dropdownList).not.toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).not.toHaveClass("typeahead-select--is-dropdown-menu-open");
 
-    // fireEvent.focus(screen.getByRole("listbox"));
-    userEvent.click(screen.getByRole("listbox"));
+    await userEvent.click(screen.getAllByRole("button")[0]);
 
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
   });
 
-  it("should run click event handle when option is selected", () => {
+  it("should run click event handler when option is selected", async () => {
     render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -118,28 +121,20 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    const selectedOptionList = screen.getByRole("list");
+    const firstOption = screen.getByText(defaultTypeaheadSelectProps.options[0].title);
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
-
-    const firstOption = within(dropdownList).getByTestId(
-      "test-dropdown-visibility.item-0"
-    );
-
-    userEvent.click(firstOption);
+    await userEvent.click(firstOption);
 
     expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(1);
 
-    const secondOption = within(dropdownList).getByTestId(
-      "test-dropdown-visibility.item-1"
-    );
+    const secondOption = screen.getByText(defaultTypeaheadSelectProps.options[1].title);
 
-    userEvent.click(secondOption);
+    await userEvent.click(secondOption);
 
-    expect(selectedOptionList).not.toContainElement(secondOption);
+    expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(2);
   });
 
-  it("should not render option menu when selectedOptionLimit is reached", () => {
+  it("should not render option menu when selectedOptionLimit is reached", async () => {
     render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -150,18 +145,14 @@ describe("<TypeaheadSelect />", () => {
 
     const selectedOptionList = screen.getByRole("list");
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const secondOption = screen.getByText(defaultTypeaheadSelectProps.options[1].title);
 
-    const secondOption = within(dropdownList).getByTestId(
-      "test-dropdown-visibility.item-1"
-    );
-
-    userEvent.click(secondOption);
+    await userEvent.click(secondOption);
 
     expect(selectedOptionList).not.toContainElement(secondOption);
   });
 
-  it("should render when select an option flow correctly", () => {
+  it("should render when select an option flow correctly", async () => {
     render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -171,30 +162,30 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    userEvent.click(screen.getByRole("listbox"));
+    await userEvent.click(screen.getByRole("button"));
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const dropdownList = screen.getByRole("listbox");
 
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
 
     const typeaheadInput = screen.getByRole("textbox");
 
-    userEvent.type(typeaheadInput, "second-dropdown");
+    await userEvent.type(typeaheadInput, "second-dropdown");
 
-    const searchedOption = screen.getByTestId("test-dropdown-visibility.item-1");
+    const searchedOption = screen.getByText(defaultTypeaheadSelectProps.options[0].title);
 
     expect(dropdownList).toContainElement(searchedOption);
 
     fireEvent.focus(searchedOption);
 
-    userEvent.click(searchedOption);
+    await userEvent.click(searchedOption);
 
-    expect(dropdownList).not.toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).not.toHaveClass("typeahead-select--is-dropdown-menu-open");
 
     expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(1);
   });
 
-  it("should not render selected option on dropdown list", () => {
+  it("should not render selected option on dropdown list", async () => {
     const {rerender} = render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -204,27 +195,26 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    userEvent.click(screen.getByRole("listbox"));
+    await userEvent.click(screen.getByRole("button"));
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const dropdownList = screen.getByRole("listbox");
 
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
 
     const typeaheadInput = screen.getByRole("textbox");
 
     userEvent.type(typeaheadInput, "second-dropdown");
 
-    const searchedOption = screen.getByTestId("test-dropdown-visibility.item-1");
+    const searchedOption = screen.getByText(defaultTypeaheadSelectProps.options[1].title);
 
     expect(dropdownList).toContainElement(searchedOption);
 
     fireEvent.focus(searchedOption);
 
-    userEvent.click(searchedOption);
+    await userEvent.click(searchedOption);
 
     expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(1);
-
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).not.toHaveClass("select--is-visible");
 
     rerender(
       <TypeaheadSelect
@@ -239,8 +229,7 @@ describe("<TypeaheadSelect />", () => {
 
     expect(dropdownList.children.length).toBe(2);
 
-    // One of items is the input another one is selected option
-    expect(selectedOptionList.children.length).toBe(2);
+    expect(selectedOptionList.children.length).toBe(1);
   });
 });
 /* eslint

@@ -13,15 +13,17 @@ export interface TypeheadSelectTriggerProps {
   handleTagRemove: (tag: TagShape) => void;
   customClassName?: string;
   input?: React.ReactNode;
+  onClick?: VoidFunction;
 }
 function TypeheadSelectTrigger({
   handleTagRemove,
   tags,
   customClassName,
-  input
+  input,
+  onClick
 }: TypeheadSelectTriggerProps) {
   return (
-    <Select.Trigger customClassName={"typeahead-select-trigger"}>
+    <Select.Trigger customClassName={"typeahead-select-trigger"} onClick={onClick}>
       <List
         customClassName={classNames(
           "typeahead-select-trigger__tag-list",
@@ -41,6 +43,7 @@ function TypeheadSelectTrigger({
           </ListItem>
         )}
       </List>
+
       {input}
     </Select.Trigger>
   );

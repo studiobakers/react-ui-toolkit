@@ -1,13 +1,13 @@
 import React from "react";
 
-interface Option {
-  id: string;
+interface Option<Id = string> {
+  id: Id;
   isDisabled?: boolean;
 }
 
-interface TypeaheadSelectOption extends Option {
+type TypeaheadSelectOption<Id = string> = Option<Id> & {
   title: string;
-}
+};
 
 type SelectItemElement = HTMLLIElement | HTMLDivElement;
 
@@ -23,7 +23,7 @@ type TypeaheadSelectOptionSelectHandler<
 type SelectRole = "listbox" | "menu";
 interface SelectProps<T extends Option = Option> {
   children: React.ReactNode;
-  options: (Option | null)[];
+  options: Option[];
   value: SelectValue<T>;
   onSelect: OptionSelectHandler<T>;
   role?: SelectRole;
@@ -32,18 +32,24 @@ interface SelectProps<T extends Option = Option> {
   isDisabled?: boolean;
   shouldCloseOnSelect?: boolean;
   isMenuOpen?: boolean;
+  testid?: string;
 }
 
 type SelectContextValue = Pick<
   SelectProps,
-  "hasError" | "isDisabled" | "onSelect" | "shouldCloseOnSelect" | "value" | "role"
+  | "hasError"
+  | "isDisabled"
+  | "onSelect"
+  | "shouldCloseOnSelect"
+  | "value"
+  | "role"
+  | "options"
 > &
   SelectOwnState;
 
 interface SelectOwnState {
   isMenuOpen: boolean;
   focusedOptionIndex: number;
-  options: (Option | null)[];
 }
 
 type SelectValue<T extends Option> = T | T[] | null;

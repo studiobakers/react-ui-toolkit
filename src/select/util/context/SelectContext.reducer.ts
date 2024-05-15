@@ -10,7 +10,6 @@ function selectStateReducer(state: SelectOwnState, action: SelectStateAction) {
         isMenuOpen: !state.isMenuOpen,
         focusedOptionIndex: -1
       };
-
       break;
 
     case "SET_FOCUSED_OPTION_INDEX":
