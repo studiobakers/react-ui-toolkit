@@ -5,6 +5,10 @@ on:
     branches: # only trigger when a commit was pushed to main
       - main
 
+permissions:
+  # Used by `create-release` to create a new release on the repo after publishing to npm.
+  contents: write
+
 jobs:
   publish:
     runs-on: ubuntu-latest
