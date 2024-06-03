@@ -10,6 +10,12 @@ on:
 
 concurrency: preview-${{ github.ref }}
 
+permissions:
+  # Used by `pr-preview-action` to push pr preview build files to related branch
+  contents: write
+  # Used by `pr-preview-action` to leave a comment on the PR with the preview link
+  pull-requests: write
+
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
