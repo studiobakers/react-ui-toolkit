@@ -1,10 +1,17 @@
-import React, {Fragment} from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
+import {Fragment} from "react";
 
 import FormField from "../src/form/field/FormField";
 import Input from "../src/form/input/Input";
 
-storiesOf("Color Input", module).add("Color Input", () => (
+const meta: Meta<typeof Input> = {
+  title: "Color Input",
+  component: Input
+};
+
+export default meta;
+
+export const Default: StoryFn = () => (
   <Fragment>
     <FormField labelledBy={"Color Picker"} label={"Color Picker"}>
       <Input
@@ -14,4 +21,4 @@ storiesOf("Color Input", module).add("Color Input", () => (
       />
     </FormField>
   </Fragment>
-));
+);

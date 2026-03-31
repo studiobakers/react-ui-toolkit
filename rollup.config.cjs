@@ -1,31 +1,30 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 const typescript = require("rollup-plugin-typescript2");
 const terser = require("@rollup/plugin-terser");
-const {eslint} = require("rollup-plugin-eslint");
 const postcss = require("rollup-plugin-postcss");
-const stylelint = require("rollup-plugin-stylelint").default;
-const reactSvg = require("rollup-plugin-react-svg");
+const svgr = require("@svgr/rollup");
 const path = require("path");
+/* eslint-enable @typescript-eslint/no-var-requires */
 
 module.exports = [
   {
-    external: [
-      "react",
-      "react-dom",
-      "classnames",
-      "react-textarea-autosize",
-      "uuid",
-      "date-fns",
-      "date-fns/fp",
-      "date-fns/locale",
-      "date-fns-tz"
-    ],
+    external: (id) =>
+      [
+        "react",
+        "react-dom",
+        "classnames",
+        "react-textarea-autosize",
+        "uuid",
+        "date-fns",
+        "date-fns-tz"
+      ].some((dep) => id === dep || id.startsWith(`${dep  }/`)),
     input: {
       index: "src/index.ts",
       FormField: "src/form/field/FormField.tsx",
       Input: "src/form/input/Input.tsx",
       NumberInput: "src/form/input/number/NumberInput.tsx",
       PasswordInput: "src/form/password-input/PasswordInput.tsx",
-      Select: "src/select/Select.tsx",
+      Select: "src/select/SelectCompound.tsx",
       FileInput: "src/form/input/file/FileInput.tsx",
       Checkbox: "src/form/input/checkbox/CheckboxInput.tsx",
       Radio: "src/form/input/radio/RadioInput.tsx",
@@ -50,13 +49,8 @@ module.exports = [
       format: "cjs"
     },
     plugins: [
-      reactSvg(),
+      svgr(),
       terser(),
-      eslint({
-        fix: true,
-        exclude: ["./src/**/**.scss", "./src/**/**.svg"]
-      }),
-      stylelint(),
       postcss({extract: path.resolve("dist/main.css")}),
       typescript({
         exclude: ["**/__tests__/**", "node_modules"],

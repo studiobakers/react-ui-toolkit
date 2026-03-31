@@ -1,6 +1,6 @@
 import "./_date-timer.scss";
 
-import React, {useEffect} from "react";
+import {useEffect} from "react";
 import classNames from "classnames";
 
 import useDateTimer from "../core/utils/hooks/useDateTimer";

@@ -1,11 +1,17 @@
-import React from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
 
 import Switch from "../src/switch/Switch";
 import StateProvider from "./utils/StateProvider";
 import StoryFragment from "./utils/StoryFragment";
 
-storiesOf("Switch", module).add("Switch", () => {
+const meta: Meta<typeof Switch> = {
+  title: "Switch",
+  component: Switch
+};
+
+export default meta;
+
+export const Default: StoryFn = () => {
   const initialState = {
     isSwitchOn: true,
     isDisabled: false
@@ -56,4 +62,4 @@ storiesOf("Switch", module).add("Switch", () => {
       )}
     </StateProvider>
   );
-});
+};

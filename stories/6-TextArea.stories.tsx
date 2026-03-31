@@ -1,11 +1,17 @@
-import React from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
 
 import FormField from "../src/form/field/FormField";
 import Textarea from "../src/form/textarea/Textarea";
 import StoryFragment from "./utils/StoryFragment";
 
-storiesOf("Textarea", module).add("Textarea", () => (
+const meta: Meta<typeof Textarea> = {
+  title: "Textarea",
+  component: Textarea
+};
+
+export default meta;
+
+export const Default: StoryFn = () => (
   <StoryFragment>
     <Textarea
       id={"textarea-fixed"}
@@ -70,4 +76,4 @@ storiesOf("Textarea", module).add("Textarea", () => (
       />
     </FormField>
   </StoryFragment>
-));
+);

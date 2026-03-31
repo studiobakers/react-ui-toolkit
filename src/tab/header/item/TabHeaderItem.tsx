@@ -1,6 +1,5 @@
 import "./_tab-header-item.scss";
 
-import React from "react";
 import classNames from "classnames";
 
 import {TabItem} from "../../Tab";

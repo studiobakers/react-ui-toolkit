@@ -25,13 +25,13 @@ function useDateTimer({
   onEnd?: DateTimerProps["onEnd"];
 }): RemainingTimeBreakdown {
   const counterForIntervalRef = useRef(0);
-  const interval = useRef<NodeJS.Timeout>();
+  const interval = useRef<NodeJS.Timeout | undefined>(undefined);
   const [dateTimer, setDateTimer] = useState<RemainingTimeBreakdown>(
     calculateRemainingTimeBreakdown(range, counterForIntervalRef.current, timerType)
   );
   const [rangeStart, rangeEnd] = range;
 
-  const savedOnEndCallback = useRef<typeof onEnd>();
+  const savedOnEndCallback = useRef<typeof onEnd>(undefined);
 
   useLayoutEffect(() => {
     savedOnEndCallback.current = onEnd;
@@ -52,7 +52,7 @@ function useDateTimer({
       if (data.delta >= SECOND_IN_MS) {
         setDateTimer(data);
       } else {
-        clearInterval(interval.current!);
+        clearInterval(interval.current);
         setDateTimer({
           delta: 0,
           days: 0,
@@ -64,13 +64,13 @@ function useDateTimer({
     }, cadence);
 
     return () => {
-      clearInterval(interval.current!);
+      clearInterval(interval.current);
     };
   }, [cadence, rangeStart, rangeEnd, timerType]);
 
   useEffect(() => {
     if (dateTimer.delta <= 0) {
-      clearInterval(interval.current!);
+      clearInterval(interval.current);
 
       if (savedOnEndCallback.current) {
         savedOnEndCallback.current();

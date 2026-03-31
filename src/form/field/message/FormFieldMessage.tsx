@@ -1,6 +1,5 @@
 import "./_form-field-message.scss";
 
-import React from "react";
 import classNames from "classnames";
 
 export interface FormFieldMessageProps {

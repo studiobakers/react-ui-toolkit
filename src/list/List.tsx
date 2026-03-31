@@ -1,6 +1,6 @@
 import "./_list.scss";
 
-import React, {Fragment, Ref} from "react";
+import React, {Fragment, JSX, Ref} from "react";
 import classNames from "classnames";
 
 import {generateListItemKey} from "./util/listUtils";

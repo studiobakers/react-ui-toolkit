@@ -1,4 +1,4 @@
-import React, {Fragment, useState} from "react";
+import {Fragment, useState} from "react";
 
 interface StateProviderProps<State> {
   children: (
@@ -8,10 +8,7 @@ interface StateProviderProps<State> {
   initialState: State;
 }
 
-function StateProvider<State extends Record<string, any>>({
-  children,
-  initialState
-}: StateProviderProps<State>) {
+function StateProvider<State>({children, initialState}: StateProviderProps<State>) {
   const [state, setState] = useState(initialState);
 
   return <Fragment>{children(state, setState)}</Fragment>;

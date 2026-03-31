@@ -1,6 +1,5 @@
 import "./_spinner.scss";
 
-import React from "react";
 import classNames from "classnames";
 
 export interface SpinnerProps {

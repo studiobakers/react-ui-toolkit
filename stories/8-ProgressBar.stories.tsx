@@ -1,5 +1,4 @@
-import React from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
 
 import ProgressBar from "../src/progress-bar/ProgressBar";
 
@@ -17,126 +16,134 @@ const progressBarStory = (
 `}</style>
 );
 
-storiesOf("Progress Bar", module)
-  .add("Progress Bar With Different Percentages", () => (
-    <div style={{maxWidth: "350px"}}>
-      <span>{"Empty"}</span>
+const meta: Meta<typeof ProgressBar> = {
+  title: "Progress Bar",
+  component: ProgressBar
+};
 
-      <ProgressBar
-        percentage={0}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track
-        }}
-      />
+export default meta;
 
-      <br />
+export const WithDifferentPercentages: StoryFn = () => (
+  <div style={{maxWidth: "350px"}}>
+    <span>{"Empty"}</span>
 
-      <span>{"Incompleted"}</span>
+    <ProgressBar
+      percentage={0}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track
+      }}
+    />
 
-      <ProgressBar
-        percentage={33}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track
-        }}
-      />
+    <br />
 
-      <br />
+    <span>{"Incompleted"}</span>
 
-      <span>{"Completed"}</span>
+    <ProgressBar
+      percentage={33}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track
+      }}
+    />
 
-      <ProgressBar
-        percentage={100}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}
-      />
-    </div>
-  ))
-  .add("Progress Bar With Height Overridden by CSS", () => (
-    <div style={{maxWidth: "350px"}}>
-      <span>{"Empty"}</span>
+    <br />
 
-      <ProgressBar
-        percentage={0}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}
-        customClassName={"progress-bar-story"}
-      />
+    <span>{"Completed"}</span>
 
-      <br />
+    <ProgressBar
+      percentage={100}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track,
+        completedColor: colors.completed
+      }}
+    />
+  </div>
+);
 
-      <span>{"Incompleted"}</span>
+export const WithHeightOverriddenByCSS: StoryFn = () => (
+  <div style={{maxWidth: "350px"}}>
+    <span>{"Empty"}</span>
 
-      <ProgressBar
-        percentage={50}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}
-        customClassName={"progress-bar-story"}
-      />
+    <ProgressBar
+      percentage={0}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track,
+        completedColor: colors.completed
+      }}
+      customClassName={"progress-bar-story"}
+    />
 
-      <br />
+    <br />
 
-      <span>{"Completed"}</span>
+    <span>{"Incompleted"}</span>
 
-      <ProgressBar
-        percentage={100}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}
-        customClassName={"progress-bar-story"}
-      />
+    <ProgressBar
+      percentage={50}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track,
+        completedColor: colors.completed
+      }}
+      customClassName={"progress-bar-story"}
+    />
 
-      {progressBarStory}
-    </div>
-  ))
-  .add("Progress Bar With Children", () => (
-    <div style={{maxWidth: "350px"}}>
-      <ProgressBar
-        percentage={0}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}>
-        {<p>{"0 %"}</p>}
-      </ProgressBar>
+    <br />
 
-      <br />
+    <span>{"Completed"}</span>
 
-      <ProgressBar
-        percentage={85}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}>
-        {<p>{"85 %"}</p>}
-      </ProgressBar>
+    <ProgressBar
+      percentage={100}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track,
+        completedColor: colors.completed
+      }}
+      customClassName={"progress-bar-story"}
+    />
 
-      <br />
+    {progressBarStory}
+  </div>
+);
 
-      <ProgressBar
-        percentage={100}
-        style={{
-          backgroundColor: colors.background,
-          trackColor: colors.track,
-          completedColor: colors.completed
-        }}>
-        {<p>{"Completed!"}</p>}
-      </ProgressBar>
+export const WithChildren: StoryFn = () => (
+  <div style={{maxWidth: "350px"}}>
+    <ProgressBar
+      percentage={0}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track,
+        completedColor: colors.completed
+      }}>
+      {<p>{"0 %"}</p>}
+    </ProgressBar>
 
-      {progressBarStory}
-    </div>
-  ));
+    <br />
+
+    <ProgressBar
+      percentage={85}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track,
+        completedColor: colors.completed
+      }}>
+      {<p>{"85 %"}</p>}
+    </ProgressBar>
+
+    <br />
+
+    <ProgressBar
+      percentage={100}
+      style={{
+        backgroundColor: colors.background,
+        trackColor: colors.track,
+        completedColor: colors.completed
+      }}>
+      {<p>{"Completed!"}</p>}
+    </ProgressBar>
+
+    {progressBarStory}
+  </div>
+);

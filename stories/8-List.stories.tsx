@@ -1,15 +1,21 @@
-import React, {Fragment} from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
+import {Fragment} from "react";
 
+import Button from "../src/button/Button";
 import List from "../src/list/List";
-import ListItem from "../src/list/item/ListItem";
 import DescriptionTerm, {
   DescriptionTermProps
 } from "../src/list/description-term/DescriptionTerm";
-import Button from "../src/button/Button";
+import ListItem from "../src/list/item/ListItem";
 import StateProvider from "./utils/StateProvider";
 
-const users = [
+interface User {
+  id: number;
+  name: string;
+  email: string;
+}
+
+const users: User[] = [
   {
     id: 1,
     name: "John Doe",
@@ -26,7 +32,7 @@ const users = [
     email: "harry@doe.com"
   }
 ];
-const emptyUsers = [];
+const emptyUsers: User[] = [];
 
 const terms: DescriptionTermProps[] = [
   {
@@ -85,23 +91,23 @@ function renderPlaceholders() {
             0% {
               opacity: 1;
             }
-          
+
             50% {
               opacity: 0.7;
             }
-          
+
             100% {
               opacity: 1;
             }
           }
-          
+
         `}
       </style>
     </Fragment>
   );
 }
 
-function UserListItem({user}) {
+function UserListItem({user}: {user: User}) {
   return (
     <ListItem>
       {user.name} <small>{user.email}</small>
@@ -109,7 +115,7 @@ function UserListItem({user}) {
   );
 }
 
-function ClickableUserListItem({user}) {
+function ClickableUserListItem({user}: {user: User}) {
   return (
     <StateProvider initialState={{displayEmail: false}}>
       {(state, setState) => (
@@ -127,7 +133,7 @@ function ClickableUserListItem({user}) {
   );
 }
 
-function RemovableUserListItem({user, onRemove}) {
+function RemovableUserListItem({user, onRemove}: {user: User; onRemove: VoidFunction}) {
   return (
     <ListItem>
       <div style={{display: "flex", gap: "16px", alignItems: "center"}}>
@@ -141,74 +147,86 @@ function RemovableUserListItem({user, onRemove}) {
   );
 }
 
-storiesOf("List", module)
-  .add("Has Items", () => (
-    <Fragment>
-      <List items={users}>{(item) => <UserListItem user={item} />}</List>
+const meta: Meta<typeof List> = {
+  title: "List",
+  component: List
+};
 
-      {style}
-    </Fragment>
-  ))
-  .add("Has Placeholder", () => (
-    <Fragment>
-      <List
-        items={emptyUsers}
-        placeholderProps={{
-          shouldDisplayPlaceholder: true,
-          placeholder: renderPlaceholders()
-        }}>
-        {(item) => <UserListItem user={item} />}
-      </List>
+export default meta;
 
-      {style}
-    </Fragment>
-  ))
-  .add("Empty State", () => (
-    <Fragment>
-      <List
-        items={emptyUsers}
-        emptyStateProps={{
-          shouldDisplayEmptyState: true,
-          emptyState: "Sorry, there are no users"
-        }}>
-        {(item) => <UserListItem user={item} />}
-      </List>
-    </Fragment>
-  ))
-  .add("Clickable Items", () => (
-    <Fragment>
-      <List items={users}>{(item) => <ClickableUserListItem user={item} />}</List>
+export const HasItems: StoryFn = () => (
+  <Fragment>
+    <List items={users}>{(item) => <UserListItem user={item} />}</List>
 
-      {style}
-    </Fragment>
-  ))
-  .add("Ordered List", () => (
-    <Fragment>
-      <List items={users} type={"ordered"}>
-        {(item) => <UserListItem user={item} />}
-      </List>
+    {style}
+  </Fragment>
+);
 
-      {style}
-    </Fragment>
-  ))
-  .add("Description List", () => (
-    <Fragment>
-      <List items={terms} type={"description"}>
-        {(item) => <DescriptionTerm title={item.title} description={item.description} />}
+export const HasPlaceholder: StoryFn = () => (
+  <Fragment>
+    <List
+      items={emptyUsers}
+      placeholderProps={{
+        shouldDisplayPlaceholder: true,
+        placeholder: renderPlaceholders()
+      }}>
+      {(item) => <UserListItem user={item} />}
+    </List>
+
+    {style}
+  </Fragment>
+);
+
+export const EmptyState: StoryFn = () => (
+  <Fragment>
+    <List
+      items={emptyUsers}
+      emptyStateProps={{
+        shouldDisplayEmptyState: true,
+        emptyState: "Sorry, there are no users"
+      }}>
+      {(item) => <UserListItem user={item} />}
+    </List>
+  </Fragment>
+);
+
+export const ClickableItems: StoryFn = () => (
+  <Fragment>
+    <List items={users}>{(item) => <ClickableUserListItem user={item} />}</List>
+
+    {style}
+  </Fragment>
+);
+
+export const OrderedList: StoryFn = () => (
+  <Fragment>
+    <List items={users} type={"ordered"}>
+      {(item) => <UserListItem user={item} />}
+    </List>
+
+    {style}
+  </Fragment>
+);
+
+export const DescriptionList: StoryFn = () => (
+  <Fragment>
+    <List items={terms} type={"description"}>
+      {(item) => <DescriptionTerm title={item.title} description={item.description} />}
+    </List>
+  </Fragment>
+);
+
+export const RemovableItems: StoryFn = () => (
+  <StateProvider initialState={users}>
+    {(state, setState) => (
+      <List items={state}>
+        {(user) => (
+          <RemovableUserListItem
+            user={user}
+            onRemove={() => setState(state.filter((item) => item.id !== user.id))}
+          />
+        )}
       </List>
-    </Fragment>
-  ))
-  .add("Removable Items", () => (
-    <StateProvider initialState={users}>
-      {(state, setState) => (
-        <List items={state}>
-          {(user) => (
-            <RemovableUserListItem
-              user={user}
-              onRemove={() => setState(state.filter((item) => item.id !== user.id))}
-            />
-          )}
-        </List>
-      )}
-    </StateProvider>
-  ));
+    )}
+  </StateProvider>
+);

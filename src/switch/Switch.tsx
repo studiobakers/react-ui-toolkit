@@ -1,6 +1,5 @@
 import "./_switch.scss";
 
-import React from "react";
 import classNames from "classnames";
 
 export interface SwitchProps {
