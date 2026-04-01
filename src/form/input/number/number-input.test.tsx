@@ -44,52 +44,52 @@ describe('<NumberInput type={"number"} />', () => {
     expect(input).toHaveValue("1,234.50");
   });
 
-  it("should parse to scientific notation", () => {
+  it("should parse to scientific notation", async () => {
     render(<NumberInput {...numberInputProps} />);
 
     const input = screen.getByRole("textbox");
 
-    userEvent.type(input, "1,234,567.89");
+    await userEvent.type(input, "1,234,567.89");
 
     expect(input).toHaveValue("1234567.89");
   });
 
-  it("should have at most 2 decimal places", () => {
+  it("should have at most 2 decimal places", async () => {
     render(<NumberInput {...numberInputProps} />);
 
     const input = screen.getByRole("textbox");
 
-    userEvent.type(input, "100.55555");
+    await userEvent.type(input, "100.55555");
 
     expect(input).toHaveValue("100.55");
   });
 
-  it("should not allow enter letter", () => {
+  it("should not allow enter letter", async () => {
     render(<NumberInput {...numberInputProps} />);
 
     const input = screen.getByRole("textbox");
 
-    userEvent.type(input, "ABC");
+    await userEvent.type(input, "ABC");
 
     expect(input).toHaveValue(undefined);
   });
 
-  it("should not allow enter empty string", () => {
+  it("should not allow enter empty string", async () => {
     render(<NumberInput {...numberInputProps} />);
 
     const input = screen.getByRole("textbox");
 
-    userEvent.type(input, " ");
+    await userEvent.type(input, " ");
 
     expect(input).toHaveValue(undefined);
   });
 
-  it("should not allow negative zero without decimal part", () => {
+  it("should not allow negative zero without decimal part", async () => {
     render(<NumberInput {...numberInputProps} maximumFractionDigits={0} />);
 
     const input = screen.getByRole("textbox");
 
-    userEvent.type(input, "-0");
+    await userEvent.type(input, "-0");
 
     expect(input).toHaveValue("0");
   });

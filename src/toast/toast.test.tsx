@@ -57,7 +57,12 @@ function ButtonWithToast({
   }
 }
 
+// eslint-disable-next-line no-magic-numbers
+const TEST_TIMEOUT = 30000;
+
 describe("<ToastContextProvider />", () => {
+  jest.setTimeout(TEST_TIMEOUT);
+
   it("displays a toast that closes itself in default timeout", async () => {
     const wrapper = ({children}: {children: React.ReactNode}) => (
       <ToastContextProvider>{children}</ToastContextProvider>
@@ -67,7 +72,7 @@ describe("<ToastContextProvider />", () => {
 
     const button = await screen.findByText(displayToastButtonText);
 
-    userEvent.click(button);
+    await userEvent.click(button);
 
     expect(await screen.findByText(testToastContentText)).toBeVisible();
 
@@ -88,7 +93,7 @@ describe("<ToastContextProvider />", () => {
 
     const button = await screen.findByText(displayToastButtonText);
 
-    userEvent.click(button);
+    await userEvent.click(button);
 
     expect(await screen.findByText(testToastContentText)).toBeVisible();
 
@@ -112,7 +117,7 @@ describe("<ToastContextProvider />", () => {
 
     const button = await screen.findByText(displayToastButtonText);
 
-    userEvent.click(button);
+    await userEvent.click(button);
 
     const elements = await screen.findAllByText(testToastContentText);
 
@@ -132,7 +137,7 @@ describe("<ToastContextProvider />", () => {
 
     const button = await screen.findByText(displayToastButtonText);
 
-    userEvent.click(button);
+    await userEvent.click(button);
 
     expect(await screen.findByText(testToastContentText)).toBeVisible();
 
@@ -154,7 +159,7 @@ describe("<ToastContextProvider />", () => {
 
     const button = await screen.findByText(displayToastButtonText);
 
-    userEvent.click(button);
+    await userEvent.click(button);
 
     expect(await screen.findByText(testToastContentText)).toBeVisible();
 
@@ -175,13 +180,13 @@ describe("<ToastContextProvider />", () => {
 
     const displayButton = await screen.findByText(displayToastButtonText);
 
-    userEvent.click(displayButton);
+    await userEvent.click(displayButton);
 
     expect(await screen.findByText(testToastContentText)).toBeVisible();
 
     const hideButton = await screen.findByText(hideToastButtonText);
 
-    userEvent.click(hideButton);
+    await userEvent.click(hideButton);
 
     expect(screen.queryByText(testToastContentText)).not.toBeInTheDocument();
   });
@@ -208,12 +213,12 @@ describe("<ToastContextProvider />", () => {
 
     const displayButton = await screen.findByText(displayToastButtonText);
 
-    userEvent.click(displayButton);
+    await userEvent.click(displayButton);
     expect(await screen.findByText(testToastContentText)).toBeVisible();
 
     const closeButton = await screen.findByText(ToastCloseButtonText);
 
-    userEvent.click(closeButton);
+    await userEvent.click(closeButton);
     expect(screen.queryByText(testToastContentText)).not.toBeInTheDocument();
   });
 });

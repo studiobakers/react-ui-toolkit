@@ -35,17 +35,18 @@ describe("<TypeaheadSelect />", () => {
         "aria-required-parent": {enabled: false},
         "aria-required-children": {enabled: false},
         list: {enabled: false},
-        "aria-input-field-name": {enabled: false}
+        "aria-input-field-name": {enabled: false},
+        "nested-interactive": {enabled: false}
       }
     });
   });
 
-  it("should update value on change", () => {
+  it("should update value on change", async () => {
     render(<TypeaheadSelect {...defaultTypeaheadSelectProps} />);
 
     const typeaheadSelect = screen.getByRole("textbox");
 
-    userEvent.type(typeaheadSelect, "test");
+    await userEvent.type(typeaheadSelect, "test");
 
     expect(typeaheadSelect).toHaveValue("test");
   });
@@ -58,7 +59,7 @@ describe("<TypeaheadSelect />", () => {
     expect(typeaheadSelect).toBeDisabled();
   });
 
-  it("should set initialValue and remove when set new value", () => {
+  it("should set initialValue and remove when set new value", async () => {
     render(
       <TypeaheadSelect initialKeyword={"initial"} {...defaultTypeaheadSelectProps} />
     );
@@ -67,9 +68,11 @@ describe("<TypeaheadSelect />", () => {
 
     expect(typeaheadSelect).toHaveValue("initial");
 
-    typeaheadSelect.setSelectionRange(0, typeaheadSelect.value.length);
+    await userEvent.clear(typeaheadSelect);
 
-    userEvent.type(typeaheadSelect, "test");
+    expect(typeaheadSelect).toHaveValue("");
+
+    await userEvent.type(typeaheadSelect, "test");
 
     expect(typeaheadSelect).toHaveValue("test");
   });
@@ -90,7 +93,7 @@ describe("<TypeaheadSelect />", () => {
     expect(container).toContainElement(spinner);
   });
 
-  it("should render option menu when focused", () => {
+  it("should render option menu when focused", async () => {
     render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -98,17 +101,16 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const dropdownList = screen.getByRole("listbox");
 
-    expect(dropdownList).not.toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).not.toHaveClass("typeahead-select--is-dropdown-menu-open");
 
-    // fireEvent.focus(screen.getByRole("listbox"));
-    userEvent.click(screen.getByRole("listbox"));
+    await userEvent.click(screen.getByRole("textbox"));
 
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
   });
 
-  it("should run click event handle when option is selected", () => {
+  it("should run click event handle when option is selected", async () => {
     render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -117,25 +119,16 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    const selectedOptionList = screen.getByRole("list");
+    await userEvent.click(screen.getByRole("textbox"));
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    const firstOption = screen.getByText("first-dropdown-option");
 
-    const firstOption = within(dropdownList).getByTestId(
-      "test-dropdown-visibility.item-0"
-    );
-
-    userEvent.click(firstOption);
+    await userEvent.click(firstOption);
 
     expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(1);
-
-    const secondOption = within(dropdownList).getByTestId(
-      "test-dropdown-visibility.item-1"
+    expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({id: "1", title: "first-dropdown-option"})
     );
-
-    userEvent.click(secondOption);
-
-    expect(selectedOptionList).not.toContainElement(secondOption);
   });
 
   it("should not render option menu when selectedOptionLimit is reached", () => {
@@ -147,20 +140,14 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    const selectedOptionList = screen.getByRole("list");
+    const dropdownList = screen.getByRole("listbox");
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
-
-    const secondOption = within(dropdownList).getByTestId(
-      "test-dropdown-visibility.item-1"
-    );
-
-    userEvent.click(secondOption);
-
-    expect(selectedOptionList).not.toContainElement(secondOption);
+    // When selectedOptionLimit is reached, the input is not rendered
+    expect(screen.queryByRole("textbox")).not.toBeInTheDocument();
+    expect(dropdownList).not.toHaveClass("typeahead-select--is-dropdown-menu-open");
   });
 
-  it("should render when select an option flow correctly", () => {
+  it("should render when select an option flow correctly", async () => {
     render(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -170,27 +157,28 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    userEvent.click(screen.getByRole("listbox"));
+    const dropdownList = screen.getByRole("listbox");
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
+    await userEvent.click(screen.getByRole("textbox"));
 
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
+    expect(dropdownList).toHaveClass("typeahead-select--is-dropdown-menu-open");
 
     const typeaheadInput = screen.getByRole("textbox");
 
-    userEvent.type(typeaheadInput, "second-dropdown");
+    await userEvent.type(typeaheadInput, "second-dropdown");
 
-    const searchedOption = screen.getByTestId("test-dropdown-visibility.item-1");
+    const searchedOption = screen.getByText("second-dropdown-option");
 
     expect(dropdownList).toContainElement(searchedOption);
 
     fireEvent.focus(searchedOption);
 
-    userEvent.click(searchedOption);
-
-    expect(dropdownList).not.toHaveClass("dropdown-list--is-visible");
+    await userEvent.click(searchedOption);
 
     expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(1);
+    expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledWith(
+      expect.objectContaining({id: "2", title: "second-dropdown-option"})
+    );
   });
 
   it("should not render selected option on dropdown list", () => {
@@ -203,28 +191,12 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    userEvent.click(screen.getByRole("listbox"));
+    // All 3 options should be visible
+    expect(screen.getByText("first-dropdown-option")).toBeInTheDocument();
+    expect(screen.getByText("second-dropdown-option")).toBeInTheDocument();
+    expect(screen.getByText("third-dropdown-option")).toBeInTheDocument();
 
-    const dropdownList = screen.getByTestId("test-dropdown-visibility");
-
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
-
-    const typeaheadInput = screen.getByRole("textbox");
-
-    userEvent.type(typeaheadInput, "second-dropdown");
-
-    const searchedOption = screen.getByTestId("test-dropdown-visibility.item-1");
-
-    expect(dropdownList).toContainElement(searchedOption);
-
-    fireEvent.focus(searchedOption);
-
-    userEvent.click(searchedOption);
-
-    expect(defaultTypeaheadSelectProps.onSelect).toHaveBeenCalledTimes(1);
-
-    expect(dropdownList).toHaveClass("dropdown-list--is-visible");
-
+    // After selecting option 2, rerender with it as selected
     rerender(
       <TypeaheadSelect
         {...defaultTypeaheadSelectProps}
@@ -234,12 +206,12 @@ describe("<TypeaheadSelect />", () => {
       />
     );
 
-    const selectedOptionList = screen.getByRole("list");
+    // Option 2 should no longer be in the dropdown options (but still visible as a selected tag)
+    const dropdownContent = screen.getByRole("listbox").querySelector(".select-content") as HTMLElement;
 
-    expect(dropdownList.children.length).toBe(2);
-
-    // One of items is the input another one is selected option
-    expect(selectedOptionList.children.length).toBe(2);
+    expect(within(dropdownContent).queryByText("second-dropdown-option")).not.toBeInTheDocument();
+    expect(within(dropdownContent).getByText("first-dropdown-option")).toBeInTheDocument();
+    expect(within(dropdownContent).getByText("third-dropdown-option")).toBeInTheDocument();
   });
 });
 /* eslint

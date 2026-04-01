@@ -47,14 +47,14 @@ describe("<RadioInput />", () => {
     expect(radioInput).toBeChecked();
   });
 
-  it("should run onSelect event handler correctly", () => {
+  it("should run onSelect event handler correctly", async () => {
     render(<RadioInput {...defaultRadioInputProps} />);
 
     const radioInput = screen.getByRole("radio", {
       name: "Test"
     }) as HTMLInputElement;
 
-    userEvent.click(radioInput);
+    await userEvent.click(radioInput);
 
     expect(radioInput.value).toBe("test");
     expect(defaultRadioInputProps.onSelect).toHaveBeenCalledTimes(1);

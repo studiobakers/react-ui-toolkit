@@ -27,7 +27,7 @@ describe("<ListItem />", () => {
     expect(container).toContainElement(screen.getByText("Test"));
   });
 
-  it("Can be clicked", () => {
+  it("Can be clicked", async () => {
     const handleClick = jest.fn();
 
     const {container} = render(
@@ -38,7 +38,7 @@ describe("<ListItem />", () => {
     );
     const listItemButton = screen.getByRole("button");
 
-    userEvent.click(listItemButton);
+    await userEvent.click(listItemButton);
 
     expect(container).toContainElement(listItemButton);
     expect(listItemButton).toHaveAttribute("tabIndex", "2");

@@ -59,32 +59,32 @@ describe("<Button />", () => {
     expect(container).not.toContainElement(customSpinner);
   });
 
-  it("should not run click event handler while button is disabled", () => {
+  it("should not run click event handler while button is disabled", async () => {
     const handleClick = jest.fn();
 
     render(<Button onClick={handleClick} isDisabled={true} {...defaultButtonProps} />);
 
-    userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("button"));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  it("should not run click event handler while shouldDisplaySpinner is true", () => {
+  it("should not run click event handler while shouldDisplaySpinner is true", async () => {
     const handleClick = jest.fn();
 
     render(
       <Button onClick={handleClick} shouldDisplaySpinner={true} {...defaultButtonProps} />
     );
 
-    userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("button"));
     expect(handleClick).not.toHaveBeenCalled();
   });
 
-  it("should run click event handler correctly", () => {
+  it("should run click event handler correctly", async () => {
     const handleClick = jest.fn();
 
     render(<Button onClick={handleClick} {...defaultButtonProps} />);
 
-    userEvent.click(screen.getByRole("button"));
+    await userEvent.click(screen.getByRole("button"));
     expect(handleClick).toHaveBeenCalledTimes(1);
   });
 
