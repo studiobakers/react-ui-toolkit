@@ -207,11 +207,19 @@ describe("<TypeaheadSelect />", () => {
     );
 
     // Option 2 should no longer be in the dropdown options (but still visible as a selected tag)
-    const dropdownContent = screen.getByRole("listbox").querySelector(".select-content") as HTMLElement;
+    const dropdownContent = screen
+      .getByRole("listbox")
+      .querySelector(".select-content") as HTMLElement;
 
-    expect(within(dropdownContent).queryByText("second-dropdown-option")).not.toBeInTheDocument();
-    expect(within(dropdownContent).getByText("first-dropdown-option")).toBeInTheDocument();
-    expect(within(dropdownContent).getByText("third-dropdown-option")).toBeInTheDocument();
+    expect(
+      within(dropdownContent).queryByText("second-dropdown-option")
+    ).not.toBeInTheDocument();
+    expect(
+      within(dropdownContent).getByText("first-dropdown-option")
+    ).toBeInTheDocument();
+    expect(
+      within(dropdownContent).getByText("third-dropdown-option")
+    ).toBeInTheDocument();
   });
 });
 /* eslint
