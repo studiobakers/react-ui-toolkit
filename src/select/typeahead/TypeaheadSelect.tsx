@@ -17,7 +17,7 @@ import {
   TypeaheadSelectOption,
   TypeaheadSelectOptionSelectHandler
 } from "../util/selectTypes";
-import Select from "../Select";
+import Select from "../SelectCompound";
 import TypeheadSelectTrigger from "./trigger/TypeheadSelectTrigger";
 
 import "./_typeahead-select.scss";

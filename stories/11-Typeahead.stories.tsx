@@ -1,17 +1,23 @@
-import React from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
 
 import StateProvider from "./utils/StateProvider";
 import StoryFragment from "./utils/StoryFragment";
 
 import FormField from "../src/form/field/FormField";
 import TypeaheadSelect from "../src/select/typeahead/TypeaheadSelect";
-import {TypeaheadSelectOption} from "../src/select/util/selectTypes";
+import {Option, TypeaheadSelectOption} from "../src/select/util/selectTypes";
 
 const simulateAPICall = (timeout = 1000) =>
   new Promise((resolve) => setTimeout(resolve, timeout));
 
-storiesOf("Typeahead", module).add("Typeahead", () => {
+const meta: Meta<typeof TypeaheadSelect> = {
+  title: "Typeahead",
+  component: TypeaheadSelect
+};
+
+export default meta;
+
+export const Default: StoryFn = () => {
   const initialState = {
     options: [
       {
@@ -27,7 +33,7 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
         title: "Spanish"
       }
     ],
-    thirdOptions: [],
+    thirdOptions: [] as TypeaheadSelectOption[],
     selectedOptions: [] as TypeaheadSelectOption[],
     secondSelectedOptions: [] as TypeaheadSelectOption[],
     thirdSelectedOptions: [] as TypeaheadSelectOption[],
@@ -212,18 +218,24 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
     </StoryFragment>
   );
 
-  function handleRemoveTag(state, setState, optionsArrayName = "selectedOptions") {
-    return (tag) =>
+  function handleRemoveTag(
+    state: typeof initialState,
+    setState: React.Dispatch<React.SetStateAction<typeof initialState>>,
+    optionsArrayName = "selectedOptions"
+  ) {
+    return (tag: Option) =>
       setState({
         ...state,
-        [optionsArrayName]: state[optionsArrayName].filter(
-          (options) => options.id !== tag.id
-        )
+        [optionsArrayName]: (
+          state[optionsArrayName as keyof typeof state] as TypeaheadSelectOption[]
+        ).filter((options) => options.id !== tag.id)
       });
   }
 
-  function handleKeywordChange(setState) {
-    return async (keyword) => {
+  function handleKeywordChange(
+    setState: React.Dispatch<React.SetStateAction<typeof initialState>>
+  ) {
+    return async (keyword: string) => {
       if (keyword) {
         setState((prevState) => ({
           ...prevState,
@@ -246,4 +258,4 @@ storiesOf("Typeahead", module).add("Typeahead", () => {
       }
     };
   }
-});
+};

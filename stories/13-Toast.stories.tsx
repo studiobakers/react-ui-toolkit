@@ -1,18 +1,18 @@
 import "./utils/constants/toast/_toast.scss";
 
-import {storiesOf} from "@storybook/react";
-import React from "react";
+import type {Meta, StoryFn} from "@storybook/react";
 
 import StateProvider from "./utils/StateProvider";
 
+import Button from "../src/button/Button";
 import FormField from "../src/form/field/FormField";
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 import Input from "../src/form/input/Input";
-import Button from "../src/button/Button";
-import {useToaster} from "../src/toast/util/toastHooks";
-import StoryFragment from "./utils/StoryFragment";
 import Toast from "../src/toast/Toast";
 import {ToastContextProvider} from "../src/toast/ToastProvider";
+import {useToaster} from "../src/toast/util/toastHooks";
+import StoryFragment from "./utils/StoryFragment";
+import {NumberInput} from "../src";
 
 function ToastExamples() {
   const {display, update, hideAll} = useToaster();
@@ -180,61 +180,69 @@ function ToastExamples() {
   );
 }
 
-storiesOf("Toast", module)
-  .add("Default props", () => (
-    <ToastContextProvider>
-      <ToastExamples />
-    </ToastContextProvider>
-  ))
-  .add("Disable autoCloseToasts for all toasts", () => (
-    <ToastContextProvider autoCloseToasts={false}>
-      <ToastExamples />
-    </ToastContextProvider>
-  ))
-  .add("Limit number of toasts to 3", () => (
-    <ToastContextProvider limit={3}>
-      <ToastExamples />
-    </ToastContextProvider>
-  ))
-  .add("Set default autoClose timeout to 2000ms for all toasts", () => (
-    <ToastContextProvider defaultAutoCloseTimeout={2000}>
-      <ToastExamples />
-    </ToastContextProvider>
-  ))
-  .add("Set ToastProvider props dynamically with a form", () => (
-    <StateProvider initialState={{limit: "3", autoCloseToasts: false}}>
-      {(state, setState) => (
-        <StoryFragment>
-          <FormField label={"Toast limit"}>
-            <Input
-              localizationOptions={{maximumFractionDigits: 0}}
-              name={"price"}
-              type={"number"}
-              onChange={(e) => setState({...state, limit: e.currentTarget.value})}
-              value={state.limit}
-              placeholder={"3"}
-            />
-          </FormField>
+const meta: Meta = {
+  title: "Toast"
+};
 
-          <CheckboxInput
-            onSelect={() => setState({...state, autoCloseToasts: !state.autoCloseToasts})}
-            isSelected={state.autoCloseToasts}
-            item={{
-              id: "autoCloseToasts",
-              content: "autoCloseToasts",
-              inputProps: {
-                name: "termsAndConditions",
-                htmlFor: "termsAndConditions",
-                value: "yes"
-              }
-            }}
+export default meta;
+
+export const DefaultProps: StoryFn = () => (
+  <ToastContextProvider>
+    <ToastExamples />
+  </ToastContextProvider>
+);
+
+export const DisableAutoCloseToasts: StoryFn = () => (
+  <ToastContextProvider autoCloseToasts={false}>
+    <ToastExamples />
+  </ToastContextProvider>
+);
+
+export const LimitToasts: StoryFn = () => (
+  <ToastContextProvider limit={3}>
+    <ToastExamples />
+  </ToastContextProvider>
+);
+
+export const DefaultAutoCloseTimeout: StoryFn = () => (
+  <ToastContextProvider defaultAutoCloseTimeout={2000}>
+    <ToastExamples />
+  </ToastContextProvider>
+);
+
+export const DynamicProps: StoryFn = () => (
+  <StateProvider initialState={{limit: "3", autoCloseToasts: false}}>
+    {(state, setState) => (
+      <StoryFragment>
+        <FormField label={"Toast limit"}>
+          <NumberInput
+            maximumFractionDigits={0}
+            name={"price"}
+            onChange={(e) => setState({...state, limit: e.currentTarget.value})}
+            value={state.limit}
+            placeholder={"3"}
           />
-          <ToastContextProvider
-            limit={state.limit ? parseInt(state.limit) : undefined}
-            autoCloseToasts={state.autoCloseToasts}>
-            <ToastExamples />
-          </ToastContextProvider>
-        </StoryFragment>
-      )}
-    </StateProvider>
-  ));
+        </FormField>
+
+        <CheckboxInput
+          onSelect={() => setState({...state, autoCloseToasts: !state.autoCloseToasts})}
+          isSelected={state.autoCloseToasts}
+          item={{
+            id: "autoCloseToasts",
+            content: "autoCloseToasts",
+            inputProps: {
+              name: "termsAndConditions",
+              htmlFor: "termsAndConditions",
+              value: "yes"
+            }
+          }}
+        />
+        <ToastContextProvider
+          limit={state.limit ? parseInt(state.limit) : undefined}
+          autoCloseToasts={state.autoCloseToasts}>
+          <ToastExamples />
+        </ToastContextProvider>
+      </StoryFragment>
+    )}
+  </StateProvider>
+);

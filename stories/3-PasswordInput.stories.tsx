@@ -1,10 +1,17 @@
-import React, {Fragment} from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
+import {Fragment} from "react";
 
 import FormField from "../src/form/field/FormField";
 import PasswordInput from "../src/form/password-input/PasswordInput";
 
-storiesOf("Password Input", module).add("Password Input", () => (
+const meta: Meta<typeof PasswordInput> = {
+  title: "Password Input",
+  component: PasswordInput
+};
+
+export default meta;
+
+export const Default: StoryFn = () => (
   <Fragment>
     <FormField label={"Password"}>
       <PasswordInput
@@ -15,4 +22,4 @@ storiesOf("Password Input", module).add("Password Input", () => (
       />
     </FormField>
   </Fragment>
-));
+);

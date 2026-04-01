@@ -1,4 +1,3 @@
-import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -46,12 +45,12 @@ describe("<CheckboxInput />", () => {
     expect(checkboxInput).toBeChecked();
   });
 
-  it("should run onSelect event handler correctly", () => {
+  it("should run onSelect event handler correctly", async () => {
     render(<CheckboxInput {...defaultCheckboxInputProps} />);
 
     const checkboxInput = screen.getByRole("checkbox");
 
-    userEvent.click(checkboxInput);
+    await userEvent.click(checkboxInput);
 
     expect(defaultCheckboxInputProps.onSelect).toHaveBeenCalledTimes(1);
   });

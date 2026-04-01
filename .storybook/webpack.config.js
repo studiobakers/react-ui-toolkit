@@ -10,10 +10,7 @@ module.exports = ({config}) => {
     exclude: /node_modules/,
     use: [
       {
-        loader: require.resolve("babel-loader")
-      },
-      {
-        loader: require.resolve("react-svg-loader")
+        loader: require.resolve("@svgr/webpack")
       }
     ]
   });
@@ -27,7 +24,7 @@ module.exports = ({config}) => {
         options: {
           presets: [
             require("@babel/preset-typescript").default,
-            require("@babel/preset-react").default
+            [require("@babel/preset-react").default, {runtime: "automatic"}]
           ],
           plugins: [
             "@babel/plugin-proposal-optional-chaining",

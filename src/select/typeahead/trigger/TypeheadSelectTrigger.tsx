@@ -5,7 +5,7 @@ import React from "react";
 
 import ListItem from "../../../list/item/ListItem";
 import Tag, {TagShape} from "../../../tag/Tag";
-import Select from "../../Select";
+import Select from "../../SelectCompound";
 import List from "../../../list/List";
 
 export interface TypeheadSelectTriggerProps {

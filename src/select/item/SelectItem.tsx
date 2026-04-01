@@ -3,9 +3,12 @@ import CheckIcon from "../../ui/icons/check.svg";
 import "./_select-item.scss";
 
 import classNames from "classnames";
-import React, {
+import {
+  type KeyboardEvent,
+  type ReactNode,
   ForwardedRef,
   forwardRef,
+  JSX,
   Ref,
   useImperativeHandle,
   useLayoutEffect,
@@ -17,9 +20,9 @@ import {useSelectContext, useSelectDispatchContext} from "../util/context/Select
 
 export interface SelectItemProps<T extends Option = Option> {
   option: T | null;
-  children: React.ReactNode;
+  children: ReactNode;
   customClassName?: string;
-  onKeyDown?: (option: T | null, event: React.KeyboardEvent<SelectItemElement>) => void;
+  onKeyDown?: (option: T | null, event: KeyboardEvent<SelectItemElement>) => void;
   as?: keyof Pick<JSX.IntrinsicElements, "div" | "li">;
 }
 
@@ -89,7 +92,7 @@ function SelectItemComponent<T extends Option = Option>(
     }
   }
 
-  function handleSelectKeyDown(event: React.KeyboardEvent<SelectItemElement>) {
+  function handleSelectKeyDown(event: KeyboardEvent<SelectItemElement>) {
     if (onKeyDown) {
       onKeyDown(option, event);
     }

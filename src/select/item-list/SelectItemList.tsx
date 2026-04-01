@@ -1,9 +1,9 @@
-import React, {forwardRef, Ref} from "react";
+import React, {JSX, forwardRef, Ref} from "react";
 import classNames from "classnames";
 
 import {Option} from "../util/selectTypes";
 import List, {ListElementType} from "../../list/List";
-import Select from "../Select";
+import SelectItem from "../item/SelectItem";
 import {ListProps} from "../..";
 
 export type SelectItemListProps<T extends Option = Option> = {
@@ -26,13 +26,13 @@ function SelectItemListComponent<T extends Option = Option>(
       customClassName={(classNames("select-item-list"), customClassName)}
       {...listProps}>
       {(option, listItemTestId) => (
-        <Select.Item
+        <SelectItem
           key={listItemTestId}
           as={"li"}
           option={option}
           customClassName={"select-item-list__item"}>
           {contentRenderer(option)}
-        </Select.Item>
+        </SelectItem>
       )}
     </List>
   );

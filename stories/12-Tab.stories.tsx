@@ -1,8 +1,8 @@
-import React, {Fragment} from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
+import {Fragment} from "react";
 
-import Tab, {TabItem} from "../src/tab/Tab";
 import Button from "../src/button/Button";
+import Tab, {TabItem} from "../src/tab/Tab";
 import StateProvider from "./utils/StateProvider";
 
 const tabItems: TabItem[] = [
@@ -21,7 +21,14 @@ const tabItems: TabItem[] = [
   }
 ];
 
-storiesOf("Tab", module).add("Tab", () => (
+const meta: Meta<typeof Tab> = {
+  title: "Tab",
+  component: Tab
+};
+
+export default meta;
+
+export const Default: StoryFn = () => (
   <Fragment>
     <p>
       <b>Uncontrolled Tab</b>
@@ -67,4 +74,4 @@ storiesOf("Tab", module).add("Tab", () => (
       )}
     </StateProvider>
   </Fragment>
-));
+);

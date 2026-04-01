@@ -1,4 +1,3 @@
-import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -24,12 +23,12 @@ describe("<TypeaheadInput />", () => {
     await testA11y(container);
   });
 
-  it("should update value on change", () => {
+  it("should update value on change", async () => {
     render(<TypeaheadInput {...defaultTypeaheadInputProps} />);
 
     const typeaheadInput = screen.getByRole("textbox");
 
-    userEvent.type(typeaheadInput, "test");
+    await userEvent.type(typeaheadInput, "test");
 
     expect(typeaheadInput).toHaveValue("test");
   });

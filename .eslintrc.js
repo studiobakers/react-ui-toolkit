@@ -63,6 +63,7 @@ module.exports = {
     "func-names": 0,
     "id-length": 0,
 
+    "react/react-in-jsx-scope": 0,
     "react/destructuring-assignment": 0,
     "react/jsx-handler-names": ['error', {
       "eventHandlerPrefix": false,

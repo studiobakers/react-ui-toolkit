@@ -1,4 +1,3 @@
-import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -58,18 +57,18 @@ describe("<PasswordInput />", () => {
     expect(iconButton).toHaveAttribute("aria-label", "Show password");
   });
 
-  it("should toggle password visibility on click icon", () => {
+  it("should toggle password visibility on click icon", async () => {
     const {container} = render(<PasswordInput {...defaultPasswordInputProps} />);
 
     const iconButton = screen.getByRole("button");
 
-    userEvent.click(iconButton);
+    await userEvent.click(iconButton);
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "text");
     expect(container).toContainElement(iconButton);
     expect(iconButton).toHaveAttribute("aria-label", "Hide password");
 
-    userEvent.click(iconButton);
+    await userEvent.click(iconButton);
 
     expect(screen.getByPlaceholderText("Test")).toHaveAttribute("type", "password");
     expect(container).toContainElement(iconButton);

@@ -1,6 +1,5 @@
 import "./_radio-group.scss";
 
-import React from "react";
 import classNames from "classnames";
 
 import RadioInput, {RadioInputItem, RadioInputSelectHandler} from "../RadioInput";

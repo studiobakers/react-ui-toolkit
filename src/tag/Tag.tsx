@@ -2,14 +2,14 @@ import "./_tag.scss";
 
 import CloseIcon from "../ui/icons/close.svg";
 
-import React from "react";
+import {type MouseEvent, type KeyboardEvent, type ReactNode} from "react";
 import classNames from "classnames";
 
 import {KEYBOARD_EVENT_KEY} from "../core/utils/keyboard/keyboardEventConstants";
 
 export interface TagShape<Context = any> {
   id: string;
-  content: React.ReactNode;
+  content: ReactNode;
   context?: Context;
 }
 
@@ -45,7 +45,7 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
     </div>
   );
 
-  function handleRemove(event: React.MouseEvent<HTMLDivElement>) {
+  function handleRemove(event: MouseEvent<HTMLDivElement>) {
     event.stopPropagation();
 
     if (onRemove) {
@@ -53,7 +53,7 @@ function Tag({testid, tag, onRemove, customClassName}: TagProps) {
     }
   }
 
-  function handleKeyPress(event: React.KeyboardEvent<HTMLDivElement>) {
+  function handleKeyPress(event: KeyboardEvent<HTMLDivElement>) {
     event.stopPropagation();
 
     switch (event.key) {

@@ -1,10 +1,22 @@
 module.exports = {
   stories: ["../stories/*.stories.tsx"],
-  addons: ["@storybook/addon-actions/register", "@storybook/addon-links/register"],
+  addons: [
+    "@storybook/addon-actions",
+    "@storybook/addon-links",
+    "@storybook/addon-webpack5-compiler-babel",
+    "@chromatic-com/storybook"
+  ],
+
   features: {
     postcss: false // do not use the built-in postcss
   },
-  core: {
-    builder: "webpack5"
+
+  framework: {
+    name: "@storybook/react-webpack5",
+    options: {}
+  },
+
+  docs: {
+    autodocs: true
   }
 };

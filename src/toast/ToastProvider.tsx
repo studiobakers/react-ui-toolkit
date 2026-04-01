@@ -1,16 +1,10 @@
-import React, {createContext, useReducer, useEffect} from "react";
+import React, {useReducer, useEffect} from "react";
 
 import ToastStack from "./stack/ToastStack";
 import {DEFAULT_TOAST_TIMEOUT, initialToastState} from "./util/toastConstants";
 import toastReducer from "./util/toastReducer";
-import {ToastAction, ToastContextState} from "./util/toastTypes";
+import {ToastStateContext, ToastDispatchContext} from "./util/ToastContext";
 import {isNonNegativeNumber} from "../core/utils/number/numberUtils";
-
-const ToastStateContext = createContext<null | ToastContextState>(null);
-const ToastDispatchContext = createContext<null | React.Dispatch<ToastAction>>(null);
-
-ToastDispatchContext.displayName = "ToastDispatchContext";
-ToastStateContext.displayName = "ToastStateContext";
 
 interface ToastContextProviderProps {
   children: React.ReactNode;

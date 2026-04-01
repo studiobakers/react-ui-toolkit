@@ -1,11 +1,18 @@
-import React, {Fragment} from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
+import {Fragment} from "react";
 
 import StateProvider from "./utils/StateProvider";
 
 import CheckboxInput from "../src/form/input/checkbox/CheckboxInput";
 
-storiesOf("Checkbox", module).add("Checkbox", () => {
+const meta: Meta<typeof CheckboxInput> = {
+  title: "Checkbox",
+  component: CheckboxInput
+};
+
+export default meta;
+
+export const Default: StoryFn = () => {
   const initialState = {
     rememberMe: true,
     termsAndConditions: false,
@@ -68,4 +75,4 @@ storiesOf("Checkbox", module).add("Checkbox", () => {
       )}
     </StateProvider>
   );
-});
+};

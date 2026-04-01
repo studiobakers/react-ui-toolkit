@@ -1,4 +1,3 @@
-import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -23,18 +22,18 @@ describe("<Switch />", () => {
     await testA11y(container, {rules: {label: {enabled: false}}});
   });
 
-  it("should run onToggle event handler correctly", () => {
+  it("should run onToggle event handler correctly", async () => {
     render(<Switch {...defaultSwitchProps} />);
 
-    userEvent.click(screen.getByRole("switch"));
+    await userEvent.click(screen.getByRole("switch"));
 
     expect(defaultSwitchProps.onToggle).toHaveBeenCalledTimes(1);
   });
 
-  it("should not run onToggle event handler when isDisabled is true", () => {
+  it("should not run onToggle event handler when isDisabled is true", async () => {
     render(<Switch {...defaultSwitchProps} isDisabled={true} />);
 
-    userEvent.click(screen.getByRole("switch"));
+    await userEvent.click(screen.getByRole("switch"));
 
     expect(defaultSwitchProps.onToggle).not.toHaveBeenCalled();
   });

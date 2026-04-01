@@ -1,6 +1,6 @@
 import "./_toast-stack.scss";
 
-import React, {Fragment, useLayoutEffect, useState} from "react";
+import {Fragment, useLayoutEffect, useState} from "react";
 import ReactDOM from "react-dom";
 
 import List from "../../list/List";

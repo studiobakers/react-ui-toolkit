@@ -1,10 +1,36 @@
-import {storiesOf} from "@storybook/react";
-import React from "react";
+import type {Meta, StoryFn} from "@storybook/react";
 
 import DateTimer from "../src/date-timer/DateTimer";
 import StoryFragment from "./utils/StoryFragment";
 
-storiesOf("DateTimer", module).add("DateTimer", () => (
+const meta: Meta<typeof DateTimer> = {
+  title: "DateTimer",
+  component: DateTimer
+};
+
+export default meta;
+
+function calculateFutureDate(value: number, unit: "day" | "hour" | "minute" | "second") {
+  let currentDate = new Date();
+
+  if (unit === "day") {
+    currentDate.setDate(currentDate.getDate() + value);
+  } else if (unit === "hour") {
+    currentDate.setHours(currentDate.getHours() + value);
+  } else if (unit === "minute") {
+    currentDate.setMinutes(currentDate.getMinutes() + value);
+  } else {
+    currentDate.setSeconds(currentDate.getSeconds() + value);
+  }
+
+  return new Date(currentDate);
+}
+
+function handleDateTimerEnd() {
+  console.log("onEnd function triggered");
+}
+
+export const Default: StoryFn = () => (
   <StoryFragment>
     <span>{"Between Tomorrow and 3 Days Later"}</span>
 
@@ -78,24 +104,4 @@ storiesOf("DateTimer", module).add("DateTimer", () => (
       timerInterval={5}
     />
   </StoryFragment>
-));
-
-function calculateFutureDate(value: number, unit: "day" | "hour" | "minute" | "second") {
-  let currentDate = new Date();
-
-  if (unit === "day") {
-    currentDate.setDate(currentDate.getDate() + value);
-  } else if (unit === "hour") {
-    currentDate.setHours(currentDate.getHours() + value);
-  } else if (unit === "minute") {
-    currentDate.setMinutes(currentDate.getMinutes() + value);
-  } else {
-    currentDate.setSeconds(currentDate.getSeconds() + value);
-  }
-
-  return new Date(currentDate);
-}
-
-function handleDateTimerEnd() {
-  console.log("onEnd function triggered");
-}
+);

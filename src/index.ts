@@ -62,7 +62,7 @@ import {
   ToastStateContext,
   ToastContextProvider
 } from "./toast/ToastProvider";
-import Select from "./select/Select";
+import Select from "./select/SelectCompound";
 import {SelectProps as SelectComponentProps} from "./select/util/selectTypes";
 import {SelectGroupProps as SelectGroupComponentProps} from "./select/group/SelectGroup";
 import {SelectTriggerProps as SelectTriggerComponentProps} from "./select/trigger/SelectTrigger";

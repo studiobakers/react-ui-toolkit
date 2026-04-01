@@ -1,12 +1,20 @@
-import React, {Fragment} from "react";
-import {storiesOf} from "@storybook/react";
+import type {Meta, StoryFn} from "@storybook/react";
+import {Fragment} from "react";
 
 import StateProvider from "./utils/StateProvider";
 
 import FormField from "../src/form/field/FormField";
 import RadioGroup from "../src/form/input/radio/group/RadioGroup";
+import type {RadioInputItem} from "../src/form/input/radio/RadioInput";
 
-storiesOf("Radio Input", module).add("Radio Input", () => {
+const meta: Meta<typeof RadioGroup> = {
+  title: "Radio Input",
+  component: RadioGroup
+};
+
+export default meta;
+
+export const Default: StoryFn = () => {
   const initialState = {
     firstInput: {
       choices: [
@@ -39,7 +47,7 @@ storiesOf("Radio Input", module).add("Radio Input", () => {
           }
         }
       ],
-      selectedItem: null
+      selectedItem: null as RadioInputItem | null
     },
     secondInput: {
       choices: [
@@ -71,7 +79,7 @@ storiesOf("Radio Input", module).add("Radio Input", () => {
           }
         }
       ],
-      selectedItem: null
+      selectedItem: null as RadioInputItem | null
     }
   };
 
@@ -109,4 +117,4 @@ storiesOf("Radio Input", module).add("Radio Input", () => {
       )}
     </StateProvider>
   );
-});
+};

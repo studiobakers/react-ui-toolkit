@@ -1,4 +1,3 @@
-import React from "react";
 import {render, screen} from "@testing-library/react";
 import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
@@ -24,22 +23,22 @@ describe("<Input />", () => {
     await testA11y(container, {rules: {label: {enabled: false}}});
   });
 
-  it("should run onChange event handler correctly", () => {
+  it("should run onChange event handler correctly", async () => {
     render(<Input {...defaultInputProps} />);
 
     const input = screen.getByRole("textbox");
 
-    userEvent.type(input, "test");
+    await userEvent.type(input, "test");
 
     expect(defaultInputProps.onChange).toHaveBeenCalled();
   });
 
-  it("should update value on change", () => {
+  it("should update value on change", async () => {
     render(<Input {...defaultInputProps} />);
 
     const input = screen.getByRole("textbox");
 
-    userEvent.type(input, "test");
+    await userEvent.type(input, "test");
 
     expect(input).toHaveValue("test");
   });
